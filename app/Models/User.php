@@ -21,6 +21,9 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'profilePicture',
+        'phoneNumber',
+        'role'
     ];
 
     /**
@@ -44,5 +47,33 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    // To connect generalization with Student, Lecturer, and Admin class
+    public function student()
+    {
+        return $this->hasOne(Student::class, 'id'); 
+    }
+
+    public function lecturer()
+    {
+        return $this->hasOne(Lecturer::class, 'id');
+    }
+
+    public function admin()
+    {
+        return $this->hasOne(Admin::class, 'id');
+    }
+
+    public function posts(){
+        return $this->hasMany(Post::class,'userId');
+    }
+
+    public function comments(){
+        return $this->hasMany(Comment::class,'userId');
+    }
+
+    public function portfolios(){
+        return $this->hasMany(Portfolio::class,'userId');
     }
 }
