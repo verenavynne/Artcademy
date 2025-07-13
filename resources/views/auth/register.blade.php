@@ -140,10 +140,12 @@
                 <div class="separator"><span>Atau</span></div>
 
                 <div class="d-grid">
-                    <button type="button" class="btn rounded-pill py-2 px-3 d-flex align-items-center justify-content-center gap-2" style="border: 2px solid #E92D62; background: #F9EEDB;">
+                    <a href="{{ route('google.login') }}" 
+                    class="btn rounded-pill py-2 px-3 d-flex align-items-center justify-content-center gap-2"
+                    style="border: 2px solid #E92D62; background: #F9EEDB;">
                         <img src="{{ asset('img/auth/google-logo.png') }}" alt="Google" style="height: 20px;">
-                        <span class="text-gradient">Daftar dengan Google</span>
-                    </button>
+                        <span class="text-gradient">Masuk dengan Google</span>
+                    </a>
                 </div>
 
                 <div class="text-center mt-4">
