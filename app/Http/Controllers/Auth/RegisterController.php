@@ -7,6 +7,8 @@ use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use App\Models\Lecturer;
+use App\Models\Student;
 
 class RegisterController extends Controller
 {
@@ -106,12 +108,12 @@ class RegisterController extends Controller
         ]);
 
         if ($data['role'] === 'lecturer') {
-            \App\Models\Lecturer::create([
+            Lecturer::create([
                 'id' => $user->id,
                 'specialization' => $data['specialization'],
             ]);
         } elseif ($data['role'] === 'student') {
-            \App\Models\Student::create([
+            Student::create([
                 'id' => $user->id,
             ]);
         }
