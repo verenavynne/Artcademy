@@ -8,6 +8,7 @@ class Student extends Model
 {
 
     protected $table='students';
+    protected $fillable = ['id'];
 
     // TODO: bisa tambah data baru kalau dibutuhkan nanti
     // protected $fillable=[''];

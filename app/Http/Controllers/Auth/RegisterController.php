@@ -28,7 +28,17 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    protected function redirectTo()
+    {
+        $role = auth()->user()->role;
+        if ($role === 'student') {
+            return '/student/home';
+        } elseif ($role === 'lecturer') {
+            return '/lecturer/home';
+        } elseif ($role === 'admin') {
+            return '/admin/home';
+        }
+    }
 
     /**
      * Create a new controller instance.
@@ -49,9 +59,33 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'name' => ['required', 'string', 'max:255'],
+            'name' => ['required', 'string', 'min:5', 'max:20'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'phoneNumber' => [
+                'required',
+                'regex:/^\+[0-9]{12,16}$/'
+            ],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'role' => ['required', 'in:lecturer,student'],
+            'specialization' => ['required_if:role,lecturer'],
+        ], [
+            'name.required' => 'Nama wajib diisi.',
+            'name.min' => 'Nama minimal 5 karakter.',
+            'name.max' => 'Nama maksimal 20 karakter.',
+
+            'email.required' => 'Email wajib diisi.',
+            'email.email' => 'Format email tidak valid.',
+            'email.unique' => 'Email sudah terdaftar.',
+
+            'phoneNumber.required' => 'Nomor Telepon wajib diisi.',
+            'phoneNumber.regex' => 'Nomor Telepon harus diawali + dan sisanya angka, total minimal 13 karakter dan maksimal 16 karakter.',
+
+            'password.required' => 'Kata sandi wajib diisi.',
+            'password.min' => 'Kata sandi minimal 8 karakter.',
+            'password.confirmed' => 'Konfirmasi kata sandi tidak cocok.',
+
+            'role.required' => 'Role wajib dipilih.',
+            'specialization.required_if' => 'Keahlian wajib dipilih',
         ]);
     }
 
@@ -63,10 +97,25 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
+        $user = User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
+            'role' => $data['role'],
+            'phoneNumber' => $data['phoneNumber'],
         ]);
+
+        if ($data['role'] === 'lecturer') {
+            \App\Models\Lecturer::create([
+                'id' => $user->id,
+                'specialization' => $data['specialization'],
+            ]);
+        } elseif ($data['role'] === 'student') {
+            \App\Models\Student::create([
+                'id' => $user->id,
+            ]);
+        }
+
+        return $user;
     }
 }

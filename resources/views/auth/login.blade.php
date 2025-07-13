@@ -30,19 +30,32 @@
             <h4 class="fw-bold mb-3 text-center fs-2">Masuk</h4>
             <p class="text-muted text-center fs-5">Masuk sekarang dan terus kembangkan kreativitasmu tanpa batas</p>
 
-            <form>
+            <form action="{{ route('login') }}" method="POST">
+                @csrf
                 <div class="mb-3">
                     <label for="email" class="form-label fw-semibold">Email</label>
-                    <input type="email" class="form-control rounded-pill px-4 py-2 custom-input" id="email" placeholder="Cth: renArtcademy@gmail.com">
+                    <input type="email" name="email" value="{{ old('email') }}" class="form-control rounded-pill px-4 py-2 custom-input" id="email" placeholder="Cth: renArtcademy@gmail.com">
+
+                    @error('email')
+                        <div class="text-danger mt-1" style="font-size: 0.875rem;">
+                            {{ $message }}
+                        </div>
+                    @enderror
                 </div>
 
                 <div class="mb-3">
                     <label class="form-label fw-semibold">Kata Sandi</label>
                     <div class="position-relative">
-                        <input type="password" id="password" class="form-control rounded-pill px-4 py-2 custom-input pe-5" placeholder="Minimal 8 karakter">
+                        <input type="password" name="password" id="password" class="form-control rounded-pill px-4 py-2 custom-input pe-5" placeholder="Minimal 8 karakter">
                         <span class="toggle-password" onclick="togglePassword('password', 'eye-password')" style="position: absolute; right: 16px; top: 50%; transform: translateY(-50%); cursor: pointer;">
                             <img src="{{ asset('img/auth/password-hide.png') }}" id="eye-password" alt="Toggle" style="height: 15px;">
                         </span>
+
+                        @error('password')
+                            <div class="text-danger mt-1" style="font-size: 0.875rem;">
+                                {{ $message }}
+                            </div>
+                        @enderror
                     </div>
                     <div class="text-end mt-1">
                         <a href="#" class=" fw-semibold text-gradient">Lupa Kata Sandi?</a>

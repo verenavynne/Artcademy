@@ -8,6 +8,7 @@ class Admin extends Model
 {
 
     protected $table='admins';
+    protected $fillable = ['id'];
 
     // TODO: bisa tambah data baru kalau dibutuhkan nanti
     // protected $fillable=[''];
