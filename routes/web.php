@@ -10,9 +10,27 @@ Route::get('/login', function(){
     return (view('auth.login'));
 })->name('login');
 
-Route::get('/register', function(){
-    return (view('auth.register'));
-})->name('register');
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::post('logout', function () {
+    Auth::logout();
+    return redirect('/login'); 
+})->name('logout');
+
+Route::middleware(['auth', 'checkRole:student'])->prefix('/student')->group(function () {
+    Route::get('/home', function(){
+        return view('student.home');
+    })->name('student.home');
+});
+
+Route::middleware(['auth', 'checkRole:lecturer'])->prefix('/lecturer')->group(function () {
+    Route::get('/home', function(){
+        return view('lecturer.home');
+    })->name('lecturer.home');
+});
+
+Route::middleware(['auth', 'checkRole:admin'])->prefix('/admin')->group(function () {
+    Route::get('/home', function(){
+        return view('admin.home');
+    })->name('admin.home');
+});

@@ -29,24 +29,72 @@
             <h4 class="fw-bold mb-3 text-center fs-2">Daftar</h4>
             <p class="text-center fs-5">Daftar sekarang dan mulai petualangan serumu di dunia seni!</p>
 
-            <form>
+            <form action="{{ route('register') }}" method="POST">
+                @csrf
                 <div class="mb-3">
                     <label class="form-label fw-semibold">Pilih Role</label>
-                    <select class="form-select rounded-pill px-4 py-2 custom-input">
+                    <select id="selectedRole" name="role" class="form-select rounded-pill px-4 py-2 custom-input">
                         <option selected disabled>Pilih role</option>
-                        <option value="creator">Tutor</option>
-                        <option value="viewer">Siswa</option>
+                        <option value="lecturer">Tutor</option>
+                        <option value="student">Siswa</option>
                     </select>
+                    @error('role')
+                        <div class="text-danger mt-1" style="font-size: 0.875rem;">
+                            {{ $message }}
+                        </div>
+                    @enderror
+                </div>
+
+                <div class="mb-3" id="specialization-group" style="display: none;">
+                    <label class="form-label fw-semibold">Keahlian</label>
+                    <select name="specialization" class="form-select rounded-pill px-4 py-2 custom-input">
+                        <option selected disabled>Pilih keahlianmu</option>
+                        <option value="musik">Musik</option>
+                        <option value="lukis">Lukis</option>
+                        <option value="tari">Tari</option>
+                        <option value="fotografi">Fotografi</option>
+                    </select>
+
+                    @error('specialization')
+                        <div class="text-danger mt-1" style="font-size: 0.875rem;">
+                            {{ $message }}
+                        </div>
+                    @enderror
                 </div>
 
                 <div class="row">
                     <div class="col-md-6 mb-3">
                         <label class="form-label fw-semibold">Nama</label>
-                        <input type="text" class="form-control rounded-pill px-4 py-2 custom-input" placeholder="Tulis namamu disini">
+                        <input type="text" name="name" value="{{ old('name') }}" class="form-control rounded-pill px-4 py-2 custom-input" placeholder="Tulis namamu disini">
+
+                        @error('name')
+                            <div class="text-danger mt-1" style="font-size: 0.875rem;">
+                                {{ $message }}
+                            </div>
+                        @enderror
                     </div>
                     <div class="col-md-6 mb-3">
                         <label class="form-label fw-semibold">Email</label>
-                        <input type="email" class="form-control rounded-pill px-4 py-2 custom-input" placeholder="Cth: renArtcademy@gmail.com">
+                        <input type="email" name="email" value="{{ old('email') }}" class="form-control rounded-pill px-4 py-2 custom-input" placeholder="Cth: artcademy@gmail.com">
+
+                        @error('email')
+                            <div class="text-danger mt-1" style="font-size: 0.875rem;">
+                                {{ $message }}
+                            </div>
+                        @enderror
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="mb-3">
+                        <label class="form-label fw-semibold">Nomor Telepon</label>
+                        <input type="text" name="phoneNumber" value="{{ old('phoneNumber') }}" class="form-control rounded-pill px-4 py-2 custom-input" placeholder="Cth: +6281234567890">
+
+                        @error('phoneNumber')
+                            <div class="text-danger mt-1" style="font-size: 0.875rem;">
+                                {{ $message }}
+                            </div>
+                        @enderror
                     </div>
                 </div>
 
@@ -54,21 +102,32 @@
                    <div class="col-md-6 mb-3">
                         <label class="form-label fw-semibold">Kata Sandi</label>
                         <div class="position-relative">
-                            <input type="password" id="password" class="form-control rounded-pill px-4 py-2 custom-input pe-5" placeholder="Minimal 8 karakter">
+                            <input type="password" name="password" id="password" class="form-control rounded-pill px-4 py-2 custom-input pe-5" placeholder="Minimal 8 karakter">
                             <span class="toggle-password" onclick="togglePassword('password', 'eye-password')" style="position: absolute; right: 16px; top: 50%; transform: translateY(-50%); cursor: pointer;">
                                 <img src="{{ asset('img/auth/password-hide.png') }}" id="eye-password" alt="Toggle" style="height: 15px;">
                             </span>
                         </div>
+                        @error('password')
+                            <div class="text-danger mt-1" style="font-size: 0.875rem;">
+                                {{ $message }}
+                            </div>
+                        @enderror
                     </div>
 
                     <div class="col-md-6 mb-3">
                         <label class="form-label fw-semibold">Konfirmasi Kata Sandi</label>
                         <div class="position-relative">
-                            <input type="password" id="confirmPassword" class="form-control rounded-pill px-4 py-2 custom-input pe-5" placeholder="Tulis kembali kata sandimu">
+                            <input type="password" name="password_confirmation" id="confirmPassword" class="form-control rounded-pill px-4 py-2 custom-input pe-5" placeholder="Tulis kembali kata sandimu">
                             <span class="toggle-password" onclick="togglePassword('confirmPassword', 'eye-confirm')" style="position: absolute; right: 16px; top: 50%; transform: translateY(-50%); cursor: pointer;">
                                 <img src="{{ asset('img/auth/password-hide.png') }}" id="eye-confirm" alt="Toggle" style="height: 15px;">
                             </span>
                         </div>
+
+                        @error('password_confirmation')
+                            <div class="text-danger mt-1" style="font-size: 0.875rem;">
+                                {{ $message }}
+                            </div>
+                        @enderror
                     </div>
                 </div>
 
@@ -106,6 +165,18 @@
       ? '{{ asset("img/auth/password-unhide.png") }}'
       : '{{ asset("img/auth/password-hide.png") }}';
   }
+
+    const selectedRole = document.getElementById('selectedRole');
+    const specializationGroup = document.getElementById('specialization-group');
+
+    selectedRole.addEventListener('change', function () {
+        if (this.value.toLowerCase() === 'lecturer') {
+            specializationGroup.style.display = 'block';
+        } else {
+            specializationGroup.style.display = 'none';
+        }
+    });
+
 </script>
 
 

@@ -9,7 +9,7 @@ class Lecturer extends Model
 
     protected $table='lecturers';
 
-    protected $fillable=['specialization'];
+    protected $fillable = ['id', 'specialization'];
 
     public function user()
     {

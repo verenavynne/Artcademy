@@ -1,4 +1,4 @@
-<h1>Dashboard Admin</h1>
+<h1>Dashboard Student</h1>
 <div>
     <a href="{{ route('logout') }}" class="nav-link" 
         onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
