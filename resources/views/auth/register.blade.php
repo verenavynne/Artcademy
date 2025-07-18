@@ -1,160 +1,176 @@
-@extends('layouts.master')
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Artcademy</title>
+    @include('custom.bootstrap')
+    @include('layouts.style')
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Afacad:ital,wght@0,400..700;1,400..700&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row min-vh-100 flex-column flex-md-row">
+            <!-- Left Side -->
+            <div class="col-md-6 d-flex flex-column justify-content-center align-items-start p-5 left-panel">
+                <img src="{{ asset('assets/logo.png') }}" alt="Artcademy Logo" class="mb-4" style="height: 30px;">
+                <h1 class="fw-bold mb-2 text-gradient" style="font-size: 58px;">Langkah - Langkah Kecil,</h1>
+                <h1 class="fw-bold text-dark mb-3" style="font-size: 58px;">Awal Karya Besar</h1>
+                <p class="text-secondary mb-4 fs-5">
+                    Saatnya eksplorasi beragam bidang seni yang kamu suka. Yuk, daftar dan wujudkan ide jadi karya nyata!
+                </p>
 
-@section('content')
-<div class="container-fluid">
-    <div class="row min-vh-100 flex-column flex-md-row">
-        <!-- Left Side -->
-        <div class="col-md-6 d-flex flex-column justify-content-center align-items-start p-5 left-panel">
-            <img src="{{ asset('img/logo.png') }}" alt="Artcademy Logo" class="mb-4" style="height: 30px;">
-            <h1 class="fw-bold mb-2 text-gradient" style="font-size: 58px;">Langkah - Langkah Kecil,</h1>
-            <h1 class="fw-bold text-dark mb-3" style="font-size: 58px;">Awal Karya Besar</h1>
-            <p class="text-secondary mb-4 fs-5">
-                Saatnya eksplorasi beragam bidang seni yang kamu suka. Yuk, daftar dan wujudkan ide jadi karya nyata!
-            </p>
+                <div class="w-100 d-flex justify-content-center">
+                    <img src="{{ asset('assets/auth/register-pic.png') }}" alt="Register Illustration" class="mb-4" style="max-width: 400px;">
+                </div>
 
-            <div class="w-100 d-flex justify-content-center">
-                <img src="{{ asset('img/auth/register-pic.png') }}" alt="Register Illustration" class="mb-4" style="max-width: 400px;">
+                <div class="circle circle-1"></div>
+                <div class="circle circle-2"></div>
+                <div class="circle circle-3"></div>
+                <div class="circle circle-4"></div>
+                <div class="circle circle-5"></div>
+                <div class="circle circle-6"></div>
             </div>
 
-            <div class="circle circle-1"></div>
-            <div class="circle circle-2"></div>
-            <div class="circle circle-3"></div>
-            <div class="circle circle-4"></div>
-            <div class="circle circle-5"></div>
-            <div class="circle circle-6"></div>
-        </div>
+            <!-- Right Side -->
+            <div class="col-md-6 d-flex flex-column justify-content-center p-5">
+                <h4 class="fw-bold mb-3 text-center fs-2">Daftar</h4>
+                <p class="text-center fs-5">Daftar sekarang dan mulai petualangan serumu di dunia seni!</p>
 
-        <!-- Right Side -->
-        <div class="col-md-6 d-flex flex-column justify-content-center p-5">
-            <h4 class="fw-bold mb-3 text-center fs-2">Daftar</h4>
-            <p class="text-center fs-5">Daftar sekarang dan mulai petualangan serumu di dunia seni!</p>
-
-            <form action="{{ route('register') }}" method="POST">
-                @csrf
-                <div class="mb-3">
-                    <label class="form-label fw-semibold">Pilih Role</label>
-                    <select id="selectedRole" name="role" class="form-select rounded-pill px-4 py-2 custom-input">
-                        <option selected disabled>Pilih role</option>
-                        <option value="lecturer">Tutor</option>
-                        <option value="student">Siswa</option>
-                    </select>
-                    @error('role')
-                        <div class="text-danger mt-1" style="font-size: 0.875rem;">
-                            {{ $message }}
-                        </div>
-                    @enderror
-                </div>
-
-                <div class="mb-3" id="specialization-group" style="display: none;">
-                    <label class="form-label fw-semibold">Keahlian</label>
-                    <select name="specialization" class="form-select rounded-pill px-4 py-2 custom-input">
-                        <option selected disabled>Pilih keahlianmu</option>
-                        <option value="musik">Musik</option>
-                        <option value="lukis">Lukis</option>
-                        <option value="tari">Tari</option>
-                        <option value="fotografi">Fotografi</option>
-                    </select>
-
-                    @error('specialization')
-                        <div class="text-danger mt-1" style="font-size: 0.875rem;">
-                            {{ $message }}
-                        </div>
-                    @enderror
-                </div>
-
-                <div class="row">
-                    <div class="col-md-6 mb-3">
-                        <label class="form-label fw-semibold">Nama</label>
-                        <input type="text" name="name" value="{{ old('name') }}" class="form-control rounded-pill px-4 py-2 custom-input" placeholder="Tulis namamu disini">
-
-                        @error('name')
-                            <div class="text-danger mt-1" style="font-size: 0.875rem;">
-                                {{ $message }}
-                            </div>
-                        @enderror
-                    </div>
-                    <div class="col-md-6 mb-3">
-                        <label class="form-label fw-semibold">Email</label>
-                        <input type="email" name="email" value="{{ old('email') }}" class="form-control rounded-pill px-4 py-2 custom-input" placeholder="Cth: artcademy@gmail.com">
-
-                        @error('email')
-                            <div class="text-danger mt-1" style="font-size: 0.875rem;">
-                                {{ $message }}
-                            </div>
-                        @enderror
-                    </div>
-                </div>
-
-                <div class="row">
+                <form action="{{ route('register') }}" method="POST">
+                    @csrf
                     <div class="mb-3">
-                        <label class="form-label fw-semibold">Nomor Telepon</label>
-                        <input type="text" name="phoneNumber" value="{{ old('phoneNumber') }}" class="form-control rounded-pill px-4 py-2 custom-input" placeholder="Cth: +6281234567890">
-
-                        @error('phoneNumber')
+                        <label class="form-label fw-semibold">Pilih Role</label>
+                        <select id="selectedRole" name="role" class="form-select rounded-pill px-4 py-2 custom-input">
+                            <option selected disabled>Pilih role</option>
+                            <option value="lecturer">Tutor</option>
+                            <option value="student">Siswa</option>
+                        </select>
+                        @error('role')
                             <div class="text-danger mt-1" style="font-size: 0.875rem;">
                                 {{ $message }}
                             </div>
                         @enderror
                     </div>
-                </div>
 
-                <div class="row">
-                   <div class="col-md-6 mb-3">
-                        <label class="form-label fw-semibold">Kata Sandi</label>
-                        <div class="position-relative">
-                            <input type="password" name="password" id="password" class="form-control rounded-pill px-4 py-2 custom-input pe-5" placeholder="Minimal 8 karakter">
-                            <span class="toggle-password" onclick="togglePassword('password', 'eye-password')" style="position: absolute; right: 16px; top: 50%; transform: translateY(-50%); cursor: pointer;">
-                                <img src="{{ asset('img/auth/password-hide.png') }}" id="eye-password" alt="Toggle" style="height: 15px;">
-                            </span>
+                    <div class="mb-3" id="specialization-group" style="display: none;">
+                        <label class="form-label fw-semibold">Keahlian</label>
+                        <select name="specialization" class="form-select rounded-pill px-4 py-2 custom-input">
+                            <option selected disabled>Pilih keahlianmu</option>
+                            <option value="musik">Musik</option>
+                            <option value="lukis">Lukis</option>
+                            <option value="tari">Tari</option>
+                            <option value="fotografi">Fotografi</option>
+                        </select>
+
+                        @error('specialization')
+                            <div class="text-danger mt-1" style="font-size: 0.875rem;">
+                                {{ $message }}
+                            </div>
+                        @enderror
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label fw-semibold">Nama</label>
+                            <input type="text" name="name" value="{{ old('name') }}" class="form-control rounded-pill px-4 py-2 custom-input" placeholder="Tulis namamu disini">
+
+                            @error('name')
+                                <div class="text-danger mt-1" style="font-size: 0.875rem;">
+                                    {{ $message }}
+                                </div>
+                            @enderror
                         </div>
-                        @error('password')
-                            <div class="text-danger mt-1" style="font-size: 0.875rem;">
-                                {{ $message }}
-                            </div>
-                        @enderror
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label fw-semibold">Email</label>
+                            <input type="email" name="email" value="{{ old('email') }}" class="form-control rounded-pill px-4 py-2 custom-input" placeholder="Cth: artcademy@gmail.com">
+
+                            @error('email')
+                                <div class="text-danger mt-1" style="font-size: 0.875rem;">
+                                    {{ $message }}
+                                </div>
+                            @enderror
+                        </div>
                     </div>
 
+                    <div class="row">
+                        <div class="mb-3">
+                            <label class="form-label fw-semibold">Nomor Telepon</label>
+                            <input type="text" name="phoneNumber" value="{{ old('phoneNumber') }}" class="form-control rounded-pill px-4 py-2 custom-input" placeholder="Cth: +6281234567890">
+
+                            @error('phoneNumber')
+                                <div class="text-danger mt-1" style="font-size: 0.875rem;">
+                                    {{ $message }}
+                                </div>
+                            @enderror
+                        </div>
+                    </div>
+
+                    <div class="row">
                     <div class="col-md-6 mb-3">
-                        <label class="form-label fw-semibold">Konfirmasi Kata Sandi</label>
-                        <div class="position-relative">
-                            <input type="password" name="password_confirmation" id="confirmPassword" class="form-control rounded-pill px-4 py-2 custom-input pe-5" placeholder="Tulis kembali kata sandimu">
-                            <span class="toggle-password" onclick="togglePassword('confirmPassword', 'eye-confirm')" style="position: absolute; right: 16px; top: 50%; transform: translateY(-50%); cursor: pointer;">
-                                <img src="{{ asset('img/auth/password-hide.png') }}" id="eye-confirm" alt="Toggle" style="height: 15px;">
-                            </span>
+                            <label class="form-label fw-semibold">Kata Sandi</label>
+                            <div class="position-relative">
+                                <input type="password" name="password" id="password" class="form-control rounded-pill px-4 py-2 custom-input pe-5" placeholder="Minimal 8 karakter">
+                                <span class="toggle-password" onclick="togglePassword('password', 'eye-password')" style="position: absolute; right: 16px; top: 50%; transform: translateY(-50%); cursor: pointer;">
+                                    <img src="{{ asset('assets/auth/password-hide.png') }}" id="eye-password" alt="Toggle" style="height: 15px;">
+                                </span>
+                            </div>
+                            @error('password')
+                                <div class="text-danger mt-1" style="font-size: 0.875rem;">
+                                    {{ $message }}
+                                </div>
+                            @enderror
                         </div>
 
-                        @error('password_confirmation')
-                            <div class="text-danger mt-1" style="font-size: 0.875rem;">
-                                {{ $message }}
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label fw-semibold">Konfirmasi Kata Sandi</label>
+                            <div class="position-relative">
+                                <input type="password" name="password_confirmation" id="confirmPassword" class="form-control rounded-pill px-4 py-2 custom-input pe-5" placeholder="Tulis kembali kata sandimu">
+                                <span class="toggle-password" onclick="togglePassword('confirmPassword', 'eye-confirm')" style="position: absolute; right: 16px; top: 50%; transform: translateY(-50%); cursor: pointer;">
+                                    <img src="{{ asset('assets/auth/password-hide.png') }}" id="eye-confirm" alt="Toggle" style="height: 15px;">
+                                </span>
                             </div>
-                        @enderror
+
+                            @error('password_confirmation')
+                                <div class="text-danger mt-1" style="font-size: 0.875rem;">
+                                    {{ $message }}
+                                </div>
+                            @enderror
+                        </div>
                     </div>
-                </div>
 
-                <div class="d-grid mt-3">
-                    <button type="submit" class="btn w-100 text-dark daftar-btn">
-                        Daftar
-                    </button>
-                </div>
+                    <div class="d-grid mt-3">
+                        <button type="submit" class="btn w-100 text-dark daftar-btn">
+                            Daftar
+                        </button>
+                    </div>
 
-                <div class="separator"><span>Atau</span></div>
+                    <div class="separator"><span>Atau</span></div>
 
-                <div class="d-grid">
-                    <a href="{{ route('google.login') }}" 
-                    class="btn rounded-pill py-2 px-3 d-flex align-items-center justify-content-center gap-2"
-                    style="border: 2px solid #E92D62; background: #F9EEDB;">
-                        <img src="{{ asset('img/auth/google-logo.png') }}" alt="Google" style="height: 20px;">
-                        <span class="text-gradient">Masuk dengan Google</span>
-                    </a>
-                </div>
+                    <div class="d-grid">
+                        <a href="{{ route('google.login') }}" 
+                        class="btn rounded-pill py-2 px-3 d-flex align-items-center justify-content-center gap-2"
+                        style="border: 2px solid #E92D62; background: #F9EEDB;">
+                            <img src="{{ asset('assets/auth/google-logo.png') }}" alt="Google" style="height: 20px;">
+                            <span class="text-gradient">Masuk dengan Google</span>
+                        </a>
+                    </div>
 
-                <div class="text-center mt-4">
-                    Sudah Punya Akun? <a href="{{ route('login') }}" class="fw-semibold text-decoration-none text-gradient">Masuk disini</a>
-                </div>
-            </form>
+                    <div class="text-center mt-4">
+                        Sudah Punya Akun? <a href="{{ route('login') }}" class="fw-semibold text-decoration-none text-gradient">Masuk disini</a>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
-</div>
+
+</body>
+
+</html>
+
 
 <script>
   function togglePassword(inputId, eyeId) {
@@ -164,8 +180,8 @@
 
     input.type = isHidden ? 'text' : 'password';
     eye.src = isHidden 
-      ? '{{ asset("img/auth/password-unhide.png") }}'
-      : '{{ asset("img/auth/password-hide.png") }}';
+      ? '{{ asset("assets/auth/password-unhide.png") }}'
+      : '{{ asset("assets/auth/password-hide.png") }}';
   }
 
     const selectedRole = document.getElementById('selectedRole');
@@ -183,6 +199,9 @@
 
 
 <style>
+    body{
+        font-family: 'Afacad', sans-serif;
+    }
     .daftar-btn {
         background: linear-gradient(180deg, #FFDE22 0%, #F4A700 100%);
         border: none;
@@ -284,4 +303,4 @@
         left: 640px;
     }
 </style>
-@endsection
+

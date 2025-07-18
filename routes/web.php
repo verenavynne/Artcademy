@@ -34,3 +34,8 @@ Route::middleware(['auth', 'checkRole:admin'])->prefix('/admin')->group(function
         return view('admin.home');
     })->name('admin.home');
 });
+
+
+Route::get('/course', function () {
+    return view('artcademy.course');
+})->name('course');
