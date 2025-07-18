@@ -69,7 +69,7 @@
                             @enderror
                         </div>
                         <div class="text-end mt-1">
-                            <a href="#" class=" fw-semibold text-gradient">Lupa Kata Sandi?</a>
+                            <a href="{{ route('password.request') }}" class=" fw-semibold text-gradient">Lupa Kata Sandi?</a>
                         </div>
                     </div>
 
