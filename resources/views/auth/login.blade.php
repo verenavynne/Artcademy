@@ -9,14 +9,13 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Afacad:ital,wght@0,400..700;1,400..700&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
 </head>
 <body>
     <div class="container-fluid">
         <div class="row min-vh-100 flex-column flex-md-row">
             <!-- Left Side -->
-
-        <div class="col-md-6 d-flex flex-column justify-content-center align-items-start p-5 left-panel">
+            <div class="col-md-6 d-flex flex-column justify-content-center align-items-start p-5 left-panel">
                 <img src="{{ asset('assets/logo.png') }}" alt="Artcademy Logo" class="mb-4" style="height: 30px;">
                 <h1 class="fw-bold text-pink-gradient" style="font-size: 58px;">Selamat Datang Kembali,</h1>
                 <h1 class="fw-bold text-dark mb-3" style="font-size: 58px;">Kreator Hebat!</h1>
@@ -58,8 +57,9 @@
                         <label class="form-label fw-semibold">Kata Sandi</label>
                         <div class="position-relative">
                             <input type="password" name="password" id="password" class="form-control rounded-pill px-4 py-2 custom-input pe-5" placeholder="Minimal 8 karakter">
-                            <span class="toggle-password" onclick="togglePassword('password', 'eye-password')" style="position: absolute; right: 16px; top: 57%; transform: translateY(-50%); cursor: pointer;">
-                                <span class="icon-password-hide" id="eye-password" alt="Toggle" style="height: 20px;"></span>
+                            <span class="toggle-password" onclick="togglePassword('password', 'eye-password')" 
+                                style="position: absolute; right: 16px; top: 57%; transform: translateY(-50%); cursor: pointer;">
+                                <iconify-icon id="eye-password" icon="mingcute:eye-close-line"></iconify-icon>
                             </span>
 
                             @error('password')
@@ -80,8 +80,8 @@
                     <div class="separator"><span>Atau</span></div>
 
                     <div class="d-grid">
-                        <a href="{{ route('google.login') }}" class="btn pink-cream-btn d-flex align-items-center justify-content-center">
-                            <span class="icon-google" style="height: 20px;"></span>
+                        <a href="{{ route('google.login') }}" class="btn pink-cream-btn d-flex align-items-center justify-content-center gap-2">
+                            <iconify-icon icon="flat-color-icons:google"></iconify-icon>
                             <span class="text-pink-gradient">Masuk dengan Google</span>
                         </a>
                     </div>
@@ -100,16 +100,14 @@
 
 
 <script>
-  function togglePassword(inputId, eyeId) {
-    const input = document.getElementById(inputId);
-    const eye = document.getElementById(eyeId);
-    const isHidden = input.type === 'password';
+    function togglePassword(inputId, eyeId) {
+        const input = document.getElementById(inputId);
+        const eyeIcon = document.getElementById(eyeId);
+        const isHidden = input.type === 'password';
 
-    input.type = isHidden ? 'text' : 'password';
-
-    eye.classList.toggle('icon-password-hide', !isHidden);
-    eye.classList.toggle('icon-password-show', isHidden);
-}
+        input.type = isHidden ? 'text' : 'password';
+        eyeIcon.setAttribute('icon', isHidden ? 'mingcute:eye-line' : 'mingcute:eye-close-line');
+    }
 </script>
 
 
