@@ -17,6 +17,7 @@
         --orange-gradient-color: linear-gradient(0deg, #F69000 25%, #F8BA0C 64.38%);
         --green-gradient-color:linear-gradient(182.72deg, #3EC973 43.36%, #0E8F53 81.22%);
 
+        --font-size-mini: 12px;
         --font-size-tiny: 14px;
         --font-size-small: 16px;
         --font-size-primary: 18px;
