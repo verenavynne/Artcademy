@@ -124,14 +124,18 @@
                             <p style="margin:0; font-size: var(--font-size-tiny); font-weight: 700">{{ $course->courseName }}</p>
                             <img src="{{ asset('assets/icons/icon_bookmark.svg') }}" alt="Bookmark" style="height: 24px; width: 24px">
                         </div>
-                        <div class="d-flex flex-row align-items-center gap-5">
+                        <div class="d-flex flex-row align-items-center gap-2">
                              <div class="position-relative" style="width: 90px; height: 37px;">
-                                <img src="{{ asset('assets/default-profile.jpg') }}" class="rounded-circle position-absolute tutor-image" width="37" height="37" style="left: 0; z-index: 1;">
-                                <img src="{{ asset('assets/default-profile.jpg') }}" class="rounded-circle position-absolute tutor-image" width="37" height="37" style="left: 25px; z-index: 2;">
-                                <img src="{{ asset('assets/default-profile.jpg') }}" class="rounded-circle position-absolute tutor-image" width="37" height="37" style="left: 50px; z-index: 3;">
+                                @foreach ($course->courseLecturers->take(3) as $loopIndex => $courseLecturer )
+                                    <img src="{{ asset($courseLecturer->lecturer->user->profilePicture ?? 'assets/default-profile.jpg') }}" 
+                                    class="rounded-circle position-absolute tutor-image" 
+                                    width="37" 
+                                    height="37" 
+                                    style="left: {{ 25 * $loopIndex }}px; z-index: {{ $loopIndex + 1 }};">
+                                @endforeach
                             </div>
-                            <p style="margin: 0; font-size: var(--font-size-mini); color: var(--dark-gray-color)">Tutor dari lorem ipsum, lorem ipsum, dan lorem ipsum</p>
-
+                            <p style="margin: 0; font-size: var(--font-size-mini); color: var(--dark-gray-color)">
+                                Tutor: {{ $course->courseLecturers->take(3)->pluck('lecturer.user.name')->filter()->implode(', ') }}</p>
                         </div>
                         <div class="d-flex flex-row align-items-center" style="gap:5px">
                             <p style="margin:0; font-size: var(--font-size-tiny); font-weight: 700; color: var(--dark-gray-color) ">{{ $course->courseReview }}</p>
@@ -221,14 +225,18 @@
                             <p style="margin:0; font-size: var(--font-size-tiny); font-weight: 700">{{ $course->courseName }}</p>
                             <img src="{{ asset('assets/icons/icon_bookmark.svg') }}" alt="Bookmark" style="height: 24px; width: 24px">
                         </div>
-                        <div class="d-flex flex-row align-items-center gap-5">
+                        <div class="d-flex flex-row align-items-center gap-2">
                              <div class="position-relative" style="width: 90px; height: 37px;">
-                                <img src="{{ asset('assets/default-profile.jpg') }}" class="rounded-circle position-absolute tutor-image" width="37" height="37" style="left: 0; z-index: 1;">
-                                <img src="{{ asset('assets/default-profile.jpg') }}" class="rounded-circle position-absolute tutor-image" width="37" height="37" style="left: 25px; z-index: 2;">
-                                <img src="{{ asset('assets/default-profile.jpg') }}" class="rounded-circle position-absolute tutor-image" width="37" height="37" style="left: 50px; z-index: 3;">
+                                @foreach ($course->courseLecturers->take(3) as $loopIndex => $courseLecturer )
+                                    <img src="{{ asset($courseLecturer->lecturer->user->profilePicture ?? 'assets/default-profile.jpg') }}" 
+                                    class="rounded-circle position-absolute tutor-image" 
+                                    width="37" 
+                                    height="37" 
+                                    style="left: {{ 25 * $loopIndex }}px; z-index: {{ $loopIndex + 1 }};">
+                                @endforeach
                             </div>
-                            <p style="margin: 0; font-size: var(--font-size-mini); color: var(--dark-gray-color)">Tutor dari lorem ipsum, lorem ipsum, dan lorem ipsum</p>
-
+                            <p style="margin: 0; font-size: var(--font-size-mini); color: var(--dark-gray-color)">
+                                Tutor: {{ $course->courseLecturers->take(3)->pluck('lecturer.user.name')->filter()->implode(', ') }}</p>
                         </div>
                         <div class="d-flex flex-row align-items-center" style="gap:5px">
                             <p style="margin:0; font-size: var(--font-size-tiny); font-weight: 700; color: var(--dark-gray-color) ">{{ $course->courseReview }}</p>
@@ -318,14 +326,18 @@
                             <p style="margin:0; font-size: var(--font-size-tiny); font-weight: 700">{{ $course->courseName }}</p>
                             <img src="{{ asset('assets/icons/icon_bookmark.svg') }}" alt="Bookmark" style="height: 24px; width: 24px">
                         </div>
-                        <div class="d-flex flex-row align-items-center gap-5">
+                        <div class="d-flex flex-row align-items-center gap-2">
                              <div class="position-relative" style="width: 90px; height: 37px;">
-                                <img src="{{ asset('assets/default-profile.jpg') }}" class="rounded-circle position-absolute tutor-image" width="37" height="37" style="left: 0; z-index: 1;">
-                                <img src="{{ asset('assets/default-profile.jpg') }}" class="rounded-circle position-absolute tutor-image" width="37" height="37" style="left: 25px; z-index: 2;">
-                                <img src="{{ asset('assets/default-profile.jpg') }}" class="rounded-circle position-absolute tutor-image" width="37" height="37" style="left: 50px; z-index: 3;">
+                                @foreach ($course->courseLecturers->take(3) as $loopIndex => $courseLecturer )
+                                    <img src="{{ asset($courseLecturer->lecturer->user->profilePicture ?? 'assets/default-profile.jpg') }}" 
+                                    class="rounded-circle position-absolute tutor-image" 
+                                    width="37" 
+                                    height="37" 
+                                    style="left: {{ 25 * $loopIndex }}px; z-index: {{ $loopIndex + 1 }};">
+                                @endforeach
                             </div>
-                            <p style="margin: 0; font-size: var(--font-size-mini); color: var(--dark-gray-color)">Tutor dari lorem ipsum, lorem ipsum, dan lorem ipsum</p>
-
+                            <p style="margin: 0; font-size: var(--font-size-mini); color: var(--dark-gray-color)">
+                                Tutor: {{ $course->courseLecturers->take(3)->pluck('lecturer.user.name')->filter()->implode(', ') }}</p>
                         </div>
                         <div class="d-flex flex-row align-items-center" style="gap:5px">
                             <p style="margin:0; font-size: var(--font-size-tiny); font-weight: 700; color: var(--dark-gray-color) ">{{ $course->courseReview }}</p>
@@ -410,14 +422,18 @@
                             <p style="margin:0; font-size: var(--font-size-tiny); font-weight: 700">{{ $course->courseName }}</p>
                             <img src="{{ asset('assets/icons/icon_bookmark.svg') }}" alt="Bookmark" style="height: 24px; width: 24px">
                         </div>
-                        <div class="d-flex flex-row align-items-center gap-5">
+                        <div class="d-flex flex-row align-items-center gap-2">
                              <div class="position-relative" style="width: 90px; height: 37px;">
-                                <img src="{{ asset('assets/default-profile.jpg') }}" class="rounded-circle position-absolute tutor-image" width="37" height="37" style="left: 0; z-index: 1;">
-                                <img src="{{ asset('assets/default-profile.jpg') }}" class="rounded-circle position-absolute tutor-image" width="37" height="37" style="left: 25px; z-index: 2;">
-                                <img src="{{ asset('assets/default-profile.jpg') }}" class="rounded-circle position-absolute tutor-image" width="37" height="37" style="left: 50px; z-index: 3;">
+                                @foreach ($course->courseLecturers->take(3) as $loopIndex => $courseLecturer )
+                                    <img src="{{ asset($courseLecturer->lecturer->user->profilePicture ?? 'assets/default-profile.jpg') }}" 
+                                    class="rounded-circle position-absolute tutor-image" 
+                                    width="37" 
+                                    height="37" 
+                                    style="left: {{ 25 * $loopIndex }}px; z-index: {{ $loopIndex + 1 }};">
+                                @endforeach
                             </div>
-                            <p style="margin: 0; font-size: var(--font-size-mini); color: var(--dark-gray-color)">Tutor dari lorem ipsum, lorem ipsum, dan lorem ipsum</p>
-
+                            <p style="margin: 0; font-size: var(--font-size-mini); color: var(--dark-gray-color)">
+                                Tutor: {{ $course->courseLecturers->take(3)->pluck('lecturer.user.name')->filter()->implode(', ') }}</p>
                         </div>
                         <div class="d-flex flex-row align-items-center" style="gap:5px">
                             <p style="margin:0; font-size: var(--font-size-tiny); font-weight: 700; color: var(--dark-gray-color) ">{{ $course->courseReview }}</p>
