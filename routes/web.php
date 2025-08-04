@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CourseController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\GoogleController;
 
@@ -36,6 +37,5 @@ Route::middleware(['auth', 'checkRole:admin'])->prefix('/admin')->group(function
 });
 
 
-Route::get('/course', function () {
-    return view('artcademy.course');
-})->name('course');
+Route::get('/course', [CourseController::class, 'index']
+)->name('course');

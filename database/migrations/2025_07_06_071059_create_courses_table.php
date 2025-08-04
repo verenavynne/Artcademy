@@ -17,7 +17,7 @@ return new class extends Migration
             $table->text('courseText');
             $table->string('coursePicture')->nullable();
             $table->enum('courseLevel',['dasar', 'menengah', 'lanjutan']);
-            $table->enum('courseType',['lukis','tari','musik','fotografi']);
+            $table->enum('courseType',['Seni Lukis & Digital Art','Seni Tari','Seni Musik','Seni Fotografi']);
             $table->enum('coursePaymentType',['gratis','berbayar'])->nullable();
             $table->integer('courseDurationInMinutes')->nullable();
             $table->float('courseReview')->nullable();
