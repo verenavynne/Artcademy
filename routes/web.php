@@ -39,3 +39,7 @@ Route::middleware(['auth', 'checkRole:admin'])->prefix('/admin')->group(function
 
 Route::get('/course', [CourseController::class, 'index']
 )->name('course');
+
+Route::get('/course-detail', function (){
+    return view('Artcademy.course-detail');
+})->name('course-detail');
