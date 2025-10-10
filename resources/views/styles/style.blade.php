@@ -9,6 +9,7 @@
         --pink-color: rgba(233, 45, 98, 1);
         --pink-medium-color: rgba(255, 93, 139, 1);
         --very-light-grey-color: rgba(250, 250, 250, 1);
+        --black-color: rgba(27, 27, 27, 1);
 
         --pink-gradient-color: linear-gradient(0deg, #E92D62 25%, #FF6E97 70%);
         --pink-medium-gradient-color: linear-gradient(180deg, #FFE0E1 0%, #FF8E92 100%);
@@ -172,5 +173,45 @@
     .circle-4 { width: 74px; height: 74px; top: 575px; left: 39px; }
     .circle-5 { width: 31px; height: 31px; top: 400px; left: 600px; }
     .circle-6 { width: 48px; height: 48px; top: 578px; left: 640px; }
+
+    /* Divider Line */
+    
+    .divider{
+        border: none;
+        height: 3px;
+        background-color: var(--orange-color);
+        border-radius: 2px;
+        margin-block: 34px;
+    }
+
+    /* Category Button */
+    
+    .category-btn-group{
+        justify-content: space-between;
+    }
+    .category-btn-group a{
+        text-decoration: none;
+        padding: 32px 0;
+    }
+
+    .category-btn{
+        border-radius: 1000px;
+        background: white;
+        border: none;
+        box-shadow: 0px 4px 8px 0px rgba(67, 39, 0, 0.20);
+        height: 42px;
+        padding: 10px 40px;
+        font-size: var(--font-size-primary);
+        justify-content: space-center;
+    }
+
+    .category-btn.active{
+        background: var(--pink-medium-gradient-color);
+    }
+
+    .category-btn.filter-icon{
+        padding: 10px;
+        border-radius: 100px;
+    }
 
 </style>
