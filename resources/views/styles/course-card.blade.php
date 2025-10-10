@@ -56,4 +56,9 @@
         padding: 17px 13px 20px 13px;
         gap: 10px
     }
+
+    .tutor-image{
+        border-radius: 37px;
+        box-shadow: 0px 4px 8px 0px rgba(67, 39, 0, 0.20);
+    }
 </style>

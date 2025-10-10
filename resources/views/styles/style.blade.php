@@ -174,4 +174,44 @@
     .circle-5 { width: 31px; height: 31px; top: 400px; left: 600px; }
     .circle-6 { width: 48px; height: 48px; top: 578px; left: 640px; }
 
+    /* Divider Line */
+    
+    .divider{
+        border: none;
+        height: 3px;
+        background-color: var(--orange-color);
+        border-radius: 2px;
+        margin-block: 34px;
+    }
+
+    /* Category Button */
+    
+    .category-btn-group{
+        justify-content: space-between;
+    }
+    .category-btn-group a{
+        text-decoration: none;
+        padding: 32px 0;
+    }
+
+    .category-btn{
+        border-radius: 1000px;
+        background: white;
+        border: none;
+        box-shadow: 0px 4px 8px 0px rgba(67, 39, 0, 0.20);
+        height: 42px;
+        padding: 10px 40px;
+        font-size: var(--font-size-primary);
+        justify-content: space-center;
+    }
+
+    .category-btn.active{
+        background: var(--pink-medium-gradient-color);
+    }
+
+    .category-btn.filter-icon{
+        padding: 10px;
+        border-radius: 100px;
+    }
+
 </style>

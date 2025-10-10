@@ -10,8 +10,9 @@
         </a>
     </div>
 
-    <div class="d-flex flex-row justify-content-center">
-        <div class="d-flex flex-column" style="width: 65%;">
+    <div class="d-flex flex-row justify-content-center gap-5">
+        <!-- Sisi Kiri -->
+        <div class="d-flex flex-column" style="width: 60%;">
             <div class="course-card-detail card d-flex flex-row" style="background: var(--orange-gradient-color)">
                 <div class="course-card-detail-content d-flex flex-column justify-content-center" style="gap: 12px; padding-inline-end: 26px">
                     <p style="margin:0; font-size: var(--font-size-big); font-weight: 700">Dasar-dasar Concept Art untuk Game & Film</p>
@@ -88,6 +89,7 @@
 
             <hr class="divider">
 
+            <!-- Sylabus Section -->
             <div class="sylabus-section d-flex flex-column">
                 <p class="title text-start fw-bold">Silabus</p>
                 <div class="minggu-section d-flex flex-column">
@@ -186,12 +188,439 @@
 
             <hr class="divider">
 
+            <!-- Tutor Section -->
             <div class="tutor-section d-flex flex-column">
                 <p class="title text-start fw-bold">Tutor</p>
+                <div class="tutor-card-container d-flex flex-row">
+                    <div class="tutor-card d-flex flex-row">
+                        <img class="tutor-profile-image" src="{{ asset('assets/course/default_tutor_profile.png') }}" alt="Tutor Profile Icon" style="">
+                        <div class="tutor-info-container d-flex flex-column justify-content-center">
+                            <div class="d-flex flex-column" style="padding-block-end: 9px">
+                                <p class="tutor-name fw-bold">Jane Doe</p>
+                                <p class="tutor-info">Visual Artist di ABC</p>
+
+                            </div>
+                            <div class="d-flex flex-row gap-1 align-items-center">
+                                <img src="{{ asset('assets/icons/icon_suitcase.svg') }}" alt="Arrow Icon" width="18" height="18" style="">
+                                <p class="tutor-info">5 tahun</p>
+                            </div>
+                        </div>
+                         <img src="{{ asset('assets/logo/logo_linkedin.png') }}" alt="Linkedin logo" width="33" height="33" style="">
+                    </div>
+                    <div class="tutor-card d-flex flex-row">
+                        <img class="tutor-profile-image" src="{{ asset('assets/course/default_tutor_profile.png') }}" alt="Tutor Profile Icon" style="">
+                        <div class="tutor-info-container d-flex flex-column justify-content-center">
+                            <div class="d-flex flex-column" style="padding-block-end: 9px">
+                                <p class="tutor-name fw-bold">Jane Doe</p>
+                                <p class="tutor-info">Visual Artist di ABC</p>
+
+                            </div>
+                            <div class="d-flex flex-row gap-1 align-items-center">
+                                <img src="{{ asset('assets/icons/icon_suitcase.svg') }}" alt="Arrow Icon" width="18" height="18" style="">
+                                <p class="tutor-info">5 tahun</p>
+                            </div>
+                        </div>
+                         <img src="{{ asset('assets/logo/logo_linkedin.png') }}" alt="Linkedin logo" width="33" height="33" style="">
+                    </div>
+                    <div class="tutor-card d-flex flex-row">
+                        <img class="tutor-profile-image" src="{{ asset('assets/course/default_tutor_profile.png') }}" alt="Tutor Profile Icon" style="">
+                        <div class="tutor-info-container d-flex flex-column justify-content-center">
+                            <div class="d-flex flex-column" style="padding-block-end: 9px">
+                                <p class="tutor-name fw-bold">Jane Doe</p>
+                                <p class="tutor-info">Visual Artist di ABC</p>
+
+                            </div>
+                            <div class="d-flex flex-row gap-1 align-items-center">
+                                <img src="{{ asset('assets/icons/icon_suitcase.svg') }}" alt="Arrow Icon" width="18" height="18" style="">
+                                <p class="tutor-info">5 tahun</p>
+                            </div>
+                        </div>
+                         <img src="{{ asset('assets/logo/logo_linkedin.png') }}" alt="Linkedin logo" width="33" height="33" style="">
+                    </div>
+                </div>
+                
+                
+            </div>
+
+            <hr class="divider">
+
+            <!-- Kelas Zoom Section -->
+            <div class="zoom-section d-flex flex-column">
+            <p class="title text-start fw-bold">Kelas Zoom</p>
+            <div class="zoom-card-container d-flex flex-row justify-content-between">
+                <div class="zoom-card card article-card" height="100%">
+                    <div class="zoom-card-header d-flex flex-column justify-content-between" style="background: var(--orange-gradient-color)">
+                        <div class="zoom-text-container d-flex flex-row mb-2 gap-2" style="background: #D99F18">
+                            <div class="zoom-record-icon"></div>
+                            <p style="margin: 0; color: white; font-size: var(--font-size-mini)" >Kelas Zoom</p>
+                        </div>
+                        <p style="margin: 0; color: black; font-size: var(--font-size-tiny); font-weight: 700">Live Demo: Membuat Karakter Game dari Nol dalam 90 Menit</p>
+                        <div class="d-flex flex-row justify-content-center align-items-center gap-3" >
+                            <div class="zoom-date-container d-flex flex-row gap-1 mb-2">
+                                <img src="{{ asset('assets/icons/icon_calendar.svg') }}" alt="Tutor Profile" width="16" height="16">
+                                <p style="margin:0; color: black; font-size: var(--font-size-mini)">1 Juni 2025</p>
+                            </div>
+                            <img class="zoom-tutor-profile" src="{{ asset('assets/course/default_tutor_profile_zoom.png') }}" alt="zoom Picture">
+                        </div>
+                    </div>
+                    <div class="zoom-card-bottom d-flex flex-column align-items-start">
+                    
+                        <p class="zoom-title" >Live Demo: Membuat Karakter Game dari Nol dalam 90 Menit</p>
+                            
+                        <div class="d-flex flex-row align-items-center gap-2">
+                                
+                            <img src="{{ asset('assets/course/default_tutor_profile_zoom.png') }}" 
+                            class="rounded-circle zoom-tutor-image" 
+                            width="37" 
+                            height="37" 
+                            >
+                            <div class="d-flex flex-column">
+                                <p style="margin: 0; font-size: var(--font-size-mini); color: var(--dark-gray-color); font-weight: 700">
+                                    Tutor: John Doe</p>
+                                        <p style="margin: 0; font-size: var(--font-size-mini); color: var(--dark-gray-color)">
+                                    Game artist di ABC</p>
+
+                            </div>
+                        </div>
+                        <div class="d-flex flex-row align-items-center" style="gap:5px">
+                            <div class="d-flex flex-row">
+                                <img src="{{ asset('assets/icons/icon_calendar.svg') }}" alt="Star" height="16" width="16">
+                                
+                            </div>
+                            <p style="margin:0; font-size: var(--font-size-mini); color: var(--dark-gray-color)">1 Juni 2025</p>
+                        </div>
+                        <button type="submit" class="btn w-100 text-dark yellow-gradient-btn">Daftar Sekarang</button>
+
+                    </div>
+                </div>
+                <div class="zoom-card card article-card" height="100%">
+                    <div class="zoom-card-header d-flex flex-column justify-content-between" style="background: var(--orange-gradient-color)">
+                        <div class="zoom-text-container d-flex flex-row mb-2 gap-2" style="background: #D99F18">
+                            <div class="zoom-record-icon"></div>
+                            <p style="margin: 0; color: white; font-size: var(--font-size-mini)" >Kelas Zoom</p>
+                        </div>
+                        <p style="margin: 0; color: black; font-size: var(--font-size-tiny); font-weight: 700">Live Demo: Membuat Karakter Game dari Nol dalam 90 Menit</p>
+                        <div class="d-flex flex-row justify-content-center align-items-center gap-3" >
+                            <div class="zoom-date-container d-flex flex-row gap-1 mb-2">
+                                <img src="{{ asset('assets/icons/icon_calendar.svg') }}" alt="Tutor Profile" width="16" height="16">
+                                <p style="margin:0; color: black; font-size: var(--font-size-mini)">1 Juni 2025</p>
+                            </div>
+                            <img class="zoom-tutor-profile" src="{{ asset('assets/course/default_tutor_profile_zoom.png') }}" alt="zoom Picture">
+                        </div>
+                    </div>
+                    <div class="zoom-card-bottom d-flex flex-column align-items-start">
+                    
+                        <p class="zoom-title" >Live Demo: Membuat Karakter Game dari Nol dalam 90 Menit</p>
+                            
+                        <div class="d-flex flex-row align-items-center gap-2">
+                                
+                            <img src="{{ asset('assets/course/default_tutor_profile_zoom.png') }}" 
+                            class="rounded-circle zoom-tutor-image" 
+                            width="37" 
+                            height="37" 
+                            >
+                            <div class="d-flex flex-column">
+                                <p style="margin: 0; font-size: var(--font-size-mini); color: var(--dark-gray-color); font-weight: 700">
+                                    Tutor: John Doe</p>
+                                        <p style="margin: 0; font-size: var(--font-size-mini); color: var(--dark-gray-color)">
+                                    Game artist di ABC</p>
+
+                            </div>
+                        </div>
+                        <div class="d-flex flex-row align-items-center" style="gap:5px">
+                            <div class="d-flex flex-row">
+                                <img src="{{ asset('assets/icons/icon_calendar.svg') }}" alt="Star" height="16" width="16">
+                                
+                            </div>
+                            <p style="margin:0; font-size: var(--font-size-mini); color: var(--dark-gray-color)">1 Juni 2025</p>
+                        </div>
+                        <button type="submit" class="btn w-100 text-dark yellow-gradient-btn">Daftar Sekarang</button>
+
+                    </div>
+                </div>
+                <div class="zoom-card card article-card" height="100%">
+                    <div class="zoom-card-header d-flex flex-column justify-content-between" style="background: var(--orange-gradient-color)">
+                        <div class="zoom-text-container d-flex flex-row mb-2 gap-2" style="background: #D99F18">
+                            <div class="zoom-record-icon"></div>
+                            <p style="margin: 0; color: white; font-size: var(--font-size-mini)" >Kelas Zoom</p>
+                        </div>
+                        <p style="margin: 0; color: black; font-size: var(--font-size-tiny); font-weight: 700">Live Demo: Membuat Karakter Game dari Nol dalam 90 Menit</p>
+                        <div class="d-flex flex-row justify-content-center align-items-center gap-3" >
+                            <div class="zoom-date-container d-flex flex-row gap-1 mb-2">
+                                <img src="{{ asset('assets/icons/icon_calendar.svg') }}" alt="Tutor Profile" width="16" height="16">
+                                <p style="margin:0; color: black; font-size: var(--font-size-mini)">1 Juni 2025</p>
+                            </div>
+                            <img class="zoom-tutor-profile" src="{{ asset('assets/course/default_tutor_profile_zoom.png') }}" alt="zoom Picture">
+                        </div>
+                    </div>
+                    <div class="zoom-card-bottom d-flex flex-column align-items-start">
+                    
+                        <p class="zoom-title" >Live Demo: Membuat Karakter Game dari Nol dalam 90 Menit</p>
+                            
+                        <div class="d-flex flex-row align-items-center gap-2">
+                                
+                            <img src="{{ asset('assets/course/default_tutor_profile_zoom.png') }}" 
+                            class="rounded-circle zoom-tutor-image" 
+                            width="37" 
+                            height="37" 
+                            >
+                            <div class="d-flex flex-column">
+                                <p style="margin: 0; font-size: var(--font-size-mini); color: var(--dark-gray-color); font-weight: 700">
+                                    Tutor: John Doe</p>
+                                        <p style="margin: 0; font-size: var(--font-size-mini); color: var(--dark-gray-color)">
+                                    Game artist di ABC</p>
+
+                            </div>
+                        </div>
+                        <div class="d-flex flex-row align-items-center" style="gap:5px">
+                            <div class="d-flex flex-row">
+                                <img src="{{ asset('assets/icons/icon_calendar.svg') }}" alt="Star" height="16" width="16">
+                                
+                            </div>
+                            <p style="margin:0; font-size: var(--font-size-mini); color: var(--dark-gray-color)">1 Juni 2025</p>
+                        </div>
+                        <button type="submit" class="btn w-100 text-dark yellow-gradient-btn">Daftar Sekarang</button>
+
+                    </div>
+                </div>
+
+            </div>
+            </div>
+
+            <hr class="divider">
+
+            <!-- Testimoni Section -->
+            <div class="testimoni-section d-flex flex-column">
+                <p class="title text-start fw-bold">Kelas Zoom</p>
+                <div class="testimoni-wrapper d-flex flex-column" style="gap: 28px">
+                    <div class="testimoni-recap d-flex flex-row gap-2">
+                        <img src="{{ asset('assets/icons/icon_star.svg') }}" alt="Star" height="22" width="22">
+                        <p>4.6 / 5.0</p>
+                    </div>
+
+                    <div class="d-flex flex-row category-btn-group gap-4">
+                        <a href="#">
+                            <button class="category-btn active">Semua</button>
+                        </a>
+                        <a href="#">
+                            <button class="category-btn d-flex flex-row align-items-center justify-content-center">
+                            <img src="{{ asset('assets/icons/icon_star.svg') }}" alt="Star" height="16" width="16">
+                                5(60)
+                            </button>
+                        </a>
+                        <a href="#">
+                            <button class="category-btn d-flex flex-row align-items-center justify-content-center">
+                                <img src="{{ asset('assets/icons/icon_star.svg') }}" alt="Star" height="16" width="16">
+                                4(41)
+                            </button>
+                        </a>
+                        <a href="#">
+                            <button class="category-btn d-flex flex-row align-items-center justify-content-center">
+                                <img src="{{ asset('assets/icons/icon_star.svg') }}" alt="Star" height="16" width="16">
+                                3(15)</button>
+                        </a>
+                        <a href="#">
+                            <button class="category-btn d-flex flex-row align-items-center justify-content-center">
+                                <img src="{{ asset('assets/icons/icon_star.svg') }}" alt="Star" height="16" width="16">
+                                2(1)
+                            </button>
+                        </a>
+                        <a href="#">
+                            <button class="category-btn d-flex flex-row align-items-center justify-content-center">
+                                <img src="{{ asset('assets/icons/icon_star.svg') }}" alt="Star" height="16" width="16">
+                                1(0)
+                            </button>
+                        </a>
+                    </div>
+
+                    <div class="testimoni-card-container">
+                        <div class="testimoni-card d-flex flex-column">
+                            <div class="testimoni-header d-flex flex-row">
+                                <img src="{{ asset('assets/course/testimoni_default_profile.svg') }}" 
+                                class="rounded-circle testimoni-profile" 
+                                width="55" 
+                                height="55" 
+                                >
+                                <div class="testimoni-name d-flex flex-column">
+                                    <p class="fw-bold">Vynne</p>
+                                    <div class="d-flex flex-row" style="gap:5px">
+                                        <div class="d-flex flex-row" style="gap: 5px">
+                                            <img src="{{ asset('assets/icons/icon_star.svg') }}" alt="Star" height="16" width="16">
+                                            <img src="{{ asset('assets/icons/icon_star.svg') }}" alt="Star" height="16" width="16">
+                                            <img src="{{ asset('assets/icons/icon_star.svg') }}" alt="Star" height="16" width="16">
+                                            <img src="{{ asset('assets/icons/icon_star.svg') }}" alt="Star" height="16" width="16">
+                                            <img src="{{ asset('assets/icons/icon_star.svg') }}" alt="Star" height="16" width="16">
+                                        </div>
+                                        <p style="margin:0; font-size: var(--font-size-mini); color: var(--dark-gray-color)">2 days ago</p>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+                            <p class="testimoni-review">Lorem ipsum dolor sit amet consectetur adipisicing elit. Odio aperiam magni illo corrupti autem. Laudantium iste fugit reiciendis</p>
+
+                            <div class="testimoni-footer d-flex flex-row justify-content-between">
+                                <div class="d-flex flex-row">
+                                    <img src="{{ asset('assets/icons/icon_likes.svg') }}" alt="Like" height="16" width="16">
+                                    <p class="membantu-text">Membantu</p>
+                                </div>
+                                <p class="lihat-testimoni-text">Lihat selengkapnya</p>
+
+                            </div>
+                                
+                        </div>
+                        <div class="testimoni-card d-flex flex-column">
+                            <div class="testimoni-header d-flex flex-row">
+                                <img src="{{ asset('assets/course/testimoni_default_profile.svg') }}" 
+                                class="rounded-circle testimoni-profile" 
+                                width="55" 
+                                height="55" 
+                                >
+                                <div class="testimoni-name d-flex flex-column">
+                                    <p class="fw-bold">Vynne</p>
+                                    <div class="d-flex flex-row" style="gap:5px">
+                                        <div class="d-flex flex-row" style="gap: 5px">
+                                            <img src="{{ asset('assets/icons/icon_star.svg') }}" alt="Star" height="16" width="16">
+                                            <img src="{{ asset('assets/icons/icon_star.svg') }}" alt="Star" height="16" width="16">
+                                            <img src="{{ asset('assets/icons/icon_star.svg') }}" alt="Star" height="16" width="16">
+                                            <img src="{{ asset('assets/icons/icon_star.svg') }}" alt="Star" height="16" width="16">
+                                            <img src="{{ asset('assets/icons/icon_star.svg') }}" alt="Star" height="16" width="16">
+                                        </div>
+                                        <p style="margin:0; font-size: var(--font-size-mini); color: var(--dark-gray-color)">2 days ago</p>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+                            <p class="testimoni-review">Lorem ipsum dolor sit amet consectetur adipisicing elit. Odio aperiam magni illo corrupti autem. Laudantium iste fugit reiciendis</p>
+
+                            <div class="testimoni-footer d-flex flex-row justify-content-between">
+                                <div class="d-flex flex-row">
+                                    <img src="{{ asset('assets/icons/icon_likes.svg') }}" alt="Like" height="16" width="16">
+                                    <p class="membantu-text">Membantu</p>
+                                </div>
+                                <p class="lihat-testimoni-text">Lihat selengkapnya</p>
+
+                            </div>
+                                
+                        </div>
+                        <div class="testimoni-card d-flex flex-column">
+                            <div class="testimoni-header d-flex flex-row">
+                                <img src="{{ asset('assets/course/testimoni_default_profile.svg') }}" 
+                                class="rounded-circle testimoni-profile" 
+                                width="55" 
+                                height="55" 
+                                >
+                                <div class="testimoni-name d-flex flex-column">
+                                    <p class="fw-bold">Vynne</p>
+                                    <div class="d-flex flex-row" style="gap:5px">
+                                        <div class="d-flex flex-row" style="gap: 5px">
+                                            <img src="{{ asset('assets/icons/icon_star.svg') }}" alt="Star" height="16" width="16">
+                                            <img src="{{ asset('assets/icons/icon_star.svg') }}" alt="Star" height="16" width="16">
+                                            <img src="{{ asset('assets/icons/icon_star.svg') }}" alt="Star" height="16" width="16">
+                                            <img src="{{ asset('assets/icons/icon_star.svg') }}" alt="Star" height="16" width="16">
+                                            <img src="{{ asset('assets/icons/icon_star.svg') }}" alt="Star" height="16" width="16">
+                                        </div>
+                                        <p style="margin:0; font-size: var(--font-size-mini); color: var(--dark-gray-color)">2 days ago</p>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+                            <p class="testimoni-review">Lorem ipsum dolor sit amet consectetur adipisicing elit. Odio aperiam magni illo corrupti autem. Laudantium iste fugit reiciendis</p>
+
+                            <div class="testimoni-footer d-flex flex-row justify-content-between">
+                                <div class="d-flex flex-row">
+                                    <img src="{{ asset('assets/icons/icon_likes.svg') }}" alt="Like" height="16" width="16">
+                                    <p class="membantu-text">Membantu</p>
+                                </div>
+                                <p class="lihat-testimoni-text">Lihat selengkapnya</p>
+
+                            </div>
+                                
+                        </div>
+                        <div class="testimoni-card d-flex flex-column">
+                            <div class="testimoni-header d-flex flex-row">
+                                <img src="{{ asset('assets/course/testimoni_default_profile.svg') }}" 
+                                class="rounded-circle testimoni-profile" 
+                                width="55" 
+                                height="55" 
+                                >
+                                <div class="testimoni-name d-flex flex-column">
+                                    <p class="fw-bold">Vynne</p>
+                                    <div class="d-flex flex-row" style="gap:5px">
+                                        <div class="d-flex flex-row" style="gap: 5px">
+                                            <img src="{{ asset('assets/icons/icon_star.svg') }}" alt="Star" height="16" width="16">
+                                            <img src="{{ asset('assets/icons/icon_star.svg') }}" alt="Star" height="16" width="16">
+                                            <img src="{{ asset('assets/icons/icon_star.svg') }}" alt="Star" height="16" width="16">
+                                            <img src="{{ asset('assets/icons/icon_star.svg') }}" alt="Star" height="16" width="16">
+                                            <img src="{{ asset('assets/icons/icon_star.svg') }}" alt="Star" height="16" width="16">
+                                        </div>
+                                        <p style="margin:0; font-size: var(--font-size-mini); color: var(--dark-gray-color)">2 days ago</p>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+                            <p class="testimoni-review">Lorem ipsum dolor sit amet consectetur adipisicing elit. Odio aperiam magni illo corrupti autem. Laudantium iste fugit reiciendis</p>
+
+                            <div class="testimoni-footer d-flex flex-row justify-content-between">
+                                <div class="d-flex flex-row">
+                                    <img src="{{ asset('assets/icons/icon_likes.svg') }}" alt="Like" height="16" width="16">
+                                    <p class="membantu-text">Membantu</p>
+                                </div>
+                                <p class="lihat-testimoni-text">Lihat selengkapnya</p>
+
+                            </div>
+                                
+                        </div>
+
+                    </div>
+
+                    <div class="testimoni-button d-flex justify-content-center align-items-center">
+                        <a href="#">
+                            <button class="testimoni-btn"><p>Lihat selengkapnya</p></button>
+                        </a>
+                    </div>
+
+                </div>
             </div>
         </div>
-        <div class="d-flex" style="width: 35%;">
-            
+        <div class="d-flex justify-content-center" style="width: 40%;">
+            <div class="benefit-card d-flex flex-column">
+                <p class="benefit-title text-start fw-bold">Benefit Kursus</p>
+                <hr class="benefit-divider">
+                <div class="benefit-list d-flex flex-column">
+                    <div class="list-benefit d-flex flex-row">
+                        <img src="{{ asset('assets/icons/icon_video_gradient.svg') }}" alt="Like" height="24" width="24">
+                        <p>15 Video materi pembelajaran step-by-step</p>
+                    </div>
+                    <div class="list-benefit d-flex flex-row">
+                        <img src="{{ asset('assets/icons/icon_video_gradient.svg') }}" alt="Like" height="24" width="24">
+                        <p>15 Video materi pembelajaran step-by-step</p>
+                    </div>
+                    <div class="list-benefit d-flex flex-row">
+                        <img src="{{ asset('assets/icons/icon_video_gradient.svg') }}" alt="Like" height="24" width="24">
+                        <p>15 Video materi pembelajaran step-by-step</p>
+                    </div>
+                    <div class="list-benefit d-flex flex-row">
+                        <img src="{{ asset('assets/icons/icon_video_gradient.svg') }}" alt="Like" height="24" width="24">
+                        <p>15 Video materi pembelajaran step-by-step</p>
+                    </div>
+                    <div class="list-benefit d-flex flex-row">
+                        <img src="{{ asset('assets/icons/icon_video_gradient.svg') }}" alt="Like" height="24" width="24">
+                        <p>15 Video materi pembelajaran step-by-step</p>
+                    </div>
+
+                </div>
+
+                <button type="submit" class="btn w-100 text-dark yellow-gradient-btn">Daftar Sekarang</button>
+
+            </div>
 
         </div>
 
@@ -258,29 +687,6 @@
         -webkit-text-fill-color: transparent;
     }
 
-    .category-btn-group{
-        justify-content: space-between;
-    }
-    .category-btn-group a{
-        text-decoration: none;
-        padding: 32px 0;
-    }
-
-    .category-btn{
-        border-radius: 1000px;
-        background: white;
-        border: none;
-        box-shadow: 0px 4px 8px 0px rgba(67, 39, 0, 0.20);
-        height: 42px;
-        padding: 10px 40px;
-        font-size: var(--font-size-primary);
-        justify-content: space-center;
-    }
-
-    .category-btn.active{
-        background: var(--pink-medium-gradient-color);
-    }
-
     .title{
         margin: 0;
         font-size: var(--font-size-title); 
@@ -297,14 +703,6 @@
         font-size: var(--font-size-primary);
         font-weight: 400;
         color:var(--dark-gray-color)
-    }
-
-    .divider{
-        border: none;
-        height: 3px;
-        background-color: var(--orange-color);
-        border-radius: 2px;
-        margin-block: 34px;
     }
 
     .minggu-section {
@@ -370,6 +768,50 @@
     .materi-title{
         min-width: 365px;
         gap: 11px;
+    }
+
+    .testimoni-recap p{
+        margin: 0;
+        font-size: 22px;
+        font-weight: 600;
+        color: var(--black-color);
+    }
+
+    .benefit-card{
+        display: flex;
+        width: 439px;
+        height: max-content;
+        padding: 32px 30px;
+        justify-content: center;
+        border-radius: 44px;
+        background: white;
+        box-shadow: 0 4px 8px 0 rgba(67, 39, 0, 0.20);
+    }
+
+    .benefit-list{
+        gap: 10px;
+        padding-inline: 5px;
+        padding-block: 20px;
+    }
+
+    .list-benefit{
+        gap: 9px;
+    }
+
+    .benefit-title{
+        margin: 0;
+        font-size: var(--font-size-title); 
+        background: var(--pink-gradient-color);
+        background-clip: text;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+
+    .benefit-divider{
+        border: none;
+        height: 3px;
+        background-color: var(--orange-color);
+        border-radius: 2px;
     }
 </style>
 @endsection

@@ -503,36 +503,6 @@
         -webkit-text-fill-color: transparent;
     }
 
-    .category-btn-group a{
-        text-decoration: none;
-        padding: 32px 0;
-    }
-
-    .category-btn{
-        border-radius: 1000px;
-        background: white;
-        border: none;
-        box-shadow: 0px 4px 8px 0px rgba(67, 39, 0, 0.20);
-        height: 42px;
-        padding: 10px 30px;
-        justify-content: center;
-        align-items: center;
-    }
-
-    .category-btn.active{
-        background: var(--pink-medium-gradient-color);
-    }
-
-    .category-btn.filter-icon{
-        padding: 10px;
-        border-radius: 100px;
-    }
-
-    .tutor-image{
-        border-radius: 37px;
-        box-shadow: 0px 4px 8px 0px rgba(67, 39, 0, 0.20);
-    }
-
     .pagination {
         margin-top: 58px;
         justify-content: center;
