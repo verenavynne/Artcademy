@@ -102,6 +102,55 @@
         justify-content: center;
         box-shadow: 0px 7.571px 15.143px 0px rgba(67, 39, 0, 0.20);
     }
+    /* navbar admin */
+    .nav-link-admin {
+        color: var(--Dark-gray, #474747);
+        font-size: 18px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: normal;
+        font-size: 18px;
+        font-weight: 500;
+        display: flex;
+        align-items: center;
+        padding: 8px 12px;
+        border-radius: 10px;
+        transition: all 0.25s ease-in-out;
+        text-decoration: none !important;
+    }
+
+    .nav-link-admin::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        height: 2.5px;
+        width: 100%;
+        font-weight: 700;
+    }
+
+
+
+.nav-link-admin:hover {
+    background-color: rgba(255, 221, 160, 0.25);
+    color: #000;
+    text-decoration: none !important;
+    font-weight: 700;
+}
+
+    .nav-link-admin:hover::after {
+        transform: scaleX(1);
+    }
+
+    .nav-link-admin.active {
+    font-weight: 600;
+    color: #000;
+    background-color: rgba(255, 221, 160, 0.35);
+}
+
+    .nav-link-admin.active::after {
+        transform: scaleX(1);
+    }
 
     /* button */
     .yellow-gradient-btn {
