@@ -26,7 +26,7 @@ class Course extends Model
         return $this->hasOne(Certificate::class,'courseId');
     }
 
-    public function zoom(){
+    public function zooms(){
         return $this->hasMany(Zoom::class,'courseId');
     }
 
