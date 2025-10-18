@@ -27,6 +27,7 @@
         @include('layouts.footer')
     </footer>
 </body>
+
 <style>
     body {
         font-family: 'Afacad', sans-serif;

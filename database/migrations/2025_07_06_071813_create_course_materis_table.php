@@ -15,11 +15,12 @@ return new class extends Migration
             $table->id();
             $table->foreignId('weekId')->constrained('course_weeks')->onDelete('cascade');
             $table->string('materiName');
-            $table->string('articleName');
-            $table->text('articleText');
-            $table->string('vblName');
-            $table->text('vblDesc');
+            $table->string('articleName')->nullable();
+            $table->text('articleText')->nullable();
+            $table->string('vblName')->nullable();
+            $table->text('vblDesc')->nullable();
             $table->string('vblUrl')->nullable();
+            $table->integer('duration')->nullable();
             $table->timestamps();
         });
     }

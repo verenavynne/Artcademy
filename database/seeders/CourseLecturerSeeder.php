@@ -30,7 +30,6 @@ class CourseLecturerSeeder extends Seeder
 
             if (!$courseType) continue;
 
-            // Dapatkan semua course yang sesuai tipe
             $courses = Course::where('courseType', $courseType)->get();
 
             foreach ($courses as $course) {

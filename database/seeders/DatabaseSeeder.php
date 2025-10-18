@@ -22,7 +22,10 @@ class DatabaseSeeder extends Seeder
 
          $this->call([
             CourseSeeder::class,
-            CourseLecturerSeeder::class
+            CourseLecturerSeeder::class,
+            CourseMateriSeeder::class,
+            CourseWeekSeeder::class,
+            ZoomSeeder::class
         ]);
     }
 }
