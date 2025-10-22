@@ -3,6 +3,7 @@
 use App\Http\Controllers\CourseController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\GoogleController;
+use App\Http\Controllers\AdminCourseController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -34,6 +35,8 @@ Route::middleware(['auth', 'checkRole:admin'])->prefix('/admin')->group(function
     Route::get('/home', function(){
         return view('admin.home');
     })->name('admin.home');
+
+    Route::resource('/courses', AdminCourseController::class)->names('admin.courses');
 });
 
 

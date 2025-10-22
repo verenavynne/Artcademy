@@ -8,7 +8,7 @@ class Course extends Model
 {
     protected $table='courses';
 
-    protected $fillable=['courseName','courseDesc','coursePicture','courseLevel'];
+    protected $fillable=['courseName','courseText','coursePicture','courseLevel', 'courseType', 'coursePaymentType', 'courseDurationInMinutes', 'courseReview', 'bookmarked'];
 
     public function weeks(){
         return $this->hasMany(CourseWeek::class,'courseId');
