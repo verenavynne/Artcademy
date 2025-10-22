@@ -60,10 +60,10 @@
                         <label class="form-label fw-semibold">Keahlian</label>
                         <select name="specialization" class="form-select rounded-pill px-4 py-2 custom-input">
                             <option selected disabled>Pilih keahlianmu</option>
-                            <option value="musik">Musik</option>
-                            <option value="lukis">Lukis</option>
-                            <option value="tari">Tari</option>
-                            <option value="fotografi">Fotografi</option>
+                            <option value="Seni Lukis & Digital Art">Seni Lukis & Digital Art</option>
+                            <option value="Seni Tari">Seni Tari</option>
+                            <option value="Seni Musik">Seni Musik</option>
+                            <option value="Seni Fotografi">Seni Fotografi</option>
                         </select>
 
                         @error('specialization')
