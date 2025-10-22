@@ -194,6 +194,7 @@
         padding: 32px 0;
     }
 
+    .review-btn,
     .category-btn{
         border-radius: 1000px;
         background: white;
@@ -205,6 +206,7 @@
         justify-content: space-center;
     }
 
+    .review-btn.active,
     .category-btn.active{
         background: var(--pink-medium-gradient-color);
     }

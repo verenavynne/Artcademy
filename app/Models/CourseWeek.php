@@ -14,7 +14,7 @@ class CourseWeek extends Model
         return $this->belongsTo(Course::class,'courseId');
     }
 
-    public function materis(){
+    public function materials(){
         return $this->hasMany(CourseMateri::class,'weekId');
     }
 }

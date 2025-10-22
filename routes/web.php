@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\CourseController;
+use App\Http\Controllers\CourseDetailController;
+use App\Http\Controllers\ZoomController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\GoogleController;
 use App\Http\Controllers\AdminCourseController;
@@ -43,6 +45,14 @@ Route::middleware(['auth', 'checkRole:admin'])->prefix('/admin')->group(function
 Route::get('/course', [CourseController::class, 'index']
 )->name('course');
 
-Route::get('/course-detail', function (){
-    return view('Artcademy.course-detail');
-})->name('course-detail');
+Route::get('/course/{id}', [CourseDetailController::class, 'show'])
+    ->name('course.detail');
+
+Route::post('/course/{id}/enroll', [CourseDetailController::class, 'store'])
+    ->name('course.enroll')
+    ->middleware('auth');
+
+Route::post('/zoom/{id}/register', [ZoomController::class, 'register'])
+    ->name('zoom.register')
+    ->middleware('auth');
+

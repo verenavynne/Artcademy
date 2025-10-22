@@ -1,8 +1,15 @@
 <style>
+    .zoom-card-container{
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        justify-items: center;
+        gap: 17px;
+
+    }
     .zoom-card{
         background-color: white;
         width: 259px;
-        height: max-content;
+        min-height: 377px;
         border-radius: 40px;
         box-shadow: 0px 4px 8px 0px rgba(67, 39, 0, 0.20);
         border: none;
