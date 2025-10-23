@@ -13,7 +13,7 @@ class AdminCourseController extends Controller
 {
     public function index()
     {
-        $courses = Course::with('weeks.materis')->get();
+        $courses = Course::with('weeks.materials')->get();
         return view('admin.index', compact('courses'));
     }
 
@@ -35,13 +35,13 @@ class AdminCourseController extends Controller
             'coursePicture' => 'nullable|image',
             'weeks' => 'array',
             'weeks.*.weekName' => 'required|string|max:255',
-            'weeks.*.materis' => 'array',
-            'weeks.*.materis.*.materiName' => 'required|string|max:255',
-            'weeks.*.materis.*.articleName' => 'nullable|string|max:255',
-            'weeks.*.materis.*.articleText' => 'nullable|string',
-            'weeks.*.materis.*.vblName' => 'nullable|string|max:255',
-            'weeks.*.materis.*.vblDesc' => 'nullable|string',
-            'weeks.*.materis.*.vblUrl' => 'nullable|string|max:255',
+            'weeks.*.materials' => 'array',
+            'weeks.*.materials.*.materiName' => 'required|string|max:255',
+            'weeks.*.materials.*.articleName' => 'nullable|string|max:255',
+            'weeks.*.materials.*.articleText' => 'nullable|string',
+            'weeks.*.materials.*.vblName' => 'nullable|string|max:255',
+            'weeks.*.materials.*.vblDesc' => 'nullable|string',
+            'weeks.*.materials.*.vblUrl' => 'nullable|string|max:255',
             'lecturers' => 'required|array',
             'lecturers.*' => 'exists:lecturers,id',
         ]);
@@ -72,8 +72,8 @@ class AdminCourseController extends Controller
                     'weekName' => $weekData['weekName'],
                 ]);
 
-                if (!empty($weekData['materis'])) {
-                    foreach ($weekData['materis'] as $materiData) {
+                if (!empty($weekData['materials'])) {
+                    foreach ($weekData['materials'] as $materiData) {
                         CourseMateri::create([
                             'weekId' => $week->id,
                             'materiName' => $materiData['materiName'],
