@@ -56,3 +56,7 @@ Route::post('/zoom/{id}/register', [ZoomController::class, 'register'])
     ->name('zoom.register')
     ->middleware('auth');
 
+Route::get('/course-week', function() {
+    return view('Artcademy.course-week-vbl');
+})->name('course-week');
+

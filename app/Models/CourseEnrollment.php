@@ -17,4 +17,12 @@ class CourseEnrollment extends Model
     public function student(){
         return $this->belongsTo(Student::class,'studentId');
     }
+
+    public function studentMateriProgress(){
+        return $this->hasMany(StudentMateriProgress::class,'courseEnrollmentId');
+    }
+
+    public function studentWeekProgress(){
+        return $this->hasMany(StudentWeekProgress::class, 'courseEnrollmentId');
+    }
 }

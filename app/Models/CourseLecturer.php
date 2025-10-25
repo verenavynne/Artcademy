@@ -17,4 +17,13 @@ class CourseLecturer extends Model
     public function lecturer(){
         return $this->belongsTo(Lecturer::class,'lecturerId');
     }
+
+    public function zooms()
+    {
+        return $this->hasMany(Zoom::class, 'tutorId');
+    }
+
+    public function weeks(){
+        return $this->hasMany(CourseWeek::class,'tutorId');
+    }
 }

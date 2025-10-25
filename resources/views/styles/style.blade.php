@@ -83,6 +83,19 @@
         box-shadow: 0px 4px 8px 0px rgba(67, 39, 0, 0.4);
     }
 
+    /* Navigate Previous Page Button */
+    .navigation-prev .page-link{
+        background: var(--yellow-gradient-color);
+        border-radius: 50%;
+        color: black;
+        width: 48px;
+        height: 48px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0px 7.571px 15.143px 0px rgba(67, 39, 0, 0.20);
+    }
+
     /* button */
     .yellow-gradient-btn {
         background: linear-gradient(180deg, #FFDE22 0%, #F4A700 100%);

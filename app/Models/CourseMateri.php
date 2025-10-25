@@ -13,4 +13,12 @@ class CourseMateri extends Model
     public function week(){
         return $this->belongsTo(CourseWeek::class,'weekId');
     }
+
+    public function materiTools(){
+        return $this->hasMany(MateriTool::class,'materiId');
+    }
+
+    public function progress(){
+        return $this->hasMany(StudentMateriProgress::class,'materiId');
+    }
 }

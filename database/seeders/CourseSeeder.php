@@ -11,7 +11,7 @@ class CourseSeeder extends Seeder
     /**
      * Run the database seeds.
      */
-    public function run(): void
+    public function run(): voidc
     {
         $courseTypes = ['Seni Lukis & Digital Art', 'Seni Tari', 'Seni Musik', 'Seni Fotografi'];
         $courseLevels = ['dasar', 'menengah', 'lanjutan'];
