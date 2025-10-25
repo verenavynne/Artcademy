@@ -3,7 +3,7 @@
 @section('content')
 <div class="container-fluid">
   <div class="d-flex justify-content-between align-items-center mb-4">
-    <h4 class="fw-semibold">Dashboard</h4>
+    <h4 class="fw-semibold">Selamat Pagi, Farren!</h4>
     <div>
       <button class="btn btn-warning me-2"><i class="fa-solid fa-plus me-1"></i> Tambah Kursus</button>
       <button class="btn btn-outline-warning"><i class="fa-solid fa-calendar-plus me-1"></i> Tambah Event</button>

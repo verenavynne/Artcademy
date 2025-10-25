@@ -145,7 +145,6 @@
     .nav-link-admin.active {
     font-weight: 600;
     color: #000;
-    background-color: rgba(255, 221, 160, 0.35);
 }
 
     .nav-link-admin.active::after {

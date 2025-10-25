@@ -17,27 +17,33 @@
 </head>
 
 <body>
+  <!-- Navbar tetap di luar -->
+<div class="container-fluid ps-4 pe-4">
+<header>
+    @include('layouts.navbar-admin')
+  </header>
+
+  <!-- Wrapper utama berisi sidebar dan konten -->
   <div class="d-flex" id="admin-wrapper">
     
-    <!-- Sidebar menu -->
-      @include('layouts.menu-admin')
+    <!-- Sidebar -->
+    @include('layouts.menu-admin')
 
-    <!-- Main content -->
-    <div class="flex-grow-1 d-flex flex-column" id="admin-main">
-      <header>
-        @include('layouts.navbar-admin')
-      </header>
-
-      <main class="p-4 flex-grow-1" style="min-height: 85vh">
+    <!-- Konten utama (Dashboard, Cards, Table, dsb) -->
+    <main class="flex-grow-1" id="admin-content">
+      <div class="dashboard-wrapper">
         @yield('content')
-      </main>
-
-      <footer>
-        @include('layouts.footer-admin')
-      </footer>
-    </div>
+      </div>
+    </main>
   </div>
+   </div>
+  
 
+  <!-- Footer di bawah semua -->
+  <footer>
+    @include('layouts.footer-admin')
+  </footer>
+</body>
   <style>
     body {
       font-family: 'Afacad', sans-serif;
@@ -50,8 +56,14 @@
       border-right: 1px solid #eee;
     }
     #admin-wrapper {
-      overflow-x: hidden;
+        display: flex;
+        align-items: flex-start;
     }
+
+  .container-fluid{
+    padding-right: 0px;
+    padding-left: 28px;
+  }
   </style>
 </body>
 </html>
