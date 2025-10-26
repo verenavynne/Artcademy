@@ -65,7 +65,7 @@
                     <p style="margin:0; font-size: var(--font-size-big); font-weight: 700">{{ $course->courseName }}</p>
                     <div class="d-flex flex-row gap-5">
                         <div class="d-flex flex-column" style="gap:12px">
-                           <p style="margin:0; font-size: var(--font-size-small);">Pelajari Dasar-Dasar Mendesain Karakter, Environment, dan Prop untuk Industri Kreatif, Mulai dari Nol Hingga Siap Berkarya!</p>
+                           <p style="margin:0; font-size: var(--font-size-small);">{{ $course->courseSummary }}</p>
                            <div class="course-time-container d-flex flex-row gap-1 mb-2">
                                 <img src="{{ asset('assets/icons/icon_clock.svg') }}" alt="Clock" height="24" width="24">
                                 <p style="margin:0; color: black; font-size: var(--font-size-small)">{{ $jam }} Jam {{ $menit }} Menit</p>

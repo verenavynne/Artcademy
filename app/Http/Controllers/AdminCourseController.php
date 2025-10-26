@@ -11,9 +11,27 @@ use App\Models\Lecturer;
 
 class AdminCourseController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $courses = Course::with('weeks.materials')->get();
+        $query = Course::query();
+
+        if ($request->courseStatus == 'publikasi') {
+            $query->where('courseStatus', 'publikasi');
+        } elseif ($request->courseStatus == 'draft') {
+            $query->where('courseStatus', 'draft');
+        } elseif ($request->courseStatus == 'arsip') {
+            $query->where('courseStatus', 'arsip');
+        }
+
+        if ($request->search) {
+            $query->where('courseName', 'like', '%' . $request->search . '%');
+        }
+
+        $perPage = $request->input('perPage', 5);
+
+        $courses = $query->orderBy('created_at', 'desc')
+                        ->paginate($perPage)
+                        ->appends($request->query());
         return view('admin.index', compact('courses'));
     }
 
@@ -27,6 +45,7 @@ class AdminCourseController extends Controller
     {
         $validated = $request->validate([
             'courseName' => 'required|string|max:255',
+            'courseSummary' => 'required|string|max:255',
             'courseText' => 'required',
             'courseLevel' => 'required|in:dasar,menengah,lanjutan',
             'courseType' => 'required|in:Seni Tari,Seni Musik,Seni Fotografi,Seni Lukis & Digital Art',
@@ -36,6 +55,7 @@ class AdminCourseController extends Controller
             'weeks' => 'array',
             'weeks.*.weekName' => 'required|string|max:255',
             'weeks.*.materials' => 'array',
+            'weeks.*.tutorId' => 'required|exists:lecturers,id',
             'weeks.*.materials.*.materiName' => 'required|string|max:255',
             'weeks.*.materials.*.articleName' => 'nullable|string|max:255',
             'weeks.*.materials.*.articleText' => 'nullable|string',
@@ -48,14 +68,15 @@ class AdminCourseController extends Controller
 
         $course = Course::create([
             'courseName' => $validated['courseName'],
+            'courseSummary' => $validated['courseSummary'],
             'courseText' => $validated['courseText'],
             'courseLevel' => $validated['courseLevel'],
             'courseType' => $validated['courseType'],
-            'coursePicture' => $request->file('coursePicture') 
-                ? $request->file('coursePicture')->store('course_images', 'public')
-                : null,
+            'coursePicture' => 'assets/course/course_default_picture.png',
             'coursePaymentType' => $validated['coursePaymentType'],
             'courseDurationInMinutes' => $validated['courseDurationInMinutes'],
+            'courseReview' => 4.9,
+            'courseStatus' => 'publikasi',
         ]);
 
         foreach($validated['lecturers'] as $lecturerId){
@@ -70,6 +91,7 @@ class AdminCourseController extends Controller
                 $week = CourseWeek::create([
                     'courseId' => $course->id,
                     'weekName' => $weekData['weekName'],
+                    'tutorId' => $weekData['tutorId'],
                 ]);
 
                 if (!empty($weekData['materials'])) {
@@ -90,4 +112,15 @@ class AdminCourseController extends Controller
 
         return redirect()->route('admin.courses.index')->with('success', 'Course berhasil dibuat.');
     }
+
+    public function destroy($id)
+    {
+        $course = Course::findOrFail($id);
+        $course->courseStatus = 'arsip';
+        $course->save();
+
+        return redirect()->route('admin.courses.index')
+                        ->with('success', 'Kursus berhasil diarsipkan.');
+    }
+
 }
