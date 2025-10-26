@@ -182,38 +182,5 @@
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
     }
-
-    .pagination {
-        margin-top: 58px;
-        justify-content: center;
-        align-items: center;
-        gap: 10px;
-    }
-
-    .pagination .page-item .page-link {
-        border: none;
-        color: var(----dark-gray-color);
-        font-size: var(--font-size-normal);
-        background-color: transparent;
-    }
-
-    .pagination .page-item.active .page-link {
-        text-decoration: underline;
-        background-color: transparent;
-        font-weight: 700;
-    }
-
-    .pagination .page-item.next .page-link,
-    .pagination .page-item.prev .page-link{
-        background: var(--yellow-gradient-color);
-        border-radius: 50%;
-        color: black;
-        width: 48px;
-        height: 48px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        box-shadow: box-shadow: 0px 7.571px 15.143px 0px rgba(67, 39, 0, 0.20);
-    }
 </style>
 @endsection

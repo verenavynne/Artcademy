@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('courses', function (Blueprint $table) {
             $table->id();
             $table->string('courseName');
+            $table->string('courseSummary');
             $table->text('courseText');
             $table->string('coursePicture')->nullable();
             $table->enum('courseLevel',['dasar', 'menengah', 'lanjutan']);
@@ -22,6 +23,7 @@ return new class extends Migration
             $table->integer('courseDurationInMinutes')->nullable();
             $table->float('courseReview')->nullable();
             $table->boolean('bookmarked')->nullable();
+            $table->enum('courseStatus',['publikasi','draft','arsip'])->nullable();
             $table->timestamps();
         });
     }
