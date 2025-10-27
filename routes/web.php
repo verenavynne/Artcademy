@@ -39,6 +39,11 @@ Route::middleware(['auth', 'checkRole:admin'])->prefix('/admin')->group(function
     })->name('admin.home');
 
     Route::resource('/courses', AdminCourseController::class)->names('admin.courses');
+
+    Route::post('/courses/draft', [AdminCourseController::class, 'draftCourseInformation'])->name('admin.courses.draftCourseInformation');
+    Route::post('/courses/{course}/save-syllabus', [AdminCourseController::class, 'saveSyllabus'])->name('admin.courses.saveSyllabus');
+    Route::get('/courses/{course}/syllabus', [AdminCourseController::class, 'syllabus'])->name('admin.courses.syllabus');
+
 });
 
 
