@@ -129,6 +129,12 @@
         -webkit-text-fill-color: transparent;
     }
 
+    .text-orange-gradient {
+        background: var(--orange-gradient-color);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+
     /* form input */
     .custom-input {
         background-color: var(--very-light-grey-color);

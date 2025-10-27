@@ -95,7 +95,7 @@
                     </a>
                 </div>
                  <div class="course-level-text-container" style="background: {{ $backgroundCourseLevel }}">
-                    <p class="course-level-text" style="background: {{ $backgroundCourseLevelText }}; margin: 0; background-clip: text; font-weight: 700; font-size:var(--font-size-small)">Level Dasar</p>
+                    <p class="course-level-text" style="background: {{ $backgroundCourseLevelText }}; margin: 0; background-clip: text; font-weight: 700; font-size:var(--font-size-small)">Level {{ ucfirst($course->courseLevel) }}</p>
                 </div>
 
                 <div class="d-flex flex-row align-items-center" style="gap:5px">

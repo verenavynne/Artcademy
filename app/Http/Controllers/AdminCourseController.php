@@ -38,10 +38,22 @@ class AdminCourseController extends Controller
     public function create()
     {
         $lecturers = Lecturer::with('user')->get(); 
-        return view('admin.course-create', compact('lecturers'));
+        return view('admin.courses.create', compact('lecturers'));
     }
 
-    public function store(Request $request)
+    public function syllabus(Course $course)
+    {
+        $courseLecturers = CourseLecturer::with('lecturer.user')
+            ->where('courseId', $course->id)
+            ->get();
+
+        return view('admin.courses.syllabus', [
+            'course' => $course,
+            'tutors' => $courseLecturers,
+        ]);
+    }
+
+    public function draftCourseInformation(Request $request)
     {
         $validated = $request->validate([
             'courseName' => 'required|string|max:255',
@@ -50,18 +62,6 @@ class AdminCourseController extends Controller
             'courseLevel' => 'required|in:dasar,menengah,lanjutan',
             'courseType' => 'required|in:Seni Tari,Seni Musik,Seni Fotografi,Seni Lukis & Digital Art',
             'coursePaymentType' => 'required|in:gratis,berbayar',
-            'courseDurationInMinutes' => 'required|integer|min:1',
-            'coursePicture' => 'nullable|image',
-            'weeks' => 'array',
-            'weeks.*.weekName' => 'required|string|max:255',
-            'weeks.*.materials' => 'array',
-            'weeks.*.tutorId' => 'required|exists:lecturers,id',
-            'weeks.*.materials.*.materiName' => 'required|string|max:255',
-            'weeks.*.materials.*.articleName' => 'nullable|string|max:255',
-            'weeks.*.materials.*.articleText' => 'nullable|string',
-            'weeks.*.materials.*.vblName' => 'nullable|string|max:255',
-            'weeks.*.materials.*.vblDesc' => 'nullable|string',
-            'weeks.*.materials.*.vblUrl' => 'nullable|string|max:255',
             'lecturers' => 'required|array',
             'lecturers.*' => 'exists:lecturers,id',
         ]);
@@ -72,11 +72,10 @@ class AdminCourseController extends Controller
             'courseText' => $validated['courseText'],
             'courseLevel' => $validated['courseLevel'],
             'courseType' => $validated['courseType'],
-            'coursePicture' => 'assets/course/course_default_picture.png',
             'coursePaymentType' => $validated['coursePaymentType'],
-            'courseDurationInMinutes' => $validated['courseDurationInMinutes'],
+            'coursePicture' => 'assets/course/course_default_picture.png',
+            'courseStatus' => 'draft',
             'courseReview' => 4.9,
-            'courseStatus' => 'publikasi',
         ]);
 
         foreach($validated['lecturers'] as $lecturerId){
@@ -86,31 +85,58 @@ class AdminCourseController extends Controller
             ]);
         }
 
-        if (!empty($validated['weeks'])) {
-            foreach ($validated['weeks'] as $weekData) {
-                $week = CourseWeek::create([
-                    'courseId' => $course->id,
-                    'weekName' => $weekData['weekName'],
-                    'tutorId' => $weekData['tutorId'],
-                ]);
+        return redirect()->route('admin.courses.syllabus', $course->id);
+    }
 
-                if (!empty($weekData['materials'])) {
-                    foreach ($weekData['materials'] as $materiData) {
-                        CourseMateri::create([
-                            'weekId' => $week->id,
-                            'materiName' => $materiData['materiName'],
-                            'articleName' => $materiData['articleName'] ?? null,
-                            'articleText' => $materiData['articleText'] ?? null,
-                            'vblName' => $materiData['vblName'] ?? null,
-                            'vblDesc' => $materiData['vblDesc'] ?? null,
-                            'vblUrl' => $materiData['vblUrl'] ?? null,
-                        ]);
-                    }
+    public function saveSyllabus(Request $request, Course $course)
+    {
+        $this->draftSyllabus($request, $course);
+
+        if ($request->action === 'publish') {
+            $course->update(['courseStatus' => 'publikasi']);
+            return redirect()->route('admin.courses.index')->with('success', 'Course berhasil dipublikasikan.');
+        }
+
+        return redirect()->route('admin.courses.index')
+                        ->with('success', 'Course berhasil dipublikasikan.');
+    }
+
+    private function draftSyllabus(Request $request, Course $course)
+    {
+        $validated = $request->validate([
+            'weeks' => 'array',
+            'weeks.*.weekName' => 'required|string|max:255',
+            'weeks.*.tutorId' => 'required|exists:lecturers,id',
+            'weeks.*.materials' => 'array',
+            'weeks.*.materials.*.materiName' => 'required|string|max:255',
+            'weeks.*.materials.*.articleName' => 'nullable|string|max:255',
+            'weeks.*.materials.*.articleText' => 'nullable|string',
+            'weeks.*.materials.*.vblName' => 'nullable|string|max:255',
+            'weeks.*.materials.*.vblDesc' => 'nullable|string',
+            'weeks.*.materials.*.vblUrl' => 'nullable|string|max:255',
+        ]);
+
+        $course->weeks()->delete();
+
+        foreach ($validated['weeks'] as $weekData) {
+            $week = $course->weeks()->create([
+                'weekName' => $weekData['weekName'],
+                'tutorId' => $weekData['tutorId'],
+            ]);
+
+            if (!empty($weekData['materials'])) {
+                foreach ($weekData['materials'] as $materiData) {
+                    $week->materials()->create([
+                        'materiName' => $materiData['materiName'],
+                        'articleName' => $materiData['articleName'] ?? null,
+                        'articleText' => $materiData['articleText'] ?? null,
+                        'vblName' => $materiData['vblName'] ?? null,
+                        'vblDesc' => $materiData['vblDesc'] ?? null,
+                        'vblUrl' => $materiData['vblUrl'] ?? null,
+                    ]);
                 }
             }
         }
-
-        return redirect()->route('admin.courses.index')->with('success', 'Course berhasil dibuat.');
     }
 
     public function destroy($id)
