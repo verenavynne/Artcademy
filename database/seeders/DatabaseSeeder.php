@@ -26,7 +26,8 @@ class DatabaseSeeder extends Seeder
             CourseMateriSeeder::class,
             CourseWeekSeeder::class,
             ZoomSeeder::class,
-            ToolSeeder::class
+            ToolSeeder::class,
+            MateriToolsSeeder::class
         ]);
     }
 }

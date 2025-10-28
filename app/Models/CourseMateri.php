@@ -15,7 +15,7 @@ class CourseMateri extends Model
     }
 
     public function materiTools(){
-        return $this->hasMany(MateriTool::class,'materiId');
+        return $this->hasMany(MateriTool::class,'materiId')->with('tool');
     }
 
     public function progress(){

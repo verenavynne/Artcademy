@@ -16,16 +16,16 @@ class CourseLecturerSeeder extends Seeder
     public function run(): void
     {
         $mapping = [
-            'tari' => 'Seni Tari',
-            'musik' => 'Seni Musik',
-            'fotografi' => 'Seni Fotografi',
-            'lukis' => 'Seni Lukis & Digital Art',
+            'Seni Tari' => 'Seni Tari',
+            'Seni Musik' => 'Seni Musik',
+            'Seni Fotografi' => 'Seni Fotografi',
+            'Seni Lukis & Digital Art' => 'Seni Lukis & Digital Art',
         ];
 
         $lecturers = Lecturer::all();
 
         foreach ($lecturers as $lecturer) {
-            $specialization = strtolower(trim($lecturer->specialization));
+            $specialization = trim($lecturer->specialization);
             $courseType = $mapping[$specialization] ?? null;
 
             if (!$courseType) continue;
@@ -33,11 +33,13 @@ class CourseLecturerSeeder extends Seeder
             $courses = Course::where('courseType', $courseType)->get();
 
             foreach ($courses as $course) {
-                CourseLecturer::firstOrCreate([
+                $created = CourseLecturer::firstOrCreate([
                     'lecturerId' => $lecturer->id,
                     'courseId' => $course->id,
                 ]);
+                $this->command->info('Created: ' . $created->id);
             }
         }
+
     }
 }

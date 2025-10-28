@@ -30,6 +30,13 @@
         font-family: 'Afacad', sans-serif;
     }
 
+    /* For disabled item */
+    [aria-disabled="true"] {
+        opacity: 0.5;
+        pointer-events: none; 
+        cursor: not-allowed;  
+    }
+
     /* navbar */
     .nav-link {
         position: relative;

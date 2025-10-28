@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\CourseDetailController;
+use App\Http\Controllers\CourseEnrollmentController;
+use App\Http\Controllers\CourseWeekController;
 use App\Http\Controllers\ZoomController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\GoogleController;
@@ -50,10 +52,10 @@ Route::middleware(['auth', 'checkRole:admin'])->prefix('/admin')->group(function
 Route::get('/course', [CourseController::class, 'index']
 )->name('course');
 
-Route::get('/course/{id}', [CourseDetailController::class, 'show'])
+Route::get('/course/{id}', [CourseController::class, 'showCourseDetail'])
     ->name('course.detail');
 
-Route::post('/course/{id}/enroll', [CourseDetailController::class, 'store'])
+Route::post('/course/{id}/enroll', [CourseEnrollmentController::class, 'createEnrollment'])
     ->name('course.enroll')
     ->middleware('auth');
 
@@ -64,4 +66,13 @@ Route::post('/zoom/{id}/register', [ZoomController::class, 'register'])
 Route::get('/course-week', function() {
     return view('Artcademy.course-week-vbl');
 })->name('course-week');
+
+Route::get('/course/{courseId}/week/start', [CourseWeekController::class, 'startWeek'])
+    ->name('course.startWeek');
+
+Route::get('/course/week/{weekId}/materi/{materiId}', [CourseWeekController::class, 'showMateri'])
+    ->name('course.showMateri');
+
+Route::post('/materi/{materiId}/complete', [CourseWeekController::class, 'completeMateri'])
+->name('materi.complete');
 
