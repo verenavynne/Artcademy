@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Course;
+use App\Models\CourseLecturer;
 use App\Models\CourseWeek;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -42,14 +43,29 @@ class CourseWeekSeeder extends Seeder
         ];
 
         foreach (Course::all() as $course) {
-            if (isset($weeks[$course->courseType])) {
-                foreach ($weeks[$course->courseType] as $weekName) {
-                    CourseWeek::create([
-                        'courseId' => $course->id,
-                        'weekName' => $weekName
-                    ]);
-                }
+            if (!isset($weeks[$course->courseType])) {
+                continue;
             }
-        }
+
+            $tutors = CourseLecturer::where('courseId', $course->id)->get();
+
+            if ($tutors->isEmpty()) {
+                continue;
+            }
+
+            foreach ($weeks[$course->courseType] as $weekName) {
+                $tutor = $tutors->random();
+
+                CourseWeek::firstOrCreate([
+                    'courseId' => $course->id,
+                    'weekName' => $weekName,
+                ], [
+                    'tutorId'  => $tutor->id,
+                ]);
+            }
+        };
+
+        $this->command->info('CourseWeekSeeder completed');
+
     }
 }

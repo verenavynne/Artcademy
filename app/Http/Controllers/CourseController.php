@@ -3,7 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Course;
+use App\Models\CourseEnrollment;
+use App\Models\StudentMateriProgress;
+use App\Models\StudentWeekProgress;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class CourseController extends Controller
 {
@@ -91,5 +95,51 @@ class CourseController extends Controller
         }
 
         return view('Artcademy.course', compact('type', 'search', 'dasarCourses', 'menengahCourses', 'lanjutanCourses', 'courses'));
+    }
+
+    public function showCourseDetail($id)
+    {
+        $course = Course::with(['courseLecturers.lecturer.user', 'weeks.materials', 'zooms'])
+                        ->findOrFail($id);
+
+        $otherCourses = Course::where('id', '!=', $id)
+        ->inRandomOrder()
+        ->take(6)
+        ->with(['courseLecturers.lecturer.user'])
+        ->get();
+
+        $enrolledCourse = Course::with(['courseEnrollments'])->findOrFail($id);
+        $isEnrolled = false;
+        if(Auth::check()){
+            $isEnrolled = $enrolledCourse->courseEnrollments()
+            ->where('studentId', Auth::id())
+            ->exists();
+        }
+
+        $isEnrolled = false;
+        $weekProgress = collect();
+        $materiProgress = collect();
+        $enrollment = null;
+
+        if (Auth::check()) {
+            $user = Auth::user();
+            $enrollment = CourseEnrollment::where('courseId', $id)
+                ->where('studentId', $user->id)
+                ->first();
+
+            if ($enrollment) {
+                $isEnrolled = true;
+
+                $weekProgress = StudentWeekProgress::where('courseEnrollmentId', $enrollment->id)
+                    ->get()
+                    ->keyBy('weekId');
+
+                $materiProgress = StudentMateriProgress::where('courseEnrollmentId', $enrollment->id)
+                    ->get()
+                    ->keyBy('materiId');
+            }
+        }
+
+        return view('Artcademy.course-detail', compact('course','otherCourses', 'isEnrolled', 'weekProgress', 'materiProgress', 'enrollment'));
     }
 }

@@ -29,7 +29,7 @@ class ToolSeeder extends Seeder
             // 💃 Seni Tari
             [
                 'toolsName' => 'Dance Shoes',
-                'toolsPicture' => 'assets/tools/dance_shoes.png',
+                'toolsPicture' => 'assets/tools/dance_shoes.jpg',
                 'toolsType' => 'Seni Tari',
             ],
 
@@ -60,6 +60,9 @@ class ToolSeeder extends Seeder
 
         foreach ($tools as $tool) {
             Tool::create($tool);
-        }
+        };
+
+        $this->command->info('ToolSeeder completed');
+
     }
 }

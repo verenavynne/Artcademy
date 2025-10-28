@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Course;
+use App\Models\CourseLecturer;
 use App\Models\Zoom;
 use Carbon\Carbon;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -89,16 +90,30 @@ class ZoomSeeder extends Seeder
         foreach (Course::all() as $course) {
             $type = $course->courseType;
 
-            if (isset($zoomTemplates[$type])) {
-                foreach ($zoomTemplates[$type] as $zoom) {
-                    Zoom::create([
+            $tutors = CourseLecturer::where('courseId', $course->id)->get();
+
+            if ($tutors->isEmpty() || !isset($zoomTemplates[$type])) {
+                continue;
+            }
+
+            foreach ($zoomTemplates[$type] as $zoom) {
+                $tutor = $tutors->random();
+
+                Zoom::firstOrCreate(
+                    [
                         'courseId' => $course->id,
                         'zoomName' => $zoom['zoomName'],
+                    ],
+                    [
+                        'tutorId'  => $tutor->id,
                         'zoomDate' => Carbon::parse($zoom['zoomDate']),
                         'zoomLink' => $zoom['zoomLink'],
-                    ]);
-                }
+                    ]
+                );
             }
-        }
+        };
+
+        $this->command->info('ZoomSeeder completed');
+
     }
 }

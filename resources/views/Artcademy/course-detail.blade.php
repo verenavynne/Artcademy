@@ -143,11 +143,15 @@
                                     <div class="materi-line d-flex flex-row">
                                         <div class="materi-title d-flex flex-row align-items-center">
                                             <div class="materi-number"><p>{{ $index + 1 }}</p></div>
-                                            <p>{{ $material->materiName }}</p>
+                                            @if ($material->vblName !== null)
+                                                <p>{{ $material->vblName }}</p>
+                                            @elseif ($material->articleName !== null)
+                                                <p>{{ $material->articleName}}</p>
+                                            @endif
                                         </div>
             
                                         <div class="materi-icon d-flex flex-row">
-                                             @if ($material->vblName !== null)
+                                            @if ($material->vblName !== null)
                                                 <img src="{{ asset('assets/icons/icon_video.svg') }}" width="24" height="24">
                                                 <p>Video</p>
                                             @elseif ($material->articleName !== null)
@@ -258,30 +262,40 @@
             </div>
 
             <hr class="divider">
-            <div class="related-courses-section d-flex flex-column">
-                <p class="title text-start fw-bold">Lihat Juga Kelas Lainnya</p>
-                <div class="position-relative">
 
-                    <button id="scrollLeft" class="carousel-btn left-btn">
-                        <img src="{{ asset('assets/icons/icon_pagination_before.svg') }}" alt="Left Arrow">
-                    </button>
-
-                    <div class="related-courses d-flex overflow-auto gap-4 pb-3" style="scroll-behavior: smooth;">
-                        @foreach ($otherCourses as $otherCourse)
-                             @include('components.course-card', ['course' => $otherCourse])
-                        @endforeach
-                    </div>
-
-                    <button id="scrollRight" class="carousel-btn right-btn">
-                        <img src="{{ asset('assets/icons/icon_pagination_next.svg') }}" alt="Right Arrow">
-                    </button>
-
-                </div>
-            </div>
+            <!-- Carousel course card -->
+            @include('components.other-course-carousel')
+            
         </div>
+
         <!-- Sisi Kanan -->
         <div class="d-flex justify-content-center" style="width: 40%;">
-            @include('components.course-benefit-card')
+            @if (Auth::check())
+                @if($isEnrolled)
+                    @php
+                        $unlockedWeeks = $course->weeks->filter(function($week) use ($weekProgress) {
+                            $progress = $weekProgress[$week->id] ?? null;
+                            return $progress && $progress->status === 'unlocked';
+                        });
+
+                        $latestUnlockedWeek = $unlockedWeeks->last();
+                    @endphp
+
+                    @if ($latestUnlockedWeek)
+                        @include('components.course-week-start-progress-card', [
+                            'week' => $latestUnlockedWeek,
+                            'index' => $loop->index ?? 0,
+                            'weekProgress' => $weekProgress,
+                            'materiProgress' => $materiProgress
+                        ])
+                    @endif
+                    
+                @else
+                    @include('components.course-benefit-card')
+                @endif
+            @else
+                @include('components.course-benefit-card')
+            @endif
 
         </div>
 
@@ -456,43 +470,7 @@
         text-decoration: none;
     }
 
-    .related-courses-section {
-        background: #FFF9F0;
-        padding: 30px;
-        border-radius: 20px;
-        position: relative;
-    }
-
-    .related-courses::-webkit-scrollbar {
-        display: none;
-    }
-
-    .carousel-btn {
-        background: var(--yellow-gradient-color);
-        border-radius: 50%;
-        color: black;
-        width: 48px;
-        height: 48px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        box-shadow: 0px 7.571px 15.143px 0px rgba(67, 39, 0, 0.20);
-        position: absolute;
-        top: 40%;
-        transform: translateY(-50%);
-        border: none;
-        cursor: pointer;
-        transition: all 0.3s ease;
-        z-index: 5;
-    }
-
-    .left-btn {
-        left: -20px;
-    }
-
-    .right-btn {
-        right: -20px;
-}
+    
 </style>
 
 @endsection
@@ -526,18 +504,6 @@ document.addEventListener("DOMContentLoaded", function() {
     if (firstButton) {
         firstButton.classList.add("active");
     }
-    
-    const scrollContainer = document.querySelector('.related-courses');
-    const scrollLeftBtn = document.getElementById('scrollLeft');
-    const scrollRightBtn = document.getElementById('scrollRight');
-
-    scrollLeftBtn.addEventListener('click', () => {
-        scrollContainer.scrollBy({ left: -400, behavior: 'smooth' });
-    });
-
-    scrollRightBtn.addEventListener('click', () => {
-        scrollContainer.scrollBy({ left: 400, behavior: 'smooth' });
-    });
 });
 
 

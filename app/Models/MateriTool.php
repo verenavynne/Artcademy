@@ -10,7 +10,7 @@ class MateriTool extends Model
 
     protected $fillable=['materiId','toolId'];
 
-     public function materi()
+    public function materi()
     {
         return $this->belongsTo(CourseMateri::class, 'materiId');
     }
