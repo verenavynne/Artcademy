@@ -35,7 +35,6 @@ class MateriToolsSeeder extends Seeder
             }
         };
 
-        $this->command->info('MateriToolsSeeder completed');
 
     }
 }

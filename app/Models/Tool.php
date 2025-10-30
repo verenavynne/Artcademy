@@ -13,4 +13,8 @@ class Tool extends Model
     public function materials(){
         return $this->hasMany(MateriTool::class,'toolId');
     }
+
+    public function projects(){
+        return $this->hasMany(Project::class,'toolId');
+    }
 }

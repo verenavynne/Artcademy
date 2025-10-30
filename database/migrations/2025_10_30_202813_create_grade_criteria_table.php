@@ -11,12 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('projects', function (Blueprint $table) {
+        Schema::create('grade_criteria', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('courseId')->constrained('courses')->onDelete('cascade');
-            $table->string('projectName');
-            $table->text('projectConcept')->nullable();
-            $table->text('projectRequirement')->nullable();
+            $table->string('criteriaName');
+            $table->integer('criteriaWeight')->nullable();
             $table->timestamps();
         });
     }
@@ -26,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('projects');
+        Schema::dropIfExists('grade_criteria');
     }
 };

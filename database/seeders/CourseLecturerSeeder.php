@@ -37,7 +37,6 @@ class CourseLecturerSeeder extends Seeder
                     'lecturerId' => $lecturer->id,
                     'courseId' => $course->id,
                 ]);
-                $this->command->info('Created: ' . $created->id);
             }
         }
 

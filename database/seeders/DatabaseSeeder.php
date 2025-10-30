@@ -23,11 +23,16 @@ class DatabaseSeeder extends Seeder
          $this->call([
             CourseSeeder::class,
             CourseLecturerSeeder::class,
-            CourseMateriSeeder::class,
             CourseWeekSeeder::class,
+            CourseMateriSeeder::class,
             ZoomSeeder::class,
             ToolSeeder::class,
-            MateriToolsSeeder::class
+            MateriToolsSeeder::class,
+            GradeCriteriaSeeder::class,
+            ProjectSeeder::class,
+            ProjectCriteriaSeeder::class,
+            ProjectToolSeeder::class
+
         ]);
     }
 }

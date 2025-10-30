@@ -76,3 +76,7 @@ Route::get('/course/week/{weekId}/materi/{materiId}', [CourseWeekController::cla
 Route::post('/materi/{materiId}/complete', [CourseWeekController::class, 'completeMateri'])
 ->name('materi.complete');
 
+Route::get('/project-submission', function () {
+    return view('Artcademy.course-project-submission');
+})->name('course.project');
+

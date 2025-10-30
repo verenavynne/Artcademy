@@ -65,7 +65,5 @@ class CourseWeekSeeder extends Seeder
             }
         };
 
-        $this->command->info('CourseWeekSeeder completed');
-
     }
 }

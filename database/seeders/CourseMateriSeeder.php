@@ -639,7 +639,5 @@ class CourseMateriSeeder extends Seeder
             }
         };
 
-        $this->command->info('CourseMateriSeeder completed');
-
     }
 }

@@ -143,11 +143,6 @@
         color: var(--dark-gray-color);
     }
 
-    .progress-checkbox{
-        height: 18px;
-        width: 18px;
-    }
-
     .progress-duration{
         margin: 0;
         font-size: var(--font-size-tiny);
