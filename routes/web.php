@@ -73,11 +73,12 @@ Route::middleware(['auth', 'checkRole:admin'])->prefix('/admin')->group(function
         return view('admin.home');
     })->name('admin.home');
 
-    Route::resource('/courses', AdminCourseController::class)->names('admin.courses');
+    Route::resource('/courses', AdminCourseController::class)->except(['show'])->names('admin.courses');
 
+    Route::post('/courses/temp-store', [AdminCourseController::class, 'tempStore'])->name('admin.courses.tempStore');
     Route::post('/courses/draft', [AdminCourseController::class, 'draftCourseInformation'])->name('admin.courses.draftCourseInformation');
-    Route::post('/courses/{course}/save-syllabus', [AdminCourseController::class, 'saveSyllabus'])->name('admin.courses.saveSyllabus');
-    Route::get('/courses/{course}/syllabus', [AdminCourseController::class, 'syllabus'])->name('admin.courses.syllabus');
+    Route::post('/courses/save-syllabus', [AdminCourseController::class, 'saveSyllabus'])->name('admin.courses.saveSyllabus');
+    Route::get('/courses/syllabus', [AdminCourseController::class, 'syllabus'])->name('admin.courses.syllabus');
 
 });
 

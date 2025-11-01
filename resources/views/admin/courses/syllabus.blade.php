@@ -34,7 +34,7 @@
         </div>
     </div>
 
-    <form action="{{ route('admin.courses.saveSyllabus', $course->id) }}" method="POST">
+    <form action="{{ route('admin.courses.saveSyllabus') }}" method="POST">
         @csrf
         <!-- Accordion Mingguan -->
         <div class="accordion" id="weekAccordion"></div>
