@@ -62,7 +62,5 @@ class ToolSeeder extends Seeder
             Tool::create($tool);
         };
 
-        $this->command->info('ToolSeeder completed');
-
     }
 }

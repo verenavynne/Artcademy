@@ -113,7 +113,5 @@ class ZoomSeeder extends Seeder
             }
         };
 
-        $this->command->info('ZoomSeeder completed');
-
     }
 }
