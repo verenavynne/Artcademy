@@ -53,9 +53,15 @@
     gap: 10px;
     border-radius: 100px;
     background: #FFF;
+    transition: all 0.2s ease;
 
     /* drop shadow brown */
     box-shadow: 0 4px 8px 0 rgba(67, 39, 0, 0.20);
+}
+
+.notif-icon:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(67, 39, 0, 0.2);
 }
 
 .profil{

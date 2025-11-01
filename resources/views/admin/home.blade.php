@@ -3,39 +3,66 @@
 @section('content')
 <div class="container-fluid">
   <div class="d-flex justify-content-between align-items-center mb-4">
-    <h4 class="fw-semibold">Selamat Pagi, Farren!</h4>
-    <div>
-      <button class="btn btn-warning me-2"><i class="fa-solid fa-plus me-1"></i> Tambah Kursus</button>
-      <button class="btn btn-outline-warning"><i class="fa-solid fa-calendar-plus me-1"></i> Tambah Event</button>
+    <h4 class="fw-semibold" style="font-size: 32px">Selamat Pagi, Farren!</h4>
+    <div class="tambah-kursus-event">
+
+      <button class="btn-tambah">
+        <span class="icon-circle-kursus">
+          <iconify-icon icon="ic:round-plus" class="tambah-icon"></iconify-icon>
+        </span>
+        Tambah Kursus
+      </button>
+
+      <button class="btn-tambah">
+        <span class="icon-circle-event">
+          <iconify-icon icon="ic:round-plus" class="tambah-icon"></iconify-icon>
+        </span>
+        Tambah Event
+      </button>
+
     </div>
   </div>
 
   <div class="row g-4 mb-4">
-    <div class="col-md-4">
-      <div class="card shadow-sm border-0 text-center p-3">
-        <i class="fa-solid fa-user text-warning fs-3 mb-2"></i>
-        <h6>Total Pengguna</h6>
-        <h3 class="fw-bold mb-0">2.525</h3>
+
+    <div class="total-pengguna col-md-4">
+      <div class="card border-0 text-center p-3">
+        <div class="icon-text">
+        <iconify-icon icon="fluent:person-12-filled" class="total-icon"></iconify-icon>
+        <h6 style="font-size: 18px; color: var(--Black, #1B1B1B); font-weight: 400;">Total Pengguna</h6>
+        </div>
+        <h3 class="fw-bold mb-0" style="font-size: 50px; color: var(--Black, #1B1B1B);">2.525</h3>
       </div>
     </div>
-    <div class="col-md-4">
-      <div class="card shadow-sm border-0 text-center p-3">
-        <i class="fa-solid fa-book text-warning fs-3 mb-2"></i>
-        <h6>Total Kursus</h6>
-        <h3 class="fw-bold mb-0">1.365</h3>
+
+    <div class="total-kursus col-md-4">
+      <div class="card border-0 text-center p-3">
+        <div class="icon-text">
+        <iconify-icon icon="mingcute:book-2-fill" class="total-icon"></iconify-icon>
+        <h6 style="font-size: 18px; color: var(--Black, #1B1B1B); font-weight: 400;">Total Kursus</h6>
+        </div>
+        <h3 class="fw-bold mb-0" style="font-size: 50px; color: var(--Black, #1B1B1B);">1.365</h3>
       </div>
     </div>
-    <div class="col-md-4">
-      <div class="card shadow-sm border-0 text-center p-3">
-        <i class="fa-solid fa-calendar text-warning fs-3 mb-2"></i>
-        <h6>Total Event</h6>
-        <h3 class="fw-bold mb-0">200</h3>
+
+    <div class="total-event col-md-4">
+      <div class="card border-0 text-center p-3">
+        <div class="icon-text">
+        <iconify-icon icon="bxs:calendar" class="total-icon"></iconify-icon>
+        <h6 style="font-size: 18px; color: var(--Black, #1B1B1B); font-weight: 400;">Total Event</h6>
+        </div>
+        <h3 class="fw-bold mb-0" style="font-size: 50px; color: var(--Black, #1B1B1B);">200</h3>
       </div>
     </div>
+
   </div>
 
   <div class="table-responsive table-custom p-3">
-    <h6 class="fw-semibold mb-3">Laporan Forum</h6>
+    <div style="align-items: flex-start; gap: 4px;">
+      <iconify-icon icon="ic:round-report-problem" class="total-icon"></iconify-icon>
+      <h6 class="mb-3" style="font-size: 18px; color: var(--Black, #1B1B1B); font-weight: 400;">Laporan Forum</h6>
+    </div>
+
     <table class="table">
       <thead>
         <tr>

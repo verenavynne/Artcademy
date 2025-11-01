@@ -113,10 +113,11 @@
         font-weight: 500;
         display: flex;
         align-items: center;
-        padding: 8px 12px;
+        padding: 12px 12px 12px 12px; 
         border-radius: 10px;
         transition: all 0.25s ease-in-out;
         text-decoration: none !important;
+        width: 100%;
     }
 
     .nav-link-admin::after {
