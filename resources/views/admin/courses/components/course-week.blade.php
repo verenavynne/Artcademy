@@ -24,7 +24,7 @@
                     class="form-select border-0 rounded-pill shadow-sm px-3 py-2 bg-light-subtle custom-input" required>
                     <option value="" disabled selected>Pilih tutor minggu ini</option>
                     @foreach($tutors as $tutor)
-                        <option value="{{ $tutor->lecturerId }}">{{ $tutor->lecturer->user->name }}</option>
+                        <option value="{{ $tutor->id }}">{{ $tutor->user->name }}</option>
                     @endforeach
                 </select>
             </div>

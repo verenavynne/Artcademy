@@ -41,17 +41,50 @@ class AdminCourseController extends Controller
         return view('admin.courses.create', compact('lecturers'));
     }
 
+    public function edit($id)
+    {
+        $course = Course::findOrFail($id);
+        $lecturers = Lecturer::with('user')->get(); 
+        $courseLecturers = CourseLecturer::where('courseId', $id)->pluck('lecturerId')->toArray();
+
+        return view('admin.courses.edit', compact('course', 'lecturers', 'courseLecturers'));
+    }
+
     public function syllabus(Course $course)
     {
-        $courseLecturers = CourseLecturer::with('lecturer.user')
-            ->where('courseId', $course->id)
-            ->get();
+        $tempCourse = session('temp_course');
+
+        if (!$tempCourse) {
+            return redirect()->route('admin.courses.create')->with('error', 'Isi informasi kursus terlebih dahulu.');
+        }
+
+        $courseLecturers = Lecturer::whereIn('id', $tempCourse['lecturers'])->with('user')->get();
+
 
         return view('admin.courses.syllabus', [
-            'course' => $course,
+            'course' => null,
             'tutors' => $courseLecturers,
         ]);
     }
+
+    public function tempStore(Request $request)
+    {
+        $validated = $request->validate([
+            'courseName' => 'required|string|max:255',
+            'courseSummary' => 'required|string|max:255',
+            'courseText' => 'required',
+            'courseLevel' => 'required|in:dasar,menengah,lanjutan',
+            'courseType' => 'required|in:Seni Tari,Seni Musik,Seni Fotografi,Seni Lukis & Digital Art',
+            'coursePaymentType' => 'required|in:gratis,berbayar',
+            'lecturers' => 'required|array',
+            'lecturers.*' => 'exists:lecturers,id',
+        ]);
+
+        session(['temp_course' => $validated]);
+
+        return redirect()->route('admin.courses.syllabus');
+    }
+
 
     public function draftCourseInformation(Request $request)
     {
@@ -85,11 +118,36 @@ class AdminCourseController extends Controller
             ]);
         }
 
-        return redirect()->route('admin.courses.syllabus', $course->id);
+        return redirect()->route('admin.courses.index');
     }
 
     public function saveSyllabus(Request $request, Course $course)
     {
+        $tempCourse = session('temp_course');
+
+        if (!$tempCourse) {
+            return redirect()->route('admin.courses.create')->with('error', 'Data kursus tidak ditemukan di session.');
+        }
+
+        $course = Course::create([
+            'courseName' => $tempCourse['courseName'],
+            'courseSummary' => $tempCourse['courseSummary'],
+            'courseText' => $tempCourse['courseText'],
+            'courseLevel' => $tempCourse['courseLevel'],
+            'courseType' => $tempCourse['courseType'],
+            'coursePaymentType' => $tempCourse['coursePaymentType'],
+            'coursePicture' => 'assets/course/course_default_picture.png',
+            'courseStatus' => 'draft',
+            'courseReview' => 4.9,
+        ]);
+
+        foreach ($tempCourse['lecturers'] as $lecturerId) {
+            CourseLecturer::create([
+                'courseId' => $course->id,
+                'lecturerId' => $lecturerId
+            ]);
+        }
+
         $this->draftSyllabus($request, $course);
 
         if ($request->action === 'publish') {
@@ -98,7 +156,7 @@ class AdminCourseController extends Controller
         }
 
         return redirect()->route('admin.courses.index')
-                        ->with('success', 'Course berhasil dipublikasikan.');
+                        ->with('success', 'Course berhasil disimpan di draft.');
     }
 
     private function draftSyllabus(Request $request, Course $course)
@@ -137,6 +195,39 @@ class AdminCourseController extends Controller
                 }
             }
         }
+    }
+
+    public function update(Request $request, $id)
+    {
+        $course = Course::findOrFail($id);
+
+        $validated = $request->validate([
+            'courseName' => 'required|string|max:255',
+            'courseSummary' => 'required|string|max:255',
+            'courseText' => 'required',
+            'courseLevel' => 'required|in:dasar,menengah,lanjutan',
+            'courseType' => 'required|in:Seni Tari,Seni Musik,Seni Fotografi,Seni Lukis & Digital Art',
+            'coursePaymentType' => 'required|in:gratis,berbayar',
+            'lecturers' => 'required|array',
+            'lecturers.*' => 'exists:lecturers,id',
+        ]);
+
+        $course->update([
+            'courseName' => $validated['courseName'],
+            'courseSummary' => $validated['courseSummary'],
+            'courseText' => $validated['courseText'],
+            'courseLevel' => $validated['courseLevel'],
+            'courseType' => $validated['courseType'],
+            'coursePaymentType' => $validated['coursePaymentType'],
+            'coursePicture' => 'assets/course/course_default_picture.png',
+        ]);
+
+        if ($request->has('lecturers')) {
+            $course->lecturers()->sync($request->lecturers);
+        }
+
+        return redirect()->route('admin.courses.editSyllabus', $course->id)
+            ->with('success', 'Informasi kursus berhasil diperbarui.');
     }
 
     public function destroy($id)

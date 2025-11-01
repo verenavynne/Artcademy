@@ -33,6 +33,7 @@
     </div>
 </template>
 
+<script src="https://cdn.tiny.cloud/1/2er11i2hdiuvi67l797urfnb807szvxxzzrsxu79b1qgecmu/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
 <script>
 document.addEventListener('click', e => {
     if (e.target.classList.contains('materi-type-radio')) {
@@ -45,8 +46,18 @@ document.addEventListener('click', e => {
         if (type === 'article') {
             html = `
                 <input type="text" name="${baseName}[articleName]" placeholder="Masukkan Judul Artikel" class="form-control mb-2 rounded-pill custom-input">
-                <textarea name="${baseName}[articleText]" placeholder="Masukkan Isi Artikel" class="form-control rounded-pill custom-input"></textarea>
+                <textarea name="${baseName}[articleText]" placeholder="Masukkan Isi Artikel" class="form-control article-textarea"></textarea>
             `;
+            materiContent.innerHTML = html;
+
+            tinymce.init({
+                selector: '.article-textarea',
+                menubar: false,
+                plugins: 'lists link code font fontsize textcolor',
+                toolbar: 'undo redo | bold italic underline | bullist numlist | forecolor | code',
+                height: 300
+            });
+
         } else if (type === 'video') {
             html = `
                 <input type="text" name="${baseName}[vblName]" placeholder="Masukkan Judul Video" class="form-control mb-2 rounded-pill custom-input">
@@ -60,9 +71,8 @@ document.addEventListener('click', e => {
                         style="box-shadow:none; outline:none;">
                 </div>     
             `;
+            materiContent.innerHTML = html; 
         }
-
-        materiContent.innerHTML = html;
     }
 });
 </script>
