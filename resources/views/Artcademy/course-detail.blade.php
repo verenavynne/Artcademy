@@ -177,6 +177,19 @@
 
             <hr class="divider">
 
+            <!-- Projek Akhir -->
+            <div class="projek-section d-flex flex-column">
+                <p class="title text-start fw-bold">Projek Akhir</p>
+                    @include('components.course-project-card',[
+                        'project' => $project,
+                        'projectTools'=>$projectTools,
+                        'projectCriterias' => $projectCriterias
+                        ])
+
+            </div>
+
+            <hr class="divider">
+
             <!-- Tutor Section -->
             <div id="tutor-section" class="tutor-section d-flex flex-column">
                 <p class="title text-start fw-bold">Tutor</p>

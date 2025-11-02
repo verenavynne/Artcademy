@@ -149,26 +149,6 @@ class CourseMateriSeeder extends Seeder
                         'duration' => 10
                     ],
                 ],
-                'Minggu 4: Projek Akhir' => [
-                    [
-                        'materiName' => 'Menyusun Karya Akhir',
-                        'articleName' => 'Langkah Penyusunan Final Artwork',
-                        'articleText' => 'Langkah-langkah menyusun karya concept art final.',
-                        'vblName' => null,
-                        'vblDesc' => null,
-                        'vblUrl' => null,
-                        'duration' => 10
-                    ],
-                    [
-                        'materiName' => 'Presentasi Portofolio',
-                        'articleName' => null,
-                        'articleText' => null,
-                        'vblName' => 'Video Tips Portofolio Profesional',
-                        'vblDesc' => 'Tips membuat portofolio profesional',
-                        'vblUrl' => 'https://youtu.be/1OW1gE_BfJY?si=u0WeSLquxcywOw3J',
-                        'duration' => 10
-                    ],
-                ],
             ],
 
             // 💃 SENI TARI

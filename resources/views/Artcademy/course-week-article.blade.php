@@ -139,10 +139,11 @@ document.addEventListener('DOMContentLoaded', function () {
     const markAsReadBtn = document.getElementById('tandai-sudah-baca-btn');
     const checkbox = document.getElementById('materiCheckbox');
     const lanjutkanBtn = document.getElementById('lanjutkanBtn');
-
+    
     if (!markAsReadBtn || !lanjutkanBtn) return; 
-
+    
     markAsReadBtn.addEventListener('click', function () {
+        console.log('vynn')
         const materiId = this.dataset.materiId;
         const checkbox = document.querySelector(`.materi-checkbox[data-materi-id="${materiId}"]`);
         if (!checkbox) return;

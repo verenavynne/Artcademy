@@ -4,6 +4,8 @@ use App\Http\Controllers\CourseController;
 use App\Http\Controllers\CourseDetailController;
 use App\Http\Controllers\CourseEnrollmentController;
 use App\Http\Controllers\CourseWeekController;
+use App\Http\Controllers\ProjectController;
+use App\Http\Controllers\ProjectSubmissionController;
 use App\Http\Controllers\ZoomController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\GoogleController;
@@ -76,7 +78,7 @@ Route::get('/course/week/{weekId}/materi/{materiId}', [CourseWeekController::cla
 Route::post('/materi/{materiId}/complete', [CourseWeekController::class, 'completeMateri'])
 ->name('materi.complete');
 
-Route::get('/project-submission', function () {
-    return view('Artcademy.course-project-submission');
-})->name('course.project');
+Route::get('/course/{courseId}/project-submission', [ProjectController::class, 'showProject'])->name('course.project');
+Route::post('/project-submission', [ProjectSubmissionController::class, 'submitProject'])->name('projectSubmission.submit');
+
 

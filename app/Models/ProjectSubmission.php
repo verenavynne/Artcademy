@@ -8,7 +8,7 @@ class ProjectSubmission extends Model
 {
     protected $table='project_submissions';
 
-    protected $fillable=['projectId','studentId','projectSubmissionName','projectSubmissionLink','projectSubmissionThumbnail','projectSubmissionDesc','projectSubmissionDate','status','grade'];
+    protected $fillable=['projectId','studentId','projectSubmissionName','projectSubmissionLink','projectSubmissionThumbnail','projectSubmissionDesc','projectSubmissionDate','deadlineSubmission','status','grade'];
 
     // projectSubmissionDate -> date student kumpul project
     // deadlineSubmission -> deadline student harus kumpul project

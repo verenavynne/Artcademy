@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Course;
 use App\Models\CourseEnrollment;
+use App\Models\Project;
+use App\Models\ProjectCriteria;
+use App\Models\ProjectTool;
 use App\Models\StudentMateriProgress;
 use App\Models\StudentWeekProgress;
 use Illuminate\Http\Request;
@@ -140,6 +143,11 @@ class CourseController extends Controller
             }
         }
 
-        return view('Artcademy.course-detail', compact('course','otherCourses', 'isEnrolled', 'weekProgress', 'materiProgress', 'enrollment'));
+        $project = Project::with('course')->firstWhere('courseId', $id);
+        $projectTools = ProjectTool::with('project')->where('projectId', '=', $project->id)->get();
+
+        $projectCriterias = ProjectCriteria::with('project')->where('projectId','=',$project->id)->get();
+
+        return view('Artcademy.course-detail', compact('course','otherCourses', 'isEnrolled', 'weekProgress', 'materiProgress', 'enrollment', 'project', 'projectTools','projectCriterias'));
     }
 }

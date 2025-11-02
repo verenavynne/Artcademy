@@ -96,6 +96,8 @@ class CourseWeekController extends Controller
                     ->keyBy('materiId');
 
                 $isUnlocked = $weekProgress?->status === 'unlocked';
+
+                
             }
         }
 
@@ -162,7 +164,19 @@ class CourseWeekController extends Controller
         );
 
 
-         if ($progressPercent == 100) {
+        $nextMateri = $materi->week->materials
+            ->where('id', '>', $materiId)
+            ->sortBy('id')
+            ->first();
+
+        if ($nextMateri) {
+            return redirect()->route('course.showMateri', [
+                'weekId' => $materi->week->id,
+                'materiId' => $nextMateri->id,
+            ]);
+        }
+
+        if ($progressPercent == 100) {
             $nextWeek = CourseWeek::where('courseId', $materi->week->course->id)
                 ->where('id', '>', $materi->week->id)
                 ->orderBy('id')
@@ -179,24 +193,20 @@ class CourseWeekController extends Controller
                         'progress' => 0,
                     ]
                 );
+
+                $firstMateriNextWeek = $nextWeek->materials()->orderBy('id')->first();
+
+                if ($firstMateriNextWeek) {
+                    return redirect()->route('course.showMateri', [
+                        'weekId' => $nextWeek->id,
+                        'materiId' => $firstMateriNextWeek->id,
+                    ]);
+                }
             }
         }
 
-        $nextMateri = $materi->week->materials
-            ->where('id', '>', $materiId)
-            ->sortBy('id')
-            ->first();
-
-        if ($nextMateri) {
-            return redirect()->route('course.showMateri', [
-                'weekId' => $materi->week->id,
-                'materiId' => $nextMateri->id,
-            ]);
-        }
-
-        return redirect()->route('course.detail', $materi->week->course->id)
-            ->with('success', 'Kamu telah menyelesaikan semua materi di minggu ini!');
+       return redirect()->route('course.project', $materi->week->course->id)
+        ->with('success', 'Kamu telah menyelesaikan semua materi di course ini! Saatnya mengerjakan projek akhir 🎉');
     }
-
 
 }
