@@ -57,16 +57,20 @@
 
   </div>
 
-  <div class="table-responsive table-custom p-3">
-    <div style="align-items: flex-start; gap: 4px;">
-      <iconify-icon icon="ic:round-report-problem" class="total-icon"></iconify-icon>
-      <h6 class="mb-3" style="font-size: 18px; color: var(--Black, #1B1B1B); font-weight: 400;">Laporan Forum</h6>
-    </div>
 
-    <table class="table">
+<div class="table-section">
+  <div class="title-section">
+    <iconify-icon icon="ic:round-report-problem" class="total-icon"></iconify-icon>
+    <h6 style="font-size: 18px; color: var(--Black, #1B1B1B); font-weight: 400">Laporan Forum</h6>
+  </div>
+
+  <hr class="title-divider">
+
+  <div class="table-wrapper">
+    <table class="table align-middle">
       <thead>
         <tr>
-          <th>No</th>
+          <th>No.</th>
           <th>Waktu Dilaporkan</th>
           <th>Nama Pengguna</th>
           <th>Postingan</th>
@@ -75,22 +79,36 @@
           <th>Aksi</th>
         </tr>
       </thead>
-      <tbody>
-        <tr>
-          <td>1</td>
-          <td>06 Juli 2024 . 21:10</td>
-          <td>Farren</td>
-          <td>Lorem ipsum dolor sit amet</td>
-          <td>Felicia</td>
-          <td><span class="badge bg-warning text-dark">Menunggu</span></td>
-          <td>
-            <i class="fa-regular fa-eye me-2 text-secondary"></i>
-            <i class="fa-solid fa-check me-2 text-success"></i>
-            <i class="fa-solid fa-trash text-danger"></i>
-          </td>
-        </tr>
-      </tbody>
     </table>
+
+    <!-- hilangkan <hr class="header-divider"> -->
+
+    <div class="table-body-scroll">
+      <table class="table align-middle">
+        <tbody>
+          <tr><td>1</td><td>01/11/2025</td><td>Andi</td><td>Diskusi Umum</td><td>Budi</td><td><span class="badge-status pending">Menunggu</span></td><td><i class="fa-regular fa-eye"></i></td></tr>
+          <tr><td>2</td><td>01/11/2025</td><td>Citra</td><td>Tips Belajar</td><td>Dian</td><td><span class="badge-status success">Aman</span></td><td><i class="fa-regular fa-eye"></i></td></tr>
+          <tr><td>3</td><td>01/11/2025</td><td>Doni</td><td>Keluhan Sistem</td><td>Eva</td><td><span class="badge-status danger">Dihapus</span></td><td><i class="fa-regular fa-eye"></i></td></tr>
+          <tr><td>4</td><td>01/11/2025</td><td>Fina</td><td>Feedback Aplikasi</td><td>Gina</td><td><span class="badge-status pending">Menunggu</span></td><td><i class="fa-regular fa-eye"></i></td></tr>
+          <tr><td>5</td><td>02/11/2025</td><td>Hadi</td><td>Topik Diskusi</td><td>Ika</td><td><span class="badge-status success">Aman</span></td><td><i class="fa-regular fa-eye"></i></td></tr>
+          <tr><td>6</td><td>02/11/2025</td><td>Joko</td><td>Bug Laporan</td><td>Kiki</td><td><span class="badge-status danger">Dihapus</span></td><td><i class="fa-regular fa-eye"></i></td></tr>
+          <tr><td>7</td><td>02/11/2025</td><td>Lina</td><td>Forum Ide</td><td>Mira</td><td><span class="badge-status pending">Menunggu</span></td><td><i class="fa-regular fa-eye"></i></td></tr>
+          <tr><td>8</td><td>03/11/2025</td><td>Nana</td><td>Post Karya</td><td>Oka</td><td><span class="badge-status success">Aman</span></td><td><i class="fa-regular fa-eye"></i></td></tr>
+          <tr><td>9</td><td>03/11/2025</td><td>Pia</td><td>Diskusi Event</td><td>Rina</td><td><span class="badge-status danger">Dihapus</span></td><td><i class="fa-regular fa-eye"></i></td></tr>
+          <tr><td>10</td><td>03/11/2025</td><td>Seno</td><td>Feedback UX</td><td>Tina</td><td><span class="badge-status pending">Menunggu</span></td><td><i class="fa-regular fa-eye"></i></td></tr>
+        </tbody>
+      </table>
+    </div>
   </div>
+</div>
+
+
+
+
+
+
+
+
+</div>
 </div>
 @endsection

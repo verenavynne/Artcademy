@@ -1,5 +1,12 @@
 <style>
 .table-custom {
+  display: flex;
+  height: auto;
+  padding: 24px 25px;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+  align-self: stretch;
   background-color: white;
   border-radius: 12px;
   overflow: hidden;
