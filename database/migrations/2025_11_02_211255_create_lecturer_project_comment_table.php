@@ -11,11 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('project_criteria', function (Blueprint $table) {
+        Schema::create('lecturer_project_comment', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('projectId')->constrained('projects')->onDelete('cascade');
-            $table->foreignId('criteriaId')->constrained('grade_criteria')->onDelete('cascade');
-            $table->integer('customWeight')->nullable();
+            $table->foreignId('courseLecturerId')->constrained('course_lecturers')->onDelete('cascade');
+            $table->foreignId('projectSubmissionId')->constrained('project_submissions')->onDelete('cascade');
+            $table->text('comment')->nullable();
             $table->timestamps();
         });
     }
@@ -25,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('project_criteria');
+        Schema::dropIfExists('lecturer_project_comment');
     }
 };

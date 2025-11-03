@@ -37,7 +37,7 @@
                 @foreach ($projectCriterias as $projectCriteria)
                 <div class="projek-kriteria-list d-flex flex-row align-items-center gap-1">
                     <img src="{{ asset('assets/icons/icon_checklist_kriteria_nilai.svg') }}" alt="checklist icon" width="16" height="11">
-                    <p>{{$projectCriteria->criteria->criteriaName}} ({{ $projectCriteria->criteria->criteriaWeight }}%)</p>
+                    <p>{{$projectCriteria->criteria->criteriaName}} ({{ $projectCriteria->customWeight }}%)</p>
                 </div>
                 @endforeach
             </div>
@@ -81,15 +81,13 @@
     }
 
     .projek-content{
-         max-height: 0;
-        overflow: hidden;
-        opacity: 0;
+        max-height: 1000px;
         transition: all 0.4s ease;
     }
 
     .projek-card.active .projek-content {
-        max-height: 1000px; 
-        opacity: 1;
+        max-height: 0; 
+        overflow: hidden;
     }
 
      .tools-list-container{

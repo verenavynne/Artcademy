@@ -28,6 +28,8 @@ class ProjectController extends Controller
             empty($submission->projectSubmissionDesc)
         );
 
-        return view('Artcademy.course-project-submission', compact('project', 'projectTools', 'projectCriterias','isDisabled'));
+        $isSubmitted = $submission !== null;
+
+        return view('Artcademy.course-project-submission', compact('project', 'projectTools', 'projectCriterias','isDisabled','isSubmitted','submission'));
     }
 }

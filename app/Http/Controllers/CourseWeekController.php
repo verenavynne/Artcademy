@@ -163,7 +163,6 @@ class CourseWeekController extends Controller
             ]
         );
 
-
         $nextMateri = $materi->week->materials
             ->where('id', '>', $materiId)
             ->sortBy('id')
@@ -205,8 +204,7 @@ class CourseWeekController extends Controller
             }
         }
 
-       return redirect()->route('course.project', $materi->week->course->id)
-        ->with('success', 'Kamu telah menyelesaikan semua materi di course ini! Saatnya mengerjakan projek akhir 🎉');
+       return redirect()->route('course.project', $materi->week->course->id);
     }
 
 }

@@ -29,6 +29,34 @@ Route::middleware(['auth', 'checkRole:student'])->prefix('/student')->group(func
     Route::get('/home', function(){
         return view('student.home');
     })->name('student.home');
+
+    Route::get('/course/{id}', [CourseController::class, 'showCourseDetail'])
+    ->name('course.detail');
+
+    Route::post('/course/{id}/enroll', [CourseEnrollmentController::class, 'createEnrollment'])
+        ->name('course.enroll')
+        ->middleware('auth');
+
+    Route::post('/zoom/{id}/register', [ZoomController::class, 'register'])
+        ->name('zoom.register')
+        ->middleware('auth');
+
+    Route::get('/course/{courseId}/week/start', [CourseWeekController::class, 'startWeek'])
+        ->name('course.startWeek');
+
+    Route::get('/course/week/{weekId}/materi/{materiId}', [CourseWeekController::class, 'showMateri'])
+        ->name('course.showMateri');
+
+    Route::post('/materi/{materiId}/complete', [CourseWeekController::class, 'completeMateri'])
+    ->name('materi.complete');
+
+    Route::get('/course/{courseId}/project-submission', [ProjectController::class, 'showProject'])->name('course.project');
+
+    Route::post('/project-submission', [ProjectSubmissionController::class, 'submitProject'])->name('projectSubmission.submit');
+
+    Route::get('/project-submission/{id}/hasil-penilaian',[ProjectSubmissionController::class,'showSubmittedProject'])->name('projectSubmission.hasil');
+
+   
 });
 
 Route::middleware(['auth', 'checkRole:lecturer'])->prefix('/lecturer')->group(function () {
@@ -54,31 +82,8 @@ Route::middleware(['auth', 'checkRole:admin'])->prefix('/admin')->group(function
 Route::get('/course', [CourseController::class, 'index']
 )->name('course');
 
-Route::get('/course/{id}', [CourseController::class, 'showCourseDetail'])
-    ->name('course.detail');
 
-Route::post('/course/{id}/enroll', [CourseEnrollmentController::class, 'createEnrollment'])
-    ->name('course.enroll')
-    ->middleware('auth');
-
-Route::post('/zoom/{id}/register', [ZoomController::class, 'register'])
-    ->name('zoom.register')
-    ->middleware('auth');
-
-Route::get('/course-week', function() {
-    return view('Artcademy.course-week-vbl');
-})->name('course-week');
-
-Route::get('/course/{courseId}/week/start', [CourseWeekController::class, 'startWeek'])
-    ->name('course.startWeek');
-
-Route::get('/course/week/{weekId}/materi/{materiId}', [CourseWeekController::class, 'showMateri'])
-    ->name('course.showMateri');
-
-Route::post('/materi/{materiId}/complete', [CourseWeekController::class, 'completeMateri'])
-->name('materi.complete');
-
-Route::get('/course/{courseId}/project-submission', [ProjectController::class, 'showProject'])->name('course.project');
-Route::post('/project-submission', [ProjectSubmissionController::class, 'submitProject'])->name('projectSubmission.submit');
-
+Route::get('/hasil-projek-submission', function(){
+    return view('Artcademy.course-hasil-penilaian');
+});
 

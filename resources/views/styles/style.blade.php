@@ -302,4 +302,16 @@
         border: none !important;
         background-color: #FFFFFF;
     }
+
+    /* Sub-title in many page */
+    .title{
+        margin: 0;
+        font-size: var(--font-size-title); 
+        background: var(--pink-gradient-color);
+        background-clip: text;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        margin-block-end: 18px;
+    
+    }
 </style>

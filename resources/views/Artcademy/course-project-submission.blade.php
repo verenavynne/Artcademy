@@ -2,10 +2,6 @@
 
 @section('content')
 
-@if (session('success'))
-    <div class="alert alert-success mt-3">{{ session('success') }}</div>
-@endif
-
 @if (session('info'))
     <div class="alert alert-warning mt-3">{{ session('info') }}</div>
 @endif
@@ -95,63 +91,48 @@
             </div>
 
             <div class="d-flex justify-content-center" style="width: 40%;">
-                <div class="projek-progress-card d-flex flex-column">
-                    <p class="projek-title">Projek Akhir</p>
-                    <div class="d-flex flex-row align-items-center" style="gap: 12px">
-                        <div class="progress w-100" style="height: 6px; background-color: #E5E5E5;">
-                            <div class="progress-bar" role="progressbar" 
-                            style="width: {{ 0 }}%; background-color: #E92D62;">
-                            </div>
-                        </div>
-                        <p class="progress-percentage">{{ 0 }}%</p>
-                    </div>
-
-                    <div class="projek-list-content d-flex flex-row justify-content-between align-items-center">
-                        <div class="projek-number-name d-flex flex-row align-items-center">
-                            <div class="projek-number">
-                                <p>1</p>
-                            </div>
-
-                            <div class="projek-name-title d-flex flex-column">
-                                <p class="projek-name">Kumpul Projek Akhir</p>
-                                <div class="d-flex flex-row align-items-center" style="gap: 4px">
-                                    <iconify-icon class="projek-calender-icon" icon="tabler:calendar-week-filled"></iconify-icon>
-                                    <p class="projek-date">{{ \Carbon\Carbon::now()->addWeek()->translatedFormat('d F Y') }}</p>
-                                </div>
-                            </div>
-
-                        </div>
-
-                        <input id="projekCheckbox" 
-                            class="projek-checkbox form-check-input" 
-                            type="checkbox" 
-                            style="pointer-events: none;" 
-                            >
-
-                    </div>
-
-                    <button type="submit"
-                        id="kumpulBtn"
-                        class="btn w-100 text-dark yellow-gradient-btn  {{ $isDisabled ? 'disabled' : '' }}"
-                        aria-disabled="{{ $isDisabled ? 'true' : 'false' }}"
-                        >Kumpul Sekarang
-                    </button>
-
-                </div>
+                @include('components.course-project-progress-card',['isSubmitted' => $isSubmitted, 'isDisabled' => $isDisabled])
             </div>
         </form>
     </div>
+
+    <div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content d-flex justify-content-center flex-column text-center p-4" style="border-radius: 24px; box-shadow: 0 4px 8px 0 var(--brown-shadow-color);">
+            
+            <button type="button" class="btn-close close-btn ms-auto" data-bs-dismiss="modal" aria-label="Close"></button>
+            
+            <img src="{{ asset('assets/course/project_berhasil_dikumpulkan.png') }}" alt="Berhasil dikumpulkan" class="mb-3" width="80" style="align-self: center">
+            
+            <h5 class="fw-bold mb-2" style="font-size: var(--font-size-title)">Projek dikumpulkan!</h5>
+            <p class="mb-4" style="margin: 0; font-size: var(--font-size-primary); color: var(--dark-gray-color)">
+                Projekmu akan dinilai oleh tutor! Sambil menunggu, kamu bisa lihat kursus lainnya!
+            </p>
+
+            <div class="d-flex justify-content-center gap-3">
+                <a href="{{ route('course') }}" class="btn rounded-pill modal-left-btn px-4 py-2">Lihat Kursus Lain</a>
+
+                @if ($submission)
+                    <a href="{{ route('projectSubmission.hasil', ['id'=> $submission->id]) }}"
+                        class="btn text-dark yellow-gradient-btn" style="width: 50%">
+                        Lihat Penilaian
+                    </a>
+                @else
+                    <button class="btn w-100 text-dark yellow-gradient-btn" disabled>
+                        Lihat Penilaian
+                    </button>
+                @endif
+            </div>
+            </div>
+        </div>
+    </div>
+
 </div>
 
 <style>
 
     .title{
-        margin: 0;
-        font-size: var(--font-size-title); 
-        background: var(--pink-gradient-color);
-        background-clip: text;
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
+       margin-block-end:0;
     }
 
     .projek-submission-card{
@@ -234,6 +215,7 @@
         outline: none;
     }
 
+    .modal-left-btn,
     .upload-btn{
         background-color: #F9EEDB !important;
         border: none;
@@ -254,6 +236,7 @@
         justify-content: center;
     }
 
+    .modal-left-btn::before,
     .upload-btn::before{
         content: "";
         position: absolute;
@@ -268,109 +251,6 @@
                 mask-composite: exclude;
     }
 
-    /* Progress Card */
-
-    .projek-progress-card{
-        display: flex;
-        width: 439px;
-        height: max-content;
-        padding: 32px 30px;
-        justify-content: center;
-        border-radius: 44px;
-        background: white;
-        box-shadow: 0 4px 8px 0 var(--brown-shadow-color);
-        gap: 28px;
-    }
-
-    .projek-title{
-        margin: 0;
-        font-size: var(--font-size-primary);
-        color: var(--black-color);
-        font-weight: 700;
-    }
-
-    .projek-list-content{
-        padding-inline: 5px;
-        gap: 25px;
-    }
-
-    .progress-percentage{
-        margin: 0;
-        color: var(--black-color);
-        font-size: var(--font-size-primary);
-    }
-
-    .projek-number-name{
-        gap: 20px;
-    }
-
-    .projek-number p{
-        margin: 0;
-    }
-
-    .projek-number{
-        display: flex; 
-        align-items: center; 
-        justify-content: center;
-        border-radius: 50%;
-        width: 32px;
-        height: 32px;
-        background: var(--yellow-gradient-color);
-        box-shadow: 0 4px 8px 0 var(--brown-shadow-color);
-        font-weight: 700;
-        align-items: center;
-        justify-content: center; 
-    }
-
-    .projek-name-title{
-        gap: 4px;
-    }
-
-    .projek-name{
-        margin: 0;
-        font-size: var(--font-size-primary);
-        color: var(--dark-gray-color);
-    }
-
-    .projek-date{
-        margin: 0;
-        font-size: var(--font-size-tiny);
-        color: var(--dark-gray-color);
-    }
-
-
-    .projek-calender-icon{
-        font-size: 16px
-    }
-
-    .form-check-input{
-        width: 24px;
-        height: 24px;
-        border-radius: 10px;
-        border-color: 1px var(--dark-gray-color)
-    }
-
-    .form-check-input:checked {
-        background: var(--orange-gradient-color);
-        border-color: var(--orange-gradient-color);
-        position: relative;
-    }
-
-    .form-check-input:checked::after {
-        content: "";
-        position: absolute;
-        top: 3px;
-        left: 9px;
-        width: 5px;
-        height: 10px;
-        border: solid white;
-        border-width: 0 2px 2px 0;
-        transform: rotate(45deg);
-    }
-
-    .yellow-gradient-btn.disabled{
-        background: #D0D0D0;
-    }
 </style>
 @endsection
 
@@ -437,3 +317,12 @@
         checkFormFilled();
     });
 </script>
+
+@if (session('success') && isset($submission))
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var successModal = new bootstrap.Modal(document.getElementById('successModal'));
+        successModal.show();
+    });
+</script>
+@endif

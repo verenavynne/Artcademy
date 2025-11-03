@@ -31,7 +31,8 @@ class DatabaseSeeder extends Seeder
             GradeCriteriaSeeder::class,
             ProjectSeeder::class,
             ProjectCriteriaSeeder::class,
-            ProjectToolSeeder::class
+            ProjectToolSeeder::class,
+            LecturerProjectGradeandCommentSeeder::class
 
         ]);
     }

@@ -285,22 +285,26 @@
         <div class="d-flex justify-content-center" style="width: 40%;">
             @if (Auth::check())
                 @if($isEnrolled)
-                    @php
-                        $unlockedWeeks = $course->weeks->filter(function($week) use ($weekProgress) {
-                            $progress = $weekProgress[$week->id] ?? null;
-                            return $progress && $progress->status === 'unlocked';
-                        });
+                    @if($isSubmitted)
+                        @include('components.course-project-progress-card',['isSubmitted' => $isSubmitted, 'isDisabled' => $isDisabled,'submission' => $submission])
+                    @else
+                        @php
+                            $unlockedWeeks = $course->weeks->filter(function($week) use ($weekProgress) {
+                                $progress = $weekProgress[$week->id] ?? null;
+                                return $progress && $progress->status === 'unlocked';
+                            });
 
-                        $latestUnlockedWeek = $unlockedWeeks->last();
-                    @endphp
+                            $latestUnlockedWeek = $unlockedWeeks->last();
+                        @endphp
 
-                    @if ($latestUnlockedWeek)
-                        @include('components.course-week-start-progress-card', [
-                            'week' => $latestUnlockedWeek,
-                            'index' => $loop->index ?? 0,
-                            'weekProgress' => $weekProgress,
-                            'materiProgress' => $materiProgress
-                        ])
+                        @if ($latestUnlockedWeek)
+                            @include('components.course-week-start-progress-card', [
+                                'week' => $latestUnlockedWeek,
+                                'index' => $loop->index ?? 0,
+                                'weekProgress' => $weekProgress,
+                                'materiProgress' => $materiProgress
+                            ])
+                        @endif
                     @endif
                     
                 @else
@@ -361,17 +365,6 @@
         background-clip: text;
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
-    }
-
-    .title{
-        margin: 0;
-        font-size: var(--font-size-title); 
-        background: var(--pink-gradient-color);
-        background-clip: text;
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        margin-block-end: 18px;
-    
     }
 
     .sub-title{

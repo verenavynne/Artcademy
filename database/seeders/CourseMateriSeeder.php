@@ -160,7 +160,7 @@ class CourseMateriSeeder extends Seeder
                         'articleText' => null,
                         'vblName' => 'Video Pemanasan Penari',
                         'vblDesc' => 'Latihan dasar fleksibilitas dan kekuatan tubuh.',
-                        'vblUrl' => 'https://youtu.be/5iLq3Jme3qE?si=u2PfgYR33IvXXTz2',
+                        'vblUrl' => 'https://youtu.be/u5IhtyOsEzE?si=v6aS46WPTLFP44Z4',
                         'duration' => 10
                     ],
                     [
@@ -198,7 +198,7 @@ class CourseMateriSeeder extends Seeder
                         'articleText' => null,
                         'vblName' => 'Video Tari Nusantara',
                         'vblDesc' => 'Teknik dasar tari tradisional dari berbagai daerah Indonesia.',
-                        'vblUrl' => 'https://youtu.be/5iLq3Jme3qE?si=u2PfgYR33IvXXTz2',
+                        'vblUrl' => 'https://youtu.be/u5IhtyOsEzE?si=v6aS46WPTLFP44Z4',
                         'duration' => 10
                     ],
                     [
@@ -207,7 +207,7 @@ class CourseMateriSeeder extends Seeder
                         'articleText' => null,
                         'vblName' => 'Video Tari Saman Aceh',
                         'vblDesc' => 'Gerak cepat dan serempak khas tari tradisional Aceh.',
-                        'vblUrl' => 'https://youtu.be/5iLq3Jme3qE?si=u2PfgYR33IvXXTz2',
+                        'vblUrl' => 'https://youtu.be/u5IhtyOsEzE?si=v6aS46WPTLFP44Z4',
                         'duration' => 10
                     ],
                     [
@@ -216,7 +216,7 @@ class CourseMateriSeeder extends Seeder
                         'articleText' => null,
                         'vblName' => 'Video Tari Modern K-Pop',
                         'vblDesc' => 'Teknik dasar koreografi modern yang dinamis dan ekspresif.',
-                        'vblUrl' => 'https://youtu.be/5iLq3Jme3qE?si=u2PfgYR33IvXXTz2',
+                        'vblUrl' => 'https://youtu.be/u5IhtyOsEzE?si=v6aS46WPTLFP44Z4',
                         'duration' => 10
                     ],
                     [
@@ -225,7 +225,7 @@ class CourseMateriSeeder extends Seeder
                         'articleText' => null,
                         'vblName' => 'Video Tari Kontemporer Barat',
                         'vblDesc' => 'Eksplorasi gerak tari barat dengan teknik ekspresif dan improvisatif.',
-                        'vblUrl' => 'https://youtu.be/5iLq3Jme3qE?si=u2PfgYR33IvXXTz2',
+                        'vblUrl' => 'https://youtu.be/u5IhtyOsEzE?si=v6aS46WPTLFP44Z4',
                         'duration' => 10
                     ],
                 ],
@@ -245,7 +245,7 @@ class CourseMateriSeeder extends Seeder
                         'articleText' => null,
                         'vblName' => 'Video Improvisasi Panggung',
                         'vblDesc' => 'Teknik improvisasi penari profesional saat tampil langsung.',
-                        'vblUrl' => 'https://youtu.be/5iLq3Jme3qE?si=u2PfgYR33IvXXTz2',
+                        'vblUrl' => 'https://youtu.be/u5IhtyOsEzE?si=v6aS46WPTLFP44Z4',
                         'duration' => 10
                     ],
                     [
@@ -283,7 +283,7 @@ class CourseMateriSeeder extends Seeder
                         'articleText' => null,
                         'vblName' => 'Video Gladi Resik Pertunjukan',
                         'vblDesc' => 'Simulasi penampilan penuh di panggung.',
-                        'vblUrl' => 'https://youtu.be/5iLq3Jme3qE?si=u2PfgYR33IvXXTz2',
+                        'vblUrl' => 'https://youtu.be/u5IhtyOsEzE?si=v6aS46WPTLFP44Z4',
                         'duration' => 10
                     ],
                 ],

@@ -21,4 +21,14 @@ class ProjectSubmission extends Model
     public function student(){
         return $this->belongsTo(Student::class,'studentId');
     }
+
+    public function lecturerGrades()
+    {
+        return $this->hasMany(LecturerProjectGrade::class, 'projectSubmissionId');
+    }
+
+    public function lecturerComments()
+    {
+        return $this->hasMany(LecturerProjectComment::class, 'projectSubmissionId');
+    }
 }
