@@ -80,6 +80,12 @@ Route::middleware(['auth', 'checkRole:admin'])->prefix('/admin')->group(function
     Route::post('/courses/save-syllabus', [AdminCourseController::class, 'saveSyllabus'])->name('admin.courses.saveSyllabus');
     Route::get('/courses/syllabus', [AdminCourseController::class, 'syllabus'])->name('admin.courses.syllabus');
 
+    Route::post('/courses/temp-update-store/{courseId}', [AdminCourseController::class, 'tempUpdateStore'])->name('admin.courses.tempUpdateStore');
+    Route::post('/courses/draftUpdate/{courseId}', [AdminCourseController::class, 'updateDraftCourseInformation'])->name('admin.courses.updateDraftCourseInformation');
+    Route::get('/courses/edit-syllabus/{courseId}', [AdminCourseController::class, 'editSyllabus'])->name('admin.courses.editSyllabus');
+    Route::post('/courses/update-syllabus/{courseId}', [AdminCourseController::class, 'updateSyllabus'])->name('admin.courses.updateSyllabus');
+
+    Route::delete('/archive/{id}', [AdminCourseController::class, 'archive'])->name('admin.courses.archive');
 });
 
 

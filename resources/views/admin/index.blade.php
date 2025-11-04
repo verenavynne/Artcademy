@@ -129,7 +129,7 @@
                         </td>
                         <td class="text-nowrap">
                             @if($course->courseStatus !== 'draft')
-                            <a href="{{ route('course.detail', $course->id) }}" class="btn btn-sm text-secondary p-0 me-2 border-0 bg-transparent">
+                            <a href="{{ route('course.detail', $course->id) }}" class="btn btn-sm p-0 me-2 border-0 bg-transparent">
                                 <iconify-icon icon="fa6-solid:eye" width="20" height="20"></iconify-icon>
                             </a>
                             @endif
@@ -139,11 +139,21 @@
                                 </a>
                             @endif
                             @if($course->courseStatus === 'publikasi')
+                                <form action="{{ route('admin.courses.archive', $course->id) }}" method="POST" class="d-inline">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button class="btn btn-sm p-0 border-0 bg-transparent" 
+                                            onclick="return confirm('Yakin ingin arsipkan kursus ini?')">
+                                        <iconify-icon icon="material-symbols:archive-rounded" width="20" height="20" style="color: var(--pink-medium-color)"></iconify-icon>
+                                    </button>
+                                </form>
+                            @endif
+                            @if($course->courseStatus !== 'publikasi')
                                 <form action="{{ route('admin.courses.destroy', $course->id) }}" method="POST" class="d-inline">
                                     @csrf
                                     @method('DELETE')
                                     <button class="btn btn-sm text-danger p-0 border-0 bg-transparent" 
-                                            onclick="return confirm('Yakin ingin arsipkan kursus ini?')">
+                                            onclick="return confirm('Yakin ingin hapus kursus ini?')">
                                         <iconify-icon icon="fluent:delete-12-filled" width="20" height="20"></iconify-icon>
                                     </button>
                                 </form>

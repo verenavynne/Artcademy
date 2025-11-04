@@ -37,9 +37,9 @@
         <div class="card-body p-4">
             <h5 class="fw-bold mb-3">Informasi Kursus</h5>
 
-            <form action="{{ route('admin.courses.draftCourseInformation') }}" method="PUT" enctype="multipart/form-data">
+            <form id="courseForm" action="{{ route('admin.courses.updateDraftCourseInformation', $course->id) }}" method="POST" enctype="multipart/form-data">
                 @csrf
-                
+
                 <!-- Jenis Kursus -->
                 <div class="row mb-3">
                     <div class="col-md-6 mb-3">
@@ -128,10 +128,10 @@
 
                 <!-- Buttons -->
                 <div class="d-flex justify-content-end gap-3">
-                    <button type="button" class="btn pink-cream-btn px-4">
+                    <button type="submit" id="saveDraftBtn" class="btn pink-cream-btn px-4">
                         <span class="text-pink-gradient">Simpan Draft</span>
                     </button>
-                    <button type="submit" class="btn yellow-gradient-btn px-4">
+                    <button type="submit" id="nextBtn" class="btn yellow-gradient-btn px-4">
                         Lanjut
                     </button>
                 </div>
@@ -171,6 +171,20 @@
     courseTypeSelect.addEventListener('change', () => {
         const selectedCategory = courseTypeSelect.value;
         showLecturers(selectedCategory);
+    });
+
+    const form = document.getElementById('courseForm');
+    const saveDraftBtn = document.getElementById('saveDraftBtn');
+    const nextBtn = document.getElementById('nextBtn');
+
+    nextBtn.addEventListener('click', () => {
+        form.action = "{{ route('admin.courses.tempUpdateStore', $course->id) }}";
+    });
+
+    saveDraftBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        form.action = "{{ route('admin.courses.updateDraftCourseInformation', $course->id) }}";
+        form.submit();
     });
 </script>
 @endsection
