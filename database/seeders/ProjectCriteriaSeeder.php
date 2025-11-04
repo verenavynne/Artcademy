@@ -24,7 +24,7 @@ class ProjectCriteriaSeeder extends Seeder
                     'projectId'  => $project->id,
                     'criteriaId' => $criteria->id,
                 ], [
-                    'score' => rand(50, 100), 
+                    'customWeight' => rand(50, 100), 
                 ]);
             }
         }

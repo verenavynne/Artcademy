@@ -2,8 +2,6 @@
 
 @section('content')
 
-
-
 <div class="container-fluid d-flex flex-column justify-content-center" style="margin-bottom: 75px;">
     <div class="d-flex justify-content-center align-items-center px-5 gap-5 w-100">
         <form class="d-flex w-100" method="GET" action="{{route('course')}}">

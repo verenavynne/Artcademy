@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('course_enrollments', function (Blueprint $table) {
             $table->id();
             $table->foreignId('courseId')->constrained('courses')->onDelete('cascade');
-            $table->foreignId(column: 'studentId')->constrained('students')->onDelete('cascade');
+            $table->foreignId( 'studentId')->constrained('students')->onDelete('cascade');
             $table->enum('status',['ongoing','completed'])->nullable();
             $table->date('startDate')->nullable();
             $table->date('endDate')->nullable();

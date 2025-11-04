@@ -4,6 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\Course;
 use App\Models\CourseEnrollment;
+use App\Models\Project;
+use App\Models\ProjectCriteria;
+use App\Models\ProjectSubmission;
+use App\Models\ProjectTool;
 use App\Models\StudentMateriProgress;
 use App\Models\StudentWeekProgress;
 use Illuminate\Http\Request;
@@ -140,6 +144,32 @@ class CourseController extends Controller
             }
         }
 
-        return view('Artcademy.course-detail', compact('course','otherCourses', 'isEnrolled', 'weekProgress', 'materiProgress', 'enrollment'));
+        $project = Project::with('course')->firstWhere('courseId', $id);
+        $projectTools = ProjectTool::with('project')->where('projectId', '=', $project->id)->get();
+
+        $projectCriterias = ProjectCriteria::with('project')->where('projectId','=',$project->id)->get();
+        $submission = ProjectSubmission::where('projectId', $project->id)
+                    ->where('studentId', auth()->user()->student->id)
+                    ->first();
+        
+        $isSubmitted = $submission !== null;
+        $isDisabled = !$submission;
+
+        $data = [
+            'course' => $course,
+            'otherCourses' => $otherCourses, 
+            'isEnrolled' => $isEnrolled, 
+            'weekProgress' => $weekProgress, 
+            'materiProgress' =>$materiProgress, 
+            'enrollment' => $enrollment, 
+            'project' => $project, 
+            'projectTools' => $projectTools,
+            'projectCriterias' => $projectCriterias,
+            'isSubmitted' => $isSubmitted,
+            'isDisabled' => $isDisabled,
+            'submission' => $submission
+        ];
+
+        return view('Artcademy.course-detail', $data);
     }
 }
