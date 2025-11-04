@@ -6,6 +6,7 @@ use App\Http\Controllers\CourseEnrollmentController;
 use App\Http\Controllers\CourseWeekController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\ProjectSubmissionController;
+use App\Http\Controllers\StudentCertificateController;
 use App\Http\Controllers\ZoomController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\GoogleController;
@@ -55,7 +56,8 @@ Route::middleware(['auth', 'checkRole:student'])->prefix('/student')->group(func
     Route::post('/project-submission', [ProjectSubmissionController::class, 'submitProject'])->name('projectSubmission.submit');
 
     Route::get('/project-submission/{id}/hasil-penilaian',[ProjectSubmissionController::class,'showSubmittedProject'])->name('projectSubmission.hasil');
-
+    
+    Route::get('/certificate/{courseId}/generate', [StudentCertificateController::class, 'generateCertificate'])->name('certificate.generate');
    
 });
 
@@ -86,4 +88,9 @@ Route::get('/course', [CourseController::class, 'index']
 Route::get('/hasil-projek-submission', function(){
     return view('Artcademy.course-hasil-penilaian');
 });
+
+Route::get('/certificate', function(){
+    return view('certificates.certificate_template');
+});
+
 

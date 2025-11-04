@@ -53,10 +53,12 @@
         box-shadow: 0 4px 8px 0 var(--brown-shadow-color);
         padding-block: 40px;
         padding-inline: 38px;
+        gap: 16px;
+        transition: all 0.4s ease;
     }
 
-    .projek-card.active{
-        gap: 16px;
+    .projek-card.hide{
+        gap: 0px;
     }
 
     .projek-name{
@@ -85,7 +87,7 @@
         transition: all 0.4s ease;
     }
 
-    .projek-card.active .projek-content {
+    .projek-card.hide .projek-content {
         max-height: 0; 
         overflow: hidden;
     }
@@ -117,7 +119,7 @@
         color: var(--dark-gray-color);
     }
 
-    .projek-card.active {
+    .projek-card.hide {
         display: flex;
     }
 
@@ -125,7 +127,7 @@
         transition: transform 0.3s ease;
     }
 
-    .projek-card.active .arrow-icon {
+    .projek-card.hide .arrow-icon {
         transform: rotate(180deg);
     }
 
@@ -137,7 +139,7 @@
         projekHeader.addEventListener("click", function(){
             const projekSection = this.closest('.projek-card');
 
-            projekSection.classList.toggle("active");
+            projekSection.classList.toggle("hide");
         })
     })
 </script>

@@ -123,9 +123,9 @@
                 </div>
 
                 @if ($allTutorsGraded)
-                    <button class="btn px-4 py-2 yellow-gradient-btn text-dark">
-                        Klaim Sertifikatmu
-                    </button>
+                    <a href="{{ route('certificate.generate', $courseId) }}" class="btn px-4 py-2 yellow-gradient-btn text-dark" >
+                            Klaim Sertifikatmu
+                    </a>
                 @else
                     <button class="btn px-4 py-2 tunggu-nilai-btn text-dark" >
                         <img src="{{ asset('assets/icons/icon_clock_disabled.svg') }}" alt="" height="24" width="24">

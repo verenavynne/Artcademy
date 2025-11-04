@@ -64,7 +64,6 @@ class ProjectSubmissionController extends Controller
             ->firstOrFail();
 
         $courseId = $submission->project->course->id;
-
         
         $lecturers = CourseLecturer::with([
             'lecturer.user',
@@ -117,6 +116,7 @@ class ProjectSubmissionController extends Controller
             'criteriaScores' => $scores['criteriaScores'],
             'totalScore' => $scores['totalScore'],
             'allTutorsGraded' => $allTutorsGraded,
+            'courseId' => $courseId
         ]);
     }
 

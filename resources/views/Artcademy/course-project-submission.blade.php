@@ -227,9 +227,9 @@
         font-size: var(--font-size-primary);
 
         background-image: linear-gradient(0deg, #E92D62 25%, #FF6E97 70%);
-    background-clip: text;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+        background-clip: text;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
         
         height: 100%;
         padding-inline: 30px;

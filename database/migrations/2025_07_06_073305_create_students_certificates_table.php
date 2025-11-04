@@ -13,9 +13,10 @@ return new class extends Migration
     {
         Schema::create('students_certificates', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('certificateId')->constrained('certificates')->onDelete('cascade');
-            $table->foreignId(column: 'studentId')->constrained('students')->onDelete('cascade');
-            $table->date('date');
+            $table->foreignId( 'studentId')->constrained('students')->onDelete('cascade');
+            $table->foreignId('courseId')->constrained('courses')->onDelete('cascade');
+            $table->date('issuedDate')->nullable();
+            $table->string('pdfPath')->nullable();
             $table->timestamps();
         });
     }
