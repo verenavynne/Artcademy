@@ -8,7 +8,7 @@ class ProjectCriteria extends Model
 {
     protected $table='project_criteria';
 
-    protected $fillable=['projectId','criteriaId','score'];
+    protected $fillable=['projectId','criteriaId','customWeight'];
 
     public function project()
     {
@@ -18,6 +18,11 @@ class ProjectCriteria extends Model
     public function criteria()
     {
         return $this->belongsTo(GradeCriteria::class, 'criteriaId');
+    }
+
+    public function lecturerGrades()
+    {
+        return $this->hasMany(LecturerProjectGrade::class, 'projectCriteriaId');
     }
 
 }

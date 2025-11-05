@@ -20,7 +20,7 @@ class GradeCriteriaSeeder extends Seeder
 
         GradeCriteria::create([
             'criteriaName' => 'Keterbacaan',
-            'criteriaWeight' => 40
+            'criteriaWeight' => 20
         ]);
 
         GradeCriteria::create([

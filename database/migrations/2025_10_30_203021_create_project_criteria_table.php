@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('projectId')->constrained('projects')->onDelete('cascade');
             $table->foreignId('criteriaId')->constrained('grade_criteria')->onDelete('cascade');
-            $table->integer('score')->nullable();
+            $table->integer('customWeight')->nullable();
             $table->timestamps();
         });
     }

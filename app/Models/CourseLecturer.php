@@ -26,4 +26,14 @@ class CourseLecturer extends Model
     public function weeks(){
         return $this->hasMany(CourseWeek::class,'tutorId');
     }
+
+    public function projectGrades()
+    {
+        return $this->hasMany(LecturerProjectGrade::class, 'courseLecturerId');
+    }
+
+    public function projectComments()
+    {
+        return $this->hasMany(LecturerProjectComment::class, 'courseLecturerId');
+    }
 }
