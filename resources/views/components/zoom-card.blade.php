@@ -1,4 +1,4 @@
-<div class="zoom-card card article-card" height="100%">
+<div class="zoom-card card article-card" height="100%" onclick="window.location.href='{{ route('zoom.showDetail', $zoom->id) }}'" style="cursor: pointer;">
     <div class="zoom-card-header d-flex flex-column justify-content-between" style="background: var(--orange-gradient-color)">
         <div class="zoom-text-container d-flex flex-row mb-2 gap-2" style="background: #D99F18">
             <div class="zoom-record-icon"></div>
@@ -26,9 +26,9 @@
             >
             <div class="d-flex flex-column">
                 <p style="margin: 0; font-size: var(--font-size-mini); color: var(--dark-gray-color); font-weight: 700">
-                    Tutor: John Doe</p>
+                    Tutor: {{ $zoom->tutor->lecturer->user->name }}</p>
                         <p style="margin: 0; font-size: var(--font-size-mini); color: var(--dark-gray-color)">
-                    Game artist di ABC</p>
+                    {{ $zoom->tutor->lecturer->specialization }}</p>
 
             </div>
         </div>
@@ -41,12 +41,10 @@
         </div>
 
         @if (Auth::check())
-            <form action="{{ route('zoom.register', $zoom->id) }}" method="POST" class="w-100">
-                @csrf
-                <button type="submit" class="btn w-100 text-dark yellow-gradient-btn">
-                    Daftar Sekarang
-                </button>
-            </form>
+            <a href="{{ route('zoom.showDetail', $zoom->id) }}" class="btn w-100 text-dark yellow-gradient-btn">
+                Daftar Sekarang
+            </a>
+            
         @else
             <a href="{{ route('login') }}" class="btn w-100 text-dark yellow-gradient-btn">
                 Daftar Sekarang

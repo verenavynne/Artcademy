@@ -16,8 +16,13 @@ return new class extends Migration
             $table->foreignId('courseId')->constrained('courses')->onDelete('cascade');
             $table->foreignId('tutorId')->constrained('course_lecturers')->onDelete('cascade');
             $table->string('zoomName');
-            $table->date('zoomDate');
+            $table->text('zoomDesc');
             $table->string('zoomLink');
+            $table->integer('zoomDuration');
+            $table->integer('zoomQuota');
+            $table->date('zoomDate');
+            $table->time('start_time');
+            $table->time('end_time');
             $table->timestamps();
         });
     }

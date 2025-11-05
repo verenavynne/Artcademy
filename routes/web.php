@@ -58,6 +58,8 @@ Route::middleware(['auth', 'checkRole:student'])->prefix('/student')->group(func
     Route::get('/project-submission/{id}/hasil-penilaian',[ProjectSubmissionController::class,'showSubmittedProject'])->name('projectSubmission.hasil');
     
     Route::get('/certificate/{courseId}/generate', [StudentCertificateController::class, 'generateCertificate'])->name('certificate.generate');
+
+    Route::get('/zoom-detail/{id}', [ZoomController::class,'showDetail'])->name('zoom.showDetail');
    
 });
 
@@ -92,5 +94,7 @@ Route::get('/hasil-projek-submission', function(){
 Route::get('/certificate', function(){
     return view('certificates.certificate_template');
 });
+
+
 
 
