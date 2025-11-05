@@ -17,6 +17,7 @@
         --blue-gradient-color: linear-gradient(149.46deg, #50C4ED 5.33%, #387ADF 75.32%);
         --orange-gradient-color: linear-gradient(0deg, #F69000 25%, #F8BA0C 64.38%);
         --green-gradient-color:linear-gradient(182.72deg, #3EC973 43.36%, #0E8F53 81.22%);
+        --red-gradient-color: linear-gradient(0deg, #E53636 25%, #FF6E6E 70%);
 
         --font-size-mini: 12px;
         --font-size-tiny: 14px;
@@ -330,9 +331,9 @@
         margin-bottom: 0;
     }
 
-    .table thead {
+    /* .table thead {
         position: relative;
-    }
+    } */
 
     .table thead::after {
         content: "";
@@ -352,6 +353,11 @@
         background-color: #FFFFFF;
     }
 
+    .footer-admin-text{
+        color: #AAA18F !important;
+        font-size: 16px;
+        border-top: 3px solid var(--cream2-color);
+    }
     /* Sub-title in many page */
     .title{
         margin: 0;

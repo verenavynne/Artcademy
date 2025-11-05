@@ -20,7 +20,7 @@
                 </div>
                 <iconify-icon icon="mdi:chevron-down" class="dropdown-icon ms-2"></iconify-icon>
             </a>
-            <ul class="dropdown-menu dropdown-menu-end shadow-sm">
+            <ul class="dropdown-menu dropdown-menu-end">
                 <li><a class="dropdown-item" href="#">Profil</a></li>
                 <li><a class="dropdown-item text-danger" href="#">Keluar</a></li>
             </ul>
@@ -54,8 +54,6 @@
     border-radius: 100px;
     background: #FFF;
     transition: all 0.2s ease;
-
-    /* drop shadow brown */
     box-shadow: 0 4px 8px 0 rgba(67, 39, 0, 0.20);
 }
 
@@ -72,8 +70,8 @@
 }
 
 .dropdown-icon {
-  align-self: flex-start; /* ikon juga rata atas */
-  margin-top: 4px; /* biar sejajar dengan teks nama */
+  align-self: flex-start; 
+  margin-top: 4px; 
   color: #333;
   transition: transform 0.3s ease;
 }
@@ -87,6 +85,15 @@ a[aria-expanded="true"] .dropdown-icon {
 }
 
 .dropdown-menu {
-    font-size: 14px;
+    font-size: 18px;
+    border: none;
+    box-shadow: 0 6px 12px rgba(67, 39, 0, 0.2);
+    margin-top: 12px !important;
+    padding: 12px 12px;
+}
+
+.dropdown-item:hover{
+    background: var(--cream-color);
+    border-radius: 4px;
 }
 </style>

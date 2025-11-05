@@ -108,7 +108,7 @@
   flex-direction: column;
   justify-content: flex-start;
   width: 300px;
-  height: 100vh;
+  height: 100%;
   padding: 25px;
   background: var(--white, #FFF);
   box-shadow: 0 4px 8px rgba(67, 39, 0, 0.20);
@@ -140,22 +140,20 @@
   transform: translateX(-50%);
 }
 
-/* Responsif */
 @media (max-width: 992px) {
-  .sidebar-admin {
-    width: 100%;
-    border-radius: 0;
-    box-shadow: none;
-  }
+    .sidebar-admin {
+      width: 100%;
+      border-radius: 0;
+      box-shadow: none;
+    }
 }
 
 /* Isi Sidebar */
 .sidebar-content {
   margin-top: 36px;
-  transition: opacity 0.3s ease;
+  transition: opacity 0.3s ease 0.3s;
 }
 
-/* Saat Ditutup */
 .sidebar-admin.closed .sidebar-content {
   display: flex;
   flex-direction: column;
@@ -163,7 +161,6 @@
   gap: 28px;
 }
 
-/* Teks Fade & Geser */
 .sidebar-admin.closed .nav-link-admin span {
   display: none;
   padding: 0px 52px 0px 0px;
@@ -175,10 +172,12 @@
 .sidebar-admin:not(.closed) .nav-link-admin span {
   opacity: 1;
   transform: translateX(0);
-  transition: opacity 0.3s ease, transform 0.3s ease;
+  transition: opacity 0.3s ease 0.3s, transform 0.3s ease 0.3s;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
-/* Item Navigasi */
 .nav-link-admin {
   transition: background-color 0.25s ease, gap 0.3s ease, transform 0.3s ease;
 }
@@ -202,7 +201,7 @@
   justify-content: center;
 }
 
-/* Icon di Sidebar */
+
 .sidebar-admin.closed .nav-link-admin iconify-icon {
   display: flex;
   justify-content: center;

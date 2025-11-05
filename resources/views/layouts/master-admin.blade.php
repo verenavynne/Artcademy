@@ -17,32 +17,22 @@
 </head>
 
 <body>
-  <!-- Navbar tetap di luar -->
   <div class="container-fluid ps-4 pe-4">
-  <header>
-    @include('layouts.navbar-admin')
-  </header>
+    <header>
+      @include('layouts.navbar-admin')
+    </header>
 
-  <!-- Wrapper utama berisi sidebar dan konten -->
-  <div class="d-flex" id="admin-wrapper">
-    
-    <!-- Sidebar -->
-    @include('layouts.menu-admin')
+    <!-- Wrapper utama berisi sidebar dan konten -->
+    <div class="d-flex" id="admin-wrapper">
+      <!-- Sidebar -->
+      @include('layouts.menu-admin')
 
-    <!-- Konten utama (Dashboard, Cards, Table, dsb) -->
-    <main class="flex-grow-1" id="admin-content">
-      <div class="dashboard-wrapper">
-        @yield('content')
-      </div>
-    </main>
-  </div>
-   </div>
-  
+      <!-- Konten utama (Dashboard, Cards, Table, dsb) -->
+      @yield('content')
+    </div>
 
-  <!-- Footer di bawah semua -->
-  <footer>
     @include('layouts.footer-admin')
-  </footer>
+  </div>
 </body>
 
 
@@ -60,23 +50,34 @@
     #admin-wrapper {
         display: flex;
         align-items: flex-start;
+        height: calc(100vh - 146px);
+        padding-bottom: 24px;
+        padding-top: 12px;
     }
 
-  .container-fluid{
+    .row {
+      --bs-gutter-x: 0 !important;
+      gap: 24px;
+      flex-wrap: nowrap !important;
+    }
+
+  .container-content{
     padding-right: 0px;
     padding-left: 28px;
+    height: 100%;
+    width:100%;
   }
 
 .tambah-kursus-event{
   display: flex;
-  gap: 16px;
+  gap: 24px;
 }
 
 .btn-tambah {
   display: flex;
   width: 216px;
   height: 66px;
-
+  font-size: 18px;
   align-items: center;
   gap: 10px;
   background: #fff;
@@ -85,7 +86,7 @@
   box-shadow: 0 4px 8px 0 rgba(67, 39, 0, 0.20);
   padding: 0px 30px;
   justify-content: center;
-  align-item: center;
+  align-items: center;
   gap: 10px;
   font-weight: 500;
   color: #4a4a4a;
@@ -108,7 +109,7 @@ justify-content: center;
 align-items: center;
 gap: 13.214px;
 flex-shrink: 0;
-
+color: var(--black-color);
 border-radius: 132.143px;
 background: var(--Yellow-Gradient, linear-gradient(158deg, #FFDE22 36.37%, #F4A700 89.58%));
 box-shadow: 0 5.286px 10.571px 0 rgba(67, 39, 0, 0.20);
@@ -124,7 +125,7 @@ justify-content: center;
 align-items: center;
 gap: 13.214px;
 flex-shrink: 0;
-
+color: var(--black-color);
 border-radius: 132.143px;
 background: var(--Orange-Gradient, linear-gradient(0deg, #F69000 0%, #F8BA0C 100%));
 box-shadow: 0 5.286px 10.571px 0 rgba(67, 39, 0, 0.20);
@@ -134,7 +135,7 @@ box-shadow: 0 5.286px 10.571px 0 rgba(67, 39, 0, 0.20);
   display: flex;
   width: auto;
   height: auto;
-  padding: 19px 109px;
+  padding: 24px 0;
   flex-direction: column;
   align-items: center;
   gap: 10px;
@@ -150,6 +151,10 @@ box-shadow: 0 5.286px 10.571px 0 rgba(67, 39, 0, 0.20);
   gap: 4px;
 }
 
+.icon-text h6{
+  margin: 0 !important;
+}
+
 .total-icon {
   display: flex;
   justify-content: center;
@@ -161,9 +166,10 @@ box-shadow: 0 5.286px 10.571px 0 rgba(67, 39, 0, 0.20);
   color: var(--orange-color, rgba(251, 168, 52, 1));
 }
 
+/* === Table Section Container === */
 .table-section {
   display: flex;
-  height: 62vh;
+  height: calc(100% - 256px);
   padding: 24px 25px;
   flex-direction: column;
   align-items: flex-start;
@@ -171,9 +177,8 @@ box-shadow: 0 5.286px 10.571px 0 rgba(67, 39, 0, 0.20);
   align-self: stretch;
   border-radius: 10px;
   background: var(--white, #FFF);
-
-  /* drop shadow brown */
   box-shadow: 0 4px 8px 0 rgba(67, 39, 0, 0.20);
+  overflow-x: auto;
 }
 
 @media (max-width: 992px) {
@@ -184,7 +189,7 @@ box-shadow: 0 5.286px 10.571px 0 rgba(67, 39, 0, 0.20);
   }
 }
 
-/* Judul dan ikon */
+/* === Title Section === */
 .title-section {
   display: flex;
   align-items: center;
@@ -193,9 +198,9 @@ box-shadow: 0 5.286px 10.571px 0 rgba(67, 39, 0, 0.20);
 
 .title-section h6 {
   color: var(--Black, #1B1B1B);
-  font-family: Afacad;
   font-size: 18px;
   font-weight: 400;
+  margin: 0 !important;
 }
 
 .total-icon {
@@ -203,93 +208,17 @@ box-shadow: 0 5.286px 10.571px 0 rgba(67, 39, 0, 0.20);
   color: #F69000;
 }
 
-/* Garis pembatas judul */
+/* === Divider === */
 .title-divider {
   border: none;
   border-top: 3px solid #F9EEDB;
   margin: 8px 0;
   width: 100%;
   opacity: 1;
-  border-radius: 20;
+  border-radius: 4px;
 }
 
-/* Wrapper tabel */
-.table-wrapper {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-}
 
-/* Scrollable body */
-.table-body-scroll {
-  max-height: calc(63vh - 180px);
-  overflow-y: auto;
-}
-
-/* Scrollbar */
-.table-body-scroll::-webkit-scrollbar {
-  width: 8px;
-}
-.table-body-scroll::-webkit-scrollbar-thumb {
-  background: #d2c7b5;
-  border-radius: 8px;
-}
-.table-body-scroll::-webkit-scrollbar-thumb:hover {
-  background: #bfa97c;
-}
-
-/* Table style */
-.table {
-  width: 100%;
-  border-collapse: collapse;
-}
-
-.table thead th {
-  background: #FFF;
-  color: #1B1B1B;
-  font-weight: 600;
-  font-size: 15px;
-  padding: 12px 0;
-  text-align: center;
-  border-bottom: 3px solid #F4E3C1; /* ganti hr bawaan jadi garis bawah header */
-}
-
-.table tbody td {
-  padding: 12px 0;
-  text-align: center;
-  color: #333;
-  font-size: 14px;
-}
-
-/* Badge Status */
-.badge-status {
-  padding: 6px 14px;
-  border-radius: 20px;
-  font-weight: 600;
-  font-size: 13px;
-}
-.badge-status.pending {
-  background: #FFF2E1;
-  color: #D39B28;
-}
-.badge-status.success {
-  background: #E9FBE9;
-  color: #208A3A;
-}
-.badge-status.danger {
-  background: #FEE8E8;
-  color: #DA3E36;
-}
-
-/* Ikon aksi */
-.table td i {
-  font-size: 18px;
-  color: #1B1B1B;
-  cursor: pointer;
-}
-.table td i:hover {
-  color: #FBA834;
-}
 
 
 
