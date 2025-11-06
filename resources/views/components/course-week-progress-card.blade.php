@@ -1,16 +1,11 @@
 @php
-    $progressPercent = $weekProgress?->progress ?? 0;
-
-    $firstUndoneId = collect($materiProgress)
-        ->filter(fn($progress) => !$progress->isDone)
-        ->keys()
-        ->sort()
-        ->first();
+    $totalMateri = $week->materials->count();
+    $totalMateriDone = collect($materiProgress)->where('isDone', true)->count();
 
 @endphp
 
 
-<div class="course-week-progress-card d-flex flex-column">
+<div class="course-week-progress-card d-flex flex-column" data-total="{{ $totalMateri }}" data-done="{{ $totalMateriDone }}">
     <p class="course-week-title">{{ $week->weekName }}</p>
 
     <div class="d-flex flex-row align-items-center" style="gap: 12px">
@@ -63,11 +58,12 @@
 
     <form action="{{ route('materi.complete', $materi->id) }}" method="POST" id="completeForm">
         @csrf
+       
         <button type="submit"
                 id="lanjutkanBtn"
                 class="btn w-100 text-dark yellow-gradient-btn {{ $isDisabled ? 'disabled' : '' }}"
                 aria-disabled="{{ $isDisabled ? 'true' : 'false' }}">
-            Lanjutkan
+            {{ $navigationData['buttonText'] }}
         </button>
     </form>
 

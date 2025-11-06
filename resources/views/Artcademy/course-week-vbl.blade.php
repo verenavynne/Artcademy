@@ -200,6 +200,13 @@ document.addEventListener('DOMContentLoaded', function() {
     const checkbox = document.querySelector(`.materi-checkbox[data-materi-id="${materiId}"]`);
     const lanjutkanBtn = document.getElementById('lanjutkanBtn');
 
+    const progressCard = document.querySelector('.course-week-progress-card');
+    const progressBar = progressCard.querySelector('.progress-bar');
+    const progressPercentText = progressCard.querySelector('.progress-percentage');
+
+    const totalMateri = parseInt(progressCard.dataset.total);
+    let doneMateri = parseInt(progressCard.dataset.done);
+
     if (!checkbox) {
         console.warn(`checkbox not found for materiId ${materiId}`);
         return;
@@ -208,6 +215,7 @@ document.addEventListener('DOMContentLoaded', function() {
     player.on('ended', function () {
         checkbox.checked = true; 
         toggleButton(true);
+        updateProgressUI(); 
     });
 
     toggleButton(checkbox.checked);
@@ -224,6 +232,14 @@ document.addEventListener('DOMContentLoaded', function() {
             lanjutkanBtn.style.pointerEvents = 'none';
             lanjutkanBtn.style.opacity = '0.5';
         }
+    }
+
+    function updateProgressUI() {
+        doneMateri++; 
+        const newPercent = Math.min(Math.round((doneMateri / totalMateri) * 100), 100);
+
+        progressBar.style.width = `${newPercent}%`;
+        progressPercentText.textContent = `${newPercent}%`;
     }
 });
 

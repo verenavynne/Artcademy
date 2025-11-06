@@ -54,76 +54,114 @@ class CourseWeekController extends Controller
 
     public function showMateri($weekId, $materiId)
     {
-        $materi = CourseMateri::with(['week.course','week.materials', 'week.tutor', 'materiTools.tool'])->findOrFail($materiId);
-       
-        $tools = $materi->materiTools->map(fn($mt) => $mt->tool)->filter(); 
+        $materi = $this->getMateriWithRelations($materiId);
+        $week = $materi->week;
+        $course = $week->course;
+        $courseId = $course->id;
+        $tutor = $week->tutor;
 
-        $zooms = Zoom::where('courseId', $materi->week->course->id)
-        ->latest() 
-        ->take(3)
-        ->get();
+        $tools = $materi->materiTools->pluck('tool')->filter();
+        $zooms = $this->getZoomSessions($courseId);
+        $otherCourses = $this->getOtherCourses($courseId);
 
-        $courseId = $materi->week->course->id;
-        
-        // Data buat carousel course card
-        $otherCourses = Course::where('id', '!=', $courseId)
+        [$weekProgress, $materiProgress, $isUnlocked,  $progressPercent, $firstUndoneId] = $this->getUserProgress($course, $weekId, $materi);
+
+        $navigationData = $this->getNavigationData($materi);
+
+        return view(
+            $materi->vblName ? 'Artcademy.course-week-vbl' : 'Artcademy.course-week-article',
+            compact('materi', 'week', 'tutor', 'tools', 'zooms', 'otherCourses', 'weekProgress', 'materiProgress', 'progressPercent','firstUndoneId','isUnlocked', 'navigationData')
+        );
+    }
+
+    private function getMateriWithRelations($materiId)
+    {
+        return CourseMateri::with([
+            'week.course.weeks',
+            'week.materials',
+            'week.tutor',
+            'materiTools.tool'
+        ])->findOrFail($materiId);
+    }
+
+    private function getZoomSessions($courseId)
+    {
+        return Zoom::where('courseId', $courseId)
+            ->latest()
+            ->take(3)
+            ->get();
+    }
+
+    private function getOtherCourses($courseId)
+    {
+        return Course::where('id', '!=', $courseId)
             ->inRandomOrder()
             ->take(6)
             ->with(['courseLecturers.lecturer.user'])
             ->get();
+    }
 
-        
-        // Ambil data progress untuk course
+    private function getUserProgress($course, $weekId, $materi)
+    {
         $weekProgress = collect();
         $materiProgress = collect();
         $isUnlocked = false;
 
-        if (Auth::check()) {
-            $user = Auth::user();
+        if (!Auth::check()) {
+            return [$weekProgress, $materiProgress, $isUnlocked];
+        }
 
-            $enrollment = CourseEnrollment::where('courseId', $courseId)
-                ->where('studentId', $user->id)
+        $user = Auth::user();
+
+        $enrollment = CourseEnrollment::where('courseId', $course->id)
+            ->where('studentId', $user->id)
+            ->first();
+
+        if ($enrollment) {
+            $weekProgress = StudentWeekProgress::where('courseEnrollmentId', $enrollment->id)
+                ->where('weekId', $weekId)
                 ->first();
 
-            if ($enrollment) {
-                $weekProgress = StudentWeekProgress::where('courseEnrollmentId', $enrollment->id)
-                    ->where('weekId', $weekId)
-                    ->first();
+            $materiProgress = StudentMateriProgress::where('courseEnrollmentId', $enrollment->id)
+                ->whereIn('materiId', $materi->week->materials->pluck('id'))
+                ->get()
+                ->keyBy('materiId');
 
-                $materiProgress = StudentMateriProgress::where('courseEnrollmentId', $enrollment->id)
-                    ->whereIn('materiId', $materi->week->materials->pluck('id'))
-                    ->get()
-                    ->keyBy('materiId');
-
-                $isUnlocked = $weekProgress?->status === 'unlocked';
-
-                
-            }
+            $isUnlocked = $weekProgress?->status === 'unlocked';
+            $progressPercent = $weekProgress?->progress ?? 0;
+            $firstUndoneId = collect($materiProgress)
+                ->filter(fn($progress) => !$progress->isDone)
+                ->keys()
+                ->sort()
+                ->first();
         }
 
-        $week = $materi->week;
-
-        $data = [
-                'materi' => $materi,
-                'week' => $week,
-                'tools' => $tools,
-                'zooms' => $zooms,
-                'tutor' => $week->tutor,
-                'otherCourses' => $otherCourses,
-                'weekProgress' => $weekProgress,
-                'materiProgress' => $materiProgress,
-                'isUnlocked' => $isUnlocked,
-            ];
-
-        if ($materi->vblName !== null) {
-            return view('Artcademy.course-week-vbl', $data);
-        } elseif ($materi->articleName !== null) {
-            return view('Artcademy.course-week-article', $data);
-        } else {
-           
-            return redirect()->back()->with('error', 'Materi tidak ditemukan.');
-        }
+        return [$weekProgress, $materiProgress, $isUnlocked, $progressPercent, $firstUndoneId];
     }
+
+    private function getNavigationData($materi)
+    {
+        $totalWeeks = $materi->week->course->weeks->count();
+        $currentWeekIndex = $materi->week->course->weeks->pluck('id')->search($materi->week->id) + 1;
+        $materials = $materi->week->materials;
+        $isLastMateri = $materi->id === $materials->last()->id;
+
+        if ($isLastMateri && $currentWeekIndex < $totalWeeks) {
+            $buttonText = 'Lanjutkan ke Minggu ' . ($currentWeekIndex + 1);
+        } elseif ($isLastMateri && $currentWeekIndex === $totalWeeks) {
+            $buttonText = 'Lihat Proyek Akhir';
+        } else {
+            $buttonText = 'Lanjutkan';
+        }
+
+        return [
+            'totalWeeks' => $totalWeeks,
+            'currentWeekIndex' => $currentWeekIndex,
+            'isLastMateri' => $isLastMateri,
+            'buttonText' => $buttonText,
+        ];
+    }
+
 
     public function completeMateri(Request $request, $materiId)
     {

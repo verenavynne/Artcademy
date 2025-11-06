@@ -27,9 +27,11 @@
                 Saatnya upgrade skill dan tunjukin karya terbaikmu lewat portofolio yang kece. Terhubung bareng kreator sekreatif kamu, biar makin banyak inspirasi dan kolaborasi!
             </p>
             <div class="mt-4">
-                <button class="btn px-4 py-2 yellow-gradient-btn text-dark">
-                    Belajar Sekarang
-                </button>
+                <a href="{{ route('login') }}">
+                    <button class="btn px-4 py-2 yellow-gradient-btn text-dark">
+                        Belajar Sekarang
+                    </button>
+                </a>
             </div>
         </div>
 
@@ -130,11 +132,21 @@
         <h2 class="fw-bold mt-4 text-center"><span class="text-pink-gradient">Yang Lagi Hits </span>di Artcademy</h2>
         <p class="mb-5 text-center">Rekomendasi kursus paling cocok buat mulai perjalanan kreatifmu</p>
 
-        <div class="d-flex gap-4 justify-content-center flex-wrap">
-           <div class="card"></div>
-           <div class="card"></div>
-           <div class="card"></div>
-           <div class="card"></div>
+        <a href="{{ route('course') }}" class="text-decoration-none d-block pe-5 me-3 pb-4">
+            <div class="d-flex flex-row justify-content-end gap-2">
+                <p class="fw-bold" style="margin:0; font-size: var(--font-size-primary); color:var(--dark-gray-color)">Lihat semua</p>
+                <div class="navigation-next d-flex flex-start" >
+                    <img src="{{ asset('assets/icons/icon_pagination_next.svg') }}" alt="" height="8" width="8">
+                </div>
+            </div>
+        </a>
+      
+
+        <div class="d-flex flex-wrap justify-content-center" style="gap: 36px">
+            @foreach ($courses as $course)
+                @include('components.course-card', ['course' => $course])
+            @endforeach
+                
         </div>
     </div>
 </div>
@@ -336,6 +348,28 @@
         height: 415px;
         display: flex;
         flex-direction: column;
+    }
+
+    .course-card.card{
+        background-color: white;
+        width: 300px;
+        height: max-content;
+        border-radius: 44px;
+        box-shadow: 0px 4px 8px 0px rgba(67, 39, 0, 0.20);
+        border: none;
+        padding:8px;
+    }
+
+    .navigation-next{
+        background: var(--yellow-gradient-color);
+        border-radius: 50%;
+        color: black;
+        width: 28px;
+        height: 28px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0px 7.571px 15.143px 0px rgba(67, 39, 0, 0.20);
     }
 </style>
 @endsection

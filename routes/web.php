@@ -4,6 +4,8 @@ use App\Http\Controllers\CourseController;
 use App\Http\Controllers\CourseDetailController;
 use App\Http\Controllers\CourseEnrollmentController;
 use App\Http\Controllers\CourseWeekController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\HomePageController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\ProjectSubmissionController;
 use App\Http\Controllers\StudentCertificateController;
@@ -12,9 +14,11 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\GoogleController;
 use App\Http\Controllers\AdminCourseController;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [HomePageController::class, 'index'])->name('home');
+
+Route::get('/course', [CourseController::class, 'index']
+)->name('course');
+
 
 Auth::routes();
 
@@ -27,19 +31,11 @@ Route::post('logout', function () {
 })->name('logout');
 
 Route::middleware(['auth', 'checkRole:student'])->prefix('/student')->group(function () {
-    Route::get('/home', function(){
-        return view('student.home');
-    })->name('student.home');
-
     Route::get('/course/{id}', [CourseController::class, 'showCourseDetail'])
     ->name('course.detail');
 
     Route::post('/course/{id}/enroll', [CourseEnrollmentController::class, 'createEnrollment'])
         ->name('course.enroll')
-        ->middleware('auth');
-
-    Route::post('/zoom/{id}/register', [ZoomController::class, 'register'])
-        ->name('zoom.register')
         ->middleware('auth');
 
     Route::get('/course/{courseId}/week/start', [CourseWeekController::class, 'startWeek'])
@@ -60,6 +56,9 @@ Route::middleware(['auth', 'checkRole:student'])->prefix('/student')->group(func
     Route::get('/certificate/{courseId}/generate', [StudentCertificateController::class, 'generateCertificate'])->name('certificate.generate');
 
     Route::get('/zoom-detail/{id}', [ZoomController::class,'showDetail'])->name('zoom.showDetail');
+    Route::post('/zoom/{id}/register', [ZoomController::class, 'register'])
+    ->name('zoom.register')
+    ->middleware('auth');
    
 });
 
@@ -81,20 +80,6 @@ Route::middleware(['auth', 'checkRole:admin'])->prefix('/admin')->group(function
     Route::get('/courses/{course}/syllabus', [AdminCourseController::class, 'syllabus'])->name('admin.courses.syllabus');
 
 });
-
-
-Route::get('/course', [CourseController::class, 'index']
-)->name('course');
-
-
-Route::get('/hasil-projek-submission', function(){
-    return view('Artcademy.course-hasil-penilaian');
-});
-
-Route::get('/certificate', function(){
-    return view('certificates.certificate_template');
-});
-
 
 
 

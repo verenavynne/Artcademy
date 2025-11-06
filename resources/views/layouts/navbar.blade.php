@@ -14,7 +14,7 @@
             <div class="offcanvas-body">
                 <ul class="navbar-nav flex-column flex-lg-row align-items-lg-center justify-content-lg-center w-100 wide-gap" style="font-size: 16px">
                     <li class="nav-item">
-                        <a class="nav-link {{ request()->routeIs('student.home') ? 'active' : '' }}" href="{{ route('student.home') }}">Beranda</a>
+                        <a class="nav-link {{ request()->routeIs('home') ? 'active' : '' }}" href="{{ route('home') }}">Beranda</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link {{ request()->routeIs('course') ? 'active' : '' }}" href="{{ route('course') }}">Kursus</a>
