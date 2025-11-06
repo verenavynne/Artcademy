@@ -17,6 +17,7 @@
         --blue-gradient-color: linear-gradient(149.46deg, #50C4ED 5.33%, #387ADF 75.32%);
         --orange-gradient-color: linear-gradient(0deg, #F69000 25%, #F8BA0C 64.38%);
         --green-gradient-color:linear-gradient(182.72deg, #3EC973 43.36%, #0E8F53 81.22%);
+        --red-gradient-color: linear-gradient(0deg, #E53636 25%, #FF6E6E 70%);
 
         --font-size-mini: 12px;
         --font-size-tiny: 14px;
@@ -101,6 +102,55 @@
         align-items: center;
         justify-content: center;
         box-shadow: 0px 7.571px 15.143px 0px rgba(67, 39, 0, 0.20);
+    }
+    /* navbar admin */
+    .nav-link-admin {
+        color: var(--Dark-gray, #474747);
+        font-size: 18px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: normal;
+        font-size: 18px;
+        font-weight: 500;
+        display: flex;
+        align-items: center;
+        padding: 12px 12px 12px 12px; 
+        border-radius: 10px;
+        transition: all 0.25s ease-in-out;
+        text-decoration: none !important;
+        width: 100%;
+    }
+
+    .nav-link-admin::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        height: 2.5px;
+        width: 100%;
+        font-weight: 700;
+    }
+
+
+
+.nav-link-admin:hover {
+    background-color: rgba(255, 221, 160, 0.25);
+    color: #000;
+    text-decoration: none !important;
+    font-weight: 700;
+}
+
+    .nav-link-admin:hover::after {
+        transform: scaleX(1);
+    }
+
+    .nav-link-admin.active {
+    font-weight: 600;
+    color: #000;
+}
+
+    .nav-link-admin.active::after {
+        transform: scaleX(1);
     }
 
     /* button */
@@ -281,9 +331,9 @@
         margin-bottom: 0;
     }
 
-    .table thead {
+    /* .table thead {
         position: relative;
-    }
+    } */
 
     .table thead::after {
         content: "";
@@ -303,6 +353,11 @@
         background-color: #FFFFFF;
     }
 
+    .footer-admin-text{
+        color: #AAA18F !important;
+        font-size: 16px;
+        border-top: 3px solid var(--cream2-color);
+    }
     /* Sub-title in many page */
     .title{
         margin: 0;
