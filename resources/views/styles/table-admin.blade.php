@@ -55,7 +55,7 @@
   position: absolute;
   transform: translateX(-50%);
   width: 100%;
-  height: 3px;
+  height: 2.5px;
   background-color: #F9EEDB;
   border-radius: 4px;
 }
