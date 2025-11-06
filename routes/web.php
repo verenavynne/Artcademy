@@ -77,8 +77,12 @@ Route::middleware(['auth', 'checkRole:admin'])->prefix('/admin')->group(function
 
     Route::post('/courses/temp-store', [AdminCourseController::class, 'tempStore'])->name('admin.courses.tempStore');
     Route::post('/courses/draft', [AdminCourseController::class, 'draftCourseInformation'])->name('admin.courses.draftCourseInformation');
-    Route::post('/courses/save-syllabus', [AdminCourseController::class, 'saveSyllabus'])->name('admin.courses.saveSyllabus');
+    Route::post('/courses/temp-syllabus', [AdminCourseController::class, 'tempSyllabus'])->name('admin.courses.tempSyllabus');
+    Route::post('/courses/draftSyllabus', [AdminCourseController::class, 'draftSyllabus'])->name('admin.courses.draftSyllabus');
     Route::get('/courses/syllabus', [AdminCourseController::class, 'syllabus'])->name('admin.courses.syllabus');
+    Route::get('/courses/create-project', [AdminCourseController::class, 'createProject'])->name('admin.courses.createProject');
+    Route::post('/courses/saveCourse', [AdminCourseController::class, 'saveCourse'])->name('admin.courses.saveCourse');
+
 
     Route::post('/courses/temp-update-store/{courseId}', [AdminCourseController::class, 'tempUpdateStore'])->name('admin.courses.tempUpdateStore');
     Route::post('/courses/draftUpdate/{courseId}', [AdminCourseController::class, 'updateDraftCourseInformation'])->name('admin.courses.updateDraftCourseInformation');

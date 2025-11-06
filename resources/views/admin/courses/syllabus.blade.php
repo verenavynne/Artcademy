@@ -19,22 +19,39 @@
         <div class="d-flex align-items-center">
             <div class="rounded-circle d-flex justify-content-center align-items-center fw-bold me-2"
                 style="width:24px;height:24px; background: var(--orange-gradient-color);">1</div>
-            <span class="text-orange-gradient">Informasi Kursus</span>
+            <span class="fw-bold">Informasi Kursus</span>
         </div>
 
         <div class="flex-grow-1 mx-2" 
             style="height: 3px; border-radius: 10px; background: var(--orange-gradient-color);">
         </div>
 
+        <div class="d-flex align-items-center">
+            <div class="rounded-circle d-flex justify-content-center align-items-center text-dark fw-bold me-2"
+                style="width:24px;height:24px; background: var(--orange-gradient-color);">2</div>
+            <span class="fw-bold">Silabus Kursus</span>
+        </div>
+
+        <div class="flex-grow-1 mx-2" style="border-top:3px dashed #ccc;"></div>
 
         <div class="d-flex align-items-center">
             <div class="rounded-circle d-flex justify-content-center align-items-center text-dark fw-bold me-2"
-                style="width:24px;height:24px;background: var(--orange-gradient-color);;">2</div>
-            <span class="text-orange-gradient">Silabus Kursus</span>
+                style="width:24px;height:24px; background-color:#E0E0E0;">3</div>
+            <span class="fw-bold text-muted">Projek Akhir</span>
         </div>
     </div>
 
-    <form action="{{ route('admin.courses.saveSyllabus') }}" method="POST">
+     @if ($errors->any())
+        <div class="alert alert-warning">
+            <ul class="mb-0">
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+
+    <form id="courseForm" action="{{ route('admin.courses.draftSyllabus') }}" method="POST">
         @csrf
         <!-- Accordion Mingguan -->
         <div class="accordion" id="weekAccordion"></div>
@@ -49,11 +66,11 @@
         </div>
 
         <div class="d-flex justify-content-end gap-3 mt-4">
-            <button type="submit" name="action" value="draft" class="btn pink-cream-btn px-4">
+            <button type="submit" id="saveDraftBtn" class="btn pink-cream-btn px-4">
                 Simpan Draft
             </button>
-            <button type="submit" name="action" value="publish" class="btn yellow-gradient-btn px-4">
-                Publikasi
+            <button type="submit" id="nextBtn" class="btn yellow-gradient-btn px-4">
+                Lanjut
             </button>
         </div>
     </form>
@@ -63,49 +80,63 @@
 </div>
 
 <script>
-let weekIndex = 0;
+    let weekIndex = 0;
 
-const availableTutors = @json($tutors);
+    const availableTutors = @json($tutors);
 
-// Template minggu
-function createWeekElement(index) {
-    const template = document.getElementById('week-template').innerHTML
-        .replace(/__WEEK_INDEX__/g, index)
-        .replace(/__WEEK_INDEX_PLUS_ONE__/g, index + 1);
-    return template;
-}
-
-// Template materi
-function createMaterialElement(week, materiIndex) {
-    const template = document.getElementById('material-template').innerHTML
-        .replace(/__WEEK_INDEX__/g, week)
-        .replace(/__MATERIAL_INDEX__/g, materiIndex)
-        .replace(/__MATERIAL_INDEX_PLUS_ONE__/g, materiIndex + 1);
-    return template;
-}
-
-// Tambah minggu
-document.getElementById('add-week').onclick = function() {
-    if (availableTutors.length === 0) {
-        alert('Tidak ada tutor untuk course ini!');
-        return;
+    // Template minggu
+    function createWeekElement(index) {
+        const template = document.getElementById('week-template').innerHTML
+            .replace(/__WEEK_INDEX__/g, index)
+            .replace(/__WEEK_INDEX_PLUS_ONE__/g, index + 1);
+        return template;
     }
 
-    const container = document.getElementById('weekAccordion');
-    container.insertAdjacentHTML('beforeend', createWeekElement(weekIndex));
-    weekIndex++;
-};
-
-document.addEventListener('click', e => {
-    // Tambah materi
-    if (e.target.classList.contains('add-materi')) {
-        const weekGroup = e.target.closest('.week-group');
-        const week = e.target.dataset.week;
-        const container = weekGroup.querySelector('.materi-container');
-        const materiIndex = container.children.length;
-
-        container.insertAdjacentHTML('beforeend', createMaterialElement(week, materiIndex));
+    // Template materi
+    function createMaterialElement(week, materiIndex) {
+        const template = document.getElementById('material-template').innerHTML
+            .replace(/__WEEK_INDEX__/g, week)
+            .replace(/__MATERIAL_INDEX__/g, materiIndex)
+            .replace(/__MATERIAL_INDEX_PLUS_ONE__/g, materiIndex + 1);
+        return template;
     }
-});
+
+    // Tambah minggu
+    document.getElementById('add-week').onclick = function() {
+        if (availableTutors.length === 0) {
+            alert('Tidak ada tutor untuk course ini!');
+            return;
+        }
+
+        const container = document.getElementById('weekAccordion');
+        container.insertAdjacentHTML('beforeend', createWeekElement(weekIndex));
+        weekIndex++;
+    };
+
+    document.addEventListener('click', e => {
+        // Tambah materi
+        if (e.target.classList.contains('add-materi')) {
+            const weekGroup = e.target.closest('.week-group');
+            const week = e.target.dataset.week;
+            const container = weekGroup.querySelector('.materi-container');
+            const materiIndex = container.children.length;
+
+            container.insertAdjacentHTML('beforeend', createMaterialElement(week, materiIndex));
+        }
+    });
+
+    const form = document.getElementById('courseForm');
+    const saveDraftBtn = document.getElementById('saveDraftBtn');
+    const nextBtn = document.getElementById('nextBtn');
+
+    nextBtn.addEventListener('click', () => {
+        form.action = "{{ route('admin.courses.tempSyllabus') }}";
+    });
+
+    saveDraftBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        form.action = "{{ route('admin.courses.draftSyllabus') }}";
+        form.submit();
+    });
 </script>
 @endsection

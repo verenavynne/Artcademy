@@ -51,7 +51,7 @@ class AdminCourseController extends Controller
             'courseLevel' => 'required|in:dasar,menengah,lanjutan',
             'courseType' => 'required|in:Seni Tari,Seni Musik,Seni Fotografi,Seni Lukis & Digital Art',
             'coursePaymentType' => 'required|in:gratis,berbayar',
-            'lecturers' => 'required|array',
+            'lecturers' => 'required|array|size:3',
             'lecturers.*' => 'exists:lecturers,id',
         ]);
 
@@ -61,7 +61,7 @@ class AdminCourseController extends Controller
     }
 
 
-    public function draftCourseInformation(Request $request)
+    public function draftCourseInformation(Request $request, $redirect = true)
     {
         $validated = $request->validate([
             'courseName' => 'required|string|max:255',
@@ -70,7 +70,7 @@ class AdminCourseController extends Controller
             'courseLevel' => 'required|in:dasar,menengah,lanjutan',
             'courseType' => 'required|in:Seni Tari,Seni Musik,Seni Fotografi,Seni Lukis & Digital Art',
             'coursePaymentType' => 'required|in:gratis,berbayar',
-            'lecturers' => 'required|array',
+            'lecturers' => 'required|array|size:3',
             'lecturers.*' => 'exists:lecturers,id',
         ]);
 
@@ -93,7 +93,11 @@ class AdminCourseController extends Controller
             ]);
         }
 
-        return redirect()->route('admin.courses.index');
+        if ($redirect) {
+            return redirect()->route('admin.courses.index');
+        }
+
+        return $course;
     }
 
     public function syllabus(Course $course)
@@ -113,8 +117,17 @@ class AdminCourseController extends Controller
         ]);
     }
 
-    private function draftSyllabus(Request $request, Course $course)
+    public function draftSyllabus(Request $request, Course $course, $redirect = true)
     {
+        $tempCourse = session('temp_course');
+
+        if (!$tempCourse) {
+            return redirect()->route('admin.courses.create')->with('error', 'Data kursus tidak ditemukan di session.');
+        }
+
+        $request_course = new Request($tempCourse);
+        $course = $this->draftCourseInformation($request_course, false);
+
         $validated = $request->validate([
             'weeks' => 'array',
             'weeks.*.weekName' => 'required|string|max:255',
@@ -149,44 +162,65 @@ class AdminCourseController extends Controller
                 }
             }
         }
+
+        if ($redirect) {
+            return redirect()->route('admin.courses.index');
+        }
+
+        return $course;
     }
 
-    public function saveSyllabus(Request $request, Course $course)
+    public function tempSyllabus(Request $request)
     {
-        $tempCourse = session('temp_course');
-
-        if (!$tempCourse) {
-            return redirect()->route('admin.courses.create')->with('error', 'Data kursus tidak ditemukan di session.');
-        }
-
-        $course = Course::create([
-            'courseName' => $tempCourse['courseName'],
-            'courseSummary' => $tempCourse['courseSummary'],
-            'courseText' => $tempCourse['courseText'],
-            'courseLevel' => $tempCourse['courseLevel'],
-            'courseType' => $tempCourse['courseType'],
-            'coursePaymentType' => $tempCourse['coursePaymentType'],
-            'coursePicture' => 'assets/course/course_default_picture.png',
-            'courseStatus' => 'draft',
-            'courseReview' => 4.9,
+        $validated = $request->validate([
+            'weeks' => 'array',
+            'weeks.*.weekName' => 'required|string|max:255',
+            'weeks.*.tutorId' => 'required|exists:lecturers,id',
+            'weeks.*.materials' => 'array',
+            'weeks.*.materials.*.materiName' => 'required|string|max:255',
+            'weeks.*.materials.*.articleName' => 'nullable|string|max:255',
+            'weeks.*.materials.*.articleText' => 'nullable|string',
+            'weeks.*.materials.*.vblName' => 'nullable|string|max:255',
+            'weeks.*.materials.*.vblDesc' => 'nullable|string',
+            'weeks.*.materials.*.vblUrl' => 'nullable|string|max:255',
         ]);
 
-        foreach ($tempCourse['lecturers'] as $lecturerId) {
-            CourseLecturer::create([
-                'courseId' => $course->id,
-                'lecturerId' => $lecturerId
-            ]);
-        }
+        session(['temp_syllabus' => $validated]);
 
-        $this->draftSyllabus($request, $course);
+        return redirect()->route('admin.courses.createProject');
+    }
+
+    public function createProject()
+    {
+        return view('admin.courses.project');
+    }
+
+    public function saveCourse(Request $request, Course $course)
+    {
+        $request_syllabus = new Request(session('temp_syllabus'));
+        $course = $this->draftSyllabus($request_syllabus, $course, false);
+
+
+        $validated = $request->validate([
+            'projectName' => 'required|string|max:255',
+            'projectConcept' => 'required|string',
+            'projectRequirements' => 'nullable|string'
+        ]);
+
+        $course->project()->updateOrCreate(
+            ['courseId' => $course->id],
+            [
+                'projectName' => $validated['projectName'],
+                'projectConcept' => $validated['projectConcept'],
+                'projectRequirements' => $validated['projectRequirements']
+            ]
+        );
 
         if ($request->action === 'publish') {
             $course->update(['courseStatus' => 'publikasi']);
-            return redirect()->route('admin.courses.index')->with('success', 'Course berhasil dipublikasikan.');
         }
 
-        return redirect()->route('admin.courses.index')
-                        ->with('success', 'Course berhasil disimpan di draft.');
+        return redirect()->route('admin.courses.index');
     }
 
 
@@ -211,7 +245,7 @@ class AdminCourseController extends Controller
             'courseLevel'       => 'required|in:dasar,menengah,lanjutan',
             'courseType'        => 'required|in:Seni Tari,Seni Musik,Seni Fotografi,Seni Lukis & Digital Art',
             'coursePaymentType' => 'required|in:gratis,berbayar',
-            'lecturers'         => 'required|array',
+            'lecturers'         => 'required|array|size:3',
             'lecturers.*'       => 'exists:lecturers,id',
         ]);
 
@@ -231,7 +265,7 @@ class AdminCourseController extends Controller
             'courseLevel' => 'required|in:dasar,menengah,lanjutan',
             'courseType' => 'required|in:Seni Tari,Seni Musik,Seni Fotografi,Seni Lukis & Digital Art',
             'coursePaymentType' => 'required|in:gratis,berbayar',
-            'lecturers' => 'required|array',
+            'lecturers' => 'required|array|size:3',
             'lecturers.*' => 'exists:lecturers,id',
         ]);
 
@@ -273,7 +307,7 @@ class AdminCourseController extends Controller
         ]);
     }
 
-    private function updateDraftSyllabus(Request $request, Course $course)
+    public function updateDraftSyllabus(Request $request, Course $course)
     {
         $validated = $request->validate([
             'weeks' => 'array',

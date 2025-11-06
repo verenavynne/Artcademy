@@ -19,7 +19,7 @@
         <div class="d-flex align-items-center">
             <div class="rounded-circle d-flex justify-content-center align-items-center fw-bold me-2"
                 style="width:24px;height:24px; background: var(--orange-gradient-color);">1</div>
-            <span class="text-orange-gradient">Informasi Kursus</span>
+            <span class="fw-bold">Informasi Kursus</span>
         </div>
 
         <div class="flex-grow-1 mx-2" 
@@ -28,10 +28,28 @@
 
         <div class="d-flex align-items-center">
             <div class="rounded-circle d-flex justify-content-center align-items-center text-dark fw-bold me-2"
-                style="width:24px;height:24px;background: var(--orange-gradient-color);;">2</div>
-            <span class="text-orange-gradient">Silabus Kursus</span>
+                style="width:24px;height:24px; background: var(--orange-gradient-color);">2</div>
+            <span class="fw-bold">Silabus Kursus</span>
+        </div>
+
+        <div class="flex-grow-1 mx-2" style="border-top:3px dashed #ccc;"></div>
+
+        <div class="d-flex align-items-center">
+            <div class="rounded-circle d-flex justify-content-center align-items-center text-dark fw-bold me-2"
+                style="width:24px;height:24px; background-color:#E0E0E0;">3</div>
+            <span class="fw-bold text-muted">Projek Akhir</span>
         </div>
     </div>
+
+     @if ($errors->any())
+        <div class="alert alert-warning">
+            <ul class="mb-0">
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
 
     <form action="{{ route('admin.courses.updateSyllabus', $course->id) }}" method="POST">
         @csrf
