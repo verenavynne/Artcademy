@@ -369,4 +369,20 @@
         margin-block-end: 18px;
     
     }
+    /* accordion week & material */
+    .week-body,
+    .material-body { 
+        display: none; 
+    }
+
+    .week-group.active .week-body,
+    .materi-group.active .material-body {
+        display: block; 
+    }
+
+    .week-header,
+    .material-header {
+        cursor: pointer;
+    }
+
 </style>

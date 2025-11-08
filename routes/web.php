@@ -73,12 +73,26 @@ Route::middleware(['auth', 'checkRole:admin'])->prefix('/admin')->group(function
         return view('admin.home');
     })->name('admin.home');
 
-    Route::resource('/courses', AdminCourseController::class)->names('admin.courses');
+    Route::resource('/courses', AdminCourseController::class)->except(['show'])->names('admin.courses');
 
+    Route::post('/courses/temp-store', [AdminCourseController::class, 'tempStore'])->name('admin.courses.tempStore');
     Route::post('/courses/draft', [AdminCourseController::class, 'draftCourseInformation'])->name('admin.courses.draftCourseInformation');
-    Route::post('/courses/{course}/save-syllabus', [AdminCourseController::class, 'saveSyllabus'])->name('admin.courses.saveSyllabus');
-    Route::get('/courses/{course}/syllabus', [AdminCourseController::class, 'syllabus'])->name('admin.courses.syllabus');
+    Route::post('/courses/temp-syllabus', [AdminCourseController::class, 'tempSyllabus'])->name('admin.courses.tempSyllabus');
+    Route::post('/courses/draftSyllabus', [AdminCourseController::class, 'draftSyllabus'])->name('admin.courses.draftSyllabus');
+    Route::get('/courses/syllabus', [AdminCourseController::class, 'syllabus'])->name('admin.courses.syllabus');
+    Route::get('/courses/create-project', [AdminCourseController::class, 'createProject'])->name('admin.courses.createProject');
+    Route::post('/courses/saveCourse', [AdminCourseController::class, 'saveCourse'])->name('admin.courses.saveCourse');
 
+
+    Route::post('/courses/temp-update-store/{courseId}', [AdminCourseController::class, 'tempUpdateStore'])->name('admin.courses.tempUpdateStore');
+    Route::post('/courses/draftUpdate/{courseId}', [AdminCourseController::class, 'updateDraftCourseInformation'])->name('admin.courses.updateDraftCourseInformation');
+    Route::post('/courses/temp-update-syllabus/{courseId}', [AdminCourseController::class, 'tempUpdateSyllabus'])->name('admin.courses.tempUpdateSyllabus');
+    Route::post('/courses/updateDraftSyllabus/{courseId}', [AdminCourseController::class, 'updateDraftSyllabus'])->name('admin.courses.updateDraftSyllabus');
+    Route::get('/courses/edit-syllabus/{courseId}', [AdminCourseController::class, 'editSyllabus'])->name('admin.courses.editSyllabus');
+    Route::get('/courses/edit-project/{courseId}', [AdminCourseController::class, 'editProject'])->name('admin.courses.editProject');
+    Route::post('/courses/updateCourse/{courseId}', [AdminCourseController::class, 'updateCourse'])->name('admin.courses.updateCourse');
+
+    Route::delete('/archive/{id}', [AdminCourseController::class, 'archive'])->name('admin.courses.archive');
 });
 
 

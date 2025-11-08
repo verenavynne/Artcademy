@@ -10,10 +10,10 @@
             </a>
         </div>
 
-        <h3 class="fw-bold mb-0">Tambah Kursus</h3>
+        <h3 class="fw-bold mb-0">Edit Kursus</h3>
     </div>
 
-    <p class="text-muted mb-4">Lengkapi formulir berikut untuk menambahkan kursus baru</p>
+    <p class="text-muted mb-4">Lengkapi formulir berikut untuk mengedit kursus</p>
 
     <!-- Progress Steps -->
     <div class="d-flex align-items-center justify-content-between mb-5" style="font-size: 14px;">
@@ -55,7 +55,7 @@
         <div class="card-body p-4">
             <h5 class="fw-bold mb-3">Informasi Kursus</h5>
 
-            <form id="courseForm" action="{{ route('admin.courses.draftCourseInformation') }}" method="POST" enctype="multipart/form-data">
+            <form id="courseForm" action="{{ route('admin.courses.updateDraftCourseInformation', $course->id) }}" method="POST" enctype="multipart/form-data">
                 @csrf
 
                 <!-- Jenis Kursus -->
@@ -63,11 +63,11 @@
                     <div class="col-md-6 mb-3">
                         <label class="form-label fw-semibold">Kategori Kursus</label>
                         <select name="courseType" class="form-select rounded-pill custom-input" required>
-                            <option selected disabled>Pilih Kategori Kursus</option>
-                            <option value="Seni Tari">Seni Tari</option>
-                            <option value="Seni Musik">Seni Musik</option>
-                            <option value="Seni Fotografi">Seni Fotografi</option>
-                            <option value="Seni Lukis & Digital Art">Seni Lukis & Digital Art</option>
+                            <option disabled {{ !$course ? 'selected' : '' }}>Pilih Kategori Kursus</option>
+                            <option value="Seni Tari" {{ old('courseType', $course->courseType ?? '') == 'Seni Tari' ? 'selected' : '' }}>Seni Tari</option>
+                            <option value="Seni Musik" {{ old('courseType', $course->courseType ?? '') == 'Seni Musik' ? 'selected' : '' }}>Seni Musik</option>
+                            <option value="Seni Fotografi" {{ old('courseType', $course->courseType ?? '') == 'Seni Fotografi' ? 'selected' : '' }}>Seni Fotografi</option>
+                            <option value="Seni Lukis & Digital Art" {{ old('courseType', $course->courseType ?? '') == 'Seni Lukis & Digital Art' ? 'selected' : '' }}>Seni Lukis & Digital Art</option>
                         </select>
                     </div>
 
@@ -75,10 +75,10 @@
                     <div class="col-md-6 mb-3">
                         <label class="form-label fw-semibold">Level Kursus</label>
                         <select name="courseLevel" class="form-select rounded-pill custom-input" required>
-                            <option selected disabled>Pilih Level</option>
-                            <option value="dasar">Level Dasar</option>
-                            <option value="menengah">Level Menengah</option>
-                            <option value="lanjutan">Level Lanjutan</option>
+                            <option disabled {{ !$course ? 'selected' : '' }}>Pilih Level</option>
+                            <option value="dasar" {{ old('courseLevel', $course->courseLevel ?? '') == 'dasar' ? 'selected' : '' }}>Level Dasar</option>
+                            <option value="menengah" {{ old('courseLevel', $course->courseLevel ?? '') == 'menengah' ? 'selected' : '' }}>Level Menengah</option>
+                            <option value="lanjutan" {{ old('courseLevel', $course->courseLevel ?? '') == 'lanjutan' ? 'selected' : '' }}>Level Lanjutan</option>
                         </select>
                     </div>
                 </div>
@@ -86,19 +86,19 @@
                 <!-- Nama Kursus -->
                 <div class="mb-3">
                     <label class="form-label fw-semibold">Nama Kursus</label>
-                    <input type="text" name="courseName" class="form-control rounded-pill custom-input" placeholder="Masukkan nama kursus" required>
+                    <input type="text" name="courseName" class="form-control rounded-pill custom-input" placeholder="Masukkan nama kursus" value="{{ old('courseName', $course->courseName ?? '') }}" required>
                 </div>
 
                 <!-- Ringkasan -->
                 <div class="mb-3">
                     <label class="form-label fw-semibold">Ringkasan Kursus</label>
-                    <input type="text" name="courseSummary" class="form-control rounded-pill custom-input" placeholder="Masukkan ringkasan singkat kursus" required>
+                    <input type="text" name="courseSummary" class="form-control rounded-pill custom-input" placeholder="Masukkan ringkasan singkat kursus" value="{{ old('courseSummary', $course->courseSummary ?? '') }}" required>
                 </div>
 
                 <!-- Deskripsi -->
                 <div class="mb-3">
                     <label class="form-label fw-semibold">Deskripsi Kursus</label>
-                    <textarea name="courseText" class="form-control rounded-4 custom-input" rows="4" placeholder="Deskripsikan isi kursus..." required></textarea>
+                    <textarea name="courseText" class="form-control rounded-4 custom-input" rows="4" placeholder="Deskripsikan isi kursus..." required>{{ old('courseText', $course->courseText ?? '') }}</textarea>
                 </div>
 
                 <div class="row mb-3">
@@ -106,9 +106,9 @@
                     <div class="col-md-6 mb-3">
                         <label class="form-label fw-semibold">Tipe Pembayaran</label>
                         <select name="coursePaymentType" class="form-select rounded-pill custom-input" required>
-                            <option selected disabled>Pilih Tipe Pembayaran</option>
-                            <option value="gratis">Gratis</option>
-                            <option value="berbayar">Berbayar</option>
+                            <option disabled {{ !$course ? 'selected' : '' }}>Pilih Tipe Pembayaran</option>
+                            <option value="gratis" {{ old('coursePaymentType', $course->coursePaymentType ?? '') == 'gratis' ? 'selected' : '' }}>Gratis</option>
+                            <option value="berbayar" {{ old('coursePaymentType', $course->coursePaymentType ?? '') == 'berbayar' ? 'selected' : '' }}>Berbayar</option>
                         </select>
                     </div>
 
@@ -118,6 +118,9 @@
 
                         <div id="lecturers-container" class="border rounded-4 p-3 custom-input">
                             @foreach($lecturers as $lecturer)
+                                @php
+                                    $isChecked = isset($course) && isset($courseLecturers) && in_array($lecturer->id, $courseLecturers);
+                                @endphp
                                 <div class="form-check mb-2">
                                     <input 
                                         type="checkbox" 
@@ -125,7 +128,9 @@
                                         value="{{ $lecturer->id }}" 
                                         class="form-check-input lecturer-checkbox"
                                         data-category="{{ $lecturer->specialization }}"
-                                        id="lecturer-{{ $lecturer->id }}">
+                                        id="lecturer-{{ $lecturer->id }}"
+                                        {{ $isChecked ? 'checked' : '' }}                                    
+                                    >
                                     <label class="form-check-label" for="lecturer-{{ $lecturer->id }}">
                                         {{ $lecturer->user->name }} 
                                     </label>
@@ -141,7 +146,7 @@
 
                 <!-- Buttons -->
                 <div class="d-flex justify-content-end gap-3">
-                    <button type="button" id="saveDraftBtn" class="btn pink-cream-btn px-4">
+                    <button type="submit" id="saveDraftBtn" class="btn pink-cream-btn px-4">
                         <span class="text-pink-gradient">Simpan Draft</span>
                     </button>
                     <button type="submit" id="nextBtn" class="btn yellow-gradient-btn px-4">
@@ -157,35 +162,46 @@
     const courseTypeSelect = document.querySelector('select[name="courseType"]');
     const lecturersContainer = document.getElementById('lecturers-container');
 
-    lecturersContainer.querySelectorAll('.form-check').forEach(fc => {
-        fc.style.display = 'none';
-    });
+    // Menampilkan tutor yang sesuai kategori
+    const showLecturers = (selectedCategory) => {
+        lecturersContainer.querySelectorAll('.lecturer-checkbox').forEach(cb => {
+            const isMatch = cb.dataset.category === selectedCategory;
+            cb.closest('.form-check').style.display = isMatch ? '' : 'none';
+        });
+    };
 
-    courseTypeSelect.addEventListener('change', () => {
+    // Halaman pertama kali dimuat
+    document.addEventListener('DOMContentLoaded', () => {
         const selectedCategory = courseTypeSelect.value;
 
-        lecturersContainer.querySelectorAll('.lecturer-checkbox').forEach(cb => {
-            if (cb.dataset.category === selectedCategory) {
-                cb.closest('.form-check').style.display = '';
-            } else {
-                cb.closest('.form-check').style.display = 'none';
-                cb.checked = false;
-            }
-        });
+        // Kalau sedang edit dan kategori kursus sudah ada
+        if (selectedCategory) {
+            showLecturers(selectedCategory);
+        } else {
+            // Kalau belum ada kategori, sembunyikan semua dulu
+            lecturersContainer.querySelectorAll('.form-check').forEach(fc => {
+                fc.style.display = 'none';
+            });
+        }
     });
 
+    // Saat kategori diubah
+    courseTypeSelect.addEventListener('change', () => {
+        const selectedCategory = courseTypeSelect.value;
+        showLecturers(selectedCategory);
+    });
 
     const form = document.getElementById('courseForm');
     const saveDraftBtn = document.getElementById('saveDraftBtn');
     const nextBtn = document.getElementById('nextBtn');
 
     nextBtn.addEventListener('click', () => {
-        form.action = "{{ route('admin.courses.tempStore') }}";
+        form.action = "{{ route('admin.courses.tempUpdateStore', $course->id) }}";
     });
 
     saveDraftBtn.addEventListener('click', (e) => {
         e.preventDefault();
-        form.action = "{{ route('admin.courses.draftCourseInformation') }}";
+        form.action = "{{ route('admin.courses.updateDraftCourseInformation', $course->id) }}";
         form.submit();
     });
 </script>

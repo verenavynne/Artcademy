@@ -8,6 +8,10 @@ use App\Models\CourseMateri;
 use Illuminate\Http\Request;
 use App\Models\CourseLecturer;
 use App\Models\Lecturer;
+use App\Models\ProjectTool;
+use App\Models\ProjectCriteria;
+use App\Models\GradeCriteria;
+use App\Models\Tool;
 
 class AdminCourseController extends Controller
 {
@@ -35,25 +39,14 @@ class AdminCourseController extends Controller
         return view('admin.index', compact('courses'));
     }
 
+    // Create New Course
     public function create()
     {
         $lecturers = Lecturer::with('user')->get(); 
         return view('admin.courses.create', compact('lecturers'));
     }
 
-    public function syllabus(Course $course)
-    {
-        $courseLecturers = CourseLecturer::with('lecturer.user')
-            ->where('courseId', $course->id)
-            ->get();
-
-        return view('admin.courses.syllabus', [
-            'course' => $course,
-            'tutors' => $courseLecturers,
-        ]);
-    }
-
-    public function draftCourseInformation(Request $request)
+    public function tempStore(Request $request)
     {
         $validated = $request->validate([
             'courseName' => 'required|string|max:255',
@@ -62,7 +55,26 @@ class AdminCourseController extends Controller
             'courseLevel' => 'required|in:dasar,menengah,lanjutan',
             'courseType' => 'required|in:Seni Tari,Seni Musik,Seni Fotografi,Seni Lukis & Digital Art',
             'coursePaymentType' => 'required|in:gratis,berbayar',
-            'lecturers' => 'required|array',
+            'lecturers' => 'required|array|size:3',
+            'lecturers.*' => 'exists:lecturers,id',
+        ]);
+
+        session(['temp_course' => $validated]);
+
+        return redirect()->route('admin.courses.syllabus');
+    }
+
+
+    public function draftCourseInformation(Request $request, $redirect = true)
+    {
+        $validated = $request->validate([
+            'courseName' => 'required|string|max:255',
+            'courseSummary' => 'required|string|max:255',
+            'courseText' => 'required',
+            'courseLevel' => 'required|in:dasar,menengah,lanjutan',
+            'courseType' => 'required|in:Seni Tari,Seni Musik,Seni Fotografi,Seni Lukis & Digital Art',
+            'coursePaymentType' => 'required|in:gratis,berbayar',
+            'lecturers' => 'required|array|size:3',
             'lecturers.*' => 'exists:lecturers,id',
         ]);
 
@@ -85,38 +97,61 @@ class AdminCourseController extends Controller
             ]);
         }
 
-        return redirect()->route('admin.courses.syllabus', $course->id);
-    }
-
-    public function saveSyllabus(Request $request, Course $course)
-    {
-        $this->draftSyllabus($request, $course);
-
-        if ($request->action === 'publish') {
-            $course->update(['courseStatus' => 'publikasi']);
-            return redirect()->route('admin.courses.index')->with('success', 'Course berhasil dipublikasikan.');
+        if ($redirect) {
+            return redirect()->route('admin.courses.index');
         }
 
-        return redirect()->route('admin.courses.index')
-                        ->with('success', 'Course berhasil dipublikasikan.');
+        return $course;
     }
 
-    private function draftSyllabus(Request $request, Course $course)
+    public function syllabus(Course $course)
     {
+        $tempCourse = session('temp_course');
+
+        if (!$tempCourse) {
+            return redirect()->route('admin.courses.create')->with('error', 'Isi informasi kursus terlebih dahulu.');
+        }
+
+        $courseLecturers = Lecturer::whereIn('id', $tempCourse['lecturers'])->with('user')->get();
+
+        $tools = Tool::all();
+
+        return view('admin.courses.syllabus', [
+            'course' => null,
+            'tutors' => $courseLecturers,
+            'tools' => $tools
+        ]);
+    }
+
+    public function draftSyllabus(Request $request, Course $course, $redirect = true)
+    {
+        $tempCourse = session('temp_course');
+
+        if (!$tempCourse) {
+            return redirect()->route('admin.courses.create')->with('error', 'Data kursus tidak ditemukan di session.');
+        }
+
+        $request_course = new Request($tempCourse);
+        $course = $this->draftCourseInformation($request_course, false);
+
         $validated = $request->validate([
             'weeks' => 'array',
             'weeks.*.weekName' => 'required|string|max:255',
             'weeks.*.tutorId' => 'required|exists:lecturers,id',
             'weeks.*.materials' => 'array',
             'weeks.*.materials.*.materiName' => 'required|string|max:255',
+            'weeks.*.materials.*.duration' => 'required|integer',
             'weeks.*.materials.*.articleName' => 'nullable|string|max:255',
             'weeks.*.materials.*.articleText' => 'nullable|string',
             'weeks.*.materials.*.vblName' => 'nullable|string|max:255',
             'weeks.*.materials.*.vblDesc' => 'nullable|string',
             'weeks.*.materials.*.vblUrl' => 'nullable|string|max:255',
+            'weeks.*.materials.*.tools' => 'nullable',
         ]);
 
         $course->weeks()->delete();
+
+        $totalDuration = 0;
 
         foreach ($validated['weeks'] as $weekData) {
             $week = $course->weeks()->create([
@@ -126,20 +161,450 @@ class AdminCourseController extends Controller
 
             if (!empty($weekData['materials'])) {
                 foreach ($weekData['materials'] as $materiData) {
-                    $week->materials()->create([
+                    $materi = $week->materials()->create([
                         'materiName' => $materiData['materiName'],
+                        'duration' => $materiData['duration'],
                         'articleName' => $materiData['articleName'] ?? null,
                         'articleText' => $materiData['articleText'] ?? null,
                         'vblName' => $materiData['vblName'] ?? null,
                         'vblDesc' => $materiData['vblDesc'] ?? null,
                         'vblUrl' => $materiData['vblUrl'] ?? null,
                     ]);
+
+                    $totalDuration += $materiData['duration'];
+
+                    if (!empty($materiData['tools'])) {
+                        foreach ($materiData['tools'] as $toolId) {
+                            $materi->materiTools()->create([
+                                'toolId' => $toolId
+                            ]);
+                        }
+                    }
                 }
             }
         }
+
+        $course->update([
+            'courseDurationInMinutes' => $totalDuration
+        ]);
+
+        if ($redirect) {
+            return redirect()->route('admin.courses.index');
+        }
+
+        return $course;
     }
 
-    public function destroy($id)
+    public function tempSyllabus(Request $request)
+    {
+        $validated = $request->validate([
+            'weeks' => 'array',
+            'weeks.*.weekName' => 'required|string|max:255',
+            'weeks.*.tutorId' => 'required|exists:lecturers,id',
+            'weeks.*.materials' => 'array',
+            'weeks.*.materials.*.materiName' => 'required|string|max:255',
+            'weeks.*.materials.*.duration' => 'required|integer',
+            'weeks.*.materials.*.articleName' => 'nullable|string|max:255',
+            'weeks.*.materials.*.articleText' => 'nullable|string',
+            'weeks.*.materials.*.vblName' => 'nullable|string|max:255',
+            'weeks.*.materials.*.vblDesc' => 'nullable|string',
+            'weeks.*.materials.*.vblUrl' => 'nullable|string|max:255',
+            'weeks.*.materials.*.tools' => 'nullable'
+        ]);
+
+        session(['temp_syllabus' => $validated]);
+
+        return redirect()->route('admin.courses.createProject');
+    }
+
+    public function createProject()
+    {
+        $tools = Tool::all();
+        return view('admin.courses.project', compact('tools'));
+    }
+
+    public function saveCourse(Request $request, Course $course)
+    {
+        $request_syllabus = new Request(session('temp_syllabus'));
+        $course = $this->draftSyllabus($request_syllabus, $course, false);
+
+
+        $validated = $request->validate([
+            'projectName' => 'required|string|max:255',
+            'projectConcept' => 'required|string',
+            'projectRequirement' => 'nullable|string',
+            'projectTools' => 'required|array|min:1',
+            'projectTools.*' => 'exists:tools,id',
+            'criteriaCreativity' => 'required|integer|min:0|max:100',
+            'criteriaReadability' => 'required|integer|min:0|max:100',
+            'criteriaTheme' => 'required|integer|min:0|max:100',
+        ]);
+
+        $totalCriteria = $validated['criteriaCreativity'] + $validated['criteriaReadability'] + $validated['criteriaTheme'];
+        if ($totalCriteria !== 100) {
+            return back()->withErrors(['criteria' => 'Total persentase kriteria harus 100%.'])->withInput();
+        }
+
+        $project = $course->project()->updateOrCreate(
+            ['courseId' => $course->id],
+            [
+                'projectName' => $validated['projectName'],
+                'projectConcept' => $validated['projectConcept'],
+                'projectRequirement' => $validated['projectRequirement']
+            ]
+        );
+
+        foreach ($validated['projectTools'] as $toolId) {
+            ProjectTool::create([
+                'projectId' => $project->id,
+                'toolId' => $toolId,
+            ]);
+        }
+
+        $criteriaList = GradeCriteria::whereIn('criteriaName', [
+            'Kreativitas',
+            'Keterbacaan',
+            'Kesesuaian Tema'
+        ])->get()->keyBy('criteriaName');
+
+        ProjectCriteria::create([
+            'projectId' => $project->id,
+            'criteriaId' => $criteriaList['Kreativitas']->id ?? null,
+            'customWeight' => $validated['criteriaCreativity'],
+        ]);
+
+        ProjectCriteria::create([
+            'projectId' => $project->id,
+            'criteriaId' => $criteriaList['Keterbacaan']->id ?? null,
+            'customWeight' => $validated['criteriaReadability'],
+        ]);
+
+        ProjectCriteria::create([
+            'projectId' => $project->id,
+            'criteriaId' => $criteriaList['Kesesuaian Tema']->id ?? null,
+            'customWeight' => $validated['criteriaTheme'],
+        ]);
+
+        if ($request->action === 'publish') {
+            $course->update(['courseStatus' => 'publikasi']);
+        }
+
+        return redirect()->route('admin.courses.index');
+    }
+
+
+    // Edit Course
+    public function edit($id)
+    {
+        $course = Course::findOrFail($id);
+        $lecturers = Lecturer::with('user')->get(); 
+        $courseLecturers = CourseLecturer::where('courseId', $id)->pluck('lecturerId')->toArray();
+
+        return view('admin.courses.edit', compact('course', 'lecturers', 'courseLecturers'));
+    }
+
+    public function tempUpdateStore(Request $request, $courseId)
+    {
+        $course = Course::findOrFail($courseId);
+
+        $validated = $request->validate([
+            'courseName'        => 'required|string|max:255',
+            'courseSummary'     => 'required|string|max:255',
+            'courseText'        => 'required',
+            'courseLevel'       => 'required|in:dasar,menengah,lanjutan',
+            'courseType'        => 'required|in:Seni Tari,Seni Musik,Seni Fotografi,Seni Lukis & Digital Art',
+            'coursePaymentType' => 'required|in:gratis,berbayar',
+            'lecturers'         => 'required|array|size:3',
+            'lecturers.*'       => 'exists:lecturers,id',
+        ]);
+
+        session(['temp_update_course' => $validated]);
+
+        return redirect()->route('admin.courses.editSyllabus', [ 'courseId' => $course->id]);
+    }
+
+    public function updateDraftCourseInformation(Request $request, $courseId, $redirect = true)
+    {
+        $course = Course::findOrFail($courseId);
+
+        $validated = $request->validate([
+            'courseName' => 'required|string|max:255',
+            'courseSummary' => 'required|string|max:255',
+            'courseText' => 'required',
+            'courseLevel' => 'required|in:dasar,menengah,lanjutan',
+            'courseType' => 'required|in:Seni Tari,Seni Musik,Seni Fotografi,Seni Lukis & Digital Art',
+            'coursePaymentType' => 'required|in:gratis,berbayar',
+            'lecturers' => 'required|array|size:3',
+            'lecturers.*' => 'exists:lecturers,id',
+        ]);
+
+        $course->update([
+            'courseName' => $validated['courseName'],
+            'courseSummary' => $validated['courseSummary'],
+            'courseText' => $validated['courseText'],
+            'courseLevel' => $validated['courseLevel'],
+            'courseType' => $validated['courseType'],
+            'coursePaymentType' => $validated['coursePaymentType'],
+        ]);
+
+        $course->courseLecturers()->delete();
+
+        foreach($validated['lecturers'] as $lecturerId){
+            CourseLecturer::create([
+                'courseId' => $course->id,
+                'lecturerId' => $lecturerId
+            ]);
+        }
+        
+        if ($redirect) {
+            return redirect()->route('admin.courses.index');
+        }
+
+        return $course;
+    }
+
+    public function editSyllabus($courseId) 
+    {
+        $temp_update_course = session('temp_update_course');
+
+        $weeks = CourseWeek::with(['materials.materiTools.tool'])
+            ->where('courseId', $courseId)
+            ->get();
+
+        $tutors = Lecturer::whereIn('id', $temp_update_course['lecturers'])->with('user')->get();
+
+        $tools = Tool::all();
+
+        return view('admin.courses.syllabus-edit', [
+            'course' => Course::findOrFail($courseId),
+            'weeks' => $weeks,
+            'tutors' => $tutors,
+            'tools' => $tools
+        ]);
+    }
+
+    public function updateDraftSyllabus(Request $request, $courseId, $redirect = true)
+    {
+        $course = Course::findOrFail($courseId);
+        $temp_update_course = session('temp_update_course');
+
+        $course->update([
+            'courseName' => $temp_update_course['courseName'],
+            'courseSummary' => $temp_update_course['courseSummary'],
+            'courseText' => $temp_update_course['courseText'],
+            'courseLevel' => $temp_update_course['courseLevel'],
+            'courseType' => $temp_update_course['courseType'],
+            'coursePaymentType' => $temp_update_course['coursePaymentType'],
+        ]);
+
+        $course->courseLecturers()->delete();
+
+        foreach($temp_update_course['lecturers'] as $lecturerId){
+            CourseLecturer::create([
+                'courseId' => $course->id,
+                'lecturerId' => $lecturerId
+            ]);
+        }
+
+        $validated = $request->validate([
+            'weeks' => 'array',
+            'weeks.*.weekName' => 'required|string|max:255',
+            'weeks.*.tutorId' => 'required|exists:lecturers,id',
+            'weeks.*.materials' => 'array',
+            'weeks.*.materials.*.materiName' => 'required|string|max:255',
+            'weeks.*.materials.*.duration' => 'required|integer',
+            'weeks.*.materials.*.articleName' => 'nullable|string|max:255',
+            'weeks.*.materials.*.articleText' => 'nullable|string',
+            'weeks.*.materials.*.vblName' => 'nullable|string|max:255',
+            'weeks.*.materials.*.vblDesc' => 'nullable|string',
+            'weeks.*.materials.*.vblUrl' => 'nullable|string|max:255',
+            'weeks.*.materials.*.tools' => 'nullable'
+        ]);
+
+        $course->weeks()->each(function($week){
+            $week->materials()->delete();
+        });
+        $course->weeks()->delete();
+
+        $totalDuration = 0;
+
+        foreach ($validated['weeks'] as $weekData) {
+            $week = $course->weeks()->create([
+                'weekName' => $weekData['weekName'],
+                'tutorId' => $weekData['tutorId'],
+            ]);
+
+            if (!empty($weekData['materials'])) {
+                foreach ($weekData['materials'] as $materiData) {
+                    $materi = $week->materials()->create([
+                        'materiName' => $materiData['materiName'],
+                        'duration' => $materiData['duration'],
+                        'articleName' => $materiData['articleName'] ?? null,
+                        'articleText' => $materiData['articleText'] ?? null,
+                        'vblName' => $materiData['vblName'] ?? null,
+                        'vblDesc' => $materiData['vblDesc'] ?? null,
+                        'vblUrl' => $materiData['vblUrl'] ?? null,
+                    ]);
+
+                    $totalDuration += $materiData['duration'];
+
+                    if (!empty($materiData['tools'])) {
+                        foreach ($materiData['tools'] as $toolId) {
+                            $materi->materiTools()->create([
+                                'toolId' => $toolId
+                            ]);
+                        }
+                    }
+                }
+            }
+        }
+
+        $course->update([
+            'courseDurationInMinutes' => $totalDuration
+        ]);
+
+        // if ($redirect) {
+            return redirect()->route('admin.courses.index');
+        // }
+
+        return $course;
+    }
+
+    public function tempUpdateSyllabus(Request $request, $courseId)
+    {
+        $course = Course::findOrFail($courseId);
+
+        $validated = $request->validate([
+            'weeks' => 'array',
+            'weeks.*.weekName' => 'required|string|max:255',
+            'weeks.*.tutorId' => 'required|exists:lecturers,id',
+            'weeks.*.materials' => 'array',
+            'weeks.*.materials.*.materiName' => 'required|string|max:255',
+            'weeks.*.materials.*.duration' => 'required|integer',
+            'weeks.*.materials.*.articleName' => 'nullable|string|max:255',
+            'weeks.*.materials.*.articleText' => 'nullable|string',
+            'weeks.*.materials.*.vblName' => 'nullable|string|max:255',
+            'weeks.*.materials.*.vblDesc' => 'nullable|string',
+            'weeks.*.materials.*.vblUrl' => 'nullable|string|max:255',
+            'weeks.*.materials.*.tools' => 'nullable'
+        ]);
+
+        session(['temp_update_syllabus' => $validated]);
+
+        return redirect()->route('admin.courses.editProject', ['courseId' => $course->id]);
+    }
+
+    public function editProject($courseId)
+    {
+        $course = Course::findOrFail($courseId);
+        $tools = Tool::all();
+
+        $project = null;
+        $selectedTools = [];
+        $criteriaWeights = [
+            'Kreativitas' => null,
+            'Keterbacaan' => null,
+            'Kesesuaian Tema' => null,
+        ];
+
+        if($course->project()->exists()) {
+            $project = $course->project()->first();
+            $selectedTools = ProjectTool::where('projectId', $project->id)->pluck('toolId')->toArray();
+
+            $criteriaData = ProjectCriteria::join('grade_criteria', 'project_criteria.criteriaId', '=', 'grade_criteria.id')
+                ->where('project_criteria.projectId', $project->id)
+                ->select('grade_criteria.criteriaName', 'project_criteria.customWeight')
+                ->get();
+
+            $criteriaWeights = [
+                'Kreativitas' => optional($criteriaData->firstWhere('criteriaName', 'Kreativitas'))->customWeight,
+                'Keterbacaan' => optional($criteriaData->firstWhere('criteriaName', 'Keterbacaan'))->customWeight,
+                'Kesesuaian Tema' => optional($criteriaData->firstWhere('criteriaName', 'Kesesuaian Tema'))->customWeight,
+            ];
+        }
+
+
+        return view('admin.courses.project-edit', compact('course', 'tools', 'project', 'selectedTools', 'criteriaWeights'));
+    }
+
+    public function updateCourse(Request $request, $courseId)
+    {
+        $request_syllabus = new Request(session('temp_update_syllabus'));
+        $course = $this->updateDraftSyllabus($request_syllabus, $course, false);
+
+        if ($request->action === 'publish') {
+            $course->update(['courseStatus' => 'publikasi']);
+            return redirect()->route('admin.courses.index')->with('success', 'Course berhasil dipublikasikan.');
+        }
+
+        $validated = $request->validate([
+            'projectName' => 'required|string|max:255',
+            'projectConcept' => 'required|string',
+            'projectRequirement' => 'nullable|string',
+            'projectTools' => 'required|array|min:1',
+            'projectTools.*' => 'exists:tools,id',
+            'criteriaCreativity' => 'required|integer|min:0|max:100',
+            'criteriaReadability' => 'required|integer|min:0|max:100',
+            'criteriaTheme' => 'required|integer|min:0|max:100',
+        ]);
+
+        $totalCriteria = $validated['criteriaCreativity'] + $validated['criteriaReadability'] + $validated['criteriaTheme'];
+        if ($totalCriteria !== 100) {
+            return back()->withErrors(['criteria' => 'Total persentase kriteria harus 100%.'])->withInput();
+        }
+
+        $project = $course->project()->updateOrCreate(
+            ['courseId' => $course->id],
+            [
+                'projectName' => $validated['projectName'],
+                'projectConcept' => $validated['projectConcept'],
+                'projectRequirement' => $validated['projectRequirement']
+            ]
+        );
+
+        foreach ($validated['projectTools'] as $toolId) {
+            ProjectTool::create([
+                'projectId' => $project->id,
+                'toolId' => $toolId,
+            ]);
+        }
+
+        $criteriaList = GradeCriteria::whereIn('criteriaName', [
+            'Kreativitas',
+            'Keterbacaan',
+            'Kesesuaian Tema'
+        ])->get()->keyBy('criteriaName');
+
+        ProjectCriteria::create([
+            'projectId' => $project->id,
+            'criteriaId' => $criteriaList['Kreativitas']->id ?? null,
+            'customWeight' => $validated['criteriaCreativity'],
+        ]);
+
+        ProjectCriteria::create([
+            'projectId' => $project->id,
+            'criteriaId' => $criteriaList['Keterbacaan']->id ?? null,
+            'customWeight' => $validated['criteriaReadability'],
+        ]);
+
+        ProjectCriteria::create([
+            'projectId' => $project->id,
+            'criteriaId' => $criteriaList['Kesesuaian Tema']->id ?? null,
+            'customWeight' => $validated['criteriaTheme'],
+        ]);
+
+        if ($request->action === 'publish') {
+            $course->update(['courseStatus' => 'publikasi']);
+        }
+
+        return redirect()->route('admin.courses.index')
+                        ->with('success', 'Course berhasil disimpan di draft.');
+    }
+
+
+
+    // Archive and Delete Course
+    public function archive($id)
     {
         $course = Course::findOrFail($id);
         $course->courseStatus = 'arsip';
@@ -149,4 +614,12 @@ class AdminCourseController extends Controller
                         ->with('success', 'Kursus berhasil diarsipkan.');
     }
 
+    public function destroy($id)
+    {
+        $course = Course::findOrFail($id);
+        $course->delete();
+
+        return redirect()->route('admin.courses.index')
+                        ->with('success', 'Kursus berhasil dihapus.');
+    }
 }
