@@ -51,7 +51,7 @@
         </div>
     @endif
 
-    <form action="{{ route('admin.courses.updateSyllabus', $course->id) }}" method="POST">
+    <form id="courseForm" action="{{ route('admin.courses.updateDraftSyllabus', $course->id) }}" method="POST">
         @csrf
 
         <!-- Accordion Mingguan -->
@@ -95,9 +95,23 @@
                         <div class="d-flex justify-content-between align-items-center mb-3">
                             <h6 class="fw-bold mb-0">Materi {{ $loop->index + 1 }}</h6>
                         </div>
-                        <input type="text" name="weeks[{{ $loop->parent->index }}][materials][{{ $loop->index }}][materiName]" 
-                            value="{{ $materi->materiName }}" 
-                            placeholder="Nama Materi" class="form-control mb-2 rounded-pill custom-input" required>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label class="fw-semibold">Nama Materi</label>
+                                <input type="text" name="weeks[{{ $loop->parent->index }}][materials][{{ $loop->index }}][materiName]"
+                                    value="{{ $materi->materiName }}" 
+                                    placeholder="Nama Materi" class="form-control mb-2 rounded-pill custom-input" required> 
+                            </div>
+
+                            <div class="col-md-6">
+                                <label class="fw-semibold">Durasi Materi (menit)</label>
+                                <input type="number" name="weeks[{{ $loop->parent->index }}][materials][{{ $loop->index }}][duration]"
+                                    value="{{ $materi->duration }}"
+                                    placeholder="Masukkan durasi (menit)" class="form-control mb-2 rounded-pill custom-input" required>
+                            </div>
+                        </div>
+
                         <!-- Tipe materi radio (video/article/project) -->
                         <div class="d-flex align-items-center gap-4">
                             <label class="d-flex align-items-center gap-2 mb-0">
@@ -153,11 +167,11 @@
         </div>
 
         <div class="d-flex justify-content-end gap-3 mt-4">
-            <button type="submit" name="action" value="draft" class="btn pink-cream-btn px-4">
+            <button type="submit" id="saveDraftBtn" class="btn pink-cream-btn px-4">
                 Simpan Draft
             </button>
-            <button type="submit" name="action" value="publish" class="btn yellow-gradient-btn px-4">
-                Publikasi
+            <button type="submit" id="nextBtn" class="btn yellow-gradient-btn px-4">
+                Lanjut
             </button>
         </div>
     </form>
@@ -250,12 +264,60 @@
         } else if ((vblName || vblDesc || vblUrl) || radioVideo.checked) {
             radioVideo.checked = true;
             materiContent.innerHTML = `
-                <input type="text" name="${baseName}[vblName]" value="${vblName ?? ''}" placeholder="Masukkan Judul Video" class="form-control mb-2 rounded-pill custom-input">
-                <input type="text" name="${baseName}[vblDesc]" value="${vblDesc ?? ''}" placeholder="Masukkan Deskripsi Video" class="form-control mb-2 rounded-pill custom-input">
-                <div class="video-input d-flex align-items-center px-3 py-2 rounded-pill shadow-sm custom-input">
-                    <iconify-icon icon="material-symbols:link-rounded"></iconify-icon>
-                    <input type="text" name="${baseName}[vblUrl]" value="${vblUrl ?? ''}" placeholder="Masukkan Link Video" class="form-control border-0 bg-transparent custom-input flex-grow-1 shadow-none" style="box-shadow:none; outline:none;">
-                </div>
+                <div class="row mb-3">
+                        <div class="col-md-6 mb-3 mb-md-0">
+                            <label class="form-label fw-semibold">Judul Video</label>
+                            <input type="text" 
+                                name="${baseName}[vblName]" value="${vblName ?? ''}" 
+                                placeholder="Masukkan Judul Video" 
+                                class="form-control rounded-pill custom-input">
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="form-label fw-semibold">Link Video</label>
+                            <div class="d-flex align-items-center px-3 py-2 rounded-pill shadow-sm bg-light-subtle custom-input">
+                                <iconify-icon icon="material-symbols:link-rounded" class="me-2"></iconify-icon>                    
+                                <input type="text" 
+                                    name="${baseName}[vblUrl]" value="${vblUrl ?? ''}"
+                                    placeholder="Masukkan Link Video" 
+                                    class="form-control border-0 bg-transparent flex-grow-1 shadow-none"
+                                    style="box-shadow:none; outline:none;">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label fw-semibold">Deskripsi Video</label>
+                        <textarea 
+                            name="${baseName}[vblDesc]" value="${vblDesc ?? ''}"
+                            placeholder="Masukkan deskripsi video..." 
+                            rows="3"
+                            class="form-control mb-2 rounded-pill custom-input">${vblDesc ?? ''}</textarea>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label fw-semibold">Tools yang digunakan</label>
+                        <div id="tools-container" class="border rounded-4 p-3 custom-input">
+                            @foreach($tools as $tool)
+                                @php
+                                    // Cek apakah materi ini sudah punya tool tersebut
+                                    $isChecked = isset($materi) && $materi->materiTools->pluck('toolId')->contains($tool->id);
+                                @endphp
+                                <div class="form-check mb-2">
+                                    <input 
+                                        type="checkbox" 
+                                        name="${baseName}[tools][]" 
+                                        value="{{ $tool->id }}" 
+                                        class="form-check-input tool-checkbox"
+                                        id="tool-{{ $tool->id }}"
+                                        {{ $isChecked ? 'checked' : '' }}>
+                                    <label class="form-check-label" for="tool-{{ $tool->id }}">
+                                        {{ $tool->toolsName }}
+                                    </label>
+                                </div>
+                            @endforeach
+                        </div>
+                    </div>
             `;
         } else {
             materiContent.innerHTML = '';
@@ -264,6 +326,20 @@
 
     document.addEventListener('DOMContentLoaded', () => {
         document.querySelectorAll('.materi-group').forEach(initMateriContent);
+    });
+
+    const form = document.getElementById('courseForm');
+    const saveDraftBtn = document.getElementById('saveDraftBtn');
+    const nextBtn = document.getElementById('nextBtn');
+
+    nextBtn.addEventListener('click', () => {
+        form.action = "{{ route('admin.courses.tempUpdateSyllabus', $course->id)  }}";
+    });
+
+    saveDraftBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        form.action = "{{ route('admin.courses.updateDraftSyllabus', $course->id) }}";
+        form.submit();
     });
 </script>
 @endsection

@@ -86,8 +86,11 @@ Route::middleware(['auth', 'checkRole:admin'])->prefix('/admin')->group(function
 
     Route::post('/courses/temp-update-store/{courseId}', [AdminCourseController::class, 'tempUpdateStore'])->name('admin.courses.tempUpdateStore');
     Route::post('/courses/draftUpdate/{courseId}', [AdminCourseController::class, 'updateDraftCourseInformation'])->name('admin.courses.updateDraftCourseInformation');
+    Route::post('/courses/temp-update-syllabus/{courseId}', [AdminCourseController::class, 'tempUpdateSyllabus'])->name('admin.courses.tempUpdateSyllabus');
+    Route::post('/courses/updateDraftSyllabus/{courseId}', [AdminCourseController::class, 'updateDraftSyllabus'])->name('admin.courses.updateDraftSyllabus');
     Route::get('/courses/edit-syllabus/{courseId}', [AdminCourseController::class, 'editSyllabus'])->name('admin.courses.editSyllabus');
-    Route::post('/courses/update-syllabus/{courseId}', [AdminCourseController::class, 'updateSyllabus'])->name('admin.courses.updateSyllabus');
+    Route::get('/courses/edit-project/{courseId}', [AdminCourseController::class, 'editProject'])->name('admin.courses.editProject');
+    Route::post('/courses/updateCourse/{courseId}', [AdminCourseController::class, 'updateCourse'])->name('admin.courses.updateCourse');
 
     Route::delete('/archive/{id}', [AdminCourseController::class, 'archive'])->name('admin.courses.archive');
 });

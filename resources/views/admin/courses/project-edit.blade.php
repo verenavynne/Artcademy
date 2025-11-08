@@ -65,13 +65,18 @@
                 <div class="row mb-3">
                     <div class="col-md-6 mb-3">
                         <label class="form-label fw-semibold">Judul Proyek</label>
-                        <input type="text" name="projectName" class="form-control rounded-pill custom-input" placeholder="Masukkan Judul Proyek" required>
+                        <input type="text" name="projectName" 
+                            value="{{ old('projectName', $project->projectName ?? '') }}" 
+                            class="form-control rounded-pill custom-input" placeholder="Masukkan Judul Proyek">
                     </div>
                     <div class="col-md-6 mb-3">
                         <label class="form-label fw-semibold">Tools yang digunakan</label>
-                        <select name="projectTools[]" class="form-select rounded-pill custom-input" multiple required>
+                        <select name="projectTools[]" multiple class="form-select rounded-pill custom-input">
                             @foreach ($tools as $tool)
-                                <option value="{{ $tool->id }}">{{ $tool->toolsName }}</option>
+                                <option value="{{ $tool->id }}" 
+                                    {{ in_array($tool->id, $selectedTools) ? 'selected' : '' }}>
+                                    {{ $tool->toolsName }}
+                                </option>
                             @endforeach
                         </select>
                     </div>
@@ -81,13 +86,15 @@
                 <div class="row mb-3">
                     <div class="col-md-6 mb-3">
                         <label class="form-label fw-semibold">Konsep Proyek</label>
-                        <textarea name="projectConcept" class="form-control rounded-4 custom-input tinymce-editor"
-                            placeholder="Bagaimana konsep untuk proyek ini?" required></textarea>
+                        <textarea name="projectConcept" class="form-control tinymce-editor"
+                        placeholder="Bagaimana konsep untuk proyek ini?">
+                        {{ old('projectConcept', $project->projectConcept ?? '') }}</textarea>
                     </div>
                     <div class="col-md-6 mb-3">
                         <label class="form-label fw-semibold">Requirement</label>
-                        <textarea name="projectRequirement" class="form-control rounded-4 custom-input tinymce-editor"
-                            placeholder="Cth: penggunaan warna, bentuk, dsb" required></textarea>
+                        <textarea name="projectRequirement" class="form-control tinymce-editor"
+                        placeholder="Cth: penggunaan warna, bentuk, dsb">
+                        {{ old('projectRequirement', $project->projectRequirement ?? '') }} </textarea>
                     </div>
                 </div>
 
@@ -97,20 +104,26 @@
                     <div class="row g-3">
                         <div class="col-md-4">
                             <label class="form-label">Kreativitas</label>
-                            <select id="creativity" name="criteriaCreativity" class="form-select rounded-pill custom-input" required>
-                                <option selected disabled>Pilih Persentase</option>
+                            <select id="creativity" name="criteriaCreativity" class="form-select rounded-pill custom-input">
+                                <option value="{{ $criteriaWeights['Kreativitas'] ?? 0 }}" disabled selected>
+                                    {{ $criteriaWeights['Kreativitas'] ?? 0 }}%
+                                </option>
                             </select>
                         </div>
                         <div class="col-md-4">
                             <label class="form-label">Keterbacaan</label>
-                            <select id="readability" name="criteriaReadability" class="form-select rounded-pill custom-input" required disabled>
-                                <option selected disabled>Pilih Persentase</option>
+                            <select id="readability" name="criteriaReadability" class="form-select rounded-pill custom-input"  disabled>
+                                <option value="{{ $criteriaWeights['Keterbacaan'] ?? 0 }}" disabled selected>
+                                    {{ $criteriaWeights['Keterbacaan'] ?? 0 }}%
+                                </option>
                             </select>
                         </div>
                         <div class="col-md-4">
                             <label class="form-label">Kesesuaian Tema</label>
-                            <select id="theme" name="criteriaTheme" class="form-select rounded-pill custom-input" required disabled>
-                                <option selected disabled>Pilih Persentase</option>
+                            <select id="theme" name="criteriaTheme" class="form-select rounded-pill custom-input" disabled>
+                                <option value="{{ $criteriaWeights['Kesesuaian Tema'] ?? 0 }}" disabled selected>
+                                    {{ $criteriaWeights['Kesesuaian Tema'] ?? 0 }}%
+                                </option>
                             </select>
                         </div>
                     </div>

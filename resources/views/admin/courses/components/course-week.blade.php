@@ -21,12 +21,12 @@
                     <label class="fw-semibold">Judul</label>
                     <input type="text" name="weeks[__WEEK_INDEX__][weekName]" 
                         placeholder="Masukkan Judul" 
-                        class="form-control border-0 rounded-pill shadow-sm px-3 py-2 bg-light-subtle custom-input" required>
+                        class="form-control rounded-pill px-3 py-2 custom-input" required>
                 </div>
                 <div class="col-md-6">
                     <label class="fw-semibold">Tutor</label>
                     <select name="weeks[__WEEK_INDEX__][tutorId]" 
-                        class="form-select border-0 rounded-pill shadow-sm px-3 py-2 bg-light-subtle custom-input" required>
+                        class="form-select rounded-pill px-3 py-2 custom-input" required>
                         <option value="" disabled selected>Pilih tutor minggu ini</option>
                         @foreach($tutors as $tutor)
                             <option value="{{ $tutor->id }}">{{ $tutor->user->name }}</option>
