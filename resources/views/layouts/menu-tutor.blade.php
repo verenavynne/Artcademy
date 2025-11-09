@@ -1,4 +1,4 @@
-<div class="sidebar-admin d-flex flex-column justify-content-between p-6" id="sidebarAdmin">
+<div class="sidebar-tutor d-flex flex-column justify-content-between p-6" id="sidebarTutor">
   <div>
     <!-- Burger Menu -->
     <div class="burger-wrapper">
@@ -13,7 +13,7 @@
     <!-- Sidebar Navigation -->
     <ul class="nav flex-column gap-2 sidebar-content">
       <li class="nav-item">
-        <a href="{{ route('admin.home') }}" class="nav-link-admin active" style="gap: 12px">
+        <a href="{{ route('lecturer.home') }}" class="nav-link-tutor active" style="gap: 12px">
           <iconify-icon 
             icon="mage:dashboard-fill" 
             data-regular="mage:dashboard" 
@@ -25,67 +25,55 @@
       </li>
 
       <li class="nav-item">
-        <a href="{{ route('admin.daftar-pengguna') }}" class="nav-link-admin" style="gap: 12px">
-          <iconify-icon 
-            icon="fluent:person-wrench-20-regular" 
-            data-regular="fluent:person-wrench-20-regular" 
-            data-filled="fluent:person-wrench-20-filled"
-            class="daftarpengguna-icon">
-          </iconify-icon>
-          <span>Daftar Pengguna</span>
-        </a>
-      </li>
-
-      <li class="nav-item">
-        <a href="{{ route('admin.courses.index') }}" class="nav-link-admin" style="gap: 12px">
+        <a href="{#}" class="nav-link-tutor" style="gap: 12px">
           <iconify-icon 
             icon="majesticons:book-plus-line" 
             data-regular="majesticons:book-plus-line" 
             data-filled="majesticons:book-plus"
-            class="manajemenkursus-icon">
+            class="kursussaya-icon">
           </iconify-icon>
-          <span>Manajemen Kursus</span>
+          <span>Kursus Saya</span>
         </a>
       </li>
 
       <li class="nav-item">
-        <a href="{{ route('admin.zoom.index') }}" class="nav-link-admin" style="gap: 12px">
+        <a href="#" class="nav-link-tutor" style="gap: 12px">
           <iconify-icon 
-            icon="streamline-plump:webcam-video-remix" 
-            data-regular="streamline-plump:webcam-video-remix" 
-            data-filled="streamline-plump:webcam-video-solid"
-            class="manajemen-icon">
+            icon="iconamoon:file-document" 
+            data-regular="iconamoon:file-document" 
+            data-filled="majesticons:book-plus"
+            class="iconamoon:file-document-fill">
           </iconify-icon>
-          <span>Manajemen Zoom</span>
+          <span>Nilai Projek</span>
         </a>
       </li>
 
       <li class="nav-item">
-        <a href="#" class="nav-link-admin" style="gap: 12px">
+        <a href="#" class="nav-link-tutor" style="gap: 12px">
           <iconify-icon 
             icon="material-symbols:edit-calendar-outline-rounded" 
             data-regular="material-symbols:edit-calendar-outline-rounded" 
             data-filled="material-symbols:edit-calendar-rounded"
-            class="manajemenevent-icon">
+            class="jadwalsaya-icon">
           </iconify-icon>
-          <span>Manajemen Event</span>
+          <span>Jadwal Saya</span>
         </a>
       </li>
 
       <li class="nav-item">
-        <a href="#" class="nav-link-admin" style="gap: 12px">
+        <a href="#" class="nav-link-tutor" style="gap: 12px">
           <iconify-icon 
-            icon="ic:round-warning-amber" 
-            data-regular="ic:round-warning-amber" 
-            data-filled="ic:round-report-problem"
-            class="laporanforum-icon">
+            icon="iconamoon:comment-dots" 
+            data-regular="iconamoon:comment-dots" 
+            data-filled="iconamoon:comment-dots"
+            class="forum-icon">
           </iconify-icon>
-          <span>Laporan Forum</span>
+          <span>Forum</span>
         </a>
       </li>
 
       <li class="nav-item">
-        <a href="#" class="nav-link-admin" style="gap: 12px">
+        <a href="#" class="nav-link-tutor" style="gap: 12px">
           <iconify-icon 
             icon="fluent:person-12-regular" 
             data-regular="fluent:person-12-regular" 
@@ -95,6 +83,19 @@
           <span>Profil Saya</span>
         </a>
       </li>
+
+      <li class="nav-item">
+        <a href="#" class="nav-link-tutor" style="gap: 12px">
+          <iconify-icon 
+            icon="fluent:notepad-person-16-regular" 
+            data-regular="fluent:notepad-person-16-regular" 
+            data-filled="fluent:notepad-person-16-filled"
+            class="infopribadi-icon">
+          </iconify-icon>
+          <span>Info Pribadi</span>
+        </a>
+      </li>
+
     </ul>
   </div>
 </div>
@@ -102,7 +103,7 @@
 
 
 <style>
-.sidebar-admin {
+.sidebar-tutor {
   position: relative;
   display: flex;
   flex-direction: column;
@@ -127,13 +128,13 @@
 }
 
 /* Sidebar Close Mode */
-.sidebar-admin.closed {
+.sidebar-tutor.closed {
   width: 80px;
   padding: 25px 0;
   align-items: center;
 }
 
-.sidebar-admin.closed .burger-wrapper {
+.sidebar-tutor.closed .burger-wrapper {
   top: 20px;
   right: auto;
   left: 50%;
@@ -141,7 +142,7 @@
 }
 
 @media (max-width: 992px) {
-    .sidebar-admin {
+    .sidebar-tutor {
       width: 100%;
       border-radius: 0;
       box-shadow: none;
@@ -154,14 +155,14 @@
   transition: opacity 0.3s ease 0.3s;
 }
 
-.sidebar-admin.closed .sidebar-content {
+.sidebar-tutor.closed .sidebar-content {
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 28px;
 }
 
-.sidebar-admin.closed .nav-link-admin span {
+.sidebar-tutor.closed .nav-link-tutor span {
   display: none;
   padding: 0px 52px 0px 0px;
   opacity: 0;
@@ -169,7 +170,7 @@
   transition: opacity 0.3s ease, transform 0.3s ease;
 }
 
-.sidebar-admin:not(.closed) .nav-link-admin span {
+.sidebar-tutor:not(.closed) .nav-link-tutor span {
   opacity: 1;
   transform: translateX(0);
   transition: opacity 0.3s ease 0.3s, transform 0.3s ease 0.3s;
@@ -178,11 +179,11 @@
   white-space: nowrap;
 }
 
-.nav-link-admin {
+.nav-link-tutor {
   transition: background-color 0.25s ease, gap 0.3s ease, transform 0.3s ease;
 }
 
-.sidebar-admin.closed .nav-link-admin {
+.sidebar-tutor.closed .nav-link-tutor {
   width: 50px;
   height: 50px;
   margin: 0 auto;
@@ -195,14 +196,14 @@
   transition: all 0.3s ease;
 }
 
-.sidebar-admin.closed .nav-item {
+.sidebar-tutor.closed .nav-item {
   width: 100%;
   display: flex;
   justify-content: center;
 }
 
 
-.sidebar-admin.closed .nav-link-admin iconify-icon {
+.sidebar-tutor.closed .nav-link-tutor iconify-icon {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -213,11 +214,11 @@
 
 <script>
 document.addEventListener("DOMContentLoaded", function() {
-  const navLinks = document.querySelectorAll(".nav-link-admin");
+  const navLinks = document.querySelectorAll(".nav-link-tutor");
 
   navLinks.forEach(link => {
     link.addEventListener("click", function(e) {
-      //e.preventDefault();
+      e.preventDefault();
 
       navLinks.forEach(l => {
         l.classList.remove("active");
@@ -241,10 +242,10 @@ document.addEventListener("DOMContentLoaded", function() {
 
 <script>
 const burgerMenu = document.getElementById('burgerMenu');
-const sidebarAdmin = document.getElementById('sidebarAdmin');
+const sidebarTutor = document.getElementById('sidebarTutor');
 
 burgerMenu.addEventListener('click', () => {
-  sidebarAdmin.classList.toggle('closed');
+  sidebarTutor.classList.toggle('closed');
 });
 </script>
 

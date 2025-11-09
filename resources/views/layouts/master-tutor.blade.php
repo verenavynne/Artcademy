@@ -8,6 +8,7 @@
   @include('custom.bootstrap')
   @include('styles.style')
   @include('styles.table-admin')
+  @include('styles.nilai-projek-card')
   @include('styles.admin-tutor-layoutscroll')
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -20,19 +21,19 @@
 <body>
   <div class="container-fluid ps-4 pe-4">
     <header>
-      @include('layouts.navbar-admin')
+      @include('layouts.navbar-tutor')
     </header>
 
     <!-- Wrapper utama berisi sidebar dan konten -->
-    <div class="d-flex" id="admin-wrapper">
+    <div class="d-flex" id="tutor-wrapper">
       <!-- Sidebar -->
-      @include('layouts.menu-admin')
+      @include('layouts.menu-tutor')
 
       <!-- Konten utama (Dashboard, Cards, Table, dsb) -->
       @yield('content')
     </div>
 
-    @include('layouts.footer-admin')
+    @include('layouts.footer-tutor')
   </div>
 </body>
 
@@ -43,18 +44,17 @@
       background-color: #FFF9EF;
       min-height: 100vh;
     }
-    #admin-sidebar {
+    #tutor-sidebar {
       width: 250px;
       min-height: 100vh;
       border-right: 1px solid #eee;
     }
-    #admin-wrapper {
+    #tutor-wrapper {
         display: flex;
         align-items: flex-start;
         height: calc(100vh - 146px);
         padding-bottom: 24px;
         padding-top: 12px;
-        align-items: stretch; 
     }
 
     .row {
@@ -66,8 +66,10 @@
   .container-content{
     padding-right: 0px;
     padding-left: 28px;
+    padding-top: 0;
     height: 100%;
     width:100%;
+    overflow: visible;
   }
 
 .tambah-kursus-event{
@@ -146,7 +148,7 @@ box-shadow: 0 5.286px 10.571px 0 rgba(67, 39, 0, 0.20);
   display: flex;
   width: auto;
   height: auto;
-  padding: 24px 0;
+  padding: 24px 24px;
   flex-direction: column;
   align-items: center;
   gap: 10px;
@@ -245,7 +247,64 @@ box-shadow: 0 5.286px 10.571px 0 rgba(67, 39, 0, 0.20);
   justify-content: space-between;
 }
 
+.info-item-wrapper{
+  display: flex;
+  width: 280px;
+  padding: 4px 5px;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 10px;
+  background: #E9F3FF;
 
+}
+
+.dashboard-card-wrapper{
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+  align-self: stretch;
+}
+
+.info-item{
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex: 1 0 0;
+  background: var(--Blue-Gradient, linear-gradient(149deg, #50C4ED 5.33%, #387ADF 75.32%));
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.info-icon{
+  color: #387ADF;
+}
+
+.icon-text-wrapper{
+  display: flex;
+  justify-content: left;
+  align-items: flex-start;
+  gap: 90px;
+  align-self: stretch;
+}
+.dashboard-nilai-projek-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  align-self: stretch;
+  padding: 24px;
+  border-radius: 10px;
+  background: var(--white, #FFF);
+  gap: 16px;
+  box-shadow: 0 4px 8px rgba(67, 39, 0, 0.2);
+
+  /* Biar seukuran tinggi sidebar */
+  height: calc(100vh - 188px); /* bisa sesuaikan 100px tergantung header atas */
+}
 
 
 

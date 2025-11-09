@@ -153,12 +153,63 @@
         transform: scaleX(1);
     }
 
+
+    /* navbar tutor */
+    .nav-link-tutor {
+        color: var(--Dark-gray, #474747);
+        font-size: 18px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: normal;
+        font-size: 18px;
+        font-weight: 500;
+        display: flex;
+        align-items: center;
+        padding: 12px 12px 12px 12px; 
+        border-radius: 10px;
+        transition: all 0.25s ease-in-out;
+        text-decoration: none !important;
+        width: 100%;
+    }
+
+    .nav-link-tutor::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        height: 2.5px;
+        width: 100%;
+        font-weight: 700;
+    }
+
+
+
+.nav-link-tutor:hover {
+    background-color: rgba(255, 221, 160, 0.25);
+    color: #000;
+    text-decoration: none !important;
+    font-weight: 700;
+}
+
+    .nav-link-tutor:hover::after {
+        transform: scaleX(1);
+    }
+
+    .nav-link-tutor.active {
+    font-weight: 600;
+    color: #000;
+}
+
+    .nav-link-tutor.active::after {
+        transform: scaleX(1);
+    }
+
     /* button */
     .yellow-gradient-btn {
         background: linear-gradient(180deg, #FFDE22 0%, #F4A700 100%);
         border: none;
         border-radius: 50rem;
-        padding: 12px 0;
+        padding: 12px 30px;
         box-shadow: 0px 4px 8px 0px var(--brown-shadow-color);
         transition: all 0.3s ease;
     }
@@ -377,6 +428,24 @@
         color: #AAA18F !important;
         font-size: 16px;
         border-top: 3px solid var(--cream2-color);
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        background: var(--cream-color); /* kasih background biar gak tembus konten di bawah */
+        z-index: 1000;
+    }
+
+    .footer-tutor-text{
+        color: #AAA18F !important;
+        font-size: 16px;
+        border-top: 3px solid var(--cream2-color);
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        background: var(--cream-color); /* kasih background biar gak tembus konten di bawah */
+        z-index: 1000;
     }
     /* Sub-title in many page */
     .title{

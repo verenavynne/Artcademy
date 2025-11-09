@@ -10,6 +10,7 @@ use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\ProjectSubmissionController;
 use App\Http\Controllers\StudentCertificateController;
 use App\Http\Controllers\ZoomController;
+use App\Http\Controllers\UserListController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\GoogleController;
 use App\Http\Controllers\AdminCourseController;
@@ -67,6 +68,11 @@ Route::middleware(['auth', 'checkRole:lecturer'])->prefix('/lecturer')->group(fu
     Route::get('/home', function(){
         return view('lecturer.home');
     })->name('lecturer.home');
+
+    Route::get('/nilai-projek', function(){
+        return view('lecturer.nilai-projek.nilai-projek');
+    })->name('lecturer.nilai-projek');
+
 });
 
 Route::middleware(['auth', 'checkRole:admin'])->prefix('/admin')->group(function () {
