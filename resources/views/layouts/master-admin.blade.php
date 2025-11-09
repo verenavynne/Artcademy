@@ -53,6 +53,7 @@
         height: calc(100vh - 146px);
         padding-bottom: 24px;
         padding-top: 12px;
+        align-items: stretch; 
     }
 
     .row {

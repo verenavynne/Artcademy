@@ -13,7 +13,7 @@
     <!-- Sidebar Navigation -->
     <ul class="nav flex-column gap-2 sidebar-content">
       <li class="nav-item">
-        <a href="#" class="nav-link-admin active" style="gap: 12px">
+        <a href="{{ route('admin.home') }}" class="nav-link-admin active" style="gap: 12px">
           <iconify-icon 
             icon="mage:dashboard-fill" 
             data-regular="mage:dashboard" 
@@ -37,7 +37,7 @@
       </li>
 
       <li class="nav-item">
-        <a href="#" class="nav-link-admin" style="gap: 12px">
+        <a href="{{ route('admin.courses.index') }}" class="nav-link-admin" style="gap: 12px">
           <iconify-icon 
             icon="majesticons:book-plus-line" 
             data-regular="majesticons:book-plus-line" 
@@ -49,7 +49,7 @@
       </li>
 
       <li class="nav-item">
-        <a href="#" class="nav-link-admin" style="gap: 12px">
+        <a href="{{ route('admin.zoom.index') }}" class="nav-link-admin" style="gap: 12px">
           <iconify-icon 
             icon="streamline-plump:webcam-video-remix" 
             data-regular="streamline-plump:webcam-video-remix" 
@@ -217,7 +217,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
   navLinks.forEach(link => {
     link.addEventListener("click", function(e) {
-      e.preventDefault();
+      //e.preventDefault();
 
       navLinks.forEach(l => {
         l.classList.remove("active");

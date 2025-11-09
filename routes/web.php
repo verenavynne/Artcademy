@@ -13,6 +13,7 @@ use App\Http\Controllers\ZoomController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\GoogleController;
 use App\Http\Controllers\AdminCourseController;
+use App\Http\Controllers\AdminZoomController;
 
 Route::get('/', [HomePageController::class, 'index'])->name('home');
 
@@ -73,6 +74,14 @@ Route::middleware(['auth', 'checkRole:admin'])->prefix('/admin')->group(function
         return view('admin.home');
     })->name('admin.home');
 
+
+    // Manajemen Zoom
+    Route::resource('/zoom', AdminZoomController::class)->names('admin.zoom');
+    Route::post('/zoom/createZoom', [AdminZoomController::class, 'createZoom'])->name('admin.zoom.createZoom');
+    Route::post('/courses/updateZoom/{zoomId}', [AdminZoomController::class, 'updateZoom'])->name('admin.zoom.updateZoom');
+
+
+    // Manajemen Kursus
     Route::resource('/courses', AdminCourseController::class)->except(['show'])->names('admin.courses');
 
     Route::post('/courses/temp-store', [AdminCourseController::class, 'tempStore'])->name('admin.courses.tempStore');

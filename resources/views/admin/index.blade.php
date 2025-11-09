@@ -1,9 +1,9 @@
-@extends('layouts.master')
+@extends('layouts.master-admin')
 
 @section('content')
-<div class="container mt-4">
+<div class="container ps-4 container-content-admin">
 
-    <div class="d-flex justify-content-between align-items-center mb-4">
+    <div class="d-flex justify-content-between align-items-center">
         <h4 class="fw-bold">Manajemen Kursus</h4>
         <a href="{{ route('admin.courses.create') }}" class="btn text-dark d-flex align-items-center gap-2 yellow-gradient-btn px-4 py-3">
             Tambah Kursus <iconify-icon icon="ic:round-plus"></iconify-icon>
@@ -75,7 +75,7 @@
 
     <div class="table-responsive shadow-sm rounded">
         <table class="table align-middle table-hover">
-            <thead class="table-light">
+            <thead class="sticky-top">
                 <tr>
                     <th class="text-center">No.</th>
                     <th>Waktu Dibuat</th>

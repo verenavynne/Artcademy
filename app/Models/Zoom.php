@@ -8,7 +8,7 @@ class Zoom extends Model
 {
     protected $table='zooms';
 
-    protected $fillable=['courseId','tutorId','zoomName','zoomDesc','zoomLink','zoomDuration','zoomQuota','zoomDate','start_time', 'end_time'];
+    protected $fillable=['courseId','tutorId','zoomName','zoomDesc','zoomLink','zoomDuration','zoomQuota','zoomDate','start_time', 'end_time', 'zoomStatus'];
 
     public function course(){
         return $this->belongsTo(Course::class,'courseId');

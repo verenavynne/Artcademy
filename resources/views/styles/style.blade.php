@@ -210,6 +210,26 @@
         font-size: 18px;
     }
 
+    .container-content-admin {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+    }
+    .page-header {
+        flex-shrink: 0;
+    }
+
+    .form-container {
+        flex-grow: 1;
+        overflow-y: auto;
+        height: 100%;
+        overflow-y: auto; 
+        background-color: white;
+        border-radius: 24px;
+        box-shadow: 0px 4px 8px var(--brown-shadow-color);
+        padding: 22px 40px 32px 40px;
+    }
+
     /* icons */
     iconify-icon {
         font-size: 24px;
