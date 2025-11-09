@@ -103,6 +103,7 @@
         justify-content: center;
         box-shadow: 0px 7.571px 15.143px 0px rgba(67, 39, 0, 0.20);
     }
+    
     /* navbar admin */
     .nav-link-admin {
         color: var(--Dark-gray, #474747);
@@ -131,23 +132,21 @@
         font-weight: 700;
     }
 
-
-
-.nav-link-admin:hover {
-    background-color: rgba(255, 221, 160, 0.25);
-    color: #000;
-    text-decoration: none !important;
-    font-weight: 700;
-}
+    .nav-link-admin:hover {
+        background-color: rgba(255, 221, 160, 0.25);
+        color: #000;
+        text-decoration: none !important;
+        font-weight: 700;
+    }
 
     .nav-link-admin:hover::after {
         transform: scaleX(1);
     }
 
     .nav-link-admin.active {
-    font-weight: 600;
-    color: #000;
-}
+        font-weight: 600;
+        color: #000;
+    }
 
     .nav-link-admin.active::after {
         transform: scaleX(1);

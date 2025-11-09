@@ -6,6 +6,8 @@ use App\Http\Controllers\CourseEnrollmentController;
 use App\Http\Controllers\CourseWeekController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\HomePageController;
+use App\Http\Controllers\PortfolioController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\ProjectSubmissionController;
 use App\Http\Controllers\StudentCertificateController;
@@ -114,5 +116,10 @@ Route::middleware(['auth', 'checkRole:admin'])->prefix('/admin')->group(function
     Route::delete('/archive/{id}', [AdminCourseController::class, 'archive'])->name('admin.courses.archive');
 });
 
+Route::get('/profile', [ProfileController::class, 'show'])->name('my-profile');
 
+Route::get('/add-portfolio', function(){
+    return view('profile.add-portfolio');
+})->name('add-portfolio');
 
+Route::post('/add-portfolio/submit', [PortfolioController::class, 'addPortfolio'])->name('portfolio.add');

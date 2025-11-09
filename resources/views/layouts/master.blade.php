@@ -4,12 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Artcademy</title>
-    @include('custom.bootstrap')
+    @include('custom.library')
     @include('styles.style')
     @include('styles.course-card')
     @include('styles.tutor-card')
     @include('styles.zoom-card')
     @include('styles.testimoni-card')
+    @include('styles.custom-plyr')
     <link rel="icon" type="image/png" href="{{ asset('assets/artcademy-icon.png') }}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
