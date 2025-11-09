@@ -1,18 +1,20 @@
-@extends('layouts.master')
+@extends('layouts.master-admin')
 
 @section('content')
-<div class="container py-4">
+<div class="container ps-4 container-content-admin">
     <!-- Header -->
-    <div class="d-flex align-items-center mb-4 gap-2">
+    <div class="page-header d-flex gap-3">
         <div class="navigation-prev">
             <a class="page-link" href="javascript:void(0);" onclick="window.history.back()">
                 <img src="{{ asset('assets/icons/icon_pagination_before.svg') }}" alt="">
             </a>
         </div>
-        <h3 class="fw-bold mb-0">Tambah Kursus</h3>
-    </div>
 
-    <p class="text-muted mb-4">Lengkapi formulir berikut untuk menambahkan proyek akhir kursus</p>
+        <div class="d-flex flex-column">
+            <h3 class="fw-bold">Tambah Kursus</h3>
+            <p class="text-muted">Lengkapi formulir berikut untuk menambahkan proyek akhir kursus</p>
+        </div>
+    </div>
 
     <!-- Progress Steps -->
     <div class="d-flex align-items-center justify-content-between mb-5" style="font-size: 14px;">
@@ -44,8 +46,8 @@
     </div>
 
     <!-- Form Card -->
-    <div class="card border-0 shadow-sm rounded-4">
-        <div class="card-body p-4">
+    <div class="form-container border-0 shadow-sm rounded-4">
+        <div class="card-body">
             <h5 class="fw-bold mb-3">Proyek Akhir</h5>
 
             @if ($errors->any())
