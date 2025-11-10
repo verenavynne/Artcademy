@@ -53,134 +53,144 @@
         </div>
     @endif
 
-    <form id="courseForm" action="{{ route('admin.courses.updateDraftSyllabus', $course->id) }}" method="POST">
-        @csrf
+    <div class="form-container border-0 rounded-4">
+        <form id="courseForm" action="{{ route('admin.courses.updateDraftSyllabus', $course->id) }}" method="POST">
+            @csrf
 
-        <!-- Accordion Mingguan -->
-        <div class="accordion" id="weekAccordion">
-            @foreach($weeks as $week)
-            <div class="week-group bg-white shadow-sm rounded-4 p-4 mb-4 position-relative" data-week="{{ $loop->index }}">
-                <!-- Header Minggu -->
-                <div class="d-flex justify-content-between align-items-center mb-3">
-                    <h5 class="fw-bold mb-0 text-orange-gradient">Minggu {{ $loop->index + 1 }}</h5>
-                    <button type="button" class="btn p-0 text-danger remove-week">
-                        <i class="bi bi-trash fs-5"></i>
-                    </button>
-                </div>
-
-                <!-- Judul dan Tutor -->
-                <div class="row mb-4">
-                    <div class="col-md-6">
-                        <label class="fw-semibold">Judul</label>
-                        <input type="text" name="weeks[{{ $loop->index }}][weekName]" 
-                            value="{{ $week->weekName }}" 
-                            class="form-control border-0 rounded-pill shadow-sm px-3 py-2 bg-light-subtle custom-input" required>
+            <!-- Accordion Mingguan -->
+            <div class="accordion" id="weekAccordion">
+                @foreach($weeks as $week)
+                <div class="week-group bg-white shadow-sm rounded-4 p-4 mb-4 position-relative" data-week="{{ $loop->index }}">
+                    <!-- Header Minggu -->
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <h5 class="fw-bold mb-0 text-orange-gradient">Minggu {{ $loop->index + 1 }}</h5>
+                        <button type="button" class="btn p-0 text-danger remove-week">
+                            <i class="bi bi-trash fs-5"></i>
+                        </button>
                     </div>
-                    <div class="col-md-6">
-                        <label class="fw-semibold">Tutor</label>
-                        <select name="weeks[{{ $loop->index }}][tutorId]" 
-                            class="form-select border-0 rounded-pill shadow-sm px-3 py-2 bg-light-subtle custom-input" required>
-                            <option value="" disabled>Pilih tutor minggu ini</option>
-                            @foreach($tutors as $tutor)
-                                <option value="{{ $tutor->id }}" {{ $week->tutorId == $tutor->id ? 'selected' : '' }}>
-                                    {{ $tutor->user->name }}
-                                </option>
-                            @endforeach
-                        </select>
-                    </div>
-                </div>
 
-                <!-- Container Materi -->
-                <div class="materi-container">
-                    @foreach($week->materials as $materi)
-                    <div class="materi-group shadow-sm rounded-4 p-3 mt-3 bg-white position-relative">
-                        <div class="d-flex justify-content-between align-items-center mb-3">
-                            <h6 class="fw-bold mb-0">Materi {{ $loop->index + 1 }}</h6>
+                    <!-- Judul dan Tutor -->
+                    <div class="row mb-4">
+                        <div class="col-md-6">
+                            <label class="fw-semibold">Judul</label>
+                            <input type="text" name="weeks[{{ $loop->index }}][weekName]" 
+                                value="{{ $week->weekName }}" 
+                                class="form-control border-0 rounded-pill shadow-sm px-3 py-2 bg-light-subtle custom-input" required>
                         </div>
+                        <div class="col-md-6">
+                            <label class="fw-semibold">Tutor</label>
+                            <select name="weeks[{{ $loop->index }}][tutorId]" 
+                                class="form-select border-0 rounded-pill shadow-sm px-3 py-2 bg-light-subtle custom-input" required>
+                                <option value="" disabled>Pilih tutor minggu ini</option>
+                                @foreach($tutors as $tutor)
+                                    <option value="{{ $tutor->id }}" {{ $week->tutorId == $tutor->id ? 'selected' : '' }}>
+                                        {{ $tutor->user->name }}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
 
-                        <div class="row">
-                            <div class="col-md-6">
-                                <label class="fw-semibold">Nama Materi</label>
-                                <input type="text" name="weeks[{{ $loop->parent->index }}][materials][{{ $loop->index }}][materiName]"
-                                    value="{{ $materi->materiName }}" 
-                                    placeholder="Nama Materi" class="form-control mb-2 rounded-pill custom-input" required> 
+                    <!-- Container Materi -->
+                    <div class="materi-container">
+                        @foreach($week->materials as $materi)
+                        <div class="materi-group shadow-sm rounded-4 p-3 mt-3 bg-white position-relative">
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <h6 class="fw-bold mb-0">Materi {{ $loop->index + 1 }}</h6>
                             </div>
 
-                            <div class="col-md-6">
-                                <label class="fw-semibold">Durasi Materi (menit)</label>
-                                <input type="number" name="weeks[{{ $loop->parent->index }}][materials][{{ $loop->index }}][duration]"
-                                    value="{{ $materi->duration }}"
-                                    placeholder="Masukkan durasi (menit)" class="form-control mb-2 rounded-pill custom-input" required>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label class="fw-semibold">Nama Materi</label>
+                                    <input type="text" name="weeks[{{ $loop->parent->index }}][materials][{{ $loop->index }}][materiName]"
+                                        value="{{ $materi->materiName }}" 
+                                        placeholder="Nama Materi" class="form-control mb-2 rounded-pill custom-input" required> 
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label class="fw-semibold">Durasi Materi (menit)</label>
+                                    <input type="number" name="weeks[{{ $loop->parent->index }}][materials][{{ $loop->index }}][duration]"
+                                        value="{{ $materi->duration }}"
+                                        placeholder="Masukkan durasi (menit)" class="form-control mb-2 rounded-pill custom-input" required>
+                                </div>
                             </div>
+
+                            <!-- Tipe materi radio (video/article/project) -->
+                            <div class="d-flex align-items-center gap-4">
+                                <label class="d-flex align-items-center gap-2 mb-0">
+                                    <input type="radio" 
+                                        name="weeks[{{ $loop->parent->index }}][materials][{{ $loop->index }}][type]" 
+                                        value="video" 
+                                        {{ $materi->vblName ? 'checked' : '' }} 
+                                        class="materi-type-radio" required>
+                                    <span>Video</span>
+                                </label>
+
+                                <label class="d-flex align-items-center gap-2 mb-0">
+                                    <input type="radio" 
+                                        name="weeks[{{ $loop->parent->index }}][materials][{{ $loop->index }}][type]" 
+                                        value="article" 
+                                        {{ $materi->articleName ? 'checked' : '' }} 
+                                        class="materi-type-radio" required>
+                                    <span>Artikel</span>
+                                </label>
+                            </div>
+
+                            <input type="hidden" name="weeks[{{ $loop->parent->index }}][materials][{{ $loop->index }}][articleName]" value="{{ $materi->articleName ?? '' }}">
+                            <input type="hidden" name="weeks[{{ $loop->parent->index }}][materials][{{ $loop->index }}][articleText]" value="{{ $materi->articleText ?? '' }}">
+                            <input type="hidden" name="weeks[{{ $loop->parent->index }}][materials][{{ $loop->index }}][vblName]" value="{{ $materi->vblName ?? '' }}">
+                            <input type="hidden" name="weeks[{{ $loop->parent->index }}][materials][{{ $loop->index }}][vblDesc]" value="{{ $materi->vblDesc ?? '' }}">
+                            <input type="hidden" name="weeks[{{ $loop->parent->index }}][materials][{{ $loop->index }}][vblUrl]" value="{{ $materi->vblUrl ?? '' }}">
+
+                            <div class="materi-content mt-3"></div>
                         </div>
-
-                        <!-- Tipe materi radio (video/article/project) -->
-                        <div class="d-flex align-items-center gap-4">
-                            <label class="d-flex align-items-center gap-2 mb-0">
-                                <input type="radio" 
-                                    name="weeks[{{ $loop->parent->index }}][materials][{{ $loop->index }}][type]" 
-                                    value="video" 
-                                    {{ $materi->vblName ? 'checked' : '' }} 
-                                    class="materi-type-radio" required>
-                                <span>Video</span>
-                            </label>
-
-                            <label class="d-flex align-items-center gap-2 mb-0">
-                                <input type="radio" 
-                                    name="weeks[{{ $loop->parent->index }}][materials][{{ $loop->index }}][type]" 
-                                    value="article" 
-                                    {{ $materi->articleName ? 'checked' : '' }} 
-                                    class="materi-type-radio" required>
-                                <span>Artikel</span>
-                            </label>
-                        </div>
-
-                        <input type="hidden" name="weeks[{{ $loop->parent->index }}][materials][{{ $loop->index }}][articleName]" value="{{ $materi->articleName ?? '' }}">
-                        <input type="hidden" name="weeks[{{ $loop->parent->index }}][materials][{{ $loop->index }}][articleText]" value="{{ $materi->articleText ?? '' }}">
-                        <input type="hidden" name="weeks[{{ $loop->parent->index }}][materials][{{ $loop->index }}][vblName]" value="{{ $materi->vblName ?? '' }}">
-                        <input type="hidden" name="weeks[{{ $loop->parent->index }}][materials][{{ $loop->index }}][vblDesc]" value="{{ $materi->vblDesc ?? '' }}">
-                        <input type="hidden" name="weeks[{{ $loop->parent->index }}][materials][{{ $loop->index }}][vblUrl]" value="{{ $materi->vblUrl ?? '' }}">
-
-                        <div class="materi-content mt-3"></div>
+                        @endforeach
                     </div>
-                    @endforeach
-                </div>
 
-                <!-- Tombol Tambah Materi -->
-                <div class="d-flex justify-content-end align-items-center mt-3">
-                    <button type="button" 
-                        class="rounded-circle d-flex justify-content-center align-items-center fw-bold me-2 add-materi"
-                        style="width:24px;height:24px; background: var(--yellow-gradient-color); border: none;"
-                        data-week="{{ $loop->index }}">+</button>
-                    <span class="fw-bold">Materi</span>
+                    <!-- Tombol Tambah Materi -->
+                    <div class="d-flex justify-content-end align-items-center mt-3">
+                        <button type="button" 
+                            class="rounded-circle d-flex justify-content-center align-items-center fw-bold me-2 add-materi"
+                            style="width:24px;height:24px; background: var(--yellow-gradient-color); border: none;"
+                            data-week="{{ $loop->index }}">+</button>
+                        <span class="fw-bold">Materi</span>
+                    </div>
                 </div>
+                @endforeach
             </div>
-            @endforeach
-        </div>
 
 
-        <!-- Tombol Tambah Minggu -->
-        <div class="d-flex justify-content-end mt-4">
-            <button type="button" class="rounded-circle d-flex justify-content-center align-items-center fw-bold me-2" 
-                id="add-week" style="width:24px;height:24px; background: var(--orange-gradient-color); border: none;">
-                +
-            </button>
-            <span class="fw-bold">Minggu</span>
-        </div>
+            <!-- Tombol Tambah Minggu -->
+            <div class="d-flex justify-content-end mt-4">
+                <button type="button" class="rounded-circle d-flex justify-content-center align-items-center fw-bold me-2" 
+                    id="add-week" style="width:24px;height:24px; background: var(--orange-gradient-color); border: none;">
+                    +
+                </button>
+                <span class="fw-bold">Minggu</span>
+            </div>
 
-        <div class="d-flex justify-content-end gap-3 mt-4">
-            <button type="submit" id="saveDraftBtn" class="btn pink-cream-btn px-4">
-                Simpan Draft
-            </button>
-            <button type="submit" id="nextBtn" class="btn yellow-gradient-btn px-4">
-                Lanjut
-            </button>
-        </div>
-    </form>
+            <div class="d-flex justify-content-end gap-3 mt-4">
+                <button type="submit" id="saveDraftBtn" class="btn pink-cream-btn px-4">
+                    Simpan Draft
+                </button>
+                <button type="submit" id="nextBtn" class="btn yellow-gradient-btn px-4">
+                    Lanjut
+                </button>
+            </div>
+        </form>
+    </div>
 
     @include('admin.courses.components.course-week')
     @include('admin.courses.components.material-item')
 </div>
+
+<style>
+    .form-container {
+        background-color: transparent;
+        box-shadow: none;
+        padding: 0;
+    }
+</style>
 
 <script>
     let weekIndex = {{ $weeks->count() }};
