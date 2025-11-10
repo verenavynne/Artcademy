@@ -45,6 +45,7 @@
 
 <script src="https://cdn.tiny.cloud/1/2er11i2hdiuvi67l797urfnb807szvxxzzrsxu79b1qgecmu/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
 <script>
+    const tools = @json($tools);
     document.addEventListener('click', e => {
         if (e.target.classList.contains('materi-type-radio')) {
             const materiGroup = e.target.closest('.materi-group');
