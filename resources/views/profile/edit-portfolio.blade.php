@@ -13,20 +13,22 @@
             </a>
         </div>
         <div class="d-flex flex-column pb-4">
-            <p class="title text-start fw-bold">Tambah Portofoliomu</p>
+            <p class="title text-start fw-bold">Edit Portofoliomu</p>
             <p class="projek-title-desc">Tambahkan Hasil Karyamu ke mockup 3D yang super keren!</p>
         </div>
 
     </div>
     
-    <form action="{{ route('portfolio.add') }}" method="POST" enctype="multipart/form-data">
+    <form action="{{ route('portfolio.update', $portfolio->id) }}" method="POST" enctype="multipart/form-data">
     @csrf
     <div class="d-flex flex-row justify-content-center gap-5">
         <div class="d-flex flex-column" style="width: 60%;">
             <div class="mockup-view-card  d-flex flex-row gap-5">
                 <div class="d-flex flex-column gap-2 align-items-center">
                     <div class="d-flex align-items-center flex-column gap-4 position-relative" style="height:max-content">
-                        <img id="portfolioPreview" class="portfolio-image-view" src="{{ asset('assets/portfolio/no_image_template.jpg') }}" alt="Portfolio File">
+                        <img id="portfolioPreview" class="portfolio-image-view" 
+                        src="{{ Str::endsWith($portfolio->portfolioPath, '.mp4') ? '' : asset('storage/'. $portfolio->portfolioPath) }}"
+                        alt="Portfolio File">
                        
                         <div class="upload-plus-wrapper position-absolute top-50 start-50 translate-middle">
                             <label for="portfolioUpload" class="btn upload-plus-btn yellow-gradient-btn d-flex flex-row align-items-center gap-2">
@@ -46,22 +48,22 @@
                 </div>
                
                 <div class="mockup-3d-view">
-                    <div id="mockup-mobile">
+                    <div id="mockup-mobile" style="{{ $portfolio->mockupType === 'mobile' ? '' : 'display: none;' }}">
                         @include('profile.components.portfolio-mockup', [
                             'mockupType' => 'mobile',
-                            'portoType' => 'image',
-                            'mediaPath' => asset('assets/portfolio/no_image_template.jpg'),
+                            'portoType' => Str::endsWith($portfolio->portfolioPath, '.mp4') ? 'video' : 'image' ,
+                            'mediaPath' =>  asset('storage/'. $portfolio->portfolioPath),
                             'portfolioId' => '1',
                             'mockupSize' => 500,
                             'animation' => false
                         ])
                     </div>
 
-                    <div id="mockup-laptop" style="display: none;">
+                    <div id="mockup-laptop" style="{{ $portfolio->mockupType === 'laptop' ? '' : 'display: none;' }}">
                         @include('profile.components.portfolio-mockup', [
                             'mockupType' => 'laptop',
-                            'portoType' => 'image',
-                            'mediaPath' => asset('assets/portfolio/no_image_template.jpg'),
+                            'portoType' => Str::endsWith($portfolio->portfolioPath, '.mp4') ? 'video' : 'image' ,
+                            'mediaPath' => asset('storage/'. $portfolio->portfolioPath),
                             'portfolioId' => '2',
                             'mockupSize' => 450,
                             'animation' => false
@@ -75,15 +77,15 @@
         <div class="d-flex justify-content-center" style="width: 40%;">
             <div class="add-portfolio-card d-flex flex-column">
                 
-                <input type="hidden" name="mockupType" id="mockupTypeInput" value="mobile">
+                <input type="hidden" name="mockupType" id="mockupTypeInput" value={{ $portfolio->mockupType }}>
             
                 <div class="pilih-device-section d-flex flex-column">
                     <p>Pilih device</p>
                     <div class="pilih-device-buttons d-flex flex-row justify-content-around">
-                        <button type="button" class="btn device-btn active" data-type="mobile">
+                        <button type="button" class="btn device-btn {{ $portfolio->mockupType === 'mobile' ? 'active' : '' }}" data-type="mobile">
                             Mobile
                         </button>
-                        <button type="button" class="btn device-btn" data-type="laptop">
+                        <button type="button" class="btn device-btn {{ $portfolio->mockupType === 'laptop' ? 'active' : '' }}" data-type="laptop">
                             Laptop
                         </button>
 
@@ -99,7 +101,7 @@
                             <input type="text" id="portfolioName" name="name" 
                                     class="form-control rounded-pill @error('name') is-invalid @enderror" 
                                     placeholder="Masukkan Judul portfolio Disini"
-                                     value="{{ old('name') }}">
+                                     value="{{ $portfolio->portfolioName }}">
                             @error('name')
                                 <div class="invalid-feedback d-block">{{ $message }}</div>
                             @enderror
@@ -112,7 +114,7 @@
                                 <input type="text" id="portfolioLink" name="link" 
                                         class="form-control rounded-pill form-link-input @error('link') is-invalid @enderror " 
                                         placeholder="Link Google Drive / Link Youtube"
-                                         value="{{ old('link') }}">
+                                         value="{{ $portfolio->portfolioLink }}">
                                 @error('link')
                                     <div class="invalid-feedback position-absolute" style="bottom:-22px; left:0;">{{ $message }}</div>
                                 @enderror
@@ -123,13 +125,13 @@
                             <label class="portfolio-form-label">Deskripsi Portofolio</label>
                             <textarea id="portfolioDesc" name="description" rows="4" 
                                     class="form-control description rounded-4 @error('description') is-invalid @enderror" 
-                                    placeholder="Portofolio ini adalah...">{{ old('description') }}</textarea>
+                                    placeholder="Portofolio ini adalah...">{{ $portfolio->portfolioDesc }}</textarea>
                             @error('description') 
                                 <div class="invalid-feedback d-block">{{ $message }}</div> 
                             @enderror
                         </div>
                         <button class="btn w-100 text-dark yellow-gradient-btn">
-                            Tambah
+                            Simpan
                         </button>
                     </div>
                 </div>
@@ -275,8 +277,34 @@ document.addEventListener('DOMContentLoaded', function() {
     const mockupMobile = document.getElementById('mockup-mobile');
     const mockupLaptop = document.getElementById('mockup-laptop');
     const uploadInput = document.getElementById('portfolioUpload');
+    const preview = document.getElementById('portfolioPreview');
 
     let lastUploadedFile = null;
+
+    function generateVideoThumbnail(videoSrc, callback) {
+        const video = document.createElement('video');
+        video.src = videoSrc;
+        video.crossOrigin = "anonymous"; 
+        video.currentTime = 1; 
+
+        video.addEventListener('loadeddata', () => {
+            const canvas = document.createElement('canvas');
+            canvas.width = video.videoWidth;
+            canvas.height = video.videoHeight;
+            const ctx = canvas.getContext('2d');
+            ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+            const imageData = canvas.toDataURL('image/png');
+            callback(imageData);
+        });
+    }
+
+    const isVideo = "{{ Str::endsWith($portfolio->portfolioPath, '.mp4') ? 'true' : 'false' }}";
+    if (isVideo === 'true') {
+        const storedVideoPath = "{{ asset('storage/' . $portfolio->portfolioPath) }}";
+        generateVideoThumbnail(storedVideoPath, (thumbnail) => {
+            preview.src = thumbnail;
+        });
+    }
 
     function updateMockup(device, file) {
         const portfolioId = device === 'mobile' ? '1' : '2';
@@ -323,7 +351,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
         lastUploadedFile = file; 
         const activeDevice = document.querySelector('.device-btn.active').getAttribute('data-type');
-        const preview = document.getElementById('portfolioPreview');
 
         const fileURL = URL.createObjectURL(file);
 
@@ -331,17 +358,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
             preview.src = fileURL;
         } else if (file.type.startsWith('video/')) {
-        
-            const video = document.createElement('video');
-            video.src = fileURL;
-            video.currentTime = 1; 
-            video.addEventListener('loadeddata', () => {
-                const canvas = document.createElement('canvas');
-                canvas.width = video.videoWidth;
-                canvas.height = video.videoHeight;
-                const ctx = canvas.getContext('2d');
-                ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
-                preview.src = canvas.toDataURL('image/png');
+            generateVideoThumbnail(fileURL, (thumbnail) => {
+                preview.src = thumbnail;
             });
         }
 

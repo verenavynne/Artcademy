@@ -59,16 +59,42 @@
             <div class="tab-content-container">
                 <div class="tab-content active" data-tab-content="portfolio">
                     <div class="portfolio-section-container justify-content-center align-items-center gap-4">
-                        @foreach($portfolios as $index => $portfolio)
-                            <div class="portfolio-card d-flex flex-column justify-content-center align-items-center" 
-                                data-bs-toggle="modal"
-                                data-bs-target="#portoModal{{ $portfolio->id }}">
+                        @foreach($portfolios as $portfolio)
+                            <div class="portfolio-card d-flex flex-column justify-content-center align-items-center position-relative" 
+                                data-portfolio-id="{{ $portfolio->id }}">
+
+                                <div class="dropdown position-absolute top-0 end-0 m-3">
+                                    <button class="btn btn-link text-dark p-0" type="button" id="dropdownMenu{{ $portfolio->id }}"
+                                        data-bs-toggle="dropdown" aria-expanded="false"
+                                        onclick="event.stopPropagation()">
+                                        <iconify-icon icon="qlementine-icons:menu-dots-16"></iconify-icon>
+                                    </button>
+                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenu{{ $portfolio->id }}">
+                                        <li>
+                                            <a href="{{ route('portfolio.edit', $portfolio->id) }}">
+                                                <button type="button" class="dropdown-item">Edit</button>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <button 
+                                                type="button" 
+                                                class="dropdown-item text-danger"
+                                                data-bs-toggle="modal" 
+                                                data-bs-target="#deleteConfirmModal{{ $portfolio->id }}"
+                                                onclick="event.stopPropagation()">
+                                                Hapus
+                                            </button>
+                                        </li>
+                                    </ul>
+                                </div>
+
+
                                 @include('profile.components.portfolio-mockup', [
                                     'mockupType' => $portfolio->mockupType,
                                     'portoType' => Str::endsWith($portfolio->portfolioPath, '.mp4') ? 'video' : 'image',
                                     'mediaPath' => asset('storage/' . $portfolio->portfolioPath),
                                     'portfolioId' => $portfolio->id,
-                                    'mockupSize' => 250,
+                                    'mockupSize' => 230,
                                     'animation' => true
                                 ])
                                 <p>{{ $portfolio->portfolioName }}</p>
@@ -102,13 +128,66 @@
     </a>
 
     <!-- Pop up each porto -->
+    @include('profile.components.portfolio-popup')  
     
-        @include('profile.components.portfolio-popup')                             
+    <!-- Pop up konfirmasi delete -->
+    @foreach ($portfolios as $portfolio)
+     
+        <div class="modal fade" id="deleteConfirmModal{{ $portfolio->id }}" tabindex="-1" aria-labelledby="deleteConfirmModalLabel{{ $portfolio->id }}" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content d-flex justify-content-center flex-column text-center p-4" style="border-radius: 24px; box-shadow: 0 4px 8px 0 var(--brown-shadow-color);">
+                
+                <button type="button" class="btn-close close-btn ms-auto" data-bs-dismiss="modal" aria-label="Close"></button>
+                
+                <!-- <img src="{{ asset('assets/course/zoom_berhasil_daftar.png') }}" alt="Berhasil dikumpulkan" class="mb-3" width="80" style="align-self: center"> -->
+                
+                <h5 class="fw-bold mb-2" style="font-size: var(--font-size-title)">Konfirmasi Hapus</h5>
+                <p class="mb-4" style="margin: 0; font-size: var(--font-size-primary); color: var(--dark-gray-color)">
+                    Yakin ingin hapus portofolio <span class="fw-bold">{{ $portfolio->portfolioName }}</span> ?
+                </p>
+
+                <div class="d-flex justify-content-center gap-3">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                    <form action="{{ route('portfolio.destroy', $portfolio->id) }}" method="POST">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn btn-danger w-100">Hapus</button>
+                    </form>
+                </div>
+                
+            </div>
+        </div>
+
+    @endforeach
+
     
     
 </div>
 
 <style>
+
+    .portfolio-card .dropdown button {
+        color: var(--black-color);
+        border: none;
+        background: none;
+    }
+
+    .portfolio-card .dropdown button:hover {
+        opacity: 0.7;
+    }
+
+    .portfolio-card .dropdown-menu{
+        border-radius: 10px;
+        background: white;
+        border: none;
+        box-shadow: 0 4px 8px 0 var(--brown-shadow-color);
+    }
+    
+    .dropdown-item{
+        font-size: 16px;
+
+    }
+
     .modal {
         z-index: 2000 !important;
     }
@@ -295,13 +374,25 @@ document.addEventListener("DOMContentLoaded", function() {
 
     // Atur warna portofolio card
     const colors = ['#F9EEDB', '#FFE9E2'];
-    const columns = 2; // jumlah kolom grid kamu
+    const columns = 2; 
 
     document.querySelectorAll('.portfolio-card').forEach((card, index) => {
         const row = Math.floor(index / columns);
         const col = index % columns;
-        const colorIndex = (row + col) % 2; // pola catur
+        const colorIndex = (row + col) % 2; 
         card.style.backgroundColor = colors[colorIndex];
+    });
+
+    document.querySelectorAll(".portfolio-card").forEach(card => {
+        card.addEventListener("click", function (e) {
+            const dropdown = e.target.closest(".dropdown");
+            if (!dropdown) {
+                const portfolioId = this.getAttribute("data-portfolio-id");
+                const modal = document.querySelector(`#portoModal${portfolioId}`);
+                const bootstrapModal = new bootstrap.Modal(modal);
+                bootstrapModal.show();
+            }
+        });
     });
 });
 </script>

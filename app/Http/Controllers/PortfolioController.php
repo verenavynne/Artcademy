@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Portfolio;
+use App\Models\ProjectSubmission;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class PortfolioController extends Controller
 {
@@ -29,7 +31,8 @@ class PortfolioController extends Controller
 
         $studentId = Auth::id();
 
-        $filePath = $request->file('file')->store('portfolio_mediaPath', 'public');
+        $originalName = $request->file('file')->getClientOriginalName();
+        $filePath = $request->file('file')->storeAs('portfolio_mediaPath', $originalName, 'public');
 
         Portfolio::create([
             'userId' => $studentId,
@@ -44,4 +47,89 @@ class PortfolioController extends Controller
         return redirect()->route('my-profile')->with('success', 'Portofolio berhasil ditambahkan!');
 
     }
+
+    public function editPortfolio($id)
+    {
+        $portfolio = Portfolio::where('id', $id)->firstOrFail();
+
+        return view('profile.edit-portfolio', compact('portfolio'));
+    }
+
+    public function updatePortfolio(Request $request, $id)
+    {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'link' => ['required', 'regex:/^(https?:\/\/|www\.)[^\s]+$/'],
+            'file' => 'nullable|file|mimes:jpg,jpeg,png,mp4',
+            'description' => 'nullable|string',
+            'mockupType' => 'required|in:laptop,mobile'
+        ], [
+            'name.required' => 'Judul portofolio wajib diisi.',
+            'link.required' => 'Link portofolio wajib diisi.',
+            'link.regex' => 'Link harus diawali dengan https://, http://, atau www.',
+            'mockupType.required' => 'Tipe mockup wajib dipilih.',
+            'mockupType.in' => 'Tipe mockup tidak valid. Harus salah satu: laptop atau mobile.'
+        ]);
+
+        $portfolio = Portfolio::findOrFail($id);
+
+        if ($request->hasFile('file')) {
+            if ($portfolio->portfolioPath && Storage::disk('public')->exists($portfolio->portfolioPath)) {
+                Storage::disk('public')->delete($portfolio->portfolioPath);
+            }
+
+            $originalName = $request->file('file')->getClientOriginalName();
+            $filePath = $request->file('file')->storeAs('portfolio_mediaPath', $originalName, 'public');
+
+            $portfolio->update([
+                'portfolioName' => $request->name,
+                'portfolioDesc' => $request->description,
+                'portfolioLink' => $request->link,
+                'mockupType' => $request->mockupType,
+                'portfolioPath' => $filePath
+            ]);
+        }else{
+            $portfolio->update([
+                'portfolioName' => $request->name,
+                'portfolioDesc' => $request->description,
+                'portfolioLink' => $request->link,
+                'mockupType' => $request->mockupType
+            ]);
+
+        }
+
+
+        return redirect()->route('my-profile')->with('success', 'Portofolio berhasil diperbarui!');
+    }
+
+    public function addFromProject($id)
+    {
+        $submission = ProjectSubmission::findOrFail($id);
+
+        $studentId = Auth::id();
+
+        if (Portfolio::where('portfolioLink', $submission->projectSubmissionLink)->where('userId', $studentId)->exists()) {
+            return redirect()->back()->with('info', 'Projek ini sudah ada di portofolio kamu.');
+        }
+
+        Portfolio::create([
+            'userId' => $studentId,
+            'portfolioName' => $submission->projectSubmissionName,
+            'portfolioDesc' => $submission->projectSubmissionDesc,
+            'portfolioLink' => $submission->projectSubmissionLink,
+            'portfolioPath' => $submission->projectSubmissionThumbnail,
+            'mockupType' => 'laptop' 
+        ]);
+
+        return redirect()->back()->with('success', 'Projek berhasil dimasukkan ke portofolio!');
+    }
+
+    public function destroy($id)
+    {
+        $portfolio = Portfolio::where('id', $id)->firstOrFail();
+        $portfolio->delete();
+      
+        return redirect()->back()->with('success', 'Portofolio berhasil dihapus!');
+    }
+
 }

@@ -1,6 +1,13 @@
 @extends('layouts.master')
 
 @section('content')
+@if (session('info'))
+    <div class="alert alert-warning mt-3">{{ session('info') }}</div>
+@endif
+
+@if(session('success'))
+    <div class="alert alert-success">{{ session('success') }}</div>
+@endif
 
 <div class="container-fluid d-flex flex-column justify-content-center px-5" style="margin-bottom: 75px;">
     
@@ -39,13 +46,22 @@
                             </div>
                         </div>
                     </div>
-                    <div>
+                    <div class="mb-5">
                         <label class="projek-form-label">Deskripsi Projek</label>
                         <textarea id="projectDesc" name="description" rows="4" 
                                 class="form-control description rounded-4" disabled
                                 >{{ $submission->projectSubmissionDesc }}</textarea>
                        
                     </div>
+
+                    @if($allTutorsGraded)
+                     <form action="{{ route('add.to.portfolio', $submission->id) }}" method="POST">
+                        @csrf
+                        <button type="submit" class="btn w-100 px-4 py-2 text-white masuk-porto-btn">
+                            <p>Masukkan ke Portofolio</p>
+                        </button>
+                    </form>
+                    @endif
                 </div>
 
             </div>
@@ -124,7 +140,7 @@
 
                 @if ($allTutorsGraded)
                     <a href="{{ route('certificate.generate', $courseId) }}" class="btn px-4 py-2 yellow-gradient-btn text-dark" >
-                            Klaim Sertifikatmu
+                        Klaim Sertifikatmu
                     </a>
                 @else
                     <button class="btn px-4 py-2 tunggu-nilai-btn text-dark" >
@@ -324,6 +340,47 @@
         margin: 0;
         font-size: var(--font-size-primary);
         color: #8F8F8F;
+    }
+
+    .masuk-porto-btn{
+        background: var(--cream2-color);
+        color: transparent;
+        border: none;
+        border-radius: 50rem;
+        padding: 12px 0;
+        box-shadow: 0px 4px 8px 0px var(--brown-shadow-color);
+        transition: all 0.3s ease;
+        font-size: var(--font-size-primary);
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        display: flex;
+
+    }
+
+    .masuk-porto-btn p{
+        margin: 0; 
+        font-size: var(--font-size-primary);
+        background: var(--pink-gradient-color);
+        background-clip: text;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+
+    }
+
+    .masuk-porto-btn::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        border-radius: 100px;
+        padding: 2px;
+        background: var(--pink-gradient-color);
+        -webkit-mask:
+            linear-gradient(#fff 0 0) content-box,
+            linear-gradient(#fff 0 0);
+        -webkit-mask-composite: xor;
+                mask-composite: exclude;
+        pointer-events: none;
     }
 
 </style>

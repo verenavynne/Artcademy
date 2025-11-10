@@ -45,9 +45,6 @@
                                     class="form-control description rounded-4" disabled
                                     >{{ $portfolio->portfolioDesc }}</textarea>
                         </div>
-                        <div class="d-flex w-100 justify-content-center ">
-                        <a href="#" class="btn rounded-pill yellow-gradient-btn px-4 py-2">Edit Portofolio</a>
-                    </div>
                     </div>
                 </div>
         </div>

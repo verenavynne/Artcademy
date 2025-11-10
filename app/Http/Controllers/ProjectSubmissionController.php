@@ -37,7 +37,8 @@ class ProjectSubmissionController extends Controller
             return redirect()->back()->with('info', 'Kamu sudah mengumpulkan projek ini sebelumnya.');
         }
 
-        $thumbnailPath = $request->file('thumbnail')->store('project_thumbnails', 'public');
+        $originalName = $request->file('thumbnail')->getClientOriginalName();
+        $thumbnailPath = $request->file('thumbnail')->storeAs('project_thumbnails', $originalName, 'public');
 
         ProjectSubmission::create([
             'projectId' => $request->input('projectId'), 
