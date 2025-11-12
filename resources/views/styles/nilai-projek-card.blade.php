@@ -1,6 +1,8 @@
 <style>
     .project-card {
     width: 236px;
+    height: auto;
+    max-height: 350px;
     padding: 12px;
     border-radius: 40px;
     min-height: auto;
@@ -12,7 +14,7 @@
     align-items: center;
     transition: transform 0.2s ease;
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: flex-start;
     gap: 10px;
     }
@@ -23,7 +25,7 @@
 
     .project-image {
     width: 100%;
-    height: 156px;
+    height: 130px;
     background: repeating-conic-gradient(#ccc 0% 25%, transparent 0% 50%) 50% / 40px 40px;
     opacity: 0.3;
     border-radius: 40px;

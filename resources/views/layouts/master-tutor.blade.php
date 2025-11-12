@@ -21,7 +21,7 @@
 <body>
   <div class="container-fluid ps-4 pe-4">
     <header>
-      @include('layouts.navbar-tutor')
+      @include('layouts.navbar-admin-tutor')
     </header>
 
     <!-- Wrapper utama berisi sidebar dan konten -->
@@ -63,78 +63,14 @@
       flex-wrap: nowrap !important;
     }
 
-  .container-content{
+  /* .container-content{
     padding-right: 0px;
     padding-left: 28px;
     padding-top: 0;
     height: 100%;
     width:100%;
     overflow: visible;
-  }
-
-.tambah-kursus-event{
-  display: flex;
-  gap: 24px;
-}
-
-.btn-tambah {
-  display: flex;
-  width: 216px;
-  height: 66px;
-  font-size: 18px;
-  align-items: center;
-  gap: 10px;
-  background: #fff;
-  border: none;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px 0 rgba(67, 39, 0, 0.20);
-  padding: 0px 30px;
-  justify-content: center;
-  align-items: center;
-  gap: 10px;
-  font-weight: 500;
-  color: #4a4a4a;
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-
-.btn-tambah:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 12px rgba(67, 39, 0, 0.2);
-}
-
-
-.icon-circle-kursus {
-display: flex;
-width: 37px;
-height: 37px;
-padding: 11.893px 9.25px;
-flex-direction: column;
-justify-content: center;
-align-items: center;
-gap: 13.214px;
-flex-shrink: 0;
-color: var(--black-color);
-border-radius: 132.143px;
-background: var(--Yellow-Gradient, linear-gradient(158deg, #FFDE22 36.37%, #F4A700 89.58%));
-box-shadow: 0 5.286px 10.571px 0 rgba(67, 39, 0, 0.20);
-}
-
-.icon-circle-event {
-display: flex;
-width: 37px;
-height: 37px;
-padding: 11.893px 9.25px;
-flex-direction: column;
-justify-content: center;
-align-items: center;
-gap: 13.214px;
-flex-shrink: 0;
-color: var(--black-color);
-border-radius: 132.143px;
-background: var(--Orange-Gradient, linear-gradient(0deg, #F69000 0%, #F8BA0C 100%));
-box-shadow: 0 5.286px 10.571px 0 rgba(67, 39, 0, 0.20);
-}
+  } */
 
 .icon-tambah-tutor{
   width: 24px;
@@ -144,10 +80,10 @@ box-shadow: 0 5.286px 10.571px 0 rgba(67, 39, 0, 0.20);
 }
 
 
-.card{
+.card-tutor{
   display: flex;
   width: auto;
-  height: auto;
+  height: 100%;
   padding: 24px 24px;
   flex-direction: column;
   align-items: center;
@@ -157,24 +93,25 @@ box-shadow: 0 5.286px 10.571px 0 rgba(67, 39, 0, 0.20);
   box-shadow: 0 4px 8px 0 rgba(67, 39, 0, 0.20);
 }
 
-.icon-text{
+.icon-text-tutor{
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 4px;
 }
 
-.icon-text h6{
+.icon-text-tutor h6{
   margin: 0 !important;
 }
 
-.total-icon {
+.total-icon-tutor {
   display: flex;
   justify-content: center;
   align-items: flex-start;
   gap: 2px;
   width: 24px;
   height: 24px;
+  font-size: 26px;
   aspect-ratio: 1 / 1;
   color: var(--orange-color, rgba(251, 168, 52, 1));
 }
@@ -214,11 +151,6 @@ box-shadow: 0 5.286px 10.571px 0 rgba(67, 39, 0, 0.20);
   font-size: 18px;
   font-weight: 400;
   margin: 0 !important;
-}
-
-.total-icon {
-  font-size: 26px;
-  color: #F69000;
 }
 
 /* === Divider === */
@@ -303,7 +235,7 @@ box-shadow: 0 5.286px 10.571px 0 rgba(67, 39, 0, 0.20);
   box-shadow: 0 4px 8px rgba(67, 39, 0, 0.2);
 
   /* Biar seukuran tinggi sidebar */
-  height: calc(100vh - 188px); /* bisa sesuaikan 100px tergantung header atas */
+  height: auto; /* bisa sesuaikan 100px tergantung header atas */
 }
 
 

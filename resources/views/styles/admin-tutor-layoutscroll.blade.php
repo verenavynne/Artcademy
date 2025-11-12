@@ -7,13 +7,15 @@
 
     .admin-tutor-card-wrapper {
     display: flex;
-    flex-direction: wrap;
-    gap: 24px; 
-    overflow-y: auto;
-    white-space: nowrap;
-    padding-bottom: 8px;
-    scroll-behavior: smooth;
-    /* overflow: visible; */
+    flex-direction: row;
+    gap: 16px;
+    padding: 8px;
+    justify-content: flex-start;
+    align-items: flex-start;
+    width: 100%;
+    height: auto;
+    overflow-y: hidden;
+    scrollbar-width: thin;
     }
 
   .admin-tutor-card-wrapper::-webkit-scrollbar {
@@ -28,10 +30,15 @@
   .container-content {
   display: flex;
   flex-direction: column;
-  height: 100vh; /* layar penuh */
-  overflow: hidden;
-  padding: 24px;
+  width: calc(100% - 300px);
+  height: 100%; /* layar penuh */
+  padding-right: 0px;
+  padding-left: 28px;
+  padding-top: 0;
+  padding-bottom: 0;
+  width: 100%;
   box-sizing: border-box;
+  /* overflow: visible; */
   }
 
   

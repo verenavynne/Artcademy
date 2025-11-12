@@ -10,22 +10,22 @@
 
 
     <div class="total-kursus col">
-      <div class="card border-0 text-center">
-        <div class="icon-text">
-        <iconify-icon icon="mingcute:book-2-fill" class="total-icon"></iconify-icon>
+      <div class="card-tutor border-0 text-center">
+        <div class="icon-text-tutor">
+        <iconify-icon icon="mingcute:book-2-fill" class="total-icon-tutor"></iconify-icon>
         <h6 style="font-size: 18px; color: var(--Black, #1B1B1B); font-weight: 400;">Total Kursus</h6>
         </div>
-        <h3 class="fw-bold mb-0" style="font-size: 50px; color: var(--Black, #1B1B1B);">1.365</h3>
+        <h3 class="fw-bold mb-0" style="font-size: 50px; color: var(--Black, #1B1B1B);">30</h3>
       </div>
     </div>
 
     <div class="jadwal-zoom col">
-      <div class="card border-0 text-start">
+      <div class="card-tutor border-0 text-start">
         <div class="dashboard-card-wrapper">
           
           <div class="icon-text-wrapper">
-            <div class="icon-text" style="width:100%; justify-content: left;">
-              <iconify-icon icon="bxs:calendar" class="total-icon"></iconify-icon>
+            <div class="icon-text-tutor" style="width:100%; justify-content: left;">
+              <iconify-icon icon="bxs:calendar" class="total-icon-tutor"></iconify-icon>
               <h6 style="font-size: 18px; color: var(--Black, #1B1B1B); font-weight: 400;">
                 Jadwal Zoom Mendatang
               </h6>
@@ -61,8 +61,8 @@
 
 <div class="dashboard-nilai-projek-card">
           <div class="icon-text-wrapper">
-            <div class="icon-text" style="width:100%; justify-content: left;">
-              <iconify-icon icon="iconamoon:file-document-fill" class="total-icon"></iconify-icon>
+            <div class="icon-text-tutor" style="width:100%; justify-content: left;">
+              <iconify-icon icon="iconamoon:file-document-fill" class="total-icon-tutor"></iconify-icon>
               <h6 style="font-size: 18px; color: var(--Black, #1B1B1B); font-weight: 400;">
                 Nilai Projek Siswa
               </h6>
@@ -115,16 +115,6 @@
 </script>
 
 <style>
-  /* Wrapper untuk card di dalam */
-.admin-tutor-card-wrapper {
-  display: flex;
-  flex-direction: row;
-  gap: 16px;
-  justify-content: flex-start;
-  align-items: flex-start;
-  width: 100%;
-  overflow: visible;
-}
 
 /* Tiap card */
 .admin-tutor-card-wrapper > * {

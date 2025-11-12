@@ -20,7 +20,7 @@
 <body>
   <div class="container-fluid ps-4 pe-4">
     <header>
-      @include('layouts.navbar-admin')
+      @include('layouts.navbar-admin-tutor')
     </header>
 
     <!-- Wrapper utama berisi sidebar dan konten -->
@@ -63,12 +63,12 @@
       flex-wrap: nowrap !important;
     }
 
-  .container-content{
+  /* .container-content{
     padding-right: 0px;
     padding-left: 28px;
     height: 100%;
     width:100%;
-  }
+  } */
 
 .tambah-kursus-event{
   display: flex;
@@ -171,6 +171,7 @@ box-shadow: 0 5.286px 10.571px 0 rgba(67, 39, 0, 0.20);
   justify-content: center;
   align-items: flex-start;
   gap: 2px;
+  font-size: 26px;
   width: 24px;
   height: 24px;
   aspect-ratio: 1 / 1;
@@ -212,11 +213,6 @@ box-shadow: 0 5.286px 10.571px 0 rgba(67, 39, 0, 0.20);
   font-size: 18px;
   font-weight: 400;
   margin: 0 !important;
-}
-
-.total-icon {
-  font-size: 26px;
-  color: #F69000;
 }
 
 /* === Divider === */

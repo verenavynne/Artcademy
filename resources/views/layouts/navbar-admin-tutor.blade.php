@@ -16,7 +16,7 @@
 
                 <div class="d-flex flex-column text-start">
                     <span class="fw-medium" style= "font-size: 18px">Farren</span>
-                    <small class="text-muted" style="font-size: 14px;">Admin</small>
+                    <small class="text-muted" style="font-size: 14px;">Admin/Tutor</small>
                 </div>
                 <iconify-icon icon="mdi:chevron-down" class="dropdown-icon ms-2"></iconify-icon>
             </a>

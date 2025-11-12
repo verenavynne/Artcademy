@@ -3,7 +3,7 @@
 @section('content')
 <div class="container-content">
   <div class="d-flex justify-content-between align-items-center">
-    <h4 class="fw-semibold" style="font-size: 32px">Daftar Pengguna</h4>
+    <h4 class="fw-semibold" style="font-size: 32px">Nilai Projek</h4>
 
     </div>
         <ul class="nav mb-4 mt-4 w-100 statusTabs">
@@ -101,6 +101,10 @@
     }
         .text-custom {
         color: #D0C4AF !important;
+    }
+
+    .admin-tutor-card-wrapper {
+      overflow-y: scroll;
     }
   
 </style>

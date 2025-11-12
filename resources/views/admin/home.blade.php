@@ -140,21 +140,22 @@
   document.addEventListener("DOMContentLoaded", () => {
     const rows = document.querySelectorAll(".table-body-scroll tbody tr");
 
-    rows.forEach(row => {
+    rows.forEach((row, index) => {
       const statusCell = row.querySelector(".badge-status");
       const actionCell = row.querySelector("td:last-child");
 
       if (!statusCell || !actionCell) return;
 
       const status = statusCell.textContent.trim();
+      console.log("row : " + index + "status: ", status);
 
       actionCell.innerHTML = '';
 
-      const viewIcon = '<i class="fa-regular fa-eye"></i>';
+      const viewIcon = '<iconify-icon icon="fa6-solid:eye" class="view-icon"></iconify-icon>';
 
       if (status === "Menunggu") {
-        const approveIcon = '<i class="fa-solid fa-check"></i>';
-        const deleteIcon = '<i class="fa-solid fa-trash"></i>';
+        const approveIcon = '<iconify-icon icon="tabler:circle-check-filled" class="aman-icon"></iconify-icon>';
+        const deleteIcon = '<iconify-icon icon="fluent:delete-12-filled" class="hapus-icon"></iconify-icon>';
         actionCell.innerHTML = viewIcon + approveIcon + deleteIcon;
       } else {
         actionCell.innerHTML = viewIcon;
