@@ -1,4 +1,5 @@
-<nav class="navbar-admin d-flex justify-content-between align-items-center px-4 py-3">
+<!-- TIDAK DIPAKAI, NAVBAR PAKAI NAVBAR-ADMIN-TUTOR -->
+<nav class="navbar-tutor d-flex justify-content-between align-items-center px-4 py-3">
     <div class="d-flex align-items-center">
         <a href="">
             <img src="{{ asset('assets/logo.png') }}" alt="Logo" width="153px" height="38px">
@@ -22,7 +23,7 @@
             </a>
             <ul class="dropdown-menu dropdown-menu-end">
                 <li><a class="dropdown-item" href="#">Profil</a></li>
-                <li><a class="dropdown-item text-danger" href="#">Keluar</a></li>
+                <li><a class="dropdown-item text-danger" href="{{ route('logout') }}">Keluar</a></li>
             </ul>
         </div>
     </div>
@@ -30,7 +31,7 @@
 
 
 <style>
-.navbar-admin {
+.navbar-tutor {
     background-color: transparent;
     border-bottom: 1px solid rgba(0, 0, 0, 0.05);
     padding-top: 12px;
@@ -38,7 +39,7 @@
     border-bottom: none;
 }
 
-.navbar-admin h5 {
+.navbar-tutor h5 {
     font-family: 'Afacad', sans-serif;
 }
 
