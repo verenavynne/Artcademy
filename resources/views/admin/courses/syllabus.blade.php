@@ -53,33 +53,43 @@
         </div>
     @endif
 
-    <form id="courseForm" action="{{ route('admin.courses.draftSyllabus') }}" method="POST">
-        @csrf
-        <!-- Accordion Mingguan -->
-        <div class="accordion" id="weekAccordion"></div>
+    <div class="form-container border-0 rounded-4">
+        <form id="courseForm" action="{{ route('admin.courses.draftSyllabus') }}" method="POST">
+            @csrf
+            <!-- Accordion Mingguan -->
+            <div class="accordion" id="weekAccordion"></div>
 
-        <!-- Tombol Tambah Minggu -->
-        <div class="d-flex justify-content-end mt-4">
-            <button type="button" class="rounded-circle d-flex justify-content-center align-items-center fw-bold me-2" 
-                id="add-week" style="width:24px;height:24px; background: var(--orange-gradient-color); border: none;">
-                +
-            </button>
-            <span class="fw-bold">Minggu</span>
-        </div>
+            <!-- Tombol Tambah Minggu -->
+            <div class="d-flex justify-content-end mt-4">
+                <button type="button" class="rounded-circle d-flex justify-content-center align-items-center fw-bold me-2" 
+                    id="add-week" style="width:24px;height:24px; background: var(--orange-gradient-color); border: none;">
+                    +
+                </button>
+                <span class="fw-bold">Minggu</span>
+            </div>
 
-        <div class="d-flex justify-content-end gap-3 mt-4">
-            <button type="submit" id="saveDraftBtn" class="btn pink-cream-btn px-4">
-                Simpan Draft
-            </button>
-            <button type="submit" id="nextBtn" class="btn yellow-gradient-btn px-4">
-                Lanjut
-            </button>
-        </div>
-    </form>
+            <div class="d-flex justify-content-end gap-3 mt-4">
+                <button type="submit" id="saveDraftBtn" class="btn pink-cream-btn px-4">
+                    Simpan Draft
+                </button>
+                <button type="submit" id="nextBtn" class="btn yellow-gradient-btn px-4">
+                    Lanjut
+                </button>
+            </div>
+        </form>
+    </div>
 
     @include('admin.courses.components.course-week')
     @include('admin.courses.components.material-item')
 </div>
+
+<style>
+    .form-container {
+        background-color: transparent;
+        box-shadow: none;
+        padding: 0;
+    }
+</style>
 
 <script>
     let weekIndex = 0;
