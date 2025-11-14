@@ -238,9 +238,38 @@
   height: auto; /* bisa sesuaikan 100px tergantung header atas */
 }
 
+.nilai-projek-title{
+  display: flex;
+  width: 100%;
+  align-items: flex-start;
+  gap: 12px;
+}
 
+.warning-info{
+  display: flex;
+  padding: 20px 32px;
+  align-items: center;
+  gap: 10px;
+  margin: 0 6px;
+  align-self: stretch;
+  border-radius: 10px;
+  background: #FFF0DF;
 
+  /* Shadow 2 */
+  box-shadow: 0 2px 10px 0 rgba(67, 39, 0, 0.20);
+}
 
+.warning-info-text{
+font-family: Afacad;
+font-size: 18px;
+font-style: normal;
+font-weight: 400;
+line-height: normal;
+background: var(--Orange-Gradient, linear-gradient(0deg, #F69000 0%, #F8BA0C 100%));
+background-clip: text;
+-webkit-background-clip: text;
+-webkit-text-fill-color: transparent;
+}
 
 
   </style>

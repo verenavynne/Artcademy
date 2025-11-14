@@ -208,10 +208,23 @@
     .yellow-gradient-btn {
         background: linear-gradient(180deg, #FFDE22 0%, #F4A700 100%);
         border: none;
+        color: var(--black-color);
         border-radius: 50rem;
         padding: 12px 30px;
         box-shadow: 0px 4px 8px 0px var(--brown-shadow-color);
         transition: all 0.3s ease;
+        font-size: 18px;
+    }
+
+    .disabled-btn{
+    border-radius: 100px;
+    background: #D0D0D0;
+    border: none;
+    font-size: 18px;
+    padding: 12px 30px;
+    color: #8F8F8F;
+    /* drop shadow brown */
+    box-shadow: 0 4px 8px 0 rgba(67, 39, 0, 0.20);
     }
 
     .yellow-gradient-btn:hover {
@@ -221,8 +234,10 @@
     .pink-cream-btn {
         border: 2px solid var(--pink-color);
         background-color: var(--cream2-color);
+        color: var(--pink-color);
         border-radius: 50rem;
         padding: 12px 0;
+        font-size: 18px;
     }
 
     .pink-cream-btn:hover {

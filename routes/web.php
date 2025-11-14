@@ -73,6 +73,10 @@ Route::middleware(['auth', 'checkRole:lecturer'])->prefix('/lecturer')->group(fu
         return view('lecturer.nilai-projek.nilai-projek');
     })->name('lecturer.nilai-projek');
 
+    Route::get('/detail-nilai-projek', function(){
+        return view('lecturer.nilai-projek.detail-nilai-projek');
+    })->name('lecturer.detail-nilai-projek');
+
 });
 
 Route::middleware(['auth', 'checkRole:admin'])->prefix('/admin')->group(function () {

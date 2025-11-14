@@ -22,7 +22,7 @@
         </ul>
 
       <div class="admin-tutor-card-wrapper d-flex flex-row flex-wrap">
-            @include('components.nilai-projek-card')
+            @include('components.selesai-nilai-projek-card')
 
             @include('components.nilai-projek-card')
 
