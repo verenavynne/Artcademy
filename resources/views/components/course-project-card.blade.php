@@ -54,6 +54,7 @@
         padding-block: 40px;
         padding-inline: 38px;
         gap: 16px;
+        margin: 0 6px;
         transition: all 0.4s ease;
     }
 

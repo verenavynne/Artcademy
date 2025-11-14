@@ -123,4 +123,45 @@
 .yellow-gradient-btn{
     width: 100%;
 }
+
+.nilai-wrapper{
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+}
+
+.nilai{
+    display: flex;
+    align-items: flex-start;
+    gap: 50px;
+    align-self: stretch;
+}
+
+.nilai-icon-text{
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    flex: 1 0 0;
+}
+
+.nilai-text{
+    color: var(--Dark-gray, #474747);
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.nilai-icon{
+    display: flex;
+    width: 20px;
+    height: 20px;
+    padding: 1.585px 1.889px 1.667px 1.89px;
+    justify-content: center;
+    align-items: center;
+    aspect-ratio: 1/1;
+    color: var(--orange-color);
+}
 </style>
