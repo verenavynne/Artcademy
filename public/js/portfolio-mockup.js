@@ -1,4 +1,3 @@
-// --- IMPORT MODULES ---
 import * as THREE from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
@@ -57,7 +56,8 @@ export function initMockup(config) {
 
             child.material = new THREE.MeshBasicMaterial({
                 map: texture,
-                side: THREE.FrontSide
+                side: THREE.FrontSide,
+                toneMapped: false,
             });
             child.material.needsUpdate = true;
         });
@@ -83,7 +83,8 @@ export function initMockup(config) {
 
         child.material = new THREE.MeshBasicMaterial({
             map: videoTexture,
-            side: THREE.FrontSide
+            side: THREE.FrontSide,
+            toneMapped: false,
         });
         child.material.needsUpdate = true;
         globalVideo = video;
@@ -157,7 +158,9 @@ export function initMockup(config) {
         const isVideo = file.type.startsWith("video/");
         const url = URL.createObjectURL(file);
 
-        if (screenMesh.material.map) screenMesh.material.map.dispose();
+        if (screenMesh.material.map) {
+            screenMesh.material.map.dispose();
+        }
         isVideo ? applyVideoTexture(screenMesh, url) : applyImageTexture(screenMesh, url);
         screenMesh.material.needsUpdate = true;
     }

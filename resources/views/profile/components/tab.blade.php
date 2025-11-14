@@ -1,7 +1,7 @@
 <div class="profile-tab-container">
     <div class="tab-header">
-        <button class="tab-link active" data-tab="portfolio">{{ $firstTab }}</button>
-        <button class="tab-link" data-tab="post">{{ $secondTab }}</button>
+        <button class="tab-link active" data-tab={{ $firstTab }}>{{ ucwords(str_replace('-', ' ', $firstTab)) }}</button>
+        <button class="tab-link" data-tab={{ $secondTab }}>{{ ucwords(str_replace('-', ' ', $secondTab)) }}</button>
     </div>
     <div class="tab-underline"></div>
 </div>

@@ -14,7 +14,7 @@
             </a>
         </li>
         <li class="nav-item">
-            <a href="#" class="nav-link-profile " style="gap: 12px">
+            <a href="{{ route('profile.courses') }}" class="nav-link-profile {{ request()->routeIs('profile.courses') ? 'active' : '' }}" style="gap: 12px">
             <iconify-icon 
                 icon="mingcute:book-2-line" 
                 data-regular="mingcute:book-2-line" 
@@ -26,7 +26,7 @@
         </li>
     
         <li class="nav-item">
-            <a href="#" class="nav-link-profile" style="gap: 12px">
+            <a href="{{ route('profile.schedule') }}" class="nav-link-profile {{ request()->routeIs('profile.schedule') ? 'active' : '' }}" style="gap: 12px">
             <iconify-icon 
                 icon="tabler:calendar-week-filled" 
                 data-regular="tabler:calendar-week-filled" 
@@ -38,7 +38,7 @@
         </li>
     
         <li class="nav-item">
-            <a href="#" class="nav-link-profile" style="gap: 12px">
+            <a href="{{ route('profile.info') }}" class="nav-link-profile {{ request()->routeIs('profile.info') ? 'active' : '' }}"  style="gap: 12px">
             <iconify-icon 
                 icon="fluent:notepad-person-16-regular" 
                 data-regular="fluent:notepad-person-16-regular" 
@@ -50,7 +50,7 @@
         </li>
     
         <li class="nav-item">
-            <a href="#" class="nav-link-profile" style="gap: 12px">
+            <a href="{{ route('profile.history') }}" class="nav-link-profile {{ request()->routeIs('profile.history') ? 'active' : '' }}" style="gap: 12px">
             <iconify-icon 
                 icon="uis:history" 
                 data-regular="uis:history" 
@@ -152,51 +152,19 @@
 <script>
     document.addEventListener("DOMContentLoaded", function() {
         const navLinks = document.querySelectorAll(".nav-link-profile");
-        
+    
         navLinks.forEach(link => {
-            if (link.classList.contains("active")) {
-                const icon = link.querySelector("iconify-icon");
-                if (icon) {
-                    const filledIcon = icon.getAttribute("data-filled");
-                    icon.setAttribute("icon", filledIcon);
-                }
-            } else {
-                const icon = link.querySelector("iconify-icon");
-                if (icon) {
-                    const regularIcon = icon.getAttribute("data-regular");
-                    icon.setAttribute("icon", regularIcon);
-                }
-            }
-        });
+            const icon = link.querySelector("iconify-icon");
+            if (!icon) return;
 
-        navLinks.forEach(link => {
+            const filledIcon = icon.getAttribute("data-filled");
+            const regularIcon = icon.getAttribute("data-regular");
             
-            link.addEventListener("click", function(e) {
-            e.preventDefault();
-
-            navLinks.forEach(l => {
-                l.classList.remove("active");
-                const icon = l.querySelector("iconify-icon");
-                if (icon) {
-                const regularIcon = icon.getAttribute("data-regular");
+            if (link.classList.contains("active")) {
+                icon.setAttribute("icon", filledIcon);
+            } else {
                 icon.setAttribute("icon", regularIcon);
-                }
-            });
-
-            this.classList.add("active");
-            const thisIcon = this.querySelector("iconify-icon");
-            if (thisIcon) {
-                const filledIcon = thisIcon.getAttribute("data-filled");
-                thisIcon.setAttribute("icon", filledIcon);
             }
-            });
         });
-
-        // const burgerMenu = document.getElementById('burgerMenu');
-        // const sidebarProfile = document.getElementById('sidebarProfile');
-
-        // burgerMenu.addEventListener('click', () => {
-        //     sidebarProfile.classList.toggle('closed');
-        // });
     });
 </script>

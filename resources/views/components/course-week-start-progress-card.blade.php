@@ -2,6 +2,15 @@
     $weekProg = $weekProgress[$week->id] ?? null;
     $isUnlocked = $weekProg?->status === 'unlocked';
     $progressPercent = $weekProg?->progress ?? 0;
+
+    $buttonText = 'Mulai belajar';
+
+    if ($weekProg->progress == 0) {
+        $buttonText = 'Mulai belajar';
+    } 
+    else if ($weekProg->progress < 100) {
+        $buttonText = 'Lanjutkan';
+    }
 @endphp
 
 <div class="course-week-start-progress-card d-flex flex-column">
@@ -39,12 +48,21 @@
         @endforeach
         
     </div>
-    <a href="{{ route('course.startWeek', $course->id) }}" >
-        <button type="submit" class="btn w-100 text-dark yellow-gradient-btn">
-            Mulai belajar
-        </button>
+    @if($allWeeksCompleted)
+        <a href="{{ route('course.project', $course->id) }}" >
+            <button type="submit" class="btn w-100 text-dark yellow-gradient-btn">
+                Lihat Projek Akhir
+            </button>
 
-    </a>
+        </a>
+    @else
+        <a href="{{ route('course.startWeek', $course->id) }}" >
+            <button type="submit" class="btn w-100 text-dark yellow-gradient-btn">
+                {{ $buttonText }}
+            </button>
+
+        </a>
+    @endif
 </div>
 
 <style>
@@ -82,6 +100,13 @@
 
     .materi-list-title{
         gap: 20px;
+    }
+
+    .materi-list-title p{
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
+        max-width: 215px;
     }
 
     .progress-percentage{

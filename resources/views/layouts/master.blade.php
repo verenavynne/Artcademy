@@ -11,6 +11,7 @@
     @include('styles.zoom-card')
     @include('styles.testimoni-card')
     @include('styles.custom-plyr')
+    @include('styles.form-style')
     <link rel="icon" type="image/png" href="{{ asset('assets/artcademy-icon.png') }}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>

@@ -30,10 +30,10 @@
                     </button>
 
                     <button 
-                        class="btn px-4 py-2 text-white btn-sudah-baca d-none"
+                        class="btn px-4 py-2 btn-sudah-baca pink-cream-btn d-none d-flex flex-row justify-content-center align-items-center gap-2"
                         style="pointer-events: none;">
                         <img src="{{ asset('assets/icons/icon_sudah_dibaca.svg') }}" alt="checklist-icon" width="19" height="19">
-                        <p>Sudah Dibaca</p>
+                        <p class="text-pink-gradient" style="margin: 0">Sudah Dibaca</p>
                     </button>
 
                 </div>
@@ -86,48 +86,6 @@
 
     .btn-tandai-baca:hover {
         opacity: 0.7;
-    }
-
-    .btn-sudah-baca{
-        background: var(--cream2-color);
-        color: transparent;
-        border: none;
-        border-radius: 50rem;
-        padding: 12px 0;
-        box-shadow: 0px 4px 8px 0px var(--brown-shadow-color);
-        transition: all 0.3s ease;
-        font-size: var(--font-size-primary);
-        align-items: center;
-        position: relative;
-        display: flex;
-        flex-direction: flex-row;
-        gap: 10px;
-
-    }
-
-    .btn-sudah-baca p{
-        margin: 0; 
-        font-size: var(--font-size-primary);
-        background: var(--pink-gradient-color);
-        background-clip: text;
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-
-    }
-
-    .btn-sudah-baca::before {
-        content: "";
-        position: absolute;
-        inset: 0;
-        border-radius: 100px;
-        padding: 2px;
-        background: var(--pink-gradient-color);
-        -webkit-mask:
-            linear-gradient(#fff 0 0) content-box,
-            linear-gradient(#fff 0 0);
-        -webkit-mask-composite: xor;
-                mask-composite: exclude;
-        pointer-events: none;
     }
     
 </style>

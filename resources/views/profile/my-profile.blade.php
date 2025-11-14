@@ -16,24 +16,29 @@
     <div class="d-flex flex-row justify-content-between" style="width: 100%; ">
         <div style="width: 20%">
             @include('profile.components.sidebar-profile')
-
         </div>
 
         <div class="d-flex flex-column" style="width: 75%; gap: 32px">
             <div class="profile-banner-card d-flex flex-row justify-content-between">
                 <div class="profile-banner-info justify-content-center align-items-center d-flex flex-row gap-5">
                     <div class="profile-image">
-                        <img src="{{ asset('assets/default-profile.jpg') }}"
+                        <img src="{{ $user->profilePicture ? asset('storage/' . $user->profilePicture) : asset('assets/default-profile.jpg') }}"
                         class="profile-picture rounded-circle object-fit"
                         alt="" width="120" height="120">
 
-                        <button class="edit-profile-btn">
-                            <img src="{{ asset('assets/icons/icon_edit.svg') }}" alt="" width="16" height="16">
-                        </button>
+                        <form action="{{ route('profile.updatePicture') }}" method="POST" enctype="multipart/form-data">
+                            @csrf
+                            <button type="button" class="edit-profile-btn" id="editProfileBtn">
+                                <img src="{{ asset('assets/icons/icon_edit.svg') }}" alt="" width="16" height="16">
+                            </button>
+                            <input type="file" name="profilePicture" id="profilePicture" accept="image/*" class="d-none" onchange="this.form.submit()">
+                        </form>
+
 
                     </div>
                     <div class="profile-detail-info d-flex flex-column gap-2">
                         <p class="profile-detail-name">{{ $user->name }}</p>
+                        <p style="margin: 0">{{ $user->profession }}</p>
                         <div class="profile-detail-membership-container">
                             <p class="profile-detail-membership">Membership Creative Studio</p>
 
@@ -55,7 +60,7 @@
 
             </div>
 
-            @include('profile.components.tab', ['firstTab' => 'Portfolio', 'secondTab' => 'Post'])
+            @include('profile.components.tab', ['firstTab' => 'portfolio', 'secondTab' => 'post'])
             <div class="tab-content-container">
                 <div class="tab-content active" data-tab-content="portfolio">
                     <div class="portfolio-section-container justify-content-center align-items-center gap-4">
@@ -101,14 +106,17 @@
                             </div>
                         @endforeach
         
-                        @if($portfolios->isEmpty())
-                            <p class="text-muted text-center">Belum ada portofolio.</p>
-                        @endif
+                      
                     </div>
+                    @if($portfolios->isEmpty())
+                        <div class="d-flex flex-column align-items-center gap-3">
+                            <p class="text-muted text-center">Belum ada portofolio</p>
+                        </div>
+                    @endif
 
                 </div>
 
-                  <div class="tab-content" data-tab-content="post">
+                <div class="tab-content" data-tab-content="post">
                     <div class="d-flex flex-column align-items-center gap-3">
                         
                         <p class="text-muted text-center">Belum ada postingan.</p>
@@ -139,19 +147,22 @@
                 
                 <button type="button" class="btn-close close-btn ms-auto" data-bs-dismiss="modal" aria-label="Close"></button>
                 
-                <!-- <img src="{{ asset('assets/course/zoom_berhasil_daftar.png') }}" alt="Berhasil dikumpulkan" class="mb-3" width="80" style="align-self: center"> -->
+                <img src="{{ asset('assets/portfolio/portfolio_hapus.png') }}" alt="Konfirmasi Hapus" class="mb-3" width="80" style="align-self: center">
                 
-                <h5 class="fw-bold mb-2" style="font-size: var(--font-size-title)">Konfirmasi Hapus</h5>
+                <h5 class="fw-bold mb-2" style="font-size: var(--font-size-title)">Hapus Portofolio ini?</h5>
                 <p class="mb-4" style="margin: 0; font-size: var(--font-size-primary); color: var(--dark-gray-color)">
-                    Yakin ingin hapus portofolio <span class="fw-bold">{{ $portfolio->portfolioName }}</span> ?
+                    Setelah dihapus, kamu tidak bisa memulihkannya lagi</span> ?
                 </p>
 
-                <div class="d-flex justify-content-center gap-3">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-                    <form action="{{ route('portfolio.destroy', $portfolio->id) }}" method="POST">
+                <div class="d-flex justify-content-center gap-3" style="width: 100%">
+                    <button type="button" style ="width: 50%; align-self: center" class="btn rounded-pill pink-cream-btn px-4" data-bs-dismiss="modal">
+                        <p class="text-pink-gradient" style="margin: 0">Kembali</p>
+                    </button>
+                    
+                    <form action="{{ route('portfolio.destroy', $portfolio->id) }}" method="POST" style="width: 50%">
                         @csrf
                         @method('DELETE')
-                        <button type="submit" class="btn btn-danger w-100">Hapus</button>
+                        <button type="submit" class="btn w-100 text-white red-btn px-4">Hapus</button>
                     </form>
                 </div>
                 
@@ -186,26 +197,6 @@
     .dropdown-item{
         font-size: 16px;
 
-    }
-
-    .modal {
-        z-index: 2000 !important;
-    }
-
-    .modal-backdrop.show {
-        z-index: 1500 !important;
-    }
-
-    .modal-content {
-        position: relative;
-        z-index: 2001;
-    }
-
-    .modal video,
-    .modal img {
-        position: relative;
-        z-index: 1;
-        pointer-events: auto;
     }
 
     .btn-close {
@@ -260,6 +251,7 @@
     }
 
     .profile-detail-name{
+        margin: 0;
         font-size: 24px;
         color: var(--black-color);
         font-weight: 600;
@@ -328,25 +320,6 @@
 
     }
 
-    .tab-content-container {
-        width: 100%;
-        position: relative;
-    }
-
-    .tab-content {
-        display: none;
-        opacity: 0;
-        transform: translateY(10px);
-        transition: all 0.3s ease;
-    }
-
-    .tab-content.active {
-        display: block;
-        opacity: 1;
-        transform: translateY(0);
-    }
-
-
 </style>
 
 <script>
@@ -393,6 +366,10 @@ document.addEventListener("DOMContentLoaded", function() {
                 bootstrapModal.show();
             }
         });
+    });
+
+    document.getElementById('editProfileBtn').addEventListener('click', function() {
+        document.getElementById('profilePicture').click();
     });
 });
 </script>

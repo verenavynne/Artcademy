@@ -237,11 +237,20 @@
         border-radius: 50rem;
         padding: 12px 0;
         font-size: 18px;
+        box-shadow: 0px 4px 8px 0px var(--brown-shadow-color);
     }
 
     .pink-cream-btn:hover {
         border: 2px solid var(--cream2-color);
         background-color: var(--cream2-color);
+    }
+
+    .red-btn{
+        box-shadow: 0px 4px 8px 0px var(--brown-shadow-color);
+        border-radius: 50rem;
+        background: var(--red-gradient-color);
+        padding: 12px 0;
+
     }
 
     /* text */
@@ -416,10 +425,6 @@
         margin-bottom: 0;
     }
 
-    /* .table thead {
-        position: relative;
-    } */
-
     .table thead::after {
         content: "";
         position: absolute;
@@ -461,6 +466,7 @@
         background: var(--cream-color); /* kasih background biar gak tembus konten di bawah */
         z-index: 1000;
     }
+
     /* Sub-title in many page */
     .title{
         margin: 0;
@@ -488,4 +494,24 @@
         cursor: pointer;
     }
 
+
+    /* Tab container section in profile */
+    .tab-content-container {
+        width: 100%;
+        position: relative;
+    }
+
+    .tab-content {
+        display: none;
+        opacity: 0;
+        transform: translateY(10px);
+        transition: all 0.3s ease;
+    }
+
+    .tab-content.active {
+        display: block;
+        opacity: 1;
+        transform: translateY(0);
+    }
+    
 </style>

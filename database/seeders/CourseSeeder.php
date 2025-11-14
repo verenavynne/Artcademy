@@ -13,21 +13,27 @@ class CourseSeeder extends Seeder
      */
     public function run(): void
     {
-        $courseTypes = ['Seni Lukis & Digital Art', 'Seni Tari', 'Seni Musik', 'Seni Fotografi'];
+        $courseTypes = [
+            'Seni Lukis & Digital Art' => 'assets/course/course_seni_lukis.png',
+            'Seni Tari' => 'assets/course/course_seni_tari.png',
+            'Seni Musik' => 'assets/course/course_seni_musik.png',
+            'Seni Fotografi' => 'assets/course/course_seni_fotografi.png',
+        ];
+
         $courseLevels = ['dasar', 'menengah', 'lanjutan'];
 
-        foreach ($courseTypes as $type) {
+        foreach ($courseTypes as $type => $picturePath) {
             foreach ($courseLevels as $level) {
                 for ($i = 0; $i < 2; $i++) {
                     Course::create([
-                        'courseName' => 'Fundamental Komposisi Visual dan Teknik Pewarnaan Digital',
+                        'courseName' => $this->generateCourseName($type, $level),
                         'courseSummary' => 'Pelajari dasar-dasar komposisi visual dan teknik pewarnaan digital untuk menciptakan karya seni yang memukau dan penuh ekspresi.',
-                        'courseText' => 'Ingin berkarier di industri game atau film sebagai concept artist? Course ini adalah langkah pertamamu! Kamu akan mempelajari fundamental concept art—mulai dari desain karakter, environment, hingga prop design—dengan pendekatan praktis ala profesional. Di akhir course, kamu akan memiliki 1 karya concept art lengkap yang siap jadi bagian portofoliomu!',
-                        'coursePicture' => 'assets/course/course_default_picture.png',
+                        'courseText' => 'Ingin berkarier di industri kreatif? Di course ini kamu akan belajar konsep dasar dan praktik nyata sesuai bidang seni pilihanmu!',
+                        'coursePicture' => $picturePath,
                         'courseLevel' => $level,
                         'courseType' => $type,
-                        'courseDurationInMinutes' => 507,
-                        'courseReview' => 4.9,
+                        'courseDurationInMinutes' => rand(300, 600),
+                        'courseReview' => rand(45, 50) / 10, 
                         'coursePaymentType' => 'berbayar',
                         'courseStatus' => 'publikasi',
                     ]);
@@ -35,4 +41,17 @@ class CourseSeeder extends Seeder
             }
         }
     }
+
+    private function generateCourseName(string $type, string $level): string
+    {
+        $baseNames = [
+            'Seni Lukis & Digital Art' => 'Fundamental Komposisi Visual dan Teknik Pewarnaan Digital',
+            'Seni Tari' => 'Teknik Dasar dan Koreografi dalam Seni Tari',
+            'Seni Musik' => 'Eksplorasi Ritme dan Melodi dalam Musik Modern',
+            'Seni Fotografi' => 'Dasar Fotografi: Komposisi, Cahaya, dan Cerita Visual',
+        ];
+
+        return $baseNames[$type] . ' - Level ' . ucfirst($level);
+    }
+
 }
