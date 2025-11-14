@@ -6,6 +6,8 @@ use App\Http\Controllers\CourseEnrollmentController;
 use App\Http\Controllers\CourseWeekController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\HomePageController;
+use App\Http\Controllers\PortfolioController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\ProjectSubmissionController;
 use App\Http\Controllers\StudentCertificateController;
@@ -61,6 +63,11 @@ Route::middleware(['auth', 'checkRole:student'])->prefix('/student')->group(func
     Route::post('/zoom/{id}/register', [ZoomController::class, 'register'])
     ->name('zoom.register')
     ->middleware('auth');
+
+    // Profile
+    Route::get('/my-courses', [ProfileController::class, 'showMyCourses'])->name('profile.courses');
+
+    Route::get('/my-schedule',[ProfileController::class, 'showMySchedule'])->name('profile.schedule');
    
 });
 
@@ -114,5 +121,30 @@ Route::middleware(['auth', 'checkRole:admin'])->prefix('/admin')->group(function
     Route::delete('/archive/{id}', [AdminCourseController::class, 'archive'])->name('admin.courses.archive');
 });
 
+Route::middleware(['auth'])->group(function(){
+    Route::get('/profile', [ProfileController::class, 'show'])->name('my-profile');
+    
+    Route::get('/add-portfolio', function(){
+        return view('profile.add-portfolio');
+    })->name('add-portfolio');
+    
+    Route::post('/add-portfolio/submit', [PortfolioController::class, 'addPortfolio'])->name('portfolio.add');
+    
+    Route::get('/edit-portfolio/{id}',[PortfolioController::class, 'editPortfolio'])->name('portfolio.edit');
+    Route::post('/update-portfolio/{id}',[PortfolioController::class, 'updatePortfolio'])->name('portfolio.update');
+    
+    Route::post('/add-portfolio-from-project/{id}',[PortfolioController::class, 'addFromProject'])->name('add.to.portfolio');
+    
+    Route::delete('/portfolio/{id}', [PortfolioController::class, 'destroy'])->name('portfolio.destroy');
+
+    Route::get('/my-info', [ProfileController::class,'showMyInfo'])->name('profile.info');
+    Route::post('/my-info/update',[ProfileController::class, 'updateProfile'])->name('profile.update');
+    Route::post('/profile/update-picture',[ProfileController::class, 'updateProfilePicture'])->name('profile.updatePicture');
+
+});
+
+Route::get('/my-transaction-history',function(){
+    return view('profile.transaction-history');
+})->name('profile.history');
 
 

@@ -20,7 +20,6 @@ class CourseWeekSeeder extends Seeder
                 'Minggu 1: Pengenalan Concept Art & Ideation',
                 'Minggu 2: Desain Karakter Dasar',
                 'Minggu 3: Environment & Props Design',
-                'Minggu 4: Projek Akhir'
             ],
             'Seni Tari' => [
                 'Minggu 1: Dasar Gerak dan Irama',

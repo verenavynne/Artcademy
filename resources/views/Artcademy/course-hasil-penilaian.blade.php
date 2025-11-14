@@ -1,6 +1,13 @@
 @extends('layouts.master')
 
 @section('content')
+@if (session('info'))
+    <div class="alert alert-warning mt-3">{{ session('info') }}</div>
+@endif
+
+@if(session('success'))
+    <div class="alert alert-success">{{ session('success') }}</div>
+@endif
 
 <div class="container-fluid d-flex flex-column justify-content-center px-5" style="margin-bottom: 75px;">
     
@@ -21,7 +28,7 @@
                     <img class="col-md-4 projek-thumbnail" src="{{ asset('storage/' . $submission->projectSubmissionThumbnail) }}" alt="Project thumbnail" height="205" width="205">
                     <div class="col mb-3">
                         <div class="col mb-3">
-                            <label for="" class="projek-form-label">Judul Projek</label>
+                            <label for="" class="form-label">Judul Projek</label>
                             <input type="text" id="projectTitle" name="title" 
                                     class="form-control rounded-pill" 
                                     value="{{ $submission->projectSubmissionName }}" 
@@ -29,7 +36,7 @@
                         </div>
 
                         <div class="col">
-                            <label class="projek-form-label fw-semibold">Link Projek</label>
+                            <label class="form-label fw-semibold">Link Projek</label>
                             <div class="position-relative d-flex">
                                 <iconify-icon icon="material-symbols:link-rounded" class="input-icon"></iconify-icon>
                                 <input type="text" id="projectLink" name="link" 
@@ -39,13 +46,22 @@
                             </div>
                         </div>
                     </div>
-                    <div>
-                        <label class="projek-form-label">Deskripsi Projek</label>
+                    <div class={{ $allTutorsGraded ? 'mb-4' : '' }}>
+                        <label class="form-label">Deskripsi Projek</label>
                         <textarea id="projectDesc" name="description" rows="4" 
                                 class="form-control description rounded-4" disabled
                                 >{{ $submission->projectSubmissionDesc }}</textarea>
                        
                     </div>
+
+                    @if($allTutorsGraded)
+                        <form action="{{ route('add.to.portfolio', $submission->id) }}" method="POST">
+                            @csrf
+                            <button type="submit" class="btn w-100 px-4 py-2 text-white pink-cream-btn">
+                                <p class="text-pink-gradient" style="margin: 0">Masukkan ke Portofolio</p>
+                            </button>
+                        </form>
+                    @endif
                 </div>
 
             </div>
@@ -124,7 +140,7 @@
 
                 @if ($allTutorsGraded)
                     <a href="{{ route('certificate.generate', $courseId) }}" class="btn px-4 py-2 yellow-gradient-btn text-dark" >
-                            Klaim Sertifikatmu
+                        Klaim Sertifikatmu
                     </a>
                 @else
                     <button class="btn px-4 py-2 tunggu-nilai-btn text-dark" >
@@ -170,56 +186,6 @@
         padding-inline: 38px;
     }
 
-    .projek-form-label{
-        font-size: var(--font-size-primary);
-        color: var(--dark-gray-color);
-        font-weight: 700;
-        margin-block-end: 10px;
-    }
-
-    .form-link-input,
-    .form-control{
-        min-height: 56px;
-        padding: 10px 30px;
-        align-items: center;
-        background: #FAFAFA;
-        box-shadow: 0 4px 8px 0 var(--brown-shadow-color);
-        border: none
-    }
-
-    .form-link-input{
-        padding: 10px 30px 10px 50px; 
-    }
-
-    .form-upload-file{
-        height: 56px;
-        background: #FAFAFA;
-        box-shadow: 0 4px 8px 0 var(--brown-shadow-color);
-        color: #D0C4AF
-    }
-
-    .input-icon {
-        position: absolute;
-        left: 20px; 
-        top: 50%;
-        transform: translateY(-50%);
-        color: #5a5a5a;
-        font-size: 20px;
-        pointer-events: none; 
-    }
-    
-
-    .placeholder-file,
-    .form-control::placeholder,
-    .form-link-input::placeholder {
-        color: #D0C4AF;
-    }
-
-    .form-control:focus,
-    .form-link-input:focus {
-        box-shadow: 0 0 0 0.2rem rgba(233, 45, 98, 0.25);
-        outline: none;
-    }
 
     .tutor-picture{
         border-radius: 50%;

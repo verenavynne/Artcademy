@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Course;
+use App\Models\CourseEnrollment;
+use App\Models\Project;
 use App\Models\StudentsCertificate;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
@@ -46,6 +48,12 @@ class StudentCertificateController extends Controller
         $certificate->update([
             'pdfPath' => $filePath,
         ]);
+
+        $enrollment = CourseEnrollment::where('courseId', $courseId)->where('studentId', $student->id)->firstOrFail();
+
+        if ($enrollment->status !== 'completed') {
+            $enrollment->update(['status' => 'completed']);
+        }
 
         return $pdf->download($fileName);
         

@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Artcademy Admin Panel</title>
 
-  @include('custom.bootstrap')
+  @include('custom.library')
   @include('styles.style')
   @include('styles.table-admin')
   @include('styles.admin-tutor-layoutscroll')

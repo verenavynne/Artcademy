@@ -37,7 +37,7 @@
     $jam = floor($course->courseDurationInMinutes / 60);
     $menit = $course->courseDurationInMinutes % 60;
 
-        $testimonis = [
+    $testimonis = [
         ['name' => 'Vynne', 'rating' => 5, 'time' => '2 days ago', 'review' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Odio aperiam magni illo corrupti autem. Laudantium iste fugit reiciendis'],
         ['name' => 'Vynne', 'rating' => 5, 'time' => '2 days ago', 'review' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Odio aperiam magni illo corrupti autem. Laudantium iste fugit reiciendis'],
         ['name' => 'Vynne', 'rating' => 5, 'time' => '2 days ago', 'review' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Odio aperiam magni illo corrupti autem. Laudantium iste fugit reiciendis'],
@@ -284,21 +284,14 @@
                     @if($isSubmitted)
                         @include('components.course-project-progress-card',['isSubmitted' => $isSubmitted, 'isDisabled' => $isDisabled,'submission' => $submission])
                     @else
-                        @php
-                            $unlockedWeeks = $course->weeks->filter(function($week) use ($weekProgress) {
-                                $progress = $weekProgress[$week->id] ?? null;
-                                return $progress && $progress->status === 'unlocked';
-                            });
-
-                            $latestUnlockedWeek = $unlockedWeeks->last();
-                        @endphp
-
                         @if ($latestUnlockedWeek)
                             @include('components.course-week-start-progress-card', [
                                 'week' => $latestUnlockedWeek,
                                 'index' => $loop->index ?? 0,
                                 'weekProgress' => $weekProgress,
-                                'materiProgress' => $materiProgress
+                                'materiProgress' => $materiProgress,
+                                'allWeeksCompleted' => $allWeeksCompleted,
+                                'course' => $course
                             ])
                         @endif
                     @endif
@@ -322,7 +315,7 @@
             
             <img src="{{ asset('assets/course/zoom_berhasil_daftar.png') }}" alt="Berhasil dikumpulkan" class="mb-3" width="80" style="align-self: center">
             
-            <h5 class="fw-bold mb-2" style="font-size: var(--font-size-title)">Berhasil dikumpulkan!</h5>
+            <h5 class="fw-bold mb-2" style="font-size: var(--font-size-title)">Berhasil terdaftar!</h5>
             <p class="mb-4" style="margin: 0; font-size: var(--font-size-primary); color: var(--dark-gray-color)">
                 Waktunya berkarya! Mulai belajar dan wujudkan karya terbaikmu
             </p>

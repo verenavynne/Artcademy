@@ -34,7 +34,7 @@
                 <div class="d-flex flex-row align-items-center gap-2">
                     @if (Auth::check())
                         <p class="fw-bold" style="font-size: 18px; color: black; margin: 0; white-space: nowrap;">Hi, {{ Auth::user()->name }}</p>
-                        <a href="#">
+                        <a href="{{ route('my-profile') }}">
                             <img src="{{ asset('assets/default-profile.jpg') }}" class="rounded-circle" style="box-shadow: rgba(67, 39, 0, 0.2); object-fit: cover" alt="Profile Icon" width="43" height="43">
                         </a>
                     @elseif(!Auth::check())

@@ -31,7 +31,7 @@ class LoginController extends Controller
     {
         $role = auth()->user()->role;
         if ($role === 'student') {
-            return '/student/home';
+            return '/';
         } elseif ($role === 'lecturer') {
             return '/lecturer/home';
         } elseif ($role === 'admin') {

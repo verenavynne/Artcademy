@@ -103,6 +103,7 @@
         justify-content: center;
         box-shadow: 0px 7.571px 15.143px 0px rgba(67, 39, 0, 0.20);
     }
+    
     /* navbar admin */
     .nav-link-admin {
         color: var(--Dark-gray, #474747);
@@ -131,23 +132,21 @@
         font-weight: 700;
     }
 
-
-
-.nav-link-admin:hover {
-    background-color: rgba(255, 221, 160, 0.25);
-    color: #000;
-    text-decoration: none !important;
-    font-weight: 700;
-}
+    .nav-link-admin:hover {
+        background-color: rgba(255, 221, 160, 0.25);
+        color: #000;
+        text-decoration: none !important;
+        font-weight: 700;
+    }
 
     .nav-link-admin:hover::after {
         transform: scaleX(1);
     }
 
     .nav-link-admin.active {
-    font-weight: 600;
-    color: #000;
-}
+        font-weight: 600;
+        color: #000;
+    }
 
     .nav-link-admin.active::after {
         transform: scaleX(1);
@@ -238,11 +237,20 @@
         border-radius: 50rem;
         padding: 12px 0;
         font-size: 18px;
+        box-shadow: 0px 4px 8px 0px var(--brown-shadow-color);
     }
 
     .pink-cream-btn:hover {
         border: 2px solid var(--cream2-color);
         background-color: var(--cream2-color);
+    }
+
+    .red-btn{
+        box-shadow: 0px 4px 8px 0px var(--brown-shadow-color);
+        border-radius: 50rem;
+        background: var(--red-gradient-color);
+        padding: 12px 0;
+
     }
 
     /* text */
@@ -417,10 +425,6 @@
         margin-bottom: 0;
     }
 
-    /* .table thead {
-        position: relative;
-    } */
-
     .table thead::after {
         content: "";
         position: absolute;
@@ -462,6 +466,7 @@
         background: var(--cream-color); /* kasih background biar gak tembus konten di bawah */
         z-index: 1000;
     }
+
     /* Sub-title in many page */
     .title{
         margin: 0;
@@ -489,4 +494,24 @@
         cursor: pointer;
     }
 
+
+    /* Tab container section in profile */
+    .tab-content-container {
+        width: 100%;
+        position: relative;
+    }
+
+    .tab-content {
+        display: none;
+        opacity: 0;
+        transform: translateY(10px);
+        transition: all 0.3s ease;
+    }
+
+    .tab-content.active {
+        display: block;
+        opacity: 1;
+        transform: translateY(0);
+    }
+    
 </style>

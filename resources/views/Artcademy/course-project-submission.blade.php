@@ -67,7 +67,8 @@
                             <label class="projek-form-label">Foto Thumbnail Projek</label>
                             <div class="form-upload-file d-flex align-items-center rounded-pill gap-3">
                                 <label for="projectThumbnail" 
-                                    class="btn upload-btn rounded-pill @error('thumbnail') is-invalid @enderror">
+                                    style="padding-inline: 30px"
+                                    class="btn pink-cream-btn text-pink-gradient rounded-pill @error('thumbnail') is-invalid @enderror">
                                     Pilih File
                                 </label>
                                 <input type="file" id="projectThumbnail" name="thumbnail" class="d-none" onchange="updateFileName(this)" value="{{ old('thumbnail') }}">
@@ -110,7 +111,9 @@
             </p>
 
             <div class="d-flex justify-content-center gap-3">
-                <a href="{{ route('course') }}" class="btn rounded-pill modal-left-btn px-4 py-2">Lihat Kursus Lain</a>
+                <a href="{{ route('course') }}" style ="width: 50%; align-self: center" class="btn rounded-pill pink-cream-btn px-4">
+                    <p class="text-pink-gradient" style="margin: 0">Lihat Kursus Lain</p>
+                </a>
 
                 @if ($submission)
                     <a href="{{ route('projectSubmission.hasil', ['id'=> $submission->id]) }}"
@@ -215,40 +218,9 @@
         outline: none;
     }
 
-    .modal-left-btn,
-    .upload-btn{
-        background-color: #F9EEDB !important;
-        border: none;
-        border-radius: 50rem;
-        box-shadow: 0px 4px 8px 0px var(--brown-shadow-color);
-        transition: all 0.3s ease;
-        align-content: center;
-        position: relative;
-        font-size: var(--font-size-primary);
-
-        background-image: linear-gradient(0deg, #E92D62 25%, #FF6E97 70%);
-        background-clip: text;
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        
-        height: 100%;
-        padding-inline: 30px;
-        justify-content: center;
-    }
-
-    .modal-left-btn::before,
-    .upload-btn::before{
-        content: "";
-        position: absolute;
-        inset: 0;
-        border-radius: 100px;
-        padding: 2px;
-        background: var(--pink-gradient-color);
-        -webkit-mask:
-            linear-gradient(#fff 0 0) content-box,
-            linear-gradient(#fff 0 0);
-        -webkit-mask-composite: xor;
-                mask-composite: exclude;
+    .pink-cream-btn:hover {
+        border: 2px solid var(--pink-color);
+        background-color: var(--cream2-color);
     }
 
 </style>

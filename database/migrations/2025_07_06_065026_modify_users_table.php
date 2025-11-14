@@ -14,7 +14,10 @@ return new class extends Migration
         Schema::table('users', function (Blueprint $table) {
             $table->string('phoneNumber', 15)->after('password');
             $table->string('profilePicture')->nullable()->after('phoneNumber');
-            $table->enum('role',['student','lecturer','admin'])->after('profilePicture');
+            $table->date('dateOfBirth')->nullable()->after('profilePicture');;
+            $table->string('profession')->nullable()->after('dateOfBirth');;
+            $table->enum('gender',['female','male'])->nullable()->after('profession');
+            $table->enum('role',['student','lecturer','admin'])->after('gender');
         });
     }
 
@@ -24,7 +27,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn(['phoneNumber','profilePicture','role']);
+            $table->dropColumn(['phoneNumber','profilePicture','dateOfBirth','profession','gender','role']);
         });
     }
 };
