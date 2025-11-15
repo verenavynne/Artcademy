@@ -105,6 +105,7 @@ class RegisterController extends Controller
             'password' => Hash::make($data['password']),
             'role' => $data['role'],
             'phoneNumber' => $data['phoneNumber'],
+            'userStatus' => 'active',
         ]);
 
         if ($data['role'] === 'lecturer') {
