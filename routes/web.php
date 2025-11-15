@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\GoogleController;
 use App\Http\Controllers\AdminCourseController;
 use App\Http\Controllers\AdminZoomController;
+use App\Http\Controllers\AdminUserController;
 
 Route::get('/', [HomePageController::class, 'index'])->name('home');
 
@@ -90,6 +91,13 @@ Route::middleware(['auth', 'checkRole:admin'])->prefix('/admin')->group(function
     Route::get('/home', function(){
         return view('admin.home');
     })->name('admin.home');
+
+
+    // Daftar Pengguna
+    Route::get('/user-list', [AdminUserController::class, 'index'])->name('admin.user.list');
+    Route::post('/user-store', [AdminUserController::class, 'userStore'])->name('admin.user.user-store');
+    Route::get('/user-detail/{userId}', [AdminUserController::class, 'detail'])->name('admin.user.detail');
+    Route::post('/toggle-status/{userId}', [AdminUserController::class, 'toggleStatus'])->name('admin.user.toggle-status');
 
 
     // Manajemen Zoom

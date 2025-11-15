@@ -8,11 +8,11 @@
         <div class="d-flex flex-column" style="gap: 16px;">
             <div class="projek-konsep d-flex flex-column">
                 <p class="projek-title-section">Konsep</p>
-                <p>{{ $project->projectConcept }}</p>
+                <p>{!! $project->projectConcept !!}</p>
             </div>
             <div class="projek-requirement d-flex flex-column">
                 <p class="projek-title-section">Requirement</p>
-                <p>{{ $project->projectRequirement }}</p>
+                <p>{!! $project->projectRequirement !!}</p>
             </div>
 
             <div class="projek-tools d-flex flex-column">
