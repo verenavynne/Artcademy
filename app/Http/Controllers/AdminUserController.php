@@ -41,7 +41,7 @@ class AdminUserController extends Controller
             'email'          => ['required', 'email', 'max:255', 'unique:users,email'],
             'phoneNumber'    => ['required', 'regex:/^\+[0-9]{12,16}$/'],
             'password'       => ['required', 'string', 'min:8', 'confirmed'],
-            'specialization' => ['required', 'string'],
+            'specialization' => ['required_if:role,lecturer', 'string'],
             'profilePicture'          => ['nullable', 'image', 'mimes:jpg,jpeg,png', 'max:2048','required_if:role,lecturer'],
         ], [
             'role.required' => 'Role wajib dipilih.',
@@ -54,11 +54,21 @@ class AdminUserController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return response()->json(['errors' => $validator->errors()], 422);
+            return redirect()->back()->withErrors($validator)->withInput();
         }
 
-        $originalName = $request->file('profilePicture')->getClientOriginalName();
-        $filePath = $request->file('profilePicture')->storeAs('profile_pictures', $originalName, 'public');
+        $filePath = null;
+        $originalName = null;
+
+        if ($request->role === 'lecturer') {
+            $originalName = $request->file('profilePicture')->getClientOriginalName();
+
+            $filePath = $request->file('profilePicture')->storeAs(
+                'profile_pictures',
+                time() . '_' . $originalName,
+                'public'
+            );
+        }
 
         $data = [
             'name'        => $request->name,
@@ -66,11 +76,9 @@ class AdminUserController extends Controller
             'phoneNumber' => $request->phoneNumber,
             'password'    => Hash::make($request->password),
             'role'        => $request->role,
+            'userStatus'  => 'active',
+            'profilePicture' => $filePath,
         ];
- 
-        if ($request->hasFile('profilePicture')) {
-            $data['profilePicture'] = $filePath;
-        }
 
         $user = User::create($data);
 
@@ -86,10 +94,7 @@ class AdminUserController extends Controller
             ]);
         }
 
-        return response()->json([
-            'message' => 'Pengguna berhasil ditambahkan!',
-            'data' => $user
-        ], 201);
+        return redirect()->back()->with('success', 'Berhasil menambahkan tutor!');
     }
 
     public function detail($userId)
