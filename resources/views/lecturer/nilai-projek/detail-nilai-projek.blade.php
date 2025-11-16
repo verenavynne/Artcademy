@@ -3,7 +3,7 @@
 
 @section('content')
 <div class="container-content" style="gap : 24px;">
-    <div class="nilai-projek-title d-flex justify-content-start align-items-center sticky-top">
+    <div class="nilai-projek-title d-flex justify-content-start align-items-center">
         <div class="navigation-prev d-flex flex-start">
             <a class="page-link" href="#" onclick="window.history.back()">
                 <img src="{{ asset('assets/icons/icon_pagination_before.svg') }}" alt="">
@@ -15,73 +15,114 @@
 
     <div class="warning-info row align-center justify-content-start">
         <iconify-icon icon="material-symbols:info-outline-rounded" class="total-icon-tutor"></iconify-icon>
-        <p class="warning-info-text"style="margin: 0;">Nilai projek sebelum <b>17 Juli 2025</b> agar siswa bisa segera klaim sertifikat</p>
+        <p class="warning-info-text"style="margin: 0;">Nilai projek sebelum <b>{{ $project->created_at->addDays(7)->format('d M Y') }}</b> agar siswa bisa segera klaim sertifikat</p>
     </div>
 
     @include('components.course-project-card')
 
-    <!-- Ini nanti di import -->
-    <div style="display: none">
-        <p>include('Artcademy.course-hasil-penilaian')</p>
-    </div>
+    <div class="hasil-projek-submission-card d-flex flex-column">
+        <h5>Projek {{ $projectSubmission->student->user->name }}</h5>
 
-    <div class="nilai-projek-container">
-        <h2>Nilai Projek</h2>
-
-        <div class="nilai-row">
-            <div class="nilai-item">
-                <label>Kreativitas <span style="color: #939393;">(50%)</span></label>
-                <div class="select-box">
-                    <select>
-                        <option>0</option>
-                        <option>10</option>
-                        <option>20</option>
-                        <option>30</option>
-                        <option>40</option>
-                        <option>50</option>
-                    </select>
-                </div>
+        <div class="row">
+            <div class="col-md-3">
+                <img 
+                    class="projek-thumbnail" 
+                    src="{{ asset('storage/' . $projectSubmission->projectSubmissionThumbnail) }}" 
+                    alt="Project thumbnail"
+                    height="205"
+                    width="205"
+                    style="object-fit: cover; border-radius: 20px;"
+                >
             </div>
 
-            <div class="nilai-item">
-                <label>Keterbacaan <span>(20%)</span></label>
-                <div class="select-box">
-                    <select>
-                        <option>0</option>
-                        <option>5</option>
-                        <option>10</option>
-                        <option>15</option>
-                        <option>20</option>
-                    </select>
+            <div class="col-md-9"  style="margin-left: -20px;">
+                <div class="mb-3">
+                    <label class="form-label">Judul Projek</label>
+                    <input 
+                        type="text" 
+                        class="form-control rounded-pill"
+                        value="{{ $projectSubmission->projectSubmissionName }}"
+                        disabled
+                    >
                 </div>
-            </div>
 
-            <div class="nilai-item">
-                <label>Kesesuaian Tema <span>(30%)</span></label>
-                <div class="select-box">
-                    <select>
-                        <option>0</option>
-                        <option>10</option>
-                        <option>20</option>
-                        <option>30</option>
-                    </select>
+                <div class="mb-3">
+                    <label class="form-label fw-semibold">Link Projek</label>
+                    <div class="position-relative d-flex">
+                        <iconify-icon icon="material-symbols:link-rounded" class="input-icon"></iconify-icon>
+                        <input 
+                            type="text" 
+                            class="form-control rounded-pill form-link-input" 
+                            value="{{ $projectSubmission->projectSubmissionLink }}"
+                            disabled
+                        >
+                    </div>
                 </div>
             </div>
         </div>
 
-        <label class="komentar-label">Komentar <span style="color: #939393;">(Optional)</span></label>
-        <textarea class="komentar-box" placeholder="Berikan komentar, kritik, atau saran untuk hasil karya siswa..."></textarea>
+        <div class="mt-4">
+            <label class="form-label">Deskripsi Projek</label>
+            <textarea 
+                rows="4" 
+                class="form-control description rounded-4" 
+                disabled
+            >{{ $projectSubmission->projectSubmissionDesc }}</textarea>
+        </div>
     </div>
 
-    <div class="button-container">
-        <button class= "pink-cream-btn" style="width: 170px;">Simpan Draft</button>
-        <button class= "disabled-btn" style="width: 170px;">Kirim Penilaian</button>
-    </div>
+    <form action="{{ route('lecturer.nilai-projek.send', $projectSubmission->id) }}" method="POST">
+        @csrf
 
+        <div class="nilai-projek-container">
+            <h2>Nilai Projek</h2>
 
+            <div class="nilai-row">
+
+                @foreach ($projectCriterias as $pc)
+                    <div class="nilai-item">
+                        <label>
+                            {{ $pc->criteria->criteriaName }} 
+                            <span style="color: #939393;">({{ $pc->customWeight }}%)</span>
+                        </label>
+
+                        <div class="select-box">
+                            <select name="scores[{{ $pc->id }}]">
+                                @for ($i = 0; $i <= 100; $i += 10)
+                                    <option value="{{ $i }}">{{ $i }}</option>
+                                @endfor
+                            </select>
+                        </div>
+                    </div>
+                @endforeach
+
+            </div>
+
+            <label class="komentar-label">Komentar <span style="color: #939393;">(Optional)</span></label>
+            <textarea 
+                name="comment"
+                id="commentBox"
+                class="komentar-box"
+                placeholder="Berikan komentar, kritik, atau saran untuk hasil karya siswa..."
+            ></textarea>
+
+        </div>
+
+        <div class="button-container mt-4">
+            <button class="yellow-gradient-btn" id="submitBtn" style="width: 170px;" disabled>Kirim Penilaian</button>
+        </div>
+    </form>
 
 </div>
-@endsection
+
+<script>
+    const commentBox = document.getElementById('commentBox');
+    const submitBtn = document.getElementById('submitBtn');
+
+    commentBox.addEventListener('input', () => {
+        submitBtn.disabled = commentBox.value.trim() === '';
+    });
+</script>
 
 <style>
 
@@ -91,9 +132,14 @@
     scrollbar-width: thin;
 }
 
-.nilai-projek-title {
-    background: var(--cream-color);
-}
+.hasil-projek-submission-card{
+    background: white;
+    border-radius: 40px;
+    box-shadow: 0 4px 8px 0 var(--brown-shadow-color);
+    gap: 16px;
+    padding-block: 40px;
+    padding-inline: 38px;
+}   
 
 .nilai-projek-container{
     display: flex;
@@ -204,4 +250,12 @@ textarea::placeholder{
     gap: 22px;
     justify-content: flex-end;
 }
+
+.yellow-gradient-btn:disabled {
+    background: #D0D0D0;
+    cursor: not-allowed;
+    color: #8F8F8F;
+}
 </style>
+
+@endsection

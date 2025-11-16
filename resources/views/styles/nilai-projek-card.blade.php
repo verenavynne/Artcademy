@@ -27,7 +27,6 @@
     width: 100%;
     height: 130px;
     background: repeating-conic-gradient(#ccc 0% 25%, transparent 0% 50%) 50% / 40px 40px;
-    opacity: 0.3;
     border-radius: 40px;
     }
 
@@ -108,11 +107,11 @@
     }
 
     .deadline-date-text{
-    font-size: 16px;
+    font-size: 15px;
     font-style: normal;
     font-weight: 700;
     line-height: normal;
-    background: var(--Orange-Gradient, linear-gradient(0deg, #F69000 0%, #F8BA0C 100%));
+    background: var(--orange-gradient-color);
     background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
