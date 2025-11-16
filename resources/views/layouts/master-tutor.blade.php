@@ -23,22 +23,29 @@
 </head>
 
 <body>
-  <div class="container-fluid ps-4 pe-4">
-    <header>
-      @include('layouts.navbar-admin-tutor')
-    </header>
+    <div class="container-fluid ps-4 pe-4">
+      <header>
+        @include('layouts.navbar-admin-tutor')
+      </header>
 
-    <!-- Wrapper utama berisi sidebar dan konten -->
-    <div class="d-flex" id="tutor-wrapper">
-      <!-- Sidebar -->
-      @include('layouts.menu-tutor')
+      <!-- Wrapper utama berisi sidebar dan konten -->
+      <div class="d-flex" id="tutor-wrapper">
+          <!-- Sidebar -->
 
-      <!-- Konten utama (Dashboard, Cards, Table, dsb) -->
-      @yield('content')
+          <!-- Hide buat forum page -->
+          @unless (View::hasSection('hide_sidebar'))
+              @include('layouts.menu-tutor')
+          @endunless
+
+        <!-- Konten utama (Dashboard, Cards, Table, dsb) -->
+        @yield('content')
+      </div>
+
+      
+      @unless (View::hasSection('hide_footer'))
+          @include('layouts.footer-tutor')
+      @endunless
     </div>
-
-    @include('layouts.footer-tutor')
-  </div>
 </body>
 
 

@@ -11,12 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('posts', function (Blueprint $table) {
+        Schema::create('post_files', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('userId')->constrained('users')->onDelete('cascade');
-            $table->text('postText');
-            $table->date('postDate');
-            $table->boolean('triggerChatbot');
+            $table->foreignId('postId')->constrained('posts')->onDelete('cascade');
+            $table->string('filePath');
+            $table->enum('fileType',['image','video']);
             $table->timestamps();
         });
     }
@@ -26,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('posts');
+        Schema::dropIfExists('post_files');
     }
 };

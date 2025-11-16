@@ -8,13 +8,29 @@ class Post extends Model
 {
     protected $table='posts';
 
-    protected $fillable=['userId','postText','postDate','postContent','triggerChatbot'];
+    protected $fillable=['userId','postText','postDate','triggerChatbot'];
 
-    public function comments(){
+    protected $casts = [
+        'postDate' => 'date',
+        'triggerChatbot' => 'boolean',
+    ];
+
+    public function comments()
+    {
+        return $this->hasMany(Comment::class, 'postId')
+                    ->whereNull('parentId')
+                    ->orderBy('created_at');
+    }
+
+    public function allComments(){
         return $this->hasMany(Comment::class,'postId');
     }
 
     public function user(){
         return $this->belongsTo(User::class,'userId');
+    }
+
+    public function files(){
+        return $this->hasMany(PostFile::class, 'postId');
     }
 }

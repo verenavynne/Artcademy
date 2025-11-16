@@ -1,13 +1,16 @@
 <?php
 
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\CourseDetailController;
 use App\Http\Controllers\CourseEnrollmentController;
 use App\Http\Controllers\CourseWeekController;
+use App\Http\Controllers\ForumController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\HomePageController;
 use App\Http\Controllers\MembershipController;
 use App\Http\Controllers\PortfolioController;
+use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\ProjectSubmissionController;
@@ -165,10 +168,16 @@ Route::middleware(['auth'])->group(function(){
     Route::post('/profile/update-picture',[ProfileController::class, 'updateProfilePicture'])->name('profile.updatePicture');
     Route::post('/profile/change-password',[ProfileController::class, 'changePassword'])->name('profile.change-password');
 
+    Route::get('/forum', [ForumController::class, 'show'])->name('forum');
+    Route::post('/forum/add-post', [PostController::class, 'addPost'])->name('post.add');
+    Route::post('/forum/add-comment', [CommentController::class, 'addComment'])->name('comment.add');
+    Route::post('/forum/add-comment-reply',[CommentController::class, 'addCommentReply'])->name('comment.reply');
+
 });
 
 Route::get('/my-transaction-history',function(){
     return view('profile.transaction-history');
 })->name('profile.history');
+
 
 

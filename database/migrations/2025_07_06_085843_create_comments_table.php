@@ -14,11 +14,14 @@ return new class extends Migration
         Schema::create('comments', function (Blueprint $table) {
             $table->id();
             $table->foreignId('postId')->constrained('posts')->onDelete('cascade');
-            $table->foreignId('userId')->constrained('users')->onDelete('cascade')->nullable();
-            $table->foreignId('chatbotId')->constrained('chatbots')->onDelete('cascade')->nullable();
-            $table->string('commentText');
+            $table->unsignedBigInteger('chatbotId')->nullable();
+            $table->foreign('chatbotId')->references('id')->on('chatbots')->onDelete('cascade');
+            $table->unsignedBigInteger('userId')->nullable();
+            $table->foreign('userId')->references('id')->on('users')->onDelete('cascade');
+            $table->unsignedBigInteger('parentId')->nullable();
+            $table->foreign('parentId')->references('id')->on('comments')->onDelete('cascade');
+            $table->text('commentText');
             $table->date('commentDate');
-            $table->string('commentContent')->nullable();
             $table->enum('commentBy',['user','chatbot']);
             $table->timestamps();
         });

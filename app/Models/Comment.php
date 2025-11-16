@@ -8,7 +8,7 @@ class Comment extends Model
 {
     protected $table='comments';
 
-    protected $fillable=['postId','userId','chatbotId','commentText','commentDate','commentContent','commentBy'];
+    protected $fillable=['postId','userId','chatbotId','parentId','commentText','commentDate','commentBy'];
 
     public function post(){
         return $this->belongsTo(Post::class,'postId');
@@ -21,4 +21,19 @@ class Comment extends Model
     public function chatbot(){
         return $this->belongsTo(Chatbot::class,'chatbotId');
     }
+
+    public function files(){
+        return $this->hasMany(CommentFile::class,'commentId');
+    }
+
+    public function replies()
+    {
+        return $this->hasMany(Comment::class, 'parentId');
+    }
+
+    public function parent()
+    {
+        return $this->belongsTo(Comment::class, 'parentId');
+    }
+
 }

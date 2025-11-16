@@ -39,8 +39,7 @@
         pointer-events: none; 
         cursor: not-allowed;  
     }
-
-    /* navbar */
+    
     .nav-link {
         position: relative;
         display: inline-block;

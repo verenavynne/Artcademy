@@ -8,7 +8,7 @@
                 icon="fluent:person-12-regular" 
                 data-regular="fluent:person-12-regular" 
                 data-filled="fluent:person-12-filled"
-                class="profilsaya-icon">
+                class="profilsaya-icon icon">
             </iconify-icon>
             <span>Profil Saya</span>
             </a>
@@ -19,7 +19,7 @@
                 icon="mingcute:book-2-line" 
                 data-regular="mingcute:book-2-line" 
                 data-filled="mingcute:book-2-fill"
-                class="kursussaya-icon">
+                class="kursussaya-icon icon">
             </iconify-icon>
             <span>Kursus Saya</span>
             </a>
@@ -31,7 +31,7 @@
                 icon="tabler:calendar-week-filled" 
                 data-regular="tabler:calendar-week-filled" 
                 data-filled="bxs:calendar"
-                class="jadwalsaya-icon">
+                class="jadwalsaya-icon icon">
             </iconify-icon>
             <span>Jadwal Saya</span>
             </a>
@@ -43,7 +43,7 @@
                 icon="fluent:notepad-person-16-regular" 
                 data-regular="fluent:notepad-person-16-regular" 
                 data-filled="fluent:notepad-person-16-filled"
-                class="infopribadi-icon">
+                class="infopribadi-icon icon">
             </iconify-icon>
             <span>Info Pribadi</span>
             </a>
@@ -55,7 +55,7 @@
                 icon="uis:history" 
                 data-regular="uis:history" 
                 data-filled="uim:history"
-                class="riwayattransaksi-icon">
+                class="riwayattransaksi-icon icon">
             </iconify-icon>
             <span>Riwayat Transaksi</span>
             </a>
@@ -93,6 +93,10 @@
     /* Isi Sidebar */
     .sidebar-content {
         transition: opacity 0.3s ease 0.3s;
+    }
+
+    .sidebar-content .icon{
+        font-size: 24;
     }
 
     .nav-link-profile {

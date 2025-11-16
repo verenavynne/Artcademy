@@ -20,14 +20,16 @@
     <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
 </head>
 <body>
-    <header>
-        @include('layouts.navbar')
-    </header>
-    <div class="content" style="min-height: 100vh">
+
+    @include('layouts.navbar')
+
+    <div class="content" style="">
         @yield('content')
     </div>
     <footer>
-        @include('layouts.footer')
+        @unless (View::hasSection('hide_footer'))
+            @include('layouts.footer')
+        @endunless
     </footer>
 </body>
 
