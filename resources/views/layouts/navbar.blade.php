@@ -23,7 +23,7 @@
                         <a class="nav-link " href="">Event</a>
                     </li>
                      <li class="nav-item">
-                        <a class="nav-link " href="">Membership</a>
+                        <a class="nav-link {{ request()->routeIs('membership') ? 'active' : '' }}" href="{{ route('membership') }}">Membership</a>
                     </li>
                      <li class="nav-item">
                         <a class="nav-link " href="">Forum</a>

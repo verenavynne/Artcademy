@@ -71,6 +71,11 @@ Route::middleware(['auth', 'checkRole:student'])->prefix('/student')->group(func
     Route::get('/my-courses', [ProfileController::class, 'showMyCourses'])->name('profile.courses');
 
     Route::get('/my-schedule',[ProfileController::class, 'showMySchedule'])->name('profile.schedule');
+
+    // Membership
+    Route::get('/membership', function(){
+        return view('membership.membership');
+    })->name('membership');
    
 });
 

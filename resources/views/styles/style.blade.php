@@ -10,6 +10,7 @@
         --pink-medium-color: rgba(255, 93, 139, 1);
         --very-light-grey-color: rgba(250, 250, 250, 1);
         --black-color: rgba(27, 27, 27, 1);
+        --blue-color: rgba(41, 118, 255, 1);
 
         --pink-gradient-color: linear-gradient(0deg, #E92D62 25%, #FF6E97 70%);
         --pink-medium-gradient-color: linear-gradient(180deg, #FFE0E1 0%, #FF8E92 100%);
