@@ -6,7 +6,7 @@
 
     <h4 class="popup-title">Tambah Pengguna</h4>
 
-    <form action="{{ route('admin.user.user-store') }}" method="POST" id="formTambahUser" class="popup-form">
+    <form action="{{ route('admin.user.user-store') }}" method="POST" enctype="multipart/form-data" id="formTambahUser" class="popup-form">
       @csrf
       <div class="form-row">
         <div class="form-group">
@@ -37,6 +37,7 @@
         <div class="form-group" id="specialization-group" style="display: none;">
           <label>Keahlian</label>
           <select name="specialization" class="form-select rounded-pill px-4 py-2 custom-input">
+            <option selected disabled>Pilih keahlian</option>
             <option value="Seni Lukis & Digital Art">Seni Lukis & Digital Art</option>
             <option value="Seni Musik">Seni Musik</option>
             <option value="Seni Tari">Seni Tari</option>
@@ -139,6 +140,7 @@
       profilePictureGroup.style.display = 'block';
     } else {
       specializationGroup.style.display = 'none';
+      profilePictureGroup.style.display = 'none';
     }
   });
 

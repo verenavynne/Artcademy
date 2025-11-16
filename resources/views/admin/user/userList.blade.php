@@ -208,48 +208,12 @@
     };
   });
 
-  formTambahUser.addEventListener("submit", async function (e) {
-    e.preventDefault();
-
-    const formData = new FormData(this);
-    const submitBtn = document.getElementById("submitBtn");
-    const btnText = document.getElementById("btnText");
-    const loadingSpinner = document.getElementById("loadingSpinner");
-
-    submitBtn.disabled = true;
-    btnText.textContent = "Menyimpan...";
-    loadingSpinner.classList.remove("d-none");
-
-    try {
-        const response = await fetch(this.action, {
-        method: "POST",
-        body: formData,
-        headers: {
-            "X-CSRF-TOKEN": document.querySelector('input[name="_token"]').value
-        }
+  @if ($errors->any())
+        document.addEventListener("DOMContentLoaded", function () {
+            const popupOverlay = document.getElementById("popupOverlay");
+            popupOverlay.style.display = "flex";
         });
-
-        const result = await response.json();
-
-        if (response.ok) {
-        alert(result.message); 
-        popupOverlay.style.display = "none"; 
-        formTambahUser.reset();
-        location.reload();
-        } else {
-        console.error(result.errors);
-        alert("Gagal menambahkan pengguna. Periksa kembali form-nya.");
-        }
-    } catch (error) {
-        console.error("Error:", error);
-        alert("Terjadi kesalahan. Coba lagi.");
-    } finally {
-        submitBtn.disabled = false;
-        btnText.textContent = "Daftar";
-        loadingSpinner.classList.add("d-none");
-    }
-});
-
+    @endif
 </script>
 
 @endsection

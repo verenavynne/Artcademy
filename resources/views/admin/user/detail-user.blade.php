@@ -21,8 +21,15 @@
         <div class="d-flex align-items-start justify-content-between flex-wrap mb-4 mt-4">
             <!-- Left side -->
             <div class="d-flex flex-row align-items-center gap-3">
-                <img src="{{ asset('assets/default-profile.jpg') }}" class="rounded-circle" width="100" height="100" alt="Foto Tutor">
-                <div>
+                <img src="{{ Str::startsWith($user->profilePicture, ['http://', 'https://']) 
+                        ? $user->profilePicture 
+                        : ($user->profilePicture 
+                            ? asset('storage/' . $user->profilePicture) 
+                            : asset('assets/default-profile.jpg')) }}"
+                    class="profile-picture rounded-circle object-fit"
+                    width="100" height="100">
+
+                <div>   
                     <p class="fw-bold mb-2 fs-5">
                         @if($user->role === 'student')
                             Siswa
@@ -33,13 +40,37 @@
                         @endif
                     </p>
                     @if($user->role !== 'admin')
-                        <span class="badge text-dark" style="background-color: #FFF4DE; border-radius: 100px; padding: 8px 20px;">
-                            @if($user->role === 'student')
-                                Member Creative Studio
-                            @elseif($user->role === 'lecturer')
-                                {{ $user->lecturer?->specialization ?? '-' }}
-                            @endif
-                        </span>
+                        @php
+                            if($user->role === 'lecturer' && $user->lecturer->specialization === 'Seni Lukis & Digital Art'){
+                                $displayStatus = 'Seni Lukis & Digital Art';
+                                $bgColor = '#FFF4E0';
+                                $textColor = 'var(--orange-gradient-color)';
+                            } elseif($user->role === 'lecturer' && $user->lecturer->specialization === 'Seni Tari'){
+                                $displayStatus = 'Seni Tari';
+                                $bgColor = '#FFEAF0';
+                                $textColor = 'var(--pink-gradient-color)';
+                            } elseif($user->role === 'lecturer' && $user->lecturer->specialization === 'Seni Musik'){
+                                $displayStatus = 'Seni Musik';
+                                $bgColor = '#fffdeaff';
+                                $textColor = 'var(--yellow-gradient-color)';
+                            } elseif($user->role === 'lecturer' && $user->lecturer->specialization === 'Seni Fotografi'){
+                                $displayStatus = 'Seni Fotografi';
+                                $bgColor = '#E7F6FE';
+                                $textColor = 'var(--blue-gradient-color)';
+                            } else {
+                                $bgColor = '#E7F6FE';
+                                $textColor = 'var(--blue-gradient-color)';
+                            }
+                        @endphp
+                        <div class="status-text-container" style="background: {{ $bgColor }}">
+                            <p class="status-text" style="background: {{ $textColor }}; margin:0; background-clip: text; font-weight:700; font-size:var(--font-size-small)">
+                                @if($user->role === 'student')
+                                    Member Creative Studio
+                                @elseif($user->role === 'lecturer')
+                                    {{ $displayStatus }}
+                                @endif
+                            </p>
+                        </div>
                     @endif
                 </div>
             </div>
@@ -126,4 +157,22 @@ document.getElementById('status').addEventListener('change', function () {
     .catch(err => console.error(err));
 });
 </script>
+
+<style>
+    .status-text-container{
+        border-radius: 10px;
+        display: flex;
+        padding: 2px 10px;
+        justify-content: center;
+        align-items: center;
+        font-size: 16px;
+        width: max-content;
+    }
+
+    .status-text{
+        background-clip: text;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+</style>
 @endsection
