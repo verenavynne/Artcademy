@@ -85,7 +85,7 @@
       </li>
 
       <li class="nav-item">
-        <a href="#" class="nav-link-admin" style="gap: 12px">
+        <a href="{{ route('admin.profile') }}" class="nav-link-admin {{ request()->routeIs('admin.profile') ? 'active' : '' }}" style="gap: 12px">
           <iconify-icon 
             icon="fluent:person-12-regular" 
             data-regular="fluent:person-12-regular" 
