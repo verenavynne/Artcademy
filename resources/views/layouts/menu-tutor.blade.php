@@ -13,7 +13,7 @@
     <!-- Sidebar Navigation -->
     <ul class="nav flex-column gap-2 sidebar-content">
       <li class="nav-item">
-        <a href="{{ route('lecturer.home') }}" class="nav-link-tutor active" style="gap: 12px">
+        <a href="{{ route('lecturer.home') }}" class="nav-link-tutor {{ request()->routeIs('lecturer.home') ? 'active' : '' }}" style="gap: 12px">
           <iconify-icon 
             icon="mage:dashboard-fill" 
             data-regular="mage:dashboard" 
@@ -37,7 +37,7 @@
       </li>
 
       <li class="nav-item">
-        <a href="#" class="nav-link-tutor" style="gap: 12px">
+        <a href="{{ route('lecturer.nilai-projek') }}" class="nav-link-tutor {{ request()->routeIs('lecturer.nilai-projek') ? 'active' : '' }}" style="gap: 12px">
           <iconify-icon 
             icon="iconamoon:file-document" 
             data-regular="iconamoon:file-document" 
@@ -215,37 +215,38 @@
 <script>
 document.addEventListener("DOMContentLoaded", function() {
   const navLinks = document.querySelectorAll(".nav-link-tutor");
+  const burgerMenu = document.getElementById('burgerMenu');
+  const sidebarTutor = document.getElementById('sidebarTutor');
 
   navLinks.forEach(link => {
-    link.addEventListener("click", function(e) {
-      e.preventDefault();
+    const icon = link.querySelector("iconify-icon");
+    if(link.classList.contains("active")) {
+      if(icon) icon.setAttribute("icon", icon.getAttribute("data-filled"));
+    } else {
+      if(icon) icon.setAttribute("icon", icon.getAttribute("data-regular"));
+    }
 
+    link.addEventListener("click", function() {
       navLinks.forEach(l => {
         l.classList.remove("active");
-        const icon = l.querySelector("iconify-icon");
-        if (icon) {
-          const regularIcon = icon.getAttribute("data-regular");
-          icon.setAttribute("icon", regularIcon);
-        }
+        const iconL = l.querySelector("iconify-icon");
+        if(iconL) iconL.setAttribute("icon", iconL.getAttribute("data-regular"));
       });
-
       this.classList.add("active");
       const thisIcon = this.querySelector("iconify-icon");
-      if (thisIcon) {
-        const filledIcon = thisIcon.getAttribute("data-filled");
-        thisIcon.setAttribute("icon", filledIcon);
-      }
+      if(thisIcon) thisIcon.setAttribute("icon", thisIcon.getAttribute("data-filled"));
     });
   });
-});
-</script>
 
-<script>
-const burgerMenu = document.getElementById('burgerMenu');
-const sidebarTutor = document.getElementById('sidebarTutor');
+  const sidebarState = localStorage.getItem("sidebarClosed");
+  if(sidebarState === "true") {
+    sidebarTutor.classList.add("closed");
+  }
 
-burgerMenu.addEventListener('click', () => {
-  sidebarTutor.classList.toggle('closed');
+  burgerMenu.addEventListener("click", () => {
+    sidebarTutor.classList.toggle("closed");
+    localStorage.setItem("sidebarClosed", sidebarTutor.classList.contains("closed"));
+  });
 });
 </script>
 

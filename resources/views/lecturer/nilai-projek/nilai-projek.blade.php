@@ -4,48 +4,38 @@
 <div class="container-content">
   <div class="d-flex justify-content-between align-items-center">
     <h4 class="fw-semibold" style="font-size: 32px">Nilai Projek</h4>
-
-    </div>
-        <ul class="nav mb-4 mt-4 w-100 statusTabs">
-          <li class="nav-item flex-fill text-center">
-              <a class="nav-link fs-5 {{ !request('courseStatus') ? 'active' : 'text-custom' }}" 
-              href="{#}">
-              Menunggu Dinilai
-              </a>
-          </li>
-          <li class="nav-item flex-fill text-center">
-              <a class="nav-link fs-5 {{ request('courseStatus') == 'selesai' ? 'active' : 'text-custom' }}" 
-              href="{#}">
-              Selesai
-              </a>
-          </li>
-        </ul>
-
-      <div class="admin-tutor-card-wrapper d-flex flex-row flex-wrap">
-            @include('components.selesai-nilai-projek-card')
-
-            @include('components.nilai-projek-card')
-
-            @include('components.nilai-projek-card')
-
-            @include('components.nilai-projek-card')
-
-            @include('components.nilai-projek-card')
-
-            @include('components.nilai-projek-card')
-
-            @include('components.nilai-projek-card')
-
-            @include('components.nilai-projek-card')
-      </div>
-
-    
   </div>
 
-    
+  <ul class="nav mb-4 mt-4 w-100 statusTabs">
+    <li class="nav-item flex-fill text-center">
+        <a class="nav-link fs-5 {{ $status !== 'selesai' ? 'active' : 'text-custom' }}" 
+           href="{{ route('lecturer.nilai-projek', ['status' => 'menunggu']) }}">
+           Menunggu Dinilai
+        </a>
+    </li>
+    <li class="nav-item flex-fill text-center">
+        <a class="nav-link fs-5 {{ $status === 'selesai' ? 'active' : 'text-custom' }}" 
+           href="{{ route('lecturer.nilai-projek', ['status' => 'selesai']) }}">
+           Selesai
+        </a>
+    </li>
+  </ul>
 
+  <div class="admin-tutor-card-wrapper d-flex flex-row flex-wrap">
+    @foreach($submissions as $submission)
+      @php
+          $grades = $submission->lecturerGrades()->where('courseLecturerId', auth()->user()->lecturer->id)->get();
+          $isGraded = $grades->count() > 0;
+      @endphp
+
+      @if(!$isGraded)
+        @include('components.nilai-projek-card')
+      @else
+        @include('components.selesai-nilai-projek-card')
+      @endif
+    @endforeach
+  </div>
 </div>
-
 
 <script>
   document.addEventListener("DOMContentLoaded", () => {
@@ -76,7 +66,7 @@
 
 
 
-   <style>    
+<style>    
     .nav-link{
         width: 100%;
     }
@@ -108,7 +98,4 @@
     }
   
 </style>
-
-</div>
-</div>
 @endsection

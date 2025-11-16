@@ -72,16 +72,7 @@
           </div>
 
   <div class="admin-tutor-card-wrapper d-flex flex-row">
-            @include('components.nilai-projek-card')
-
-            @include('components.nilai-projek-card')
-
-            @include('components.nilai-projek-card')
-
-            @include('components.nilai-projek-card')
-
-            @include('components.nilai-projek-card')
-    </div>
+  </div>
 </div>
 
 </div>

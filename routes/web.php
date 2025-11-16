@@ -19,6 +19,7 @@ use App\Http\Controllers\AdminCourseController;
 use App\Http\Controllers\AdminZoomController;
 use App\Http\Controllers\AdminUserController;
 use App\Http\Controllers\AdminProfileController;
+use App\Http\Controllers\TutorNilaiProjectController;
 
 Route::get('/', [HomePageController::class, 'index'])->name('home');
 
@@ -78,13 +79,11 @@ Route::middleware(['auth', 'checkRole:lecturer'])->prefix('/lecturer')->group(fu
         return view('lecturer.home');
     })->name('lecturer.home');
 
-    Route::get('/nilai-projek', function(){
-        return view('lecturer.nilai-projek.nilai-projek');
-    })->name('lecturer.nilai-projek');
 
-    Route::get('/detail-nilai-projek', function(){
-        return view('lecturer.nilai-projek.detail-nilai-projek');
-    })->name('lecturer.detail-nilai-projek');
+    // Nilai Projek
+    Route::get('/nilai-projek', [TutorNilaiProjectController::class, 'index'])->name('lecturer.nilai-projek');
+    Route::get('/detail-nilai-projek/{id}', [TutorNilaiProjectController::class, 'detail'])->name('lecturer.detail-nilai-projek');
+    Route::post('/nilai-projek/{id}/send', [TutorNilaiProjectController::class, 'send'])->name('lecturer.nilai-projek.send');
 
 });
 

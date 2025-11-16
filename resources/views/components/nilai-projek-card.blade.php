@@ -1,23 +1,36 @@
 <div class="project-card d-flex flex-column">
-  <div class="project-image"><img src="https://via.placeholder.com/32" alt="User Profile" class="user-photo"></div>
+  <div class="project-image">
+    <img src="{{ $submission->projectSubmissionThumbnail 
+          ? asset('storage/' . $submission->projectSubmissionThumbnail)
+          : 'https://via.placeholder.com/150' }}" 
+          alt="Project Thumbnail" 
+          class="project-image">
+  </div>
 
   <div class="project-content">
-    <p class="project-title">Projek Lorem Ipsum Dolor sit am…</p>
+    <p class="project-title">{{ $submission->project->projectName }}</p>
 
     <div class="project-user">
-      <img src="{{ asset('assets/default-profile.jpg') }}" class="rounded-circle" style="box-shadow: rgba(67, 39, 0, 0.2); object-fit: cover" alt="Profile Icon" width="25" height="25">
-      <p class="user-name">Farren Renren</p>
+      <img src="{{ $submission->student->user->profilePicture 
+            ? asset('storage/' . $submission->student->user->profilePicture)
+            : asset('assets/default-profile.jpg') }}"
+            class="rounded-circle" 
+            style="box-shadow: rgba(67, 39, 0, 0.2); object-fit: cover"
+            width="25" height="25">
+
+      <p class="user-name">{{ $submission->student->user->name }}</p>
     </div>
 
     <div class="project-deadline">
       <p class="deadline-label">Nilai Sebelum :</p>
       <span class= "deadline-date">
-          <p class= "deadline-date-text">
-            17 Juli 2025
-          </p>
+          <p class= "deadline-date-text">{{ $submission->project->created_at->addDays(7)->format('d M Y') }}</p>
       </span>
     </div>
 
-    <button class="yellow-gradient-btn">Nilai Sekarang</button>
+    <a href="{{ route('lecturer.detail-nilai-projek', $submission->id) }}" 
+      class="yellow-gradient-btn text-decoration-none text-dark d-flex justify-content-center">
+      Nilai Sekarang
+    </a>
   </div>
 </div>

@@ -10,6 +10,7 @@
   @include('styles.table-admin')
   @include('styles.nilai-projek-card')
   @include('styles.admin-tutor-layoutscroll')
+  @include('styles.form-style')
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
