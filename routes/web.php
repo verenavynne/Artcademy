@@ -18,6 +18,7 @@ use App\Http\Controllers\Auth\GoogleController;
 use App\Http\Controllers\AdminCourseController;
 use App\Http\Controllers\AdminZoomController;
 use App\Http\Controllers\AdminUserController;
+use App\Http\Controllers\AdminProfileController;
 
 Route::get('/', [HomePageController::class, 'index'])->name('home');
 
@@ -92,6 +93,8 @@ Route::middleware(['auth', 'checkRole:admin'])->prefix('/admin')->group(function
         return view('admin.home');
     })->name('admin.home');
 
+    // Profil Saya
+    Route::get('/profile', [AdminProfileController::class, 'showAdminProfile'])->name('admin.profile');
 
     // Daftar Pengguna
     Route::get('/user-list', [AdminUserController::class, 'index'])->name('admin.user.list');
