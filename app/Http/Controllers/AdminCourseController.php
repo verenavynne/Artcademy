@@ -530,7 +530,7 @@ class AdminCourseController extends Controller
     public function updateCourse(Request $request, $courseId)
     {
         $request_syllabus = new Request(session('temp_update_syllabus'));
-        $course = $this->updateDraftSyllabus($request_syllabus, $course, false);
+        $course = $this->updateDraftSyllabus($request_syllabus, $courseId, false);
 
         if ($request->action === 'publish') {
             $course->update(['courseStatus' => 'publikasi']);
