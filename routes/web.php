@@ -20,6 +20,7 @@ use App\Http\Controllers\AdminZoomController;
 use App\Http\Controllers\AdminUserController;
 use App\Http\Controllers\AdminProfileController;
 use App\Http\Controllers\TutorNilaiProjectController;
+use App\Http\Controllers\MembershipController;
 
 Route::get('/', [HomePageController::class, 'index'])->name('home');
 
@@ -73,9 +74,9 @@ Route::middleware(['auth', 'checkRole:student'])->prefix('/student')->group(func
     Route::get('/my-schedule',[ProfileController::class, 'showMySchedule'])->name('profile.schedule');
 
     // Membership
-    Route::get('/membership', function(){
-        return view('membership.membership');
-    })->name('membership');
+    Route::get('/membership',[MembershipController::class, 'index'])->name('membership');
+    Route::get('/membership/{membershipId}', [MembershipController::class, 'detail'])->name('membership.detail');
+    Route::get('/membership/checkout-info/{membershipId}', [MembershipController::class, 'checkoutInfo'])->name('membership.checkoutInfo');
    
 });
 
