@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('membershipName');
             $table->float('membershipPrice');
             $table->text('membershipDesc');
+            $table->json('membershipBenefits');
             $table->timestamps();
         });
     }

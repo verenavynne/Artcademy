@@ -8,7 +8,11 @@ class Membership extends Model
 {
     protected $table='memberships';
 
-    protected $fillable=['membershipName','membershipPrice','membershipDesc'];
+    protected $fillable=['membershipName','membershipPrice','membershipDesc','membershipBenefits'];
+
+    protected $casts = [
+        'membershipBenefits' => 'array'
+    ];
 
     public function membershipTransactions(){
         return $this->hasMany(MembershipTransaction::class,'membershipId');
