@@ -1,5 +1,42 @@
-<div class="post-card d-flex flex-column gap-3">
+@php
+$autoOpen = $post->comments->whereNotNull('chatbotId')->isNotEmpty();
+@endphp
+
+<div class="post-card d-flex flex-column gap-3  position-relative">
     <div class="post-card-header d-flex flex-row justify-content-between w-100 gap-3">
+        @if($post->userId === Auth::id())
+            <div class="dropdown position-absolute top-0 end-0 m-3">
+                <button class="btn btn-link text-dark p-0" type="button" id="dropdownMenu{{ $post->id }}"
+                    data-bs-toggle="dropdown" aria-expanded="false"
+                    >
+                    <!-- <img src="{{ asset('assets/icons/icon_menu.svg') }}" alt="" height="24" width="24"> -->
+                    <iconify-icon icon="qlementine-icons:menu-dots-16"></iconify-icon>
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenu{{ $post->id }}">
+                    @if(!$autoOpen)
+                    <li>
+                        <button type="button" 
+                            class="dropdown-item"
+                            data-bs-toggle="modal"
+                            data-bs-target="#editPostModal{{ $post->id }}">
+                            Edit
+                        </button>
+                    </li>
+                    @endif
+                    <li>
+                        <button 
+                            type="button" 
+                            class="dropdown-item text-danger"
+                            data-bs-toggle="modal"
+                            data-bs-target="#deleteConfirmModal{{ $post->id }}"
+                            >
+                            Hapus
+                        </button>
+                    </li>
+                </ul>
+            </div>
+        @endif
+        
         <div class="d-flex flex-row gap-2">
             <img src="{{ asset('assets/default-profile.jpg') }}" alt="" height="42" width="42"
             class="profile-picture rounded-circle"
@@ -19,9 +56,11 @@
             </div>
         </div>
         <div class="d-flex flex-row">
-            <a href="#" style="text-decoration: none">
-                <p class="text-pink-gradient fw-bold" style="margin: 0">Kunjungi Profil</p>
-            </a>
+            @if($post->userId !== Auth::id())
+                <a href="#" style="text-decoration: none">
+                    <p class="text-pink-gradient fw-bold" style="margin: 0">Kunjungi Profil</p>
+                </a>
+            @endif
 
         </div>
 
@@ -60,22 +99,26 @@
         </div>
     @endif
 
-
-
     <div class="chat-icon d-flex flex-row gap-2 align-items-center comment-toggle"
         data-target="#comment-{{ $post->id }}"
         data-default-icon="iconamoon:comment-dots"
-        data-active-icon="/assets/icons/icon_comment_gradient.svg"
-        style="cursor:pointer;">
-        <span class="icon-holder">
-            <iconify-icon icon="iconamoon:comment-dots" style="font-size: 20px"></iconify-icon>
-        </span>
-        <p>{{ $post->allComments->count() }} balasan</p>
+        data-active-icon="{{ asset('assets/icons/icon_comment_gradient.svg') }}"
+        data-open="{{ $autoOpen ? '1' : '0' }}"
+        style="cursor:pointer">
 
+        <span class="icon-holder">
+            @if($autoOpen)
+                <img src="{{ asset('assets/icons/icon_comment_gradient.svg') }}" height="20" width="20">
+            @else
+                <iconify-icon icon="iconamoon:comment-dots" style="font-size:20px"></iconify-icon>
+            @endif
+        </span>
+
+        <p>{{ $post->allComments->count() }} balasan</p>
     </div>
 
     <!-- Comment Section -->
-    <div id="comment-{{ $post->id }}" class="comment-section w-100" style="display: none">
+    <div id="comment-{{ $post->id }}" class="comment-section w-100" style="display: {{ $autoOpen ? 'block' : 'none' }};">
         <hr class="divider w-100">
     
         <div class="balas-komen-section d-flex flex-row gap-2 w-100">
@@ -134,7 +177,7 @@
                                 style="object-fit: cover">
                                 <div class="d-flex flex-column">
                                     <div class="d-flex flex-row gap-2">
-                                        <p class="fw-bold" style="font-size: 16px; margin: 0">{{ $comment->user->name }}</p>
+                                        <p class="fw-bold" style="font-size: 16px; margin: 0">{{  optional($comment->user)->name ?? $comment->chatbot->chatbotName }}</p>
                                         <p class="text-muted">2 hari yang lalu</p>
                                     </div>
                                     
@@ -144,10 +187,15 @@
             
                         </div>
             
-                        <div class="komen-content">
-                            <p>{{ $comment->commentText }}</p>
-            
+                        <div class="komen-content" id="comment-text-{{ $comment->id }}">
+                            @if (session('chatbot_comment_id') == $comment->id)
+                                <div id="chatbot-comment" data-text="{{ $comment->commentText }}"></div>
+                            @else
+                                <p>{{ $comment->commentText }}</p>
+                            @endif
+                            
                         </div>
+
                         @if($comment->files->count())
                             <div class="post-image-video">
                                 @foreach($comment->files as $file)
@@ -239,7 +287,6 @@
                                 <div class="d-flex flex-column gap-2">
 
                                     @foreach ($comment->replies as $replies )
-                                    
                                         <div class="komen-container mb-3">
                                             <div class="d-flex flex-column gap-3">
                                                 <div class="komen-header">
@@ -252,8 +299,8 @@
                                                                 <p class="fw-bold" style="font-size: 16px; margin: 0">{{ $replies->user->name }}</p>
                                                                 <p class="text-muted">2 hari yang lalu</p>
                                                             </div>
-                                                            
-                                                            <p>Membalas <span class="fw-bold">@ {{ $replies->parent->user->name }}</span></p>
+            
+                                                            <p>Membalas <span class="fw-bold">@ {{ optional($replies->parent->user)->name ?? $replies->parent->chatbot->chatbotName }}</span></p>
                                                         </div>
                                                     </div>
                                     
@@ -294,19 +341,17 @@
                                             </div>
                                         </div>
                                     @endforeach
+
                                 </div>
                                 @endif
-                            
+        
                             </div>
                     </div>
                 </div>
             @endforeach
         </div>
         @endif
-    
     </div>
-    
-
     
 </div>
 

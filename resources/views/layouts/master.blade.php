@@ -25,12 +25,15 @@
 
     <div class="content" style="">
         @yield('content')
+
     </div>
     <footer>
         @unless (View::hasSection('hide_footer'))
             @include('layouts.footer')
         @endunless
     </footer>
+
+    
 </body>
 
 <style>

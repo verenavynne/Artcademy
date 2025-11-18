@@ -155,12 +155,9 @@ Route::middleware(['auth'])->group(function(){
     })->name('add-portfolio');
     
     Route::post('/add-portfolio/submit', [PortfolioController::class, 'addPortfolio'])->name('portfolio.add');
-    
     Route::get('/edit-portfolio/{id}',[PortfolioController::class, 'editPortfolio'])->name('portfolio.edit');
     Route::post('/update-portfolio/{id}',[PortfolioController::class, 'updatePortfolio'])->name('portfolio.update');
-    
     Route::post('/add-portfolio-from-project/{id}',[PortfolioController::class, 'addFromProject'])->name('add.to.portfolio');
-    
     Route::delete('/portfolio/{id}', [PortfolioController::class, 'destroy'])->name('portfolio.destroy');
 
     Route::get('/my-info', [ProfileController::class,'showMyInfo'])->name('profile.info');
@@ -170,9 +167,10 @@ Route::middleware(['auth'])->group(function(){
 
     Route::get('/forum', [ForumController::class, 'show'])->name('forum');
     Route::post('/forum/add-post', [PostController::class, 'addPost'])->name('post.add');
+    Route::delete('/forum/post/{id}', [PostController::class, 'destroy'])->name('post.destroy');
     Route::post('/forum/add-comment', [CommentController::class, 'addComment'])->name('comment.add');
     Route::post('/forum/add-comment-reply',[CommentController::class, 'addCommentReply'])->name('comment.reply');
-
+    Route::post('/forum/post/update/{id}', [PostController::class, 'update'])->name('post.update');
 });
 
 Route::get('/my-transaction-history',function(){
