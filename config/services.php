@@ -41,5 +41,11 @@ return [
         'redirect' => env('GOOGLE_REDIRECT_URI'),
     ],
 
-
+    'midtrans' => [
+        'serverKey'     => env('MIDTRANS_SERVER_KEY'),
+        'clientKey'     => env('MIDTRANS_CLIENT_KEY'),
+        'isProduction'  => env('MIDTRANS_MODE', 'sandbox') === 'production',
+        'isSanitized'   => true,
+        'is3ds'         => true,
+    ],
 ];

@@ -28,10 +28,12 @@
     </div>
 
     @if ($isCheckoutPage)
-        <form action="#" method="POST">
+        <form id="payment-form">
             @csrf
-            <button type="submit" class="btn w-100 text-dark yellow-gradient-btn">
-                Bayar Sekarang
+            <input type="hidden" name="membershipId" value="{{ $membership->id }}">
+            <button type="submit" id="pay-button" class="btn w-100 text-dark yellow-gradient-btn">
+                <span id="btn-text">Bayar Sekarang</span>
+                <span id="btn-spinner" class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true"></span>
             </button>
         </form>
     @else
@@ -42,6 +44,82 @@
         </a>
     @endif
 </div>
+
+<script type="text/javascript"
+    src="https://app.sandbox.midtrans.com/snap/snap.js"
+    data-client-key="{{ config('services.midtrans.clientKey') }}">
+</script>
+
+<script>
+    document.getElementById('payment-form').addEventListener('submit', function(e){
+        e.preventDefault();
+    });
+
+    document.querySelector('#payment-form button[type="submit"]').addEventListener('click', async function(e) {
+        e.preventDefault();
+
+        const form = document.getElementById('payment-form');
+        const formData = new FormData(form);
+        const payButton = document.getElementById('pay-button');
+        const btnText = document.getElementById('btn-text');
+        const btnSpinner = document.getElementById('btn-spinner');
+
+        btnText.classList.add('d-none');
+        btnSpinner.classList.remove('d-none');
+        payButton.disabled = true;
+
+        let response = await fetch("{{ route('membership.pay') }}", {
+            method: "POST",
+            headers: {
+                "X-CSRF-TOKEN": "{{ csrf_token() }}"
+            },
+            body: formData
+        });
+
+        let result = await response.json();
+        console.log('Snap token dari backend:', result.snap_token);
+
+        btnText.classList.remove('d-none');
+        btnSpinner.classList.add('d-none');
+        payButton.disabled = false;
+
+        snap.pay(result.snap_token, {
+            onSuccess: function(res){
+                console.log('Respon Midtrans:', res);
+
+                fetch("/student/payment/update-payment-status", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "X-CSRF-TOKEN": "{{ csrf_token() }}"
+                    },
+                    body: JSON.stringify({
+                        snap_token: result.snap_token,
+                        membershipId: "{{ $membership->id }}",
+                        transaction_status: res.transaction_status
+                    })
+                })
+                .then(r => r.json())
+                .then(data => {
+                    console.log('Update status response:', data);
+                    if(data.success){
+                        if(data.paymentStatus === 'paid'){
+                            const successModal = new bootstrap.Modal(document.getElementById('successModal'));
+                            successModal.show();
+                        } else if(data.paymentStatus === 'pending'){
+                            alert('Pembayaran masih pending. Silakan tunggu konfirmasi.');
+                        } else {
+                            alert('Pembayaran gagal. Silakan coba lagi.');
+                        }
+                    } else {
+                        alert('Gagal update payment, coba lagi');
+                    }
+                })
+                .catch(err => console.error('Update status error:', err));
+            },
+        });
+    });
+</script>
 
 <style>
     .rincian-card{

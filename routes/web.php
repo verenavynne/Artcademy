@@ -77,6 +77,8 @@ Route::middleware(['auth', 'checkRole:student'])->prefix('/student')->group(func
     Route::get('/membership',[MembershipController::class, 'index'])->name('membership');
     Route::get('/membership/{membershipId}', [MembershipController::class, 'detail'])->name('membership.detail');
     Route::get('/membership/checkout-info/{membershipId}', [MembershipController::class, 'checkoutInfo'])->name('membership.checkoutInfo');
+    Route::post('/membership/payment', [MembershipController::class, 'processPayment'])->name('membership.pay');
+    Route::post('/payment/update-payment-status', [MembershipController::class, 'updatePaymentStatus'])->name('membership.updatePaymentStatus');
    
 });
 
