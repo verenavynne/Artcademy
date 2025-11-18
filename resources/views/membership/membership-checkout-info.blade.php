@@ -68,6 +68,29 @@
             @include('components.membership-rincian-card', ['isCheckoutPage' => true])
         </div>
     </div>
+
+    <!-- popup modal success payment -->
+    <div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content d-flex justify-content-center flex-column text-center p-4" style="border-radius: 24px; box-shadow: 0 4px 8px 0 var(--brown-shadow-color);">
+            
+            <button type="button" class="btn-close close-btn ms-auto" data-bs-dismiss="modal" aria-label="Close"></button>
+            
+            <img src="{{ asset('assets/course/zoom_berhasil_daftar.png') }}" alt="Transaksi Berhasil" class="mb-3" width="80" style="align-self: center">
+            
+            <h5 class="fw-bold mb-2" style="font-size: var(--font-size-title)">Transaksi Berhasil!</h5>
+            <p class="mb-4" style="margin: 0; font-size: var(--font-size-primary); color: var(--dark-gray-color)">
+                Yey, transaksi berhasil, saatnya eksplor kursus dan mulai berkarya!
+            </p>
+
+            <div class="d-flex justify-content-center gap-3">
+                <a href="{{ route('course') }}" class="btn w-100 text-dark yellow-gradient-btn">
+                    Lihat Kursus
+                </a>
+            </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 <style>
