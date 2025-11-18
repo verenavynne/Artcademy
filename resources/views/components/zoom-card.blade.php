@@ -1,4 +1,8 @@
-<div class="zoom-card card article-card" height="100%" onclick="window.location.href='{{ route('zoom.showDetail', $zoom->id) }}'" style="cursor: pointer;">
+<div class="zoom-card card article-card" height="100%" 
+    @if(Auth::check() && Auth::user()->role === 'student')
+         onclick="window.location.href='{{ route('zoom.showDetail', $zoom->id) }}'"
+     @endif
+    style="cursor: pointer;">
     <div class="zoom-card-header d-flex flex-column justify-content-between" style="background: var(--orange-gradient-color)">
         <div class="zoom-text-container d-flex flex-row mb-2 gap-2" style="background: #D99F18">
             <div class="zoom-record-icon"></div>
@@ -41,10 +45,28 @@
         </div>
 
         @if (Auth::check())
-            <a href="{{ route('zoom.showDetail', $zoom->id) }}" class="btn w-100 text-dark yellow-gradient-btn">
-                Daftar Sekarang
-            </a>
-            
+            @if(Auth::user()->role === 'lecturer')
+                <button class="btn yellow-gradient-btn w-100"
+                    onclick="event.stopPropagation(); openZoomPopup(this)"
+                        data-zoom-name="{{ $zoom->zoomName }}"
+                        data-zoom-date="{{ \Carbon\Carbon::parse($zoom->zoomDate)->translatedFormat('d F Y') }}"
+                        data-zoom-time="{{ \Carbon\Carbon::parse($zoom->start_time)->format('H.i') }} - {{ \Carbon\Carbon::parse($zoom->end_time)->format('H.i') }}"
+                        data-start="{{ \Carbon\Carbon::parse($zoom->zoomDate.' '.$zoom->start_time)->timestamp }}"
+                        data-end="{{ \Carbon\Carbon::parse($zoom->zoomDate.' '.$zoom->end_time)->timestamp }}"
+                        data-zoom-desc="{{ $zoom->zoomDesc }}"
+                        data-total-peserta="{{ \App\Models\ZoomRegistered::where('zoomId', $zoom->id)->count() }}"
+                        data-quota="{{ $zoom->zoomQuota }}"
+                        data-capacity="{{ \App\Models\ZoomRegistered::where('zoomId', $zoom->id)->count() }}/{{ $zoom->zoomQuota }}"
+                        data-zoom-link="{{ $zoom->zoomLink }}"
+                    >
+                    Join Sekarang
+                </button>
+
+            @else
+                <a href="{{ route('zoom.showDetail', $zoom->id) }}" class="btn w-100 text-dark yellow-gradient-btn">
+                    Daftar Sekarang
+                </a>
+            @endif
         @else
             <a href="{{ route('login') }}" class="btn w-100 text-dark yellow-gradient-btn">
                 Daftar Sekarang

@@ -6,6 +6,7 @@ use App\Http\Controllers\CourseEnrollmentController;
 use App\Http\Controllers\CourseWeekController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\HomePageController;
+use App\Http\Controllers\MembershipController;
 use App\Http\Controllers\PortfolioController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProjectController;
@@ -13,14 +14,17 @@ use App\Http\Controllers\ProjectSubmissionController;
 use App\Http\Controllers\StudentCertificateController;
 use App\Http\Controllers\ZoomController;
 use App\Http\Controllers\UserListController;
+
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\GoogleController;
+
 use App\Http\Controllers\AdminCourseController;
 use App\Http\Controllers\AdminZoomController;
 use App\Http\Controllers\AdminUserController;
 use App\Http\Controllers\AdminProfileController;
+
 use App\Http\Controllers\TutorNilaiProjectController;
-use App\Http\Controllers\MembershipController;
+use App\Http\Controllers\TutorJadwalController;
 
 Route::get('/', [HomePageController::class, 'index'])->name('home');
 
@@ -87,12 +91,13 @@ Route::middleware(['auth', 'checkRole:lecturer'])->prefix('/lecturer')->group(fu
         return view('lecturer.home');
     })->name('lecturer.home');
 
-
     // Nilai Projek
     Route::get('/nilai-projek', [TutorNilaiProjectController::class, 'index'])->name('lecturer.nilai-projek');
     Route::get('/detail-nilai-projek/{id}', [TutorNilaiProjectController::class, 'detail'])->name('lecturer.detail-nilai-projek');
     Route::post('/nilai-projek/{id}/send', [TutorNilaiProjectController::class, 'send'])->name('lecturer.nilai-projek.send');
 
+    // Jadwal Saya
+    Route::get('/jadwal-saya', [TutorJadwalController::class, 'index'])->name('lecturer.jadwal-saya');
 });
 
 Route::middleware(['auth', 'checkRole:admin'])->prefix('/admin')->group(function () {

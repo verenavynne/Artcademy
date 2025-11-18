@@ -29,7 +29,7 @@
     </div>
 
     <a href="{{ route('lecturer.detail-nilai-projek', $submission->id) }}" 
-      class="yellow-gradient-btn text-decoration-none text-dark d-flex justify-content-center">
+      class="yellow-gradient-btn w-100 text-decoration-none text-dark d-flex justify-content-center">
       Nilai Sekarang
     </a>
   </div>

@@ -119,10 +119,6 @@
 
     }
 
-.yellow-gradient-btn{
-    width: 100%;
-}
-
 .nilai-wrapper{
     display: flex;
     width: 100%;
