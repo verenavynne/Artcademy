@@ -10,6 +10,7 @@
   @include('styles.table-admin')
   @include('styles.admin-tutor-layoutscroll')
 
+  <link rel="icon" type="image/png" href="{{ asset('assets/artcademy-icon.png') }}">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Afacad:wght@400;500;600&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">

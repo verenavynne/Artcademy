@@ -43,7 +43,7 @@
     .zoom-date-container{
         display: flex;
         height: 38px;
-        padding: 10px;
+        padding: 8px;
         justify-content: center;
         align-items: center;
         border-radius: 100px;

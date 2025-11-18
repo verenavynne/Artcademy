@@ -49,7 +49,7 @@
       </li>
 
       <li class="nav-item">
-        <a href="#" class="nav-link-tutor" style="gap: 12px">
+        <a href="{{ route('lecturer.jadwal-saya') }}" class="nav-link-tutor {{ request()->routeIs('lecturer.jadwal-saya') ? 'active' : '' }}" style="gap: 12px">
           <iconify-icon 
             icon="material-symbols:edit-calendar-outline-rounded" 
             data-regular="material-symbols:edit-calendar-outline-rounded" 
