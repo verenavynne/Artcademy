@@ -73,7 +73,7 @@
       </li>
 
       <li class="nav-item">
-        <a href="#" class="nav-link-tutor" style="gap: 12px">
+        <a href="{{ route('my-profile') }}" class="nav-link-tutor {{ request()->routeIs('my-profile') ? 'active' : '' }}" class="nav-link-tutor" style="gap: 12px">
           <iconify-icon 
             icon="fluent:person-12-regular" 
             data-regular="fluent:person-12-regular" 

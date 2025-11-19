@@ -18,11 +18,13 @@ use App\Http\Controllers\UserListController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\GoogleController;
 
+use App\Http\Controllers\AdminHomeController;
 use App\Http\Controllers\AdminCourseController;
 use App\Http\Controllers\AdminZoomController;
 use App\Http\Controllers\AdminUserController;
 use App\Http\Controllers\AdminProfileController;
 
+use App\Http\Controllers\TutorHomeController;
 use App\Http\Controllers\TutorNilaiProjectController;
 use App\Http\Controllers\TutorJadwalController;
 
@@ -87,9 +89,8 @@ Route::middleware(['auth', 'checkRole:student'])->prefix('/student')->group(func
 });
 
 Route::middleware(['auth', 'checkRole:lecturer'])->prefix('/lecturer')->group(function () {
-    Route::get('/home', function(){
-        return view('lecturer.home');
-    })->name('lecturer.home');
+    // Dashboard
+    Route::get('/home', [TutorHomeController::class, 'index'])->name('lecturer.home');
 
     // Nilai Projek
     Route::get('/nilai-projek', [TutorNilaiProjectController::class, 'index'])->name('lecturer.nilai-projek');
@@ -101,9 +102,7 @@ Route::middleware(['auth', 'checkRole:lecturer'])->prefix('/lecturer')->group(fu
 });
 
 Route::middleware(['auth', 'checkRole:admin'])->prefix('/admin')->group(function () {
-    Route::get('/home', function(){
-        return view('admin.home');
-    })->name('admin.home');
+    Route::get('/home', [AdminHomeController::class, 'index'])->name('admin.home');
 
     // Daftar Pengguna
     Route::get('/user-list', [AdminUserController::class, 'index'])->name('admin.user.list');
