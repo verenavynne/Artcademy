@@ -272,6 +272,8 @@
     .custom-input {
         background-color: var(--very-light-grey-color);
         border: none;
+        min-height: 56px;
+        padding: 10px 30px;
         box-shadow: 0px 4px 8px var(--brown-shadow-color);
     }
 
