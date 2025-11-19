@@ -2,11 +2,11 @@
 
 @section('content')
 <div class="container-content">
-  <div class="d-flex justify-content-between align-items-center mb-4">
-    <h4 class="fw-semibold" style="font-size: 32px">Selamat Pagi, Farren!</h4>
+  <div class="d-flex justify-content-between align-items-center">
+    <h4 class="fw-semibold" style="font-size: 25px">Selamat {{ $greeting }}, {{ ucfirst($user->name) }}!</h4>
   </div>
 
-  <div class="row mb-4">
+  <div class="row mb-3">
 
 
     <div class="total-kursus col">
@@ -15,7 +15,7 @@
         <iconify-icon icon="mingcute:book-2-fill" class="total-icon-tutor"></iconify-icon>
         <h6 style="font-size: 18px; color: var(--Black, #1B1B1B); font-weight: 400;">Total Kursus</h6>
         </div>
-        <h3 class="fw-bold mb-0" style="font-size: 50px; color: var(--Black, #1B1B1B);">30</h3>
+        <h3 class="fw-bold mb-0" style="font-size: 50px; color: var(--Black, #1B1B1B);">{{ $totalCourses }}</h3>
       </div>
     </div>
 
@@ -31,23 +31,25 @@
               </h6>
             </div>
 
-            <iconify-icon icon="iconamoon:arrow-up-2-bold" class="arrow-icon" style="transform: rotate(90deg);"></iconify-icon>
+            <a href="{{ route('lecturer.jadwal-saya') }}">
+              <iconify-icon icon="iconamoon:arrow-up-2-bold" class="arrow-icon" style="transform: rotate(90deg); color:black;"></iconify-icon>
+            </a>
           </div>
 
 
           <h3 class="fw-bold mb-0" style="font-size: 18px; color: var(--Black, #1B1B1B);">
-            Live Demo: Membuat Karakter Game dari Nol dalam 90 Menit
+            {{ $zoom->zoomName }}
           </h3>
           
-          <div class="info-item-wrapper d-flex flex-row gap-2">
+          <div class="info-item-wrapper d-flex flex-row gap-4">
             <div class="info-item d-flex align-items-center gap-2">
               <iconify-icon icon="mdi:calendar-month" class="info-icon"></iconify-icon>
-              <span>1 Juni 2025</span>
+              <span>{{ \Carbon\Carbon::parse($zoom->zoomDate)->translatedFormat('d F Y') }}</span>
             </div>
 
             <div class="info-item d-flex align-items-center gap-2">
               <iconify-icon icon="mdi:clock-time-four-outline" class="info-icon"></iconify-icon>
-              <span>12.00 - 13.30</span>
+              <span>{{ \Carbon\Carbon::parse($zoom->start_time)->format('H:i') }} - {{ \Carbon\Carbon::parse($zoom->end_time)->format('H:i') }}</span>
             </div>
           </div>
 
@@ -68,11 +70,14 @@
               </h6>
             </div>
 
-            <iconify-icon icon="iconamoon:arrow-up-2-bold" class="arrow-icon" style="transform: rotate(90deg);"></iconify-icon>
+            <a href="{{ route('lecturer.nilai-projek') }}">
+              <iconify-icon icon="iconamoon:arrow-up-2-bold" class="arrow-icon" style="transform: rotate(90deg); color: black;"></iconify-icon>
+            </a>
           </div>
 
-  <div class="admin-tutor-card-wrapper d-flex flex-row">
-  </div>
+          @foreach($submissions as $submission)
+            @include('components.nilai-projek-card')
+          @endforeach
 </div>
 
 </div>
@@ -132,32 +137,4 @@
   }
 }
 </style>
-
-
-</div>
-</div>
 @endsection
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<!-- <h1>Dashboard Lecturer</h1>
-<div>
-    <a href="{{ route('logout') }}" class="nav-link" 
-        onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-            logout
-    </a>
-</div>
-<form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-    @csrf
-</form> -->

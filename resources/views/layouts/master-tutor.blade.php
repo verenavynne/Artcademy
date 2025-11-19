@@ -87,7 +87,7 @@
   display: flex;
   width: auto;
   height: 100%;
-  padding: 24px 24px;
+  padding: 18px 24px;
   flex-direction: column;
   align-items: center;
   gap: 10px;
@@ -184,7 +184,6 @@
 
 .info-item-wrapper{
   display: flex;
-  width: 280px;
   padding: 4px 5px;
   justify-content: space-between;
   align-items: center;
@@ -199,6 +198,10 @@
   align-items: flex-start;
   gap: 10px;
   align-self: stretch;
+}
+
+.info-item span{
+  white-space: nowrap;
 }
 
 .info-item{
@@ -231,7 +234,7 @@
   justify-content: flex-start;
   align-items: flex-start;
   align-self: stretch;
-  padding: 24px;
+  padding: 18px 24px;
   border-radius: 10px;
   background: var(--white, #FFF);
   gap: 16px;

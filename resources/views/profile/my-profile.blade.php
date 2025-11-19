@@ -1,4 +1,4 @@
-@extends('layouts.master')
+@extends($layout)
 
 @section('content')
 @if(session('success'))
@@ -14,11 +14,13 @@
     </div>
 
     <div class="d-flex flex-row justify-content-between" style="width: 100%; ">
-        <div style="width: 20%">
-            @include('profile.components.sidebar-profile')
-        </div>
+        @if($user->role === 'student')
+            <div style="width: 20%">
+                @include('profile.components.sidebar-profile')
+            </div>
+        @endif
 
-        <div class="d-flex flex-column" style="width: 75%; gap: 32px">
+        <div class="d-flex flex-column" style="width: {{ $user->role == 'student' ? '75%' : '100%' }}; gap: 32px">
             <div class="profile-banner-card d-flex flex-row justify-content-between">
                 <div class="profile-banner-info justify-content-center align-items-center d-flex flex-row gap-5">
                     <div class="profile-image">
@@ -40,8 +42,11 @@
                         <p class="profile-detail-name">{{ $user->name }}</p>
                         <p style="margin: 0">{{ $user->profession }}</p>
                         <div class="profile-detail-membership-container">
-                            <p class="profile-detail-membership">Membership Creative Studio</p>
-
+                            <p class="profile-detail-membership">
+                                {{ $user->role == 'student' 
+                                    ? 'Membership Creative Studio' 
+                                    : 'Tutor ' . ($user->lecturer->specialization ?? '-') }}
+                            </p>
                         </div>
 
                     </div>

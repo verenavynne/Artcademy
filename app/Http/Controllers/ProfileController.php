@@ -20,7 +20,13 @@ class ProfileController extends Controller
         $user = Auth::user();
         $portfolios = Portfolio::where('userId', $user->id)->get();
 
-        return view('profile.my-profile', compact('user', 'portfolios'));
+        if ($user->role === 'student') {
+            $layout = 'layouts.master';
+        } elseif ($user->role === 'lecturer') {
+            $layout = 'layouts.master-tutor';
+        }
+
+        return view('profile.my-profile', compact('user', 'portfolios', 'layout'));
 
     }
 
