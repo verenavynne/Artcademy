@@ -1,4 +1,4 @@
-<div class="sidebar-left position-fixed d-flex flex-column justify-content-between align-content-center">
+<div class="sidebar-left d-flex flex-column justify-content-between align-content-center">
     <div class="d-flex align-items-start flex-column">
         <div class="profile-box justify-content-center align-items-center d-flex flex-row gap-2">
             <img src="{{  $user->profilePicture ? asset('storage/' . $user->profilePicture) : asset('assets/default-profile.jpg') }}" 
@@ -50,7 +50,7 @@
         </ul>
     </div>
 
-    <button class="btn py-3 px-4 w-100 text-dark yellow-gradient-btn d-flex flex-row justify-content-center align-items-center gap-2">
+    <button data-target="buat-post" class="btn py-3 px-4 w-100 text-dark yellow-gradient-btn d-flex flex-row justify-content-center align-items-center gap-2">
         <iconify-icon icon="ic:round-plus"></iconify-icon>
         <p style="margin: 0; font-size: var(--font-size-primary)">Buat Post</p>
     </button>
@@ -64,7 +64,8 @@
     }
     
     .sidebar-left{
-        width: 22%;
+        position: sticky;
+        top: 91px;
         padding: 25px;
         justify-content: center;
         border-radius: 20px;
@@ -174,6 +175,17 @@
                 icon.setAttribute("icon", regularIcon);
             }
         });
+
+        const buatPostButton = document.querySelector('[data-target="buat-post"]');
+    
+        if (buatPostButton) {
+            buatPostButton.addEventListener("click", () => {
+                const target = document.getElementById("buat-post");
+                if (target) {
+                    target.scrollIntoView({ behavior: "smooth", block: "start" });
+                }
+            });
+        }
     });
 
 

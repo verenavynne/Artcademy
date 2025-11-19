@@ -1,4 +1,4 @@
-<div class="rekomendasi-profil-card position-fixed d-flex flex-column justify-content-start">
+<div class="rekomendasi-profil-card d-flex flex-column justify-content-start">
     <p class="fw-bold " style="font-size: 18px; margin: 0">Rekomendasi Profil</p>
     <hr class="divider w-100">
     <ul class="d-flex flex-column w-100 justify-content-around" style="gap: 22px; padding-left: 0px">
@@ -44,7 +44,8 @@
     }
 
     .rekomendasi-profil-card{
-        width: 22%;
+        position: sticky;
+        top: 91px;
         padding: 25px;
         justify-content: center;
         border-radius: 20px;

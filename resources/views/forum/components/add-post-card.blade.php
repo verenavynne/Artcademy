@@ -1,4 +1,4 @@
-<div class="add-post-card d-flex flex-column">
+<div class="add-post-card d-flex flex-column" id="buat-post">
     <div class="d-flex justify-content-between flex-grow-1">
         <textarea 
             class="form-control border-0 shadow-none p-0 add-post-textarea  @error('caption') is-invalid @enderror"
