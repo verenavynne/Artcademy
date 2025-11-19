@@ -11,6 +11,7 @@ use App\Models\ZoomRegistered;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Hash;
 
 class ProfileController extends Controller
 {
@@ -79,7 +80,16 @@ class ProfileController extends Controller
     public function showMyInfo()
     {
         $user = Auth::user();
-        return view('profile.my-info', compact('user'));
+
+        if ($user->role === 'student') {
+            $layout = 'layouts.master';
+        } elseif ($user->role === 'admin') {
+            $layout = 'layouts.master-admin';
+        } elseif ($user->role === 'lecturer') {
+            $layout = 'layouts.master-tutor';
+        }
+
+        return view('profile.my-info', compact('user', 'layout'));
     }
 
     public function updateProfile(Request $request)
@@ -134,5 +144,33 @@ class ProfileController extends Controller
         ]);
 
         return redirect()->back()->with('success', 'Foto profil berhasil diperbarui!');
+    }
+
+    public function changePassword(Request $request)
+    {
+        $user = Auth::user();
+
+        $request->validate([
+            'currentPassword' => ['required'],
+            'newPassword' => ['required', 'min:8'],
+            'confirmNewPassword' => ['required', 'same:newPassword'],
+        ], [
+            'currentPassword.required' => 'Kata sandi saat ini wajib diisi.',
+            'newPassword.required' => 'Kata sandi baru wajib diisi.',
+            'confirmNewPassword.required' => 'Konfirmasi kata sandi baru wajib diisi.',
+            'newPassword.min' => 'Kata sandi baru minimal 8 karakter.',
+            'confirmNewPassword.same' => 'Konfirmasi kata sandi tidak cocok.',
+        ]);
+
+        if (!Hash::check($request->currentPassword, $user->password)) {
+            return back()->withErrors([
+                'currentPassword' => 'Kata sandi saat ini tidak sesuai.',
+            ]);
+        }
+
+        $user->password = Hash::make($request->newPassword);
+        $user->save();
+
+        return redirect()->back()->with('success', 'Kata sandi berhasil diubah!');
     }
 }

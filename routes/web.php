@@ -105,9 +105,6 @@ Route::middleware(['auth', 'checkRole:admin'])->prefix('/admin')->group(function
         return view('admin.home');
     })->name('admin.home');
 
-    // Profil Saya
-    Route::get('/profile', [AdminProfileController::class, 'showAdminProfile'])->name('admin.profile');
-
     // Daftar Pengguna
     Route::get('/user-list', [AdminUserController::class, 'index'])->name('admin.user.list');
     Route::post('/user-store', [AdminUserController::class, 'userStore'])->name('admin.user.user-store');
@@ -163,6 +160,7 @@ Route::middleware(['auth'])->group(function(){
     Route::get('/my-info', [ProfileController::class,'showMyInfo'])->name('profile.info');
     Route::post('/my-info/update',[ProfileController::class, 'updateProfile'])->name('profile.update');
     Route::post('/profile/update-picture',[ProfileController::class, 'updateProfilePicture'])->name('profile.updatePicture');
+    Route::post('/profile/change-password',[ProfileController::class, 'changePassword'])->name('profile.change-password');
 
 });
 

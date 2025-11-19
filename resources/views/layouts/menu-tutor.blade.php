@@ -85,7 +85,7 @@
       </li>
 
       <li class="nav-item">
-        <a href="#" class="nav-link-tutor" style="gap: 12px">
+        <a href="{{ route('profile.info') }}" class="nav-link-tutor {{ request()->routeIs('profile.info') ? 'active' : '' }}" style="gap: 12px">
           <iconify-icon 
             icon="fluent:notepad-person-16-regular" 
             data-regular="fluent:notepad-person-16-regular" 
