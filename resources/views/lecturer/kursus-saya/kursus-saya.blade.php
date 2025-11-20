@@ -3,35 +3,33 @@
 @section('content')
 <div class="container-content">
     <div class="d-flex justify-content-between align-items-center">
-        <h4 class="fw-semibold" style="font-size: 32px">Jadwal Saya</h4>
+        <h4 class="fw-semibold" style="font-size: 32px">Kursus Saya</h4>
     </div>
 
     <ul class="nav mb-4 mt-4 w-100 statusTabs">
         <li class="nav-item flex-fill text-center">
-            <a class="nav-link fs-5 {{ $status === 'mendatang' ? 'active' : 'text-custom' }}" 
-                href="{{ route('lecturer.jadwal-saya', ['status' => 'mendatang']) }}">
-                Jadwal Zoom Mendatang
+            <a class="nav-link fs-5 {{ $status === 'dipublikasikan' ? 'active' : 'text-custom' }}" 
+                href="{{ route('lecturer.kursus-saya', ['status' => 'dipublikasikan']) }}">
+                Dipublikasikan
             </a>
         </li>
         <li class="nav-item flex-fill text-center">
-            <a class="nav-link fs-5 {{ $status === 'selesai' ? 'active' : 'text-custom' }}" 
-                href="{{ route('lecturer.jadwal-saya', ['status' => 'selesai']) }}">
-                Jadwal Selesai
+            <a class="nav-link fs-5 {{ $status === 'diarsipkan' ? 'active' : 'text-custom' }}" 
+                href="{{ route('lecturer.kursus-saya', ['status' => 'diarsipkan']) }}">
+                Diarsipkan
             </a>
         </li>
     </ul>
 
     <div class="zoom-card-wrapper d-flex flex-row flex-wrap gap-4 p-3">
-        @forelse($zooms as $zoom)
-            @include('components.zoom-card')
+        @forelse ($courses as $course)
+            @include('components.course-card')
         @empty
             <div class="d-flex justify-content-center align-items-center w-100" style="height: 200px;">
-                <p class="text-center m-0">Tidak ada zoom yang {{ status }}.</p>
+                <p class="text-center m-0">Tidak ada kursus yang {{ $status }}.</p>
             </div>
         @endforelse
     </div>
-
-    @include('lecturer.jadwal-saya.detail-zoom-popup')
 </div>
 
 <style>    

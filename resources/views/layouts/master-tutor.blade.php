@@ -12,6 +12,7 @@
   @include('styles.admin-tutor-layoutscroll')
   @include('styles.form-style')
   @include('styles.zoom-card')
+  @include('styles.course-card')
   
   <link rel="icon" type="image/png" href="{{ asset('assets/artcademy-icon.png') }}">
   <link rel="preconnect" href="https://fonts.googleapis.com">
