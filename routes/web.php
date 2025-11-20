@@ -1,13 +1,16 @@
 <?php
 
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\CourseDetailController;
 use App\Http\Controllers\CourseEnrollmentController;
 use App\Http\Controllers\CourseWeekController;
+use App\Http\Controllers\ForumController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\HomePageController;
 use App\Http\Controllers\MembershipController;
 use App\Http\Controllers\PortfolioController;
+use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\ProjectSubmissionController;
@@ -152,12 +155,9 @@ Route::middleware(['auth'])->group(function(){
     })->name('add-portfolio');
     
     Route::post('/add-portfolio/submit', [PortfolioController::class, 'addPortfolio'])->name('portfolio.add');
-    
     Route::get('/edit-portfolio/{id}',[PortfolioController::class, 'editPortfolio'])->name('portfolio.edit');
     Route::post('/update-portfolio/{id}',[PortfolioController::class, 'updatePortfolio'])->name('portfolio.update');
-    
     Route::post('/add-portfolio-from-project/{id}',[PortfolioController::class, 'addFromProject'])->name('add.to.portfolio');
-    
     Route::delete('/portfolio/{id}', [PortfolioController::class, 'destroy'])->name('portfolio.destroy');
 
     Route::get('/my-info', [ProfileController::class,'showMyInfo'])->name('profile.info');
@@ -165,10 +165,18 @@ Route::middleware(['auth'])->group(function(){
     Route::post('/profile/update-picture',[ProfileController::class, 'updateProfilePicture'])->name('profile.updatePicture');
     Route::post('/profile/change-password',[ProfileController::class, 'changePassword'])->name('profile.change-password');
 
+    Route::get('/forum', [ForumController::class, 'show'])->name('forum');
+    Route::post('/forum/add-post', [PostController::class, 'addPost'])->name('post.add');
+    Route::delete('/forum/post/{id}', [PostController::class, 'destroy'])->name('post.destroy');
+    Route::post('/forum/add-comment', [CommentController::class, 'addComment'])->name('comment.add');
+    Route::post('/forum/add-comment-reply',[CommentController::class, 'addCommentReply'])->name('comment.reply');
+    Route::post('/forum/post/update/{id}', [PostController::class, 'update'])->name('post.update');
+    Route::get('/forum/visit-profile/{id}',[ForumController::class, 'showFriendProfile'])->name('forum.visit-profile');
 });
 
 Route::get('/my-transaction-history',function(){
     return view('profile.transaction-history');
 })->name('profile.history');
+
 
 

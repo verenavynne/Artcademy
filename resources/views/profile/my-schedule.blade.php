@@ -15,7 +15,7 @@
         </div>
 
         <div class="d-flex flex-column" style="width: 75%; gap: 32px">
-            @include('profile.components.tab', ['firstTab' => 'kelas-zoom', 'secondTab' => 'event'])
+            @include('profile.components.tab', ['firstTab' => 'kelas-zoom', 'secondTab' => 'event', 'activeTab' => $activeTab])
 
             <div class="tab-content-container">
                 <div class="tab-content active" data-tab-content="kelas-zoom">
@@ -48,6 +48,7 @@
 @endsection
 
 <style>
+
     .title{
         margin-block-end: 0
     }

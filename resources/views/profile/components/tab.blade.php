@@ -1,9 +1,9 @@
 <div class="profile-tab-container">
     <div class="tab-header">
-        <button class="tab-link active" data-tab={{ $firstTab }}>{{ ucwords(str_replace('-', ' ', $firstTab)) }}</button>
-        <button class="tab-link" data-tab={{ $secondTab }}>{{ ucwords(str_replace('-', ' ', $secondTab)) }}</button>
+        <button class="tab-link {{ $activeTab === $firstTab ? 'active' : '' }}" data-tab={{ $firstTab }}>{{ ucwords(str_replace('-', ' ', $firstTab)) }}</button>
+        <button class="tab-link {{ $activeTab === $secondTab ? 'active' : '' }}" data-tab={{ $secondTab }}>{{ ucwords(str_replace('-', ' ', $secondTab)) }}</button>
     </div>
-    <div class="tab-underline"></div>
+    <div class="tab-underline" data-tab={{ $activeTab }}></div>
 </div>
 <style>
     .profile-tab-container {
@@ -52,31 +52,39 @@
 </style>
 
 <script>
-document.addEventListener("DOMContentLoaded", function() {
-    const tabs = document.querySelectorAll(".tab-link");
-    const underline = document.querySelector(".tab-underline");
+    document.addEventListener("DOMContentLoaded", function() {
+        const tabs = document.querySelectorAll(".tab-link");
+        const underline = document.querySelector(".tab-underline");
+        const activeTabName = "{{ $activeTab }}";
 
-    function moveUnderline(activeTab) {
-        const rect = activeTab.getBoundingClientRect();
-        const containerRect = activeTab.parentElement.getBoundingClientRect();
-        underline.style.width = rect.width + "px";
-        underline.style.left = (rect.left - containerRect.left) + "px";
-    }
+        function moveUnderline(activeTab) {
+            const rect = activeTab.getBoundingClientRect();
+            const containerRect = activeTab.parentElement.getBoundingClientRect();
+            underline.style.width = rect.width + "px";
+            underline.style.left = (rect.left - containerRect.left) + "px";
+        }
 
-    const active = document.querySelector(".tab-link.active");
-    if (active) moveUnderline(active);
+        tabs.forEach(tab => {
+            if (tab.getAttribute("data-tab") === activeTabName) {
+                tab.classList.add("active");
+            } else {
+                tab.classList.remove("active");
+            }
+        });
 
-    tabs.forEach(tab => {
-        tab.addEventListener("click", () => {
-            tabs.forEach(t => t.classList.remove("active"));
-            tab.classList.add("active");
-            moveUnderline(tab);
+        const realActive = document.querySelector(`.tab-link[data-tab="${activeTabName}"]`);
+        if (realActive) moveUnderline(realActive);
+
+        tabs.forEach(tab => {
+            tab.addEventListener("click", () => {
+                moveUnderline(tab);
+            });
+        });
+
+        window.addEventListener("resize", () => {
+            const currentActive = document.querySelector(".tab-link.active");
+            if (currentActive) moveUnderline(currentActive);
         });
     });
 
-    window.addEventListener("resize", () => {
-        const currentActive = document.querySelector(".tab-link.active");
-        if (currentActive) moveUnderline(currentActive);
-    });
-});
 </script>

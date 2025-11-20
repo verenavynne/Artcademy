@@ -1,4 +1,4 @@
- <nav class="navbar navbar-expand-lg bg-body-tertiary py-0 ">
+ <nav class="navbar navbar-expand-lg bg-body-tertiary py-0 sticky-top">
     <div class="container-fluid px-5 py-4" style="background-color:var(--cream-color);">
         <a href="">
             <img src="{{ asset('assets/logo.png') }}" alt="Logo" width="153px" height="38px">
@@ -26,7 +26,7 @@
                         <a class="nav-link {{ request()->routeIs('membership') ? 'active' : '' }}" href="{{ route('membership') }}">Membership</a>
                     </li>
                      <li class="nav-item">
-                        <a class="nav-link " href="">Forum</a>
+                        <a class="nav-link {{ request()->routeIs('forum') ? 'active' : '' }}" href="{{ route('forum') }}">Forum</a>
                     </li>
                     
                 </ul>
@@ -46,9 +46,7 @@
     </div>
 </nav>
 
-<style>
-
-
+<style>  
     @media (min-width: 992px) { 
         .wide-gap {
             gap: 60px; 

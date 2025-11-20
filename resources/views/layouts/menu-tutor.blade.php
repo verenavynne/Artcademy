@@ -61,7 +61,7 @@
       </li>
 
       <li class="nav-item">
-        <a href="#" class="nav-link-tutor" style="gap: 12px">
+        <a href="{{ route('forum') }}" class="nav-link-tutor" style="gap: 12px">
           <iconify-icon 
             icon="iconamoon:comment-dots" 
             data-regular="iconamoon:comment-dots" 
