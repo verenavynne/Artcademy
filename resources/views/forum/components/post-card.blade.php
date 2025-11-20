@@ -28,7 +28,7 @@ $autoOpen = $post->comments->whereNotNull('chatbotId')->isNotEmpty();
                             type="button" 
                             class="dropdown-item text-danger"
                             data-bs-toggle="modal"
-                            data-bs-target="#deleteConfirmModal{{ $post->id }}"
+                            data-bs-target="#deletePostConfirmModal{{ $post->id }}"
                             >
                             Hapus
                         </button>
@@ -57,7 +57,7 @@ $autoOpen = $post->comments->whereNotNull('chatbotId')->isNotEmpty();
         </div>
         <div class="d-flex flex-row">
             @if($post->userId !== Auth::id())
-                <a href="#" style="text-decoration: none">
+                <a href="{{ route('forum.visit-profile', $post->userId) }}" style="text-decoration: none">
                     <p class="text-pink-gradient fw-bold" style="margin: 0">Kunjungi Profil</p>
                 </a>
             @endif

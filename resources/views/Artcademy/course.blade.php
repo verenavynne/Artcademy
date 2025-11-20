@@ -3,12 +3,12 @@
 @section('content')
 
 <div class="container-fluid d-flex flex-column justify-content-center" style="margin-bottom: 75px;">
-    <div class="d-flex justify-content-center align-items-center px-5 gap-5 w-100">
+    <div class="d-flex justify-content-center align-items-center px-5 gap-5 w-100 pt-1">
         <form class="d-flex w-100" method="GET" action="{{route('course')}}">
             <div class="position-relative w-100">
            
                 <input 
-                    class="form-control" 
+                    class="form-control form-search" 
                     type="text" 
                     placeholder="Mau belajar apa hari ini?" 
                     aria-label="Search" 
@@ -18,7 +18,7 @@
 
                 <button 
                     type="submit" 
-                    class="icon-btn btn position-absolute end-0 top-50 translate-middle-y p-0 border-0 bg-transparent"
+                    class="icon-search btn position-absolute end-0 top-50 translate-middle-y p-0 border-0 bg-transparent"
                     style="z-index: 2;"
                 >
                     <img src="{{ asset('assets/icons/icon_search.svg') }}" alt="Search" style="width: 24px; height: 24px;">
@@ -143,7 +143,7 @@
 </div>
 
 <style>
-    .form-control{
+    .form-search{
         box-shadow: 0px 4px 8px 0px rgba(67, 39, 0, 0.20);
         border-radius: 1000px ;
         background-color: white;
@@ -153,7 +153,7 @@
 
     }
 
-    .icon-btn{
+    .icon-search{
         margin-inline-end: 30px;
     }
 

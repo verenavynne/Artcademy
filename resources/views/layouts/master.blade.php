@@ -23,7 +23,7 @@
 
     @include('layouts.navbar')
 
-    <div class="content" style="">
+    <div class="content" style="min-height: 100vh">
         @yield('content')
 
     </div>

@@ -14,6 +14,37 @@
 @endif
 
 <div class="container-fluid d-flex flex-column justify-content-center px-4" style="margin-bottom: 75px;">
+    <div class="d-flex justify-content-center align-items-center px-5 gap-5 w-100 pt-1">
+        <form class="d-flex w-100" method="GET" action="#">
+            <div class="position-relative w-100">
+           
+                <input 
+                    class="form-control form-search" 
+                    type="text" 
+                    placeholder="Mau belajar apa hari ini?" 
+                    aria-label="Search" 
+                    name="query"
+                    value="{{ request('query') }}"
+                >
+
+                <button 
+                    type="submit" 
+                    class="icon-search btn position-absolute end-0 top-50 translate-middle-y p-0 border-0 bg-transparent"
+                    style="z-index: 2;"
+                >
+                    <img src="{{ asset('assets/icons/icon_search.svg') }}" alt="Search" style="width: 24px; height: 24px;">
+                </button>
+            </div>
+        </form>
+        <div class="d-flex flex-row justify-content-center align-items-center gap-5">
+            <a href="#">
+                <img src="{{ asset('assets/icons/icon_bookmark.svg') }}" alt="Bookmark" style="width: 24px; height: 24px;">
+            </a>
+            <a href="#">
+                <img src="{{ asset('assets/icons/icon_notif.svg') }}" alt="Notification" style="width: 24px; height: 24px;">
+            </a>
+        </div>
+    </div>
     <div class="row">
         <div class="col-3">
             @include('forum.components.sidebar-left-forum')
@@ -46,147 +77,41 @@
         </div>
     </div>
 
-    <!-- Pop up konfirmasi delete -->
+    <!-- Delete pop up -->
     @foreach ($posts as $post)
-        <div class="modal fade" id="deleteConfirmModal{{ $post->id }}" tabindex="-1" aria-labelledby="deleteConfirmModalLabel{{ $post->id }}" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content d-flex justify-content-center flex-column text-center p-4" style="border-radius: 24px; box-shadow: 0 4px 8px 0 var(--brown-shadow-color);">
-                
-                    <button type="button" class="btn-close close-btn ms-auto" data-bs-dismiss="modal" aria-label="Close"></button>
-                
-                    <img src="{{ asset('assets/portfolio/portfolio_hapus.png') }}" alt="Konfirmasi Hapus" class="mb-3" width="80" style="align-self: center">
-                
-                    <h5 class="fw-bold mb-2" style="font-size: var(--font-size-title)">Hapus Post ini?</h5>
-                    <p class="mb-4" style="margin: 0; font-size: var(--font-size-primary); color: var(--dark-gray-color)">
-                        Setelah dihapus, kamu tidak bisa memulihkannya lagi
-                    </p>
-
-                    <div class="d-flex justify-content-center align-items-center gap-3" style="width: 100%">
-                        <button type="button" style ="width: 50%; align-self: center" class="btn rounded-pill pink-cream-btn px-4" data-bs-dismiss="modal">
-                            <p class="text-pink-gradient" style="margin: 0">Kembali</p>
-                        </button>
-                        
-                        <form action="{{ route('post.destroy', $post->id) }}" method="POST" style="width: 50%; margin-block-end: 0">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="btn w-100 text-white red-btn px-4">Hapus</button>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-
+        @include('forum.components.delete-post-pop-up', ['post' => $post])
     @endforeach
 
     <!-- Edit pop up -->
     @foreach ($posts as $post)
-        <div class="modal fade edit-post-modal" id="editPostModal{{ $post->id }}" tabindex="-1" aria-labelledby="editPostModalLabel{{ $post->id }}" aria-hidden="true" data-post-id="{{ $post->id }}">
-            <div class="modal-dialog modal-lg modal-dialog-centered">
-                <div class="modal-content d-flex justify-content-center flex-column text-center p-4" style="border-radius: 24px; box-shadow: 0 4px 8px 0 var(--brown-shadow-color);">
-                
-                    <button type="button" class="btn-close close-btn ms-auto" data-bs-dismiss="modal" aria-label="Close"></button>
-                
-                    <div class="d-flex flex-column justify-content-between gap-4">
-
-                        <div class="d-flex justify-content-between gap-2" style="height: max-content;">
-                            
-                            <div class="post-profile d-flex flex-row gap-3 justify-content-center align-items-center">
-                                <img src="{{  $post->user->profilePicture ? asset('storage/' . $post->user->profilePicture) : asset('assets/default-profile.jpg') }}" 
-                                    class="profile-picture rounded-circle"
-                                    alt="" width="74" height="74" style="object-fit: cover">
-                                <p class="fw-bold" style="margin: 0; font-size: 16px">{{ $post->user->name }}</p>
-                            </div>
-    
-                        </div>
-                        <form action="{{ route('post.update', $post->id) }}" method="POST" enctype="multipart/form-data">
-                        @csrf
-                        <input type="hidden" name="deleted_files" id="deletedFilesInput-{{ $post->id }}">
-                        <div class="w-100" style="min-height: 80px;">
-                            <textarea 
-                                class="form-control border-0 shadow-none p-0 add-post-textarea  @error('caption') is-invalid @enderror"
-                                name="caption"
-                                placeholder="Apa yang kamu pikirkan?"
-                                rows="1"
-                            >{{ $post->postText }}</textarea>
-                          
-                            @if($post->files->count())
-                                <div class="post-image-video">
-                                    @foreach($post->files as $file)
-                                        <div class="grid-item position-relative">
-                                            
-                                            <button type="button"
-                                                class="btn-close bg-white p-1 btn-sm position-absolute top-0 end-0 rounded-circle m-1 delete-existing-file"
-                                                data-file-id="{{ $file->id }}">
-                                            </button>
-
-                                            @if($file->fileType === 'image')
-                                                <img 
-                                                    src="{{ asset('storage/'.$file->filePath) }}"
-                                                    class="media-item"
-                                                    alt=""
-                                                >
-                                            @endif
-
-                                            @if($file->fileType === 'video')
-                                                <video
-                                                    class="media-item video-player"
-                                                    playsinline
-                                                    controls
-                                                >
-                                                    <source src="{{ asset('storage/'.$file->filePath) }}" type="video/mp4">
-                                                </video>
-                                            @endif
-
-                                        </div>
-                                    @endforeach
-                                </div>
-                            @endif
-
-                            <div id="preview-wrapper-edit-{{ $post->id }}" class="mt-3 preview-wrapper" style="display:none;">
-                                <div id="preview-items-edit-{{ $post->id }}" class="preview-items"></div>
-                            </div>
-                        </div>
-    
-                        <div class="d-flex justify-content-between mt-3 align-items-center">
-                            
-                            <div class="d-flex gap-3">
-                                <label class="icon-btn">
-                                    <iconify-icon icon="icon-park:upload-picture" style="font-weight: 24px"></iconify-icon>
-                                    <input type="file" name="images[]" hidden multiple>
-                                </label>
-    
-                                <label class="icon-btn">
-                                    <iconify-icon icon="mingcute:video-line" style="font-weight: 24px"></iconify-icon>
-                                    <input type="file" name="videos[]" hidden accept="video/*" multiple>
-                                </label>
-                            </div>
-    
-                            <button type="submit" class="btn py-2 px-4 text-dark yellow-gradient-btn d-flex flex-row gap-2">
-                                Edit
-                            </button>
-                        </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-
+        @include('forum.components.edit-post-pop-up', ['post' => $post])
     @endforeach
 
     
 </div>
 
 <style>
+
+    .content{
+        min-height: unset;
+    }
     .feed-wrapper{
         width: 100%;
-        /* height: calc(100vh - 100px); */
-        /* overflow-y: auto; */
     }
 
-    /* .form-check-input:checked{
-        background: var(--orange-gradient-color);
-        border: var(--orange-gradient-color);
-    } */
+    .form-search{
+        box-shadow: 0px 4px 8px 0px rgba(67, 39, 0, 0.20);
+        border-radius: 1000px ;
+        background-color: white;
+        height: 56px;
+        padding-left: 30px;
+        padding-right: 30px;
+
+    }
+
+    .icon-search{
+        margin-inline-end: 30px;
+    }
 
     .add-post-textarea{
         resize: none !important;
@@ -371,6 +296,7 @@
                 });
             })
         })
+        
         document.querySelectorAll('.comment-toggle').forEach(btn => {
                 const target = document.querySelector(btn.dataset.target);
                 const iconHolder = btn.querySelector('.icon-holder');

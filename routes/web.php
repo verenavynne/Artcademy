@@ -171,6 +171,7 @@ Route::middleware(['auth'])->group(function(){
     Route::post('/forum/add-comment', [CommentController::class, 'addComment'])->name('comment.add');
     Route::post('/forum/add-comment-reply',[CommentController::class, 'addCommentReply'])->name('comment.reply');
     Route::post('/forum/post/update/{id}', [PostController::class, 'update'])->name('post.update');
+    Route::get('/forum/visit-profile/{id}',[ForumController::class, 'showFriendProfile'])->name('forum.visit-profile');
 });
 
 Route::get('/my-transaction-history',function(){

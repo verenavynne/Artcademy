@@ -516,5 +516,20 @@
         opacity: 1;
         transform: translateY(0);
     }
+
+    /* Search input  */
+    .form-search{
+        box-shadow: 0px 4px 8px 0px rgba(67, 39, 0, 0.20);
+        border-radius: 1000px ;
+        background-color: white;
+        height: 56px;
+        padding-left: 30px;
+        padding-right: 30px;
+
+    }
+
+    .icon-search{
+        margin-inline-end: 30px;
+    }
     
 </style>

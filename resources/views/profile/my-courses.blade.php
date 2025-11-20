@@ -15,7 +15,7 @@
         </div>
 
         <div class="d-flex flex-column" style="width: 75%; gap: 32px">
-            @include('profile.components.tab', ['firstTab' => 'dalam-proses', 'secondTab' => 'selesai'])
+            @include('profile.components.tab', ['firstTab' => 'dalam-proses', 'secondTab' => 'selesai', 'activeTab' => $activeTab])
             <div class="tab-content-container">
                 <div class="tab-content active" data-tab-content="dalam-proses">
                    <p class="title text-start fw-bold">Yuk, Lanjutkan Kursusmu!</p>
@@ -63,7 +63,6 @@
 </div>
 
 <style>
-
     .title{
         margin-block-end: 0
     }

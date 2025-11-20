@@ -26,7 +26,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a href="#" class="nav-link-profile" style="gap: 12px">
+                <a href="{{ route('my-profile', ['tab'=>'post']) }}" class="nav-link-profile" style="gap: 12px">
                 <iconify-icon 
                     icon="mingcute:grid-2-line" 
                     data-regular="mingcute:grid-2-line" 
@@ -37,7 +37,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a href="#" class="nav-link-profile" style="gap: 12px">
+                <a href="{{ route('my-profile') }}" class="nav-link-profile" style="gap: 12px">
                 <iconify-icon 
                     icon="mdi:file-document-box-outline" 
                     data-regular="mdi:file-document-box-outline" 
@@ -71,10 +71,8 @@
         border-radius: 20px;
         background: white;
         box-shadow: 0 4px 8px 0 var(--brown-shadow-color);
-        min-height: 600px;
+        min-height: 550px;
     }
-
-    
 
     .sidebar-content {
         transition: opacity 0.3s ease 0.3s;

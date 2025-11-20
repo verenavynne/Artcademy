@@ -1,6 +1,6 @@
 <footer class="footer text-white text-left py-5" style="background: var(--pink-medium-gradient-color); bottom: 0;">
     <div class="container mt-5">
-        <div class="content row justify-content-between">
+        <div class="content-footer row justify-content-between">
             <div class="col-md-3 mb-3">
                 <a href="" >
                     <img src="{{ asset('assets/logo.png') }}" class="mb-3" alt="Logo" width="153px" height="38px">
@@ -47,30 +47,30 @@
 
     }
 
-    .content h5{
+    .content-footer h5{
         font-size: var(--font-size-primary); 
         color: black
     }
 
-    .content ul{
+    .content-footer ul{
         font-size: var(--font-size-tiny); 
         color:var(--brown-color)
     }
 
-    .content li a,
+    .content-footer li a,
     .footer-logo-text{
         text-decoration: none; 
         font-size: var(--font-size-tiny); 
         color:var(--brown-color)
     }
 
-    .content .icon{
+    .content-footer .icon{
         color:var(--brown-color);
         
     }
 
     @media (max-width: 768px) {
-        .content {
+        .content-footer {
             display: grid;
             grid-template-columns: repeat(2, 1fr); 
             gap: 50px; 
@@ -78,16 +78,16 @@
             padding-left: 40px;
         }
 
-        .content > div {
+        .content-footer > div {
             justify-content: center;
             align-items: center;
         }
 
-        .content h5{
+        .content-footer h5{
             font-size: 150% !important; 
         }
 
-        .content ul, .content p {
+        .content-footer ul, .content-footer p {
             font-size: 90% !important; 
         }
 
