@@ -73,18 +73,6 @@
       </li>
 
       <li class="nav-item">
-        <a href="#" class="nav-link-admin" style="gap: 12px">
-          <iconify-icon 
-            icon="ic:round-warning-amber" 
-            data-regular="ic:round-warning-amber" 
-            data-filled="ic:round-report-problem"
-            class="laporanforum-icon">
-          </iconify-icon>
-          <span>Laporan Forum</span>
-        </a>
-      </li>
-
-      <li class="nav-item">
         <a href="{{ route('profile.info') }}" class="nav-link-admin {{ request()->routeIs('profile.info') ? 'active' : '' }}" style="gap: 12px">
           <iconify-icon 
             icon="fluent:person-12-regular" 

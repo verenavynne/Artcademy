@@ -27,12 +27,27 @@
 
     $jam = floor($course->courseDurationInMinutes / 60);
     $menit = $course->courseDurationInMinutes % 60;
+    $isArchived = $course->courseStatus === 'arsip';
 @endphp
 
-<a href="{{ route('course.detail', $course->id) }}" 
+<a href="{{ ($course->courseStatus === 'publikasi' && Auth::user()->role === 'student') 
+            ? route('course.detail', $course->id) 
+            : '#' }}"
    class="text-decoration-none text-black">
-    <div class="course-card card article-card" style="cursor: pointer; height: 100%;">
-        <div class="course-card-header d-flex flex-column justify-content-between" style="background: {{ $backgroundColor }}">
+    <div class="course-card card article-card" style="cursor: {{ $isArchived ? 'default' : 'pointer' }}; height: 100%;">
+
+        @if($isArchived)
+            <div class="overlay-arsip d-flex flex-column justify-content-center align-items-center">
+                <div class="overlay-content d-flex w-70 p-2 gap-3">
+                    <div class="icon-circle d-flex justify-content-center align-items-center">
+                        <iconify-icon icon="ix:maintenance-info" style="color: #F69000; font-size: 24px;"></iconify-icon>
+                    </div>
+                    <p class="text-start m-0">Materi sedang diperbarui, cek lagi nanti ya!</p>
+                </div>
+            </div>
+        @endif
+
+        <div class="course-card-header d-flex flex-column justify-content-between" style="background: {{ $backgroundColor }}; opacity: {{ $isArchived ? '0.5' : '1' }}">
             <div class="course-type-text-container mb-2" style="background: {{ $backgroundCourseTypeText }}">
                 <p style="margin: 0; color: white; font-size: var(--font-size-mini)">
                     {{ $course->courseType }}
@@ -52,7 +67,7 @@
             </div>
         </div>
 
-        <div class="course-card-bottom d-flex flex-column align-items-start">
+        <div class="course-card-bottom d-flex flex-column align-items-start" style="opacity: {{ $isArchived ? '0.5' : '1' }}">
             <div class="d-flex flex-row justify-content-space-between gap-2">
                 <p style="margin:0; font-size: var(--font-size-tiny); font-weight: 700">
                     {{ $course->courseName }}

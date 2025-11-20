@@ -25,7 +25,7 @@
       </li>
 
       <li class="nav-item">
-        <a href="{#}" class="nav-link-tutor" style="gap: 12px">
+        <a href="{{ route('lecturer.kursus-saya') }}" class="nav-link-tutor {{ request()->routeIs('lecturer.kursus-saya') ? 'active' : '' }}" style="gap: 12px">
           <iconify-icon 
             icon="majesticons:book-plus-line" 
             data-regular="majesticons:book-plus-line" 

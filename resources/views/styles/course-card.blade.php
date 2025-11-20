@@ -61,4 +61,34 @@
         border-radius: 37px;
         box-shadow: 0px 4px 8px 0px rgba(67, 39, 0, 0.20);
     }
+
+    .overlay-arsip {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(224, 224, 224, 0.5);
+        border-radius: 44px;
+        z-index: 10;
+        text-align: center;
+    }
+
+    .overlay-content {
+        align-items: center;
+        background-color: white;
+        width: 80%;
+        border-radius: 10px;
+        padding: 1rem;
+    }
+
+    .icon-circle {
+        background-color: #FFF0DF;
+        width: 30px;
+        height: 30px;
+        border-radius: 100px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
 </style>

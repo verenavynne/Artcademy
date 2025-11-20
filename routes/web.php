@@ -25,6 +25,7 @@ use App\Http\Controllers\AdminUserController;
 use App\Http\Controllers\AdminProfileController;
 
 use App\Http\Controllers\TutorHomeController;
+use App\Http\Controllers\TutorMyCourseController;
 use App\Http\Controllers\TutorNilaiProjectController;
 use App\Http\Controllers\TutorJadwalController;
 
@@ -91,6 +92,9 @@ Route::middleware(['auth', 'checkRole:student'])->prefix('/student')->group(func
 Route::middleware(['auth', 'checkRole:lecturer'])->prefix('/lecturer')->group(function () {
     // Dashboard
     Route::get('/home', [TutorHomeController::class, 'index'])->name('lecturer.home');
+
+    // Kursus Saya
+    Route::get('/kursus-saya', [TutorMyCourseController::class, 'index'])->name('lecturer.kursus-saya');
 
     // Nilai Projek
     Route::get('/nilai-projek', [TutorNilaiProjectController::class, 'index'])->name('lecturer.nilai-projek');
