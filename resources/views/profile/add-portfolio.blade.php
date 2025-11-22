@@ -14,38 +14,38 @@
         </div>
         <div class="d-flex flex-column pb-4">
             <p class="title text-start fw-bold">Tambah Portofoliomu</p>
-            <p class="projek-title-desc">Tambahkan Hasil Karyamu ke mockup 3D yang super keren!</p>
+            <p class="projek-title-desc" style="font-size: 18px">Tambahkan Hasil Karyamu ke mockup 3D yang super keren!</p>
         </div>
 
     </div>
     
     <form action="{{ route('portfolio.add') }}" method="POST" enctype="multipart/form-data">
     @csrf
-    <div class="d-flex flex-row justify-content-center gap-5">
-        <div class="d-flex flex-column" style="width: 60%;">
-            <div class="mockup-view-card  d-flex flex-row gap-5">
-                <div class="d-flex flex-column gap-2 align-items-center">
-                    <div class="d-flex align-items-center flex-column gap-4 position-relative" style="height:max-content">
-                        <img id="portfolioPreview" class="portfolio-image-view" src="{{ asset('assets/portfolio/no_image_template.jpg') }}" alt="Portfolio File">
-                       
-                        <div class="upload-plus-wrapper position-absolute top-50 start-50 translate-middle">
-                            <label for="portfolioUpload" class="btn upload-plus-btn yellow-gradient-btn d-flex flex-row align-items-center gap-2">
-                                <iconify-icon icon="ic:round-plus" class="plus-icon" style= "font-size: 18px"></iconify-icon>
-                                
-                            </label>
-                            <input type="file" id="portfolioUpload" name="file" class="d-none" >
-                            
-                        </div>
-    
-                    </div>
-                    @error('file')
-                        <div class="invalid-feedback d-block" style="width:max-content">{{ $message }}</div>
-                    @enderror
-                    
-
-                </div>
-               
+    <div class="d-flex flex-row gap-5 align-items-start">
+        <div class="d-flex flex-column portofolio-left-col">
+            <div class="mockup-view-card  d-flex flex-row gap-4">
                 <div class="mockup-3d-view">
+                    <div class="d-flex flex-column gap-2 align-items-center mockup-view-add">
+                        <div class="d-flex align-items-center flex-column gap-4 position-relative" style="height:max-content">
+                            <img id="portfolioPreview" class="portfolio-image-view" src="{{ asset('assets/portfolio/no_image_template.jpg') }}" alt="Portfolio File">
+                        
+                            <div class="upload-plus-wrapper position-absolute top-50 start-50 translate-middle">
+                                <label for="portfolioUpload" class="btn upload-plus-btn yellow-gradient-btn d-flex flex-row align-items-center gap-2">
+                                    <iconify-icon icon="ic:round-plus" class="plus-icon" style= "font-size: 24px"></iconify-icon>
+                                    
+                                </label>
+                                <input type="file" id="portfolioUpload" name="file" class="d-none" >
+                                
+                            </div>
+        
+                        </div>
+                        @error('file')
+                            <div class="invalid-feedback d-block" style="width:max-content">{{ $message }}</div>
+                        @enderror
+                        
+
+                    </div>
+
                     <div id="mockup-mobile">
                         @include('profile.components.portfolio-mockup', [
                             'mockupType' => 'mobile',
@@ -72,7 +72,7 @@
             </div>
         </div>
         
-        <div class="d-flex justify-content-center" style="width: 40%;">
+        <div class="d-flex justify-content-center portofolio-right-col sticky-top">
             <div class="add-portfolio-card d-flex flex-column">
                 
                 <input type="hidden" name="mockupType" id="mockupTypeInput" value="mobile">
@@ -144,6 +144,55 @@
 
 <style>
 
+    .portofolio-left-col {
+        flex: 1;
+    }
+
+    .portofolio-right-col {
+        width: 400px;
+        flex-shrink: 0;
+        top: 217px;
+        z-index: 1029;
+    }
+
+    .mockup-3d-view {
+        display: flex;
+        justify-content: center;
+        position: relative;
+        width: 100%;
+    }
+
+    .mockup-view-add {
+        z-index: 5;
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
+  @media (max-width: 991.98px) {
+    .d-flex.flex-row.gap-4 {
+        flex-direction: column !important; 
+        gap: 30px !important; 
+    }
+
+    .portfolio-left-col,
+    .portfolio-right-col {
+        width: 100% !important; 
+        flex-grow: unset !important; /* Hapus flex-grow di mobile */
+        flex-shrink: unset !important; /* Hapus flex-shrink di mobile */
+    }
+    
+
+    .add-portfolio-card {
+        min-width: unset; 
+        width: 100%; /* Agar form mengisi lebar layar di mobile */
+    }
+    
+    .mockup-view-card {
+        flex-direction: column; 
+        gap: 20px;
+    }
+}
+
     .title{
         margin-block-end: 0
     }
@@ -161,7 +210,7 @@
         border-radius: 40px;
         background: var(--cream2-color);
         box-shadow: 0 4px 8px 0 var(--brown-shadow-color);
-        height: max-content;
+        width: 100%;
     }
 
     .portfolio-form-label{
@@ -216,14 +265,15 @@
     }
 
     .add-portfolio-card{
-        min-width: 393px;
-        height: max-content;
-        border-radius: 20px;
-        background: white;
-        box-shadow: 0 4px 8px 0 var(--brown-shadow-color);
-        padding: 25px;
-        gap: 22px;
-    }
+            width: 100%; /* Agar card mengisi lebar penuh dari parent (.portofolio-right-col) */
+            min-width: unset; /* Hapus min-width di sini agar tidak membatasi flex-grow parent */
+            height: max-content;
+            border-radius: 20px;
+            background: white;
+            box-shadow: 0 4px 8px 0 var(--brown-shadow-color);
+            padding: 25px;
+            gap: 22px;
+        }
 
     .device-btn{
         border-radius: 1000px;
@@ -262,7 +312,8 @@
     }
 
     .upload-plus-btn{
-        padding: 12px;
+        padding: 14px;
+        min-height: 0;
     }
 
     

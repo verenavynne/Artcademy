@@ -20,8 +20,8 @@
 </head>
 
 <body>
-  <div class="container-fluid ps-4 pe-4">
-    <header>
+  <div class="container-fluid p-0">
+    <header class="sticky-top" style="z-index: 2000;">
       @include('layouts.navbar-admin-tutor')
     </header>
 
@@ -45,6 +45,7 @@
       background-color: #FFF9EF;
       min-height: 100vh;
     }
+    
     #admin-sidebar {
       width: 250px;
       min-height: 100vh;
@@ -53,9 +54,11 @@
     #admin-wrapper {
         display: flex;
         align-items: flex-start;
-        height: calc(100vh - 146px);
+        height: auto;
         padding-bottom: 24px;
         padding-top: 12px;
+        padding-left: 34px;
+        padding-right: 34px;
         align-items: stretch; 
     }
 
@@ -183,7 +186,8 @@ box-shadow: 0 5.286px 10.571px 0 rgba(67, 39, 0, 0.20);
 /* === Table Section Container === */
 .table-section {
   display: flex;
-  height: calc(100% - 256px);
+  height: auto;
+  min-height: calc(100% - 256px);
   padding: 24px 25px;
   flex-direction: column;
   align-items: flex-start;
@@ -193,6 +197,7 @@ box-shadow: 0 5.286px 10.571px 0 rgba(67, 39, 0, 0.20);
   background: var(--white, #FFF);
   box-shadow: 0 4px 8px 0 rgba(67, 39, 0, 0.20);
   overflow-x: auto;
+  margin-bottom: 64px;
 }
 
 @media (max-width: 992px) {

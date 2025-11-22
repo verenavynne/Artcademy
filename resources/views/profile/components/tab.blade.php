@@ -10,7 +10,7 @@
         position: relative;
         width: 100%;
         background-color: #fff8f0;
-        border-bottom: 1px solid #f0e0d0;
+        border-bottom: 4px solid var(--cream2-color);
     }
 
     .tab-header {
@@ -24,11 +24,12 @@
         width: 50%;
         font-size: 16px;
         font-weight: 500;
-        color: #b8b8b8;
+        color: #D0C4AF;
         padding: 12px 0;
         cursor: pointer;
         transition: all 0.25s ease;
         position: relative;
+        font-size: 18px;
     }
 
     .tab-link.active {
@@ -37,13 +38,13 @@
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
         font-weight: 600;
+        font-size: 18px;
     }
 
     .tab-underline {
         position: absolute;
-        bottom: 0;
         left: 0;
-        height: 3px;
+        height: 4px;
         width: 100px;
         background: var(--pink-gradient-color);
         border-radius: 2px;

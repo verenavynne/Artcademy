@@ -2,17 +2,17 @@
 
 @section('content')
 
-<div class="container-fluid d-flex flex-column justify-content-center px-4" style="margin-bottom: 75px;">
+<div class="container-fluid d-flex flex-column justify-content-center px-5" style="margin-bottom: 75px;">
     <div class="navigation-prev d-flex flex-start pb-4">
         <a class="page-link" href="javascript:void(0);" onclick="window.history.back()">
             <img src="{{ asset('assets/icons/icon_pagination_before.svg') }}" alt="">
         </a>
     </div>
 
-    <div class="d-flex flex-row justify-content-between" style="width: 100%; ">
-        <div style="width: 20%">
+    <div class="d-flex flex-row justify-content-evenly" style="width: 100%; align-items: flex-start; align-self: stretch; gap: 48px;">
+        <!-- <div style="width: 20%"> -->
             @include('profile.components.sidebar-profile')
-        </div>
+        <!-- </div> -->
 
         <div class="d-flex flex-column" style="width: 75%; ">
             <p class="title text-start fw-bold">Lihat Riwayat Transaksimu!</p>
@@ -70,6 +70,8 @@
         background-clip: text;
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
+        font-size: var(--font-size-primary);
+        font-weight: 500;
     }
 
     

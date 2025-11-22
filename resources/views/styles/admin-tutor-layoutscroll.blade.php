@@ -2,8 +2,8 @@
   html, body {
     height: 100%;
     margin: 0;
-    overflow: hidden; /* biar scroll cuma di area card */
-  }
+    /*overflow: hidden;  biar scroll cuma di area card */
+    }
 
   .admin-tutor-card-wrapper {
     display: flex;

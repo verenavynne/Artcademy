@@ -2,24 +2,24 @@
 
 @section('content')
 
-<div class="container-fluid d-flex flex-column justify-content-center px-4" style="margin-bottom: 75px;">
-    <div class="navigation-prev d-flex flex-start pb-4">
+<div class="container-fluid d-flex flex-column justify-content-center px-5" style="margin-bottom: 75px;">
+    <div class="navigation-prev d-flex flex-start pb-4 sticky-top">
         <a class="page-link" href="javascript:void(0);" onclick="window.history.back()">
             <img src="{{ asset('assets/icons/icon_pagination_before.svg') }}" alt="">
         </a>
     </div>
 
-    <div class="d-flex flex-row justify-content-between" style="width: 100%; ">
-        <div style="width: 20%">
+    <div class="d-flex flex-row justify-content-evenly" style="width: 100%; align-items: flex-start; align-self: stretch; gap: 48px;">
+        <!-- <div style="width: 20%"> -->
             @include('profile.components.sidebar-profile')
-        </div>
+        <!-- </div> -->
 
         <div class="d-flex flex-column" style="width: 75%; gap: 32px">
             @include('profile.components.tab', ['firstTab' => 'dalam-proses', 'secondTab' => 'selesai', 'activeTab' => $activeTab])
             <div class="tab-content-container">
                 <div class="tab-content active" data-tab-content="dalam-proses">
                    <p class="title text-start fw-bold">Yuk, Lanjutkan Kursusmu!</p>
-                   <p>Masih banyak ilmu keren dan materi seru yang nunggu kamu di dalam!</p>
+                   <p style="font-size: 18px">Masih banyak ilmu keren dan materi seru yang nunggu kamu di dalam!</p>
 
                    <div class="courses-section pt-3">
                        @foreach ($ongoingCoursesEnrollment as $ongoingEnrollment )
@@ -40,7 +40,7 @@
                 </div>
                 <div class="tab-content" data-tab-content="selesai">
                     <p class="title text-start fw-bold">Yey, kamu berhasil menyelesaikan Kursus!</p>
-                    <p>Yuk, lihat hasil perolehan nilai projek akhirmu dan terus pertahankan semangat belajarmu</p>
+                    <p style="font-size: 18px">Yuk, lihat hasil perolehan nilai projek akhirmu dan terus pertahankan semangat belajarmu</p>
 
                     <div class="courses-section pt-3">
                         @foreach ($finishedCoursesEnrollment as $finishedEnrollment )
@@ -50,7 +50,7 @@
                     
                     @if($finishedCoursesEnrollment->isEmpty())
                         <div class="d-flex flex-column align-items-center gap-3">
-                            <p class="text-muted text-center">Belum ada kursus yang sudah selesai</p>
+                            <p class="text-muted text-center" style="font-size: 18px">Belum ada kursus yang sudah selesai</p>
                         </div>
                     @endif
     
@@ -63,6 +63,17 @@
 </div>
 
 <style>
+    .no-sticky {
+        position: static !important;
+    }
+
+    .navigation-prev {
+        position: sticky;
+        top: 94px;
+        z-index: 1020;
+        padding-left: 8px;
+    }
+
     .title{
         margin-block-end: 0
     }

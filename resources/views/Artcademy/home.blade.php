@@ -28,15 +28,17 @@
             </p>
             <div class="mt-4">
                 <a href="{{ route('login') }}">
-                    <button class="btn px-4 py-2 yellow-gradient-btn text-dark">
+                    <button class="yellow-gradient-btn">
                         Belajar Sekarang
                     </button>
                 </a>
             </div>
         </div>
 
-        <div class="col-md-5 d-flex justify-content-center pt-4" style="position: relative; z-index: 2">
-            <img src="{{ asset('assets/home/top.png') }}" alt="Top Illustration" class="img-fluid" style="max-width: 110%;">
+        <div class="pink-blur-blob"></div>
+
+        <div class="col-md-5 d-flex justify-content-center pt-4" style="position: relative; z-index: 3">
+            <img src="{{ asset('assets/home/top.png') }}" alt="Top Illustration" class="img-fluid" style="max-width: 110%; z-index: 2;">
         </div>
     </div>
 </div>
@@ -270,6 +272,23 @@
 </form>
 
 <style>
+    .pink-blur-blob{
+    width: 500px;
+    height: 500px;
+    flex-shrink: 0;
+    border-radius: 519px;
+    background: var(--pink-medium, #FF5D8B);
+    filter: blur(250px);
+    z-index: -1 ! important;
+    position: absolute;
+    right: 0%;
+    top: 100%;
+    transform: translateY(-50%);
+    }
+
+
+
+
     .search-icon {
         right: 30px;
         top: 50%;

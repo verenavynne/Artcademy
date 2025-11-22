@@ -1,4 +1,4 @@
- <nav class="navbar navbar-expand-lg bg-body-tertiary py-0 sticky-top">
+ <nav class="navbar navbar-expand-lg bg-body-tertiary py-0 sticky-top" id="mainNavbar" >
     <div class="container-fluid px-5 py-4" style="background-color:var(--cream-color);">
         <a href="">
             <img src="{{ asset('assets/logo.png') }}" alt="Logo" width="153px" height="38px">
@@ -33,10 +33,34 @@
 
                 <div class="d-flex flex-row align-items-center gap-2">
                     @if (Auth::check())
-                        <p class="fw-bold" style="font-size: 18px; color: black; margin: 0; white-space: nowrap;">Hi, {{ Auth::user()->name }}</p>
+                        <!-- <p class="fw-bold" style="font-size: 18px; color: black; margin: 0; white-space: nowrap;">Hi, {{ Auth::user()->name }}</p>
                         <a href="{{ route('my-profile') }}">
                             <img src="{{ asset('assets/default-profile.jpg') }}" class="rounded-circle" style="box-shadow: rgba(67, 39, 0, 0.2); object-fit: cover" alt="Profile Icon" width="43" height="43">
-                        </a>
+                        </a> -->
+                        <div class="dropdown">
+                            <a class="profil d-flex align-items-center text-decoration-none text-dark " href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <img src="{{ asset('assets/default-profile.jpg') }}" class="rounded-circle" style="box-shadow: rgba(67, 39, 0, 0.2); object-fit: cover" alt="Profile Icon" width="54" height="54">
+
+                                <div class="d-flex flex-column text-start">
+                                    <span class="fw-medium" style= "font-size: 18px">Farren</span>
+                                    <small class="text-muted" style="font-size: 14px;">Siswa</small>
+                                </div>
+                                <iconify-icon icon="mdi:chevron-down" class="dropdown-icon ms-2"></iconify-icon>
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-end" style="z-index: 9999;">
+                                <li><a class="dropdown-item" href="{{ route('my-profile') }}">Profil</a></li>
+                                <li>
+                                    <a href="#" class="dropdown-item text-danger"
+                                        onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                        Keluar
+                                    </a>
+
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                        @csrf
+                                    </form>
+                                </li>
+                            </ul>
+                        </div>
                     @elseif(!Auth::check())
                         <a href="{{ route('login') }}" class="btn navbar-button-login d-flex justify-content-center align-items-center"  role="button">Masuk</a>
                     @endif
@@ -46,7 +70,42 @@
     </div>
 </nav>
 
-<style>  
+<style>
+    .profil{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 12px;
+    }
+
+    .dropdown-icon {
+    align-self: flex-start; 
+    margin-top: 4px; 
+    color: #333;
+    transition: transform 0.3s ease;
+    }
+
+    .dropdown.show .dropdown-icon {
+    transform: rotate(180deg);
+    }
+
+    a[aria-expanded="true"] .dropdown-icon {
+    transform: rotate(180deg);
+    }
+
+    .dropdown-menu {
+        font-size: 18px;
+        border: none;
+        box-shadow: 0 6px 12px rgba(67, 39, 0, 0.2);
+        margin-top: 12px !important;
+        padding: 12px 12px;
+    }
+
+    .dropdown-item:hover{
+        background: var(--cream-color);
+        border-radius: 4px;
+    }
+
     @media (min-width: 992px) { 
         .wide-gap {
             gap: 60px; 

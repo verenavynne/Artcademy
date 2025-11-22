@@ -20,9 +20,9 @@
     <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
 </head>
 <body>
-
-    @include('layouts.navbar')
-
+    <header class="sticky-top" style="z-index: 1030;">
+        @include('layouts.navbar')
+    </header>
     <div class="content" style="min-height: 100vh">
         @yield('content')
 

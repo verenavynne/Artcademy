@@ -21,9 +21,9 @@
 
     <div class="d-flex flex-row justify-content-between" style="width: 100%;">
         @if ($user->role === 'student')
-            <div style="width: 20%">
+            <!-- <div style="width: 20%"> -->
                 @include('profile.components.sidebar-profile')
-            </div>
+            <!-- </div> -->
         @endif
 
         <div class="d-flex flex-column" style="width: {{ $user->role == 'student' ? '75%' : '100%' }}">

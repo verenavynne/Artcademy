@@ -39,6 +39,30 @@ class AdminCourseController extends Controller
         return view('admin.index', compact('courses'));
     }
 
+    public function home(Request $request)
+    {
+        $query = Course::query();
+
+        if ($request->courseStatus == 'publikasi') {
+            $query->where('courseStatus', 'publikasi');
+        } elseif ($request->courseStatus == 'draft') {
+            $query->where('courseStatus', 'draft');
+        } elseif ($request->courseStatus == 'arsip') {
+            $query->where('courseStatus', 'arsip');
+        }
+
+        if ($request->search) {
+            $query->where('courseName', 'like', '%' . $request->search . '%');
+        }
+
+        $perPage = $request->input('perPage', 5);
+
+        $courses = $query->orderBy('created_at', 'desc')
+                        ->paginate($perPage)
+                        ->appends($request->query());
+        return view('admin.home', compact('courses'));
+    }
+
     // Create New Course
     public function create()
     {

@@ -66,6 +66,7 @@
 
     .content-footer .icon{
         color:var(--brown-color);
+        font-size: 24px;
         
     }
 
