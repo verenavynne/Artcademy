@@ -33,7 +33,8 @@ class AdminCourseController extends Controller
 
         $perPage = $request->input('perPage', 5);
 
-        $courses = $query->orderBy('created_at', 'desc')
+        $courses = $query->withCount('courseEnrollments')
+                        ->orderBy('created_at', 'desc')
                         ->paginate($perPage)
                         ->appends($request->query());
         return view('admin.index', compact('courses'));

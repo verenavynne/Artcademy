@@ -73,100 +73,102 @@
     </div>
 
 
-    <div class="table-responsive shadow-sm rounded">
-        <table class="table align-middle table-hover">
-            <thead class="sticky-top">
-                <tr>
-                    <th class="text-center">No.</th>
-                    <th>Waktu Dibuat</th>
-                    <th>Nama Kursus</th>
-                    <th>Kategori</th>
-                    <th>Level Kursus</th>
-                    <th class="text-center">Jumlah Pendaftar</th>
-                    <th>Terakhir Diubah</th>
-                    <th>Status</th>
-                    <th>Aksi</th>
-                </tr>
-            </thead>
-            
-            <tbody>
-                @forelse ($courses as $index => $course)
-                    @php
-                        $backgroundCourseStatus = match($course->courseStatus) {
-                            'publikasi' => '#EAFFEC',    
-                            'draft' => '#E7F6FE',         
-                            'arsip' => '#FFEAF0'
-                        };
+    <div class="table-section">
+        <div class="table-data">
+            <table class="table table-borderless">
+                <thead class="sticky-top">
+                    <tr>
+                        <th class="text-center">No.</th>
+                        <th>Waktu Dibuat</th>
+                        <th>Nama Kursus</th>
+                        <th>Kategori</th>
+                        <th>Level Kursus</th>
+                        <th class="text-center">Jumlah Pendaftar</th>
+                        <th>Terakhir Diubah</th>
+                        <th>Status</th>
+                        <th>Aksi</th>
+                    </tr>
+                </thead>
+                
+                <tbody>
+                    @forelse ($courses as $index => $course)
+                        @php
+                            $backgroundCourseStatus = match($course->courseStatus) {
+                                'publikasi' => '#EAFFEC',    
+                                'draft' => '#E7F6FE',         
+                                'arsip' => '#FFEAF0'
+                            };
 
-                        $backgroundCourseStatusText = match($course->courseStatus) {
-                            'publikasi' => 'var(--green-gradient-color)',    
-                            'draft' => 'var(--blue-gradient-color)',         
-                            'arsip' => 'var(--pink-gradient-color)'
-                        };
-                    @endphp
-                    <tr>
-                        <td class="text-center">{{ $loop->iteration + ($courses->currentPage() - 1) * $courses->perPage() }}</td>
-                        <td>{{ $course->created_at->format('d M Y H:i') }}</td>
-                        <td class="text-truncate-ellipsis" title="{{ $course->courseName }}">{{ $course->courseName }}</td>
-                        <td class="text-truncate-ellipsis" title="{{ $course->courseType }}">{{ $course->courseType }}</td>
-                        <td>{{ ucfirst($course->courseLevel) }}</td>
-                        <td class="text-center">5</td>
-                        <td>{{ $course->updated_at->format('d M Y H:i') }}</td>
-                        <td>
-                            @if($course->courseStatus === 'publikasi')
-                                <div class="course-status-text-container" style="background: {{ $backgroundCourseStatus }}">
-                                    <p class="course-status-text" style="background: {{ $backgroundCourseStatusText }}; margin: 0; background-clip: text; font-weight: 700; font-size:var(--font-size-small)">Dipublikasikan</p>
-                                </div>
-                            @elseif($course->courseStatus === 'draft')
-                                <div class="course-status-text-container" style="background: {{ $backgroundCourseStatus }}">
-                                    <p class="course-status-text" style="background: {{ $backgroundCourseStatusText }}; margin: 0; background-clip: text; font-weight: 700; font-size:var(--font-size-small)">Draft</p>
-                                </div>
-                            @elseif($course->courseStatus === 'arsip')
-                                <div class="course-status-text-container" style="background: {{ $backgroundCourseStatus }}">
-                                    <p class="course-status-text" style="background: {{ $backgroundCourseStatusText }}; margin: 0; background-clip: text; font-weight: 700; font-size:var(--font-size-small)">Diarsipkan</p>
-                                </div>
-                            @endif
-                        </td>
-                        <td class="text-nowrap">
-                            @if($course->courseStatus !== 'draft')
-                            <a href="{{ route('course.detail', $course->id) }}" class="btn btn-sm p-0 me-2 border-0 bg-transparent">
-                                <iconify-icon icon="fa6-solid:eye" width="20" height="20"></iconify-icon>
-                            </a>
-                            @endif
-                            @if($course->courseStatus !== 'publikasi')
-                                <a href="{{ route('admin.courses.edit', $course->id) }}" class="btn btn-sm text-warning p-0 me-2 border-0 bg-transparent">
-                                    <iconify-icon icon="lets-icons:edit" width="20" height="20"></iconify-icon>
+                            $backgroundCourseStatusText = match($course->courseStatus) {
+                                'publikasi' => 'var(--green-gradient-color)',    
+                                'draft' => 'var(--blue-gradient-color)',         
+                                'arsip' => 'var(--pink-gradient-color)'
+                            };
+                        @endphp
+                        <tr>
+                            <td class="text-center">{{ $loop->iteration + ($courses->currentPage() - 1) * $courses->perPage() }}</td>
+                            <td>{{ $course->created_at->format('d M Y H:i') }}</td>
+                            <td class="text-truncate-ellipsis" title="{{ $course->courseName }}">{{ $course->courseName }}</td>
+                            <td class="text-truncate-ellipsis" title="{{ $course->courseType }}">{{ $course->courseType }}</td>
+                            <td>{{ ucfirst($course->courseLevel) }}</td>
+                            <td class="text-center">{{ $course->course_enrollments_count }}</td>
+                            <td>{{ $course->updated_at->format('d M Y H:i') }}</td>
+                            <td>
+                                @if($course->courseStatus === 'publikasi')
+                                    <div class="course-status-text-container" style="background: {{ $backgroundCourseStatus }}">
+                                        <p class="course-status-text" style="background: {{ $backgroundCourseStatusText }}; margin: 0; background-clip: text; font-weight: 700; font-size:var(--font-size-small)">Dipublikasikan</p>
+                                    </div>
+                                @elseif($course->courseStatus === 'draft')
+                                    <div class="course-status-text-container" style="background: {{ $backgroundCourseStatus }}">
+                                        <p class="course-status-text" style="background: {{ $backgroundCourseStatusText }}; margin: 0; background-clip: text; font-weight: 700; font-size:var(--font-size-small)">Draft</p>
+                                    </div>
+                                @elseif($course->courseStatus === 'arsip')
+                                    <div class="course-status-text-container" style="background: {{ $backgroundCourseStatus }}">
+                                        <p class="course-status-text" style="background: {{ $backgroundCourseStatusText }}; margin: 0; background-clip: text; font-weight: 700; font-size:var(--font-size-small)">Diarsipkan</p>
+                                    </div>
+                                @endif
+                            </td>
+                            <td class="text-nowrap">
+                                @if($course->courseStatus !== 'draft')
+                                <a href="{{ route('course.detail', $course->id) }}" class="btn btn-sm p-0 me-2 border-0 bg-transparent">
+                                    <iconify-icon icon="fa6-solid:eye" width="20" height="20"></iconify-icon>
                                 </a>
-                            @endif
-                            @if($course->courseStatus === 'publikasi')
-                                <form action="{{ route('admin.courses.archive', $course->id) }}" method="POST" class="d-inline">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button class="btn btn-sm p-0 border-0 bg-transparent" 
-                                            onclick="return confirm('Yakin ingin arsipkan kursus ini?')">
-                                        <iconify-icon icon="material-symbols:archive-rounded" width="20" height="20" style="color: var(--pink-medium-color)"></iconify-icon>
-                                    </button>
-                                </form>
-                            @endif
-                            @if($course->courseStatus !== 'publikasi')
-                                <form action="{{ route('admin.courses.destroy', $course->id) }}" method="POST" class="d-inline">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button class="btn btn-sm text-danger p-0 border-0 bg-transparent" 
-                                            onclick="return confirm('Yakin ingin hapus kursus ini?')">
-                                        <iconify-icon icon="fluent:delete-12-filled" width="20" height="20"></iconify-icon>
-                                    </button>
-                                </form>
-                            @endif
-                        </td>
-                    </tr>
-                @empty
-                    <tr>
-                        <td colspan="9" class="text-center text-muted py-4">Tidak ada data kursus.</td>
-                    </tr>
-                @endforelse
-            </tbody>
-        </table>
+                                @endif
+                                @if($course->courseStatus !== 'publikasi')
+                                    <a href="{{ route('admin.courses.edit', $course->id) }}" class="btn btn-sm text-warning p-0 me-2 border-0 bg-transparent">
+                                        <iconify-icon icon="lets-icons:edit" width="20" height="20"></iconify-icon>
+                                    </a>
+                                @endif
+                                @if($course->courseStatus === 'publikasi')
+                                    <form action="{{ route('admin.courses.archive', $course->id) }}" method="POST" class="d-inline">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button class="btn btn-sm p-0 border-0 bg-transparent" 
+                                                onclick="return confirm('Yakin ingin arsipkan kursus ini?')">
+                                            <iconify-icon icon="material-symbols:archive-rounded" width="20" height="20" style="color: var(--pink-medium-color)"></iconify-icon>
+                                        </button>
+                                    </form>
+                                @endif
+                                @if($course->courseStatus !== 'publikasi')
+                                    <form action="{{ route('admin.courses.destroy', $course->id) }}" method="POST" class="d-inline">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button class="btn btn-sm text-danger p-0 border-0 bg-transparent" 
+                                                onclick="return confirm('Yakin ingin hapus kursus ini?')">
+                                            <iconify-icon icon="fluent:delete-12-filled" width="20" height="20"></iconify-icon>
+                                        </button>
+                                    </form>
+                                @endif
+                            </td>
+                        </tr>
+                    @empty
+                        <tr>
+                            <td colspan="9" class="text-center text-muted py-4">Tidak ada data kursus.</td>
+                        </tr>
+                    @endforelse
+                </tbody>
+            </table>
+        </div>
     </div>
 
     <div class="d-flex justify-content-between align-items-center mt-4">

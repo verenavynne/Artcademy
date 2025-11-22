@@ -68,58 +68,60 @@
     </div>
 
 
-    <div class="table-responsive shadow-sm rounded">
-        <table class="table align-middle table-hover">
-            <thead class="sticky-top">
-                <tr>
-                    <th class="text-center">No.</th>
-                    <th>Waktu Terdaftar</th>
-                    <th>ID Pengguna</th>
-                    <th>Nama Pengguna</th>
-                    <th>Role</th>
-                    <th>Status</th>
-                    <th>Aksi</th>
-                </tr>
-            </thead>
-            
-            <tbody>
-                @forelse ($users as $index => $user)
-                   
+    <div class="table-section">
+        <div class="table-data">
+            <table class="table table-borderless">
+                <thead class="sticky-top">
                     <tr>
-                        <td class="text-center">{{ $loop->iteration + ($users->currentPage() - 1) * $users->perPage() }}</td>
-                        <td>{{ $user->created_at->format('d M Y H:i') }}</td>
-                        <td class="text-truncate-ellipsis" title="{{ $user->id }}">{{ $user->id }}</td>
-                        <td class="text-truncate-ellipsis" title="{{ $user->name }}">{{ $user->name }}</td>
-                        <td>{{ ucfirst($user->role) }}</td>
-                        <td>
-                            @php
-                            if($user->userStatus === 'active'){
-                                $displayStatus = 'Aktif';
-                                $bgColor = '#EAFFEC';
-                                $textColor = 'var(--green-gradient-color)';
-                            } elseif($user->userStatus === 'inactive'){
-                                $displayStatus = 'Non Aktif';
-                                $bgColor = '#EDEDED';
-                                $textColor = 'var(--grey-gradient-color)';
-                            }
-                        @endphp        
-                            <div class="course-status-text-container" style="background: {{ $bgColor }}">
-                                <p class="course-status-text px-2 py-1" style="background: {{ $textColor }}; margin:0; background-clip: text; font-weight:700; font-size:var(--font-size-small)">{{ $displayStatus }}</p>
-                            </div>
-                        </td>
-                        <td class="text-nowrap">
-                            <a href="{{ route('admin.user.detail', ['userId' => $user->id]) }}" class="btn">
-                                <iconify-icon icon="fa6-solid:eye" width="20" height="20"></iconify-icon>
-                            </a>
-                        </td>
+                        <th class="text-center">No.</th>
+                        <th>Waktu Terdaftar</th>
+                        <th>ID Pengguna</th>
+                        <th>Nama Pengguna</th>
+                        <th>Role</th>
+                        <th>Status</th>
+                        <th>Aksi</th>
                     </tr>
-                @empty
-                    <tr>
-                        <td colspan="9" class="text-center text-muted py-4">Tidak ada data kursus.</td>
-                    </tr>
-                @endforelse
-            </tbody>
-        </table>
+                </thead>
+                
+                <tbody>
+                    @forelse ($users as $index => $user)
+                    
+                        <tr>
+                            <td class="text-center">{{ $loop->iteration + ($users->currentPage() - 1) * $users->perPage() }}</td>
+                            <td>{{ $user->created_at->format('d M Y H:i') }}</td>
+                            <td class="text-truncate-ellipsis" title="{{ $user->id }}">{{ $user->id }}</td>
+                            <td class="text-truncate-ellipsis" title="{{ $user->name }}">{{ $user->name }}</td>
+                            <td>{{ ucfirst($user->role) }}</td>
+                            <td>
+                                @php
+                                if($user->userStatus === 'active'){
+                                    $displayStatus = 'Aktif';
+                                    $bgColor = '#EAFFEC';
+                                    $textColor = 'var(--green-gradient-color)';
+                                } elseif($user->userStatus === 'inactive'){
+                                    $displayStatus = 'Non Aktif';
+                                    $bgColor = '#EDEDED';
+                                    $textColor = 'var(--grey-gradient-color)';
+                                }
+                            @endphp        
+                                <div class="course-status-text-container" style="background: {{ $bgColor }}">
+                                    <p class="course-status-text px-2 py-1" style="background: {{ $textColor }}; margin:0; background-clip: text; font-weight:700; font-size:var(--font-size-small)">{{ $displayStatus }}</p>
+                                </div>
+                            </td>
+                            <td class="text-nowrap">
+                                <a href="{{ route('admin.user.detail', ['userId' => $user->id]) }}" class="btn">
+                                    <iconify-icon icon="fa6-solid:eye" width="20" height="20"></iconify-icon>
+                                </a>
+                            </td>
+                        </tr>
+                    @empty
+                        <tr>
+                            <td colspan="9" class="text-center text-muted py-4">Tidak ada data kursus.</td>
+                        </tr>
+                    @endforelse
+                </tbody>
+            </table>
+        </div>
     </div>
 
     <div class="d-flex justify-content-between align-items-center mt-4">

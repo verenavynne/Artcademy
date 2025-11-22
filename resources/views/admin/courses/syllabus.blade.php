@@ -92,8 +92,6 @@
 </style>
 
 <script>
-    let weekIndex = 0;
-
     const availableTutors = @json($tutors);
 
     // Template minggu
@@ -121,8 +119,9 @@
         }
 
         const container = document.getElementById('weekAccordion');
-        container.insertAdjacentHTML('beforeend', createWeekElement(weekIndex));
-        weekIndex++;
+        const newIndex = document.querySelectorAll('.week-group').length;
+
+        container.insertAdjacentHTML('beforeend', createWeekElement(newIndex));
     };
 
     document.addEventListener('click', e => {
