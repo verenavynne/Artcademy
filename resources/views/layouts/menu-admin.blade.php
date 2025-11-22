@@ -91,7 +91,8 @@
 
 <style>
 .sidebar-admin {
-  position: relative;
+  position: sticky;
+  top: 94px;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;

@@ -5,9 +5,9 @@
     <div class="alert alert-success">{{ session('success') }}</div>
 @endif
 
-<div class="container-fluid d-flex flex-column justify-content-center px-4" style="margin-bottom: 75px;">
+<div class="container-fluid d-flex flex-column justify-content-center px-5" style="margin-bottom: 75px;">
 
-    <div class="navigation-prev d-flex flex-start pb-4">
+    <div class="navigation-prev d-flex flex-start pb-4 sticky-top">
         <a class="page-link" href="javascript:void(0);" onclick="window.history.back()">
             <img src="{{ asset('assets/icons/icon_pagination_before.svg') }}" alt="">
         </a>
@@ -15,14 +15,14 @@
 
     <div class="d-flex flex-row justify-content-between" style="width: 100%; ">
         @if($user->role === 'student')
-            <div style="width: 20%">
+            <!-- <div style="width: 20%"> -->
                 @include('profile.components.sidebar-profile')
-            </div>
+            <!-- </div> -->
         @endif
 
         <div class="d-flex flex-column" style="width: {{ $user->role == 'student' ? '75%' : '100%' }}; gap: 32px">
             <div class="profile-banner-card d-flex flex-row justify-content-between">
-                <div class="profile-banner-info justify-content-center align-items-center d-flex flex-row gap-5">
+                <div class="profile-banner-info justify-content-center align-items-center d-flex flex-row gap-4">
                     <div class="profile-image">
                         <img src="{{ $user->profilePicture ? asset('storage/' . $user->profilePicture) : asset('assets/default-profile.jpg') }}"
                         class="profile-picture rounded-circle object-fit"
@@ -114,8 +114,8 @@
                       
                     </div>
                     @if($portfolios->isEmpty())
-                        <div class="d-flex flex-column align-items-center gap-3" >
-                            <p class="text-muted text-center">Belum ada portofolio</p>
+                        <div class="d-flex flex-column align-items-center gap-3">
+                            <p class="text-muted text-center" style="font-size: 18px">Belum ada portofolio</p>
                         </div>
                     @endif
 
@@ -173,6 +173,17 @@
 </div>
 
 <style>
+    .no-sticky {
+        position: static !important;
+    }
+
+    .navigation-prev {
+        position: sticky;
+        top: 94px;
+        z-index: 1020;
+        padding-left: 8px;
+    }
+
     .portfolio-card .dropdown button {
         color: var(--black-color);
         border: none;
@@ -195,12 +206,8 @@
 
     }
 
-    .btn-close {
-        z-index: 2100;
-        position: absolute;
-        top: 20px;
-        right: 20px;
-    }
+
+
     .profile-banner-card{
         height: max-content;
         width: 100%;
@@ -303,8 +310,8 @@
     .portfolio-card{
         padding-inline: 30px;
         padding-block: 40px;
-        border-radius: 30px;
-        width: 350px;
+        border-radius: 32px;
+        width: 100%;
         height: 300px;
         cursor: pointer;
     }
@@ -321,7 +328,17 @@
         justify-content: center;
         align-items:center;
         padding: 10px 20px;
+        width: 238px;
+        height: 56px;
+        
+    }
 
+    .add-post-textarea{
+        resize: none !important;
+    }
+
+    .add-post-textarea{
+        background: white;
     }
 
     .add-post-textarea{
@@ -336,6 +353,24 @@
 
 <script>
 document.addEventListener("DOMContentLoaded", function() {
+    // Hilangin sticky selama modal dibuka
+    const stickyElements = [
+        document.querySelector(".navigation-prev"),
+        document.querySelector(".sidebar-profile"),
+        document.querySelector(".sticky-top"),
+    ];
+    console.log("sticky elements: ", stickyElements);
+
+    document.querySelectorAll(".modal").forEach(modal => {
+        modal.addEventListener("shown.bs.modal", () => {
+            stickyElements.forEach(el => el && el.classList.add("no-sticky"));
+        });
+
+        modal.addEventListener("hidden.bs.modal", () => {
+            stickyElements.forEach(el => el && el.classList.remove("no-sticky"));
+        });
+    });
+
     // Change content based on clicked tab
     const activeTab = "{{ $activeTab }}"; 
 

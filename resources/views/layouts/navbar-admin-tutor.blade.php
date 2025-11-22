@@ -50,7 +50,7 @@
 
 <style>
 .navbar-admin {
-    background-color: transparent;
+    background-color: var(--cream-color);
     border-bottom: 1px solid rgba(0, 0, 0, 0.05);
     padding-top: 12px;
     padding-bottom: 12px;

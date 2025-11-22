@@ -59,6 +59,13 @@
 
 
 <div class="table-section">
+  <div class="title-section">
+    <iconify-icon icon="majesticons:book-plus" class="total-icon"></iconify-icon>
+    <h6>Manajemen Kursus</h6>
+  </div>
+
+  <hr class="title-divider">
+
   <div class="table-data">
 
     <table class="table table-borderless">

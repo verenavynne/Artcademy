@@ -104,7 +104,8 @@
 
 <style>
 .sidebar-tutor {
-  position: relative;
+  position: sticky;
+  top: 102px;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;

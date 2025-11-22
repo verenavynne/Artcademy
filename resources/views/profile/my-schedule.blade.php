@@ -2,17 +2,17 @@
 
 @section('content')
 
-<div class="container-fluid d-flex flex-column justify-content-center px-4" style="margin-bottom: 75px;">
+<div class="container-fluid d-flex flex-column justify-content-center px-5" style="margin-bottom: 75px;">
     <div class="navigation-prev d-flex flex-start pb-4">
         <a class="page-link" href="javascript:void(0);" onclick="window.history.back()">
             <img src="{{ asset('assets/icons/icon_pagination_before.svg') }}" alt="">
         </a>
     </div>
 
-    <div class="d-flex flex-row justify-content-between" style="width: 100%; ">
-        <div style="width: 20%">
+    <div class="d-flex flex-row justify-content-evenly" style="width: 100%; align-items: flex-start; align-self: stretch; gap: 48px;">
+        <!-- <div style="width: 20%"> -->
             @include('profile.components.sidebar-profile')
-        </div>
+        <!-- </div> -->
 
         <div class="d-flex flex-column" style="width: 75%; gap: 32px">
             @include('profile.components.tab', ['firstTab' => 'kelas-zoom', 'secondTab' => 'event', 'activeTab' => $activeTab])
@@ -20,7 +20,7 @@
             <div class="tab-content-container">
                 <div class="tab-content active" data-tab-content="kelas-zoom">
                    <p class="title text-start fw-bold">Ikuti Kelas Zoom Sekarang!</p>
-                   <p>Interaktif, seru, dan penuh insight. Jangan sampai ketinggalan momennya!</p>
+                   <p style="font-size: 18px">Interaktif, seru, dan penuh insight. Jangan sampai ketinggalan momennya!</p>
 
                     <div class="zooms-section pt-3">
                         @foreach($zooms as $zoom)
@@ -33,7 +33,7 @@
                 </div>
                 <div class="tab-content" data-tab-content="event">
                     <p class="title text-start fw-bold">Ikuti Event Seru Artcademy!</p>
-                    <p>Event seru siap bikin kamu makin jago dan makin terinspirasi. Yuk join sekarang!</p>
+                    <p style="font-size: 18px">Event seru siap bikin kamu makin jago dan makin terinspirasi. Yuk join sekarang!</p>
 
                     <div class="events-section pt-3">
                        

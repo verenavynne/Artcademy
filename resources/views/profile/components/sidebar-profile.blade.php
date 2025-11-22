@@ -67,9 +67,13 @@
 
 <style>
     .sidebar-profile {
+        position: sticky;
+        top: 164px;
+        z-index: 1020;
         display: flex;
         flex-direction: column;
         justify-content: flex-start;
+        width: 300px;
         height: max-content;
         padding: 25px;
         background: var(--white, #FFF);
@@ -90,6 +94,12 @@
     }
 
     /* Isi Sidebar */
+    .nav-item a{
+        font-size: 18px ! important;
+        color: var(--dark-gray-color);
+    }
+
+
     .sidebar-content {
         transition: opacity 0.3s ease 0.3s;
     }
@@ -102,7 +112,6 @@
         transition: background-color 0.25s ease, gap 0.3s ease, transform 0.3s ease;
     }
 
-    /* navbar admin */
     .nav-link-profile {
         color: var(--Dark-gray, #474747);
         font-size: 18px;

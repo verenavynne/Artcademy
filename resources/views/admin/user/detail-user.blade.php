@@ -5,7 +5,7 @@
 
     <!-- Header -->
     <div class="page-header align-items-center d-flex gap-3 mb-3">
-        <div class="navigation-prev">
+        <div class="">
             <a class="page-link" href="javascript:void(0);" onclick="window.history.back()">
                 <img src="{{ asset('assets/icons/icon_pagination_before.svg') }}" alt="">
             </a>

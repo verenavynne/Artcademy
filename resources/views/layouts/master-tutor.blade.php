@@ -23,10 +23,10 @@
 </head>
 
 <body>
-    <div class="container-fluid ps-4 pe-4">
-      <header>
-        @include('layouts.navbar-admin-tutor')
-      </header>
+  <div class="container-fluid p-0">
+    <header class="sticky-top" style="z-index: 2000;">
+      @include('layouts.navbar-admin-tutor')
+    </header>
 
       <!-- Wrapper utama berisi sidebar dan konten -->
       <div class="d-flex" id="tutor-wrapper">
@@ -63,9 +63,11 @@
     #tutor-wrapper {
         display: flex;
         align-items: flex-start;
-        height: calc(100vh - 146px);
+        height: auto;
         padding-bottom: 24px;
         padding-top: 12px;
+        padding-left: 34px;
+        padding-right: 34px;
     }
 
     .row {
@@ -250,6 +252,7 @@
 
   /* Biar seukuran tinggi sidebar */
   height: auto; /* bisa sesuaikan 100px tergantung header atas */
+  margin-bottom: 64px;
 }
 
 .nilai-projek-title{

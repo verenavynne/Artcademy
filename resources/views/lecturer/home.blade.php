@@ -114,8 +114,7 @@
 
 /* Tiap card */
 .admin-tutor-card-wrapper > * {
-  flex: 1 1 calc(20% - 16px);
-  min-width: 220px;
+  min-width: 230px;
 }
 
 /* Responsif */
