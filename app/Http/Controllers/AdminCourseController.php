@@ -33,7 +33,8 @@ class AdminCourseController extends Controller
 
         $perPage = $request->input('perPage', 5);
 
-        $courses = $query->orderBy('created_at', 'desc')
+        $courses = $query->withCount('courseEnrollments')
+                        ->orderBy('created_at', 'desc')
                         ->paginate($perPage)
                         ->appends($request->query());
         return view('admin.index', compact('courses'));
@@ -178,9 +179,14 @@ class AdminCourseController extends Controller
         $totalDuration = 0;
 
         foreach ($validated['weeks'] as $weekData) {
+
+            $courseLecturer = $course->courseLecturers()
+                ->where('lecturerId', $weekData['tutorId'])
+                ->first();
+            
             $week = $course->weeks()->create([
                 'weekName' => $weekData['weekName'],
-                'tutorId' => $weekData['tutorId'],
+                'tutorId' => $courseLecturer->id,
             ]);
 
             if (!empty($weekData['materials'])) {
@@ -371,15 +377,15 @@ class AdminCourseController extends Controller
             'coursePaymentType' => $validated['coursePaymentType'],
         ]);
 
-        $course->courseLecturers()->delete();
+        $existing = $course->courseLecturers()->get();
+        $newLecturers = $validated['lecturers'];
 
-        foreach($validated['lecturers'] as $lecturerId){
-            CourseLecturer::create([
-                'courseId' => $course->id,
-                'lecturerId' => $lecturerId
+        foreach ($existing as $index => $lecturer) {
+            $lecturer->update([
+                'lecturerId' => $newLecturers[$index]
             ]);
         }
-        
+
         if ($redirect) {
             return redirect()->route('admin.courses.index');
         }
@@ -391,13 +397,25 @@ class AdminCourseController extends Controller
     {
         $temp_update_course = session('temp_update_course');
 
-        $weeks = CourseWeek::with(['materials.materiTools.tool'])
+        $weeks = CourseWeek::with(['materials.materiTools.tool', 'tutor.lecturer.user'])
             ->where('courseId', $courseId)
             ->get();
 
         $tutors = Lecturer::whereIn('id', $temp_update_course['lecturers'])->with('user')->get();
 
         $tools = Tool::all();
+
+        $sessionTutorIds = $temp_update_course['lecturers'] ?? [];
+
+        $tutors = Lecturer::whereIn('id', $sessionTutorIds)->with('user')->get();
+
+        foreach ($weeks as $week) {
+            $lecturerId = optional($week->tutor)->lecturerId;
+
+            $week->selectedLecturerId = $lecturerId && in_array($lecturerId, $sessionTutorIds)
+                ? $lecturerId
+                : null;
+        }
 
         return view('admin.courses.syllabus-edit', [
             'course' => Course::findOrFail($courseId),
@@ -421,12 +439,12 @@ class AdminCourseController extends Controller
             'coursePaymentType' => $temp_update_course['coursePaymentType'],
         ]);
 
-        $course->courseLecturers()->delete();
+        $existing = $course->courseLecturers()->get();
+        $newLecturers = $temp_update_course['lecturers'];
 
-        foreach($temp_update_course['lecturers'] as $lecturerId){
-            CourseLecturer::create([
-                'courseId' => $course->id,
-                'lecturerId' => $lecturerId
+        foreach ($existing as $index => $lecturer) {
+            $lecturer->update([
+                'lecturerId' => $newLecturers[$index]
             ]);
         }
 
@@ -453,9 +471,13 @@ class AdminCourseController extends Controller
         $totalDuration = 0;
 
         foreach ($validated['weeks'] as $weekData) {
+            $courseLecturer = $course->courseLecturers()
+                ->where('lecturerId', $weekData['tutorId'])
+                ->first();
+
             $week = $course->weeks()->create([
                 'weekName' => $weekData['weekName'],
-                'tutorId' => $weekData['tutorId'],
+                'tutorId' => $courseLecturer->id,
             ]);
 
             if (!empty($weekData['materials'])) {
@@ -487,9 +509,9 @@ class AdminCourseController extends Controller
             'courseDurationInMinutes' => $totalDuration
         ]);
 
-        // if ($redirect) {
+        if ($redirect) {
             return redirect()->route('admin.courses.index');
-        // }
+        }
 
         return $course;
     }
@@ -555,11 +577,7 @@ class AdminCourseController extends Controller
     {
         $request_syllabus = new Request(session('temp_update_syllabus'));
         $course = $this->updateDraftSyllabus($request_syllabus, $courseId, false);
-
-        if ($request->action === 'publish') {
-            $course->update(['courseStatus' => 'publikasi']);
-            return redirect()->route('admin.courses.index')->with('success', 'Course berhasil dipublikasikan.');
-        }
+        $project = $course->project;
 
         $validated = $request->validate([
             'projectName' => 'required|string|max:255',
@@ -577,48 +595,52 @@ class AdminCourseController extends Controller
             return back()->withErrors(['criteria' => 'Total persentase kriteria harus 100%.'])->withInput();
         }
 
-        $project = $course->project()->updateOrCreate(
-            ['courseId' => $course->id],
-            [
+        if ($project) {
+            $project->update([
                 'projectName' => $validated['projectName'],
                 'projectConcept' => $validated['projectConcept'],
                 'projectRequirement' => $validated['projectRequirement']
-            ]
-        );
+            ]);
+        }
 
-        foreach ($validated['projectTools'] as $toolId) {
+        // Dapatkan tools lama dari DB
+        $existingTools = $project->projectTools->pluck('toolId')->toArray();
+        $newTools = $validated['projectTools'];
+
+        // Tambahkan tools baru
+        foreach (array_diff($newTools, $existingTools) as $toolId) {
             ProjectTool::create([
                 'projectId' => $project->id,
                 'toolId' => $toolId,
             ]);
         }
 
+        // Hapus tools yang sudah tidak dipilih lagi
+        ProjectTool::where('projectId', $project->id)
+            ->whereIn('toolId', array_diff($existingTools, $newTools))
+            ->delete();
+
+
         $criteriaList = GradeCriteria::whereIn('criteriaName', [
-            'Kreativitas',
-            'Keterbacaan',
-            'Kesesuaian Tema'
+            'Kreativitas', 'Keterbacaan', 'Kesesuaian Tema'
         ])->get()->keyBy('criteriaName');
 
-        ProjectCriteria::create([
-            'projectId' => $project->id,
-            'criteriaId' => $criteriaList['Kreativitas']->id ?? null,
-            'customWeight' => $validated['criteriaCreativity'],
-        ]);
+        ProjectCriteria::where('projectId', $project->id)
+            ->where('criteriaId', $criteriaList['Kreativitas']->id)
+            ->update(['customWeight' => $validated['criteriaCreativity']]);
 
-        ProjectCriteria::create([
-            'projectId' => $project->id,
-            'criteriaId' => $criteriaList['Keterbacaan']->id ?? null,
-            'customWeight' => $validated['criteriaReadability'],
-        ]);
+        ProjectCriteria::where('projectId', $project->id)
+            ->where('criteriaId', $criteriaList['Keterbacaan']->id)
+            ->update(['customWeight' => $validated['criteriaReadability']]);
 
-        ProjectCriteria::create([
-            'projectId' => $project->id,
-            'criteriaId' => $criteriaList['Kesesuaian Tema']->id ?? null,
-            'customWeight' => $validated['criteriaTheme'],
-        ]);
+        ProjectCriteria::where('projectId', $project->id)
+            ->where('criteriaId', $criteriaList['Kesesuaian Tema']->id)
+            ->update(['customWeight' => $validated['criteriaTheme']]);
 
         if ($request->action === 'publish') {
             $course->update(['courseStatus' => 'publikasi']);
+        } else if ($request->action === 'draft') {
+            $course->update(['courseStatus' => 'draft']);
         }
 
         return redirect()->route('admin.courses.index')
