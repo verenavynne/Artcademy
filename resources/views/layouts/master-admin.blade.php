@@ -10,6 +10,10 @@
   @include('styles.table-admin')
   @include('styles.admin-tutor-layoutscroll')
   @include('styles.form-style')
+  @include('styles.course-card')
+  @include('styles.tutor-card')
+  @include('styles.zoom-card')
+  @include('styles.testimoni-card')
 
   <link rel="icon" type="image/png" href="{{ asset('assets/artcademy-icon.png') }}">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -147,7 +151,7 @@ box-shadow: 0 5.286px 10.571px 0 rgba(67, 39, 0, 0.20);
 }
 
 
-.card{
+.dashboard-card{
   display: flex;
   width: auto;
   height: auto;
@@ -197,7 +201,6 @@ box-shadow: 0 5.286px 10.571px 0 rgba(67, 39, 0, 0.20);
   background: var(--white, #FFF);
   box-shadow: 0 4px 8px 0 rgba(67, 39, 0, 0.20);
   overflow-x: auto;
-  margin-bottom: 64px;
 }
 
 @media (max-width: 992px) {

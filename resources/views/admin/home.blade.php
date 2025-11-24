@@ -26,7 +26,7 @@
   <div class="row mb-4">
 
     <div class="total-pengguna col">
-      <div class="card border-0 text-center">
+      <div class="dashboard-card border-0 text-center">
         <div class="icon-text">
         <iconify-icon icon="fluent:person-12-filled" class="total-icon"></iconify-icon>
         <h6 style="font-size: 18px; color: var(--Black, #1B1B1B); font-weight: 400;">Total Pengguna</h6>
@@ -36,7 +36,7 @@
     </div>
 
     <div class="total-kursus col">
-      <div class="card border-0 text-center">
+      <div class="dashboard-card border-0 text-center">
         <div class="icon-text">
         <iconify-icon icon="mingcute:book-2-fill" class="total-icon"></iconify-icon>
         <h6 style="font-size: 18px; color: var(--Black, #1B1B1B); font-weight: 400;">Total Kursus</h6>
@@ -46,7 +46,7 @@
     </div>
 
     <div class="total-event col">
-      <div class="card border-0 text-center">
+      <div class="dashboard-card border-0 text-center">
         <div class="icon-text">
         <iconify-icon icon="bxs:calendar" class="total-icon"></iconify-icon>
         <h6 style="font-size: 18px; color: var(--Black, #1B1B1B); font-weight: 400;">Total Event</h6>

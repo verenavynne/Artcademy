@@ -320,6 +320,7 @@
         display: flex;
         flex-direction: column;
         height: 100%;
+        margin-bottom: 50px;
     }
     .page-header {
         flex-shrink: 0;

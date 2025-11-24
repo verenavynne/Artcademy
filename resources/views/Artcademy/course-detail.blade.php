@@ -1,4 +1,4 @@
-@extends('layouts.master')
+@extends($layout)
 
 @section('content')
 
@@ -45,7 +45,7 @@
     ];
 @endphp
 
-<div class="container-fluid d-flex flex-column justify-content-center px-5" style="margin-bottom: 75px;">
+<div class="container-fluid d-flex flex-column justify-content-center px-5 {{ Auth::user()->role === 'student' ? '' : 'w-75' }}" style="margin-bottom: 75px;">
 
     <div class="navigation-prev d-flex flex-start pb-4">
         <a class="page-link" href="javascript:void(0);" onclick="window.history.back()">
@@ -55,8 +55,8 @@
 
     <div class="d-flex flex-row justify-content-center gap-5">
         <!-- Sisi Kiri -->
-        <div class="d-flex flex-column" style="width: 60%;">
-            <div class="course-card-detail card d-flex flex-row" style="background: {{ $backgroundColor }}">
+        <div class="d-flex flex-column" style="width: {{ Auth::user()->role === 'student' ? '60%' : '100%' }};">
+            <div class="course-card-detail card d-flex flex-row justify-content-between" style="background: {{ $backgroundColor }}">
                 <div class="course-card-detail-content d-flex flex-column justify-content-center" style="gap: 12px; padding-inline-end: 26px">
                     <p style="margin:0; font-size: var(--font-size-big); font-weight: 700">{{ $course->courseName }}</p>
                     <div class="d-flex flex-row gap-5">
@@ -277,33 +277,35 @@
             
         </div>
 
-        <!-- Sisi Kanan -->
-        <div class="d-flex justify-content-center" style="width: 40%;">
-            @if (Auth::check())
-                @if($isEnrolled)
-                    @if($isSubmitted)
-                        @include('components.course-project-progress-card',['isSubmitted' => $isSubmitted, 'isDisabled' => $isDisabled,'submission' => $submission])
-                    @else
-                        @if ($latestUnlockedWeek)
-                            @include('components.course-week-start-progress-card', [
-                                'week' => $latestUnlockedWeek,
-                                'index' => $loop->index ?? 0,
-                                'weekProgress' => $weekProgress,
-                                'materiProgress' => $materiProgress,
-                                'allWeeksCompleted' => $allWeeksCompleted,
-                                'course' => $course
-                            ])
+        @if(Auth::user()->role === 'student')
+            <!-- Sisi Kanan -->
+            <div class="d-flex justify-content-center" style="width: 40%;">
+                @if (Auth::check())
+                    @if($isEnrolled)
+                        @if($isSubmitted)
+                            @include('components.course-project-progress-card',['isSubmitted' => $isSubmitted, 'isDisabled' => $isDisabled,'submission' => $submission])
+                        @else
+                            @if ($latestUnlockedWeek)
+                                @include('components.course-week-start-progress-card', [
+                                    'week' => $latestUnlockedWeek,
+                                    'index' => $loop->index ?? 0,
+                                    'weekProgress' => $weekProgress,
+                                    'materiProgress' => $materiProgress,
+                                    'allWeeksCompleted' => $allWeeksCompleted,
+                                    'course' => $course
+                                ])
+                            @endif
                         @endif
+                        
+                    @else
+                        @include('components.course-benefit-card')
                     @endif
-                    
                 @else
                     @include('components.course-benefit-card')
                 @endif
-            @else
-                @include('components.course-benefit-card')
-            @endif
 
-        </div>
+            </div>
+        @endif
 
     </div>
 

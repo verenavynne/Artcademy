@@ -39,10 +39,18 @@
                         </a> -->
                         <div class="dropdown">
                             <a class="profil d-flex align-items-center text-decoration-none text-dark " href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                <img src="{{ asset('assets/default-profile.jpg') }}" class="rounded-circle" style="box-shadow: rgba(67, 39, 0, 0.2); object-fit: cover" alt="Profile Icon" width="54" height="54">
+                                 <img 
+                                    src="{{ Str::startsWith(Auth::user()->profilePicture, ['http://', 'https://']) 
+                                        ? Auth::user()->profilePicture 
+                                        : (Auth::user()->profilePicture 
+                                            ? asset('storage/' . Auth::user()->profilePicture) 
+                                            : asset('assets/default-profile.jpg')) }}"
+                                    class="rounded-circle" 
+                                    style="box-shadow: rgba(67, 39, 0, 0.2); object-fit: cover" 
+                                    alt="Profile Icon" width="54" height="54">
 
                                 <div class="d-flex flex-column text-start">
-                                    <span class="fw-medium" style= "font-size: 18px">Farren</span>
+                                    <span class="fw-medium" style= "font-size: 18px">{{ Auth::user()->name }}</span>
                                     <small class="text-muted" style="font-size: 14px;">Siswa</small>
                                 </div>
                                 <iconify-icon icon="mdi:chevron-down" class="dropdown-icon ms-2"></iconify-icon>

@@ -25,8 +25,8 @@ class ZoomController extends Controller
         }
 
         if ($totalPeserta >= $zoom->zoomQuota) {
-        return redirect()->back()->with('error', 'Kuota kelas Zoom ini sudah penuh.');
-    }
+            return redirect()->back()->with('error', 'Kuota kelas Zoom ini sudah penuh.');
+        }
 
         ZoomRegistered::create([
             'zoomId' => $id,
@@ -38,6 +38,14 @@ class ZoomController extends Controller
 
     public function showDetail($id)
     {
+        $user = Auth::user();
+
+        if ($user->role === 'student') {
+            $layout = 'layouts.master';
+        } elseif ($user->role === 'admin') {
+            $layout = 'layouts.master-admin';
+        }
+
         $zoom = Zoom::with('tutor')->findOrFail($id);
 
         $otherZoom = Zoom::where('id', '!=', $id)
@@ -59,7 +67,7 @@ class ZoomController extends Controller
         ->where('studentId', $user->id)->exists();
 
 
-        return view('Artcademy.course-zoom-details', compact('zoom', 'otherZoom','totalPeserta','quota','progressPeserta', 'isRegistered'));
+        return view('Artcademy.course-zoom-details', compact('zoom', 'otherZoom','totalPeserta','quota','progressPeserta', 'isRegistered', 'layout'));
     }
 
 }

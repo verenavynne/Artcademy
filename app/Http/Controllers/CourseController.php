@@ -103,6 +103,16 @@ class CourseController extends Controller
 
     public function showCourseDetail($id)
     {
+        $user = Auth::user();
+
+        if ($user->role === 'student') {
+            $layout = 'layouts.master';
+        } elseif ($user->role === 'admin') {
+            $layout = 'layouts.master-admin';
+        } elseif ($user->role === 'lecturer') {
+            $layout = 'layouts.master-tutor';
+        }
+        
         $course = Course::with(['courseLecturers.lecturer.user', 'weeks.materials', 'zooms'])
                         ->findOrFail($id);
 
@@ -151,7 +161,8 @@ class CourseController extends Controller
             'isDisabled' => $isDisabled,
             'submission' => $submission,
             'latestUnlockedWeek' => $latestUnlockedWeek,
-            'allWeeksCompleted' => $allWeeksCompleted
+            'allWeeksCompleted' => $allWeeksCompleted,
+            'layout' => $layout
         ];
 
         return view('Artcademy.course-detail', $data);

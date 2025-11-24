@@ -1,4 +1,4 @@
-@extends('layouts.master')
+@extends($layout)
 
 @section('content')
 @php
@@ -17,7 +17,7 @@
     </div>
 @endif
 
-<div class="container-fluid d-flex flex-column justify-content-center px-5" style="margin-bottom: 75px;">
+<div class="container-fluid d-flex flex-column justify-content-center px-5 {{ Auth::user()->role === 'student' ? '' : 'w-75' }}" style="margin-bottom: 75px;">
     <div class="navigation-prev d-flex flex-start pb-4">
         <a class="page-link" href="javascript:void(0);" onclick="window.history.back()">
             <img src="{{ asset('assets/icons/icon_pagination_before.svg') }}" alt="">
@@ -25,7 +25,7 @@
     </div>
 
     <div class="d-flex flex-row justify-content-center gap-5">
-        <div class="d-flex flex-column" style="width: 60%;">
+        <div class="d-flex flex-column" style="width: {{ Auth::user()->role === 'student' ? '60%' : '100%' }};">
             <div class="zoom-card-detail card d-flex flex-row" style="background:var(--orange-gradient-color) ">
                 <div class="zoom-card-detail-content d-flex flex-column justify-content-center" style="gap: 12px; padding-inline-end: 26px">
                     <p style="margin:0; font-size: var(--font-size-big); font-weight: 700">{{ $zoom->zoomName }}</p>
@@ -58,7 +58,7 @@
             <div class="zoom-description-section d-flex flex-column" style="gap: 22px">
                 <p class="zoom-name">{{ $zoom->zoomName }}</p>
                 <div class="d-flex flex-row align-items-center" style="gap: 12px">
-                    <div class="progress" style="height: 6px; width: 680px; background-color: #E5E5E5;">
+                    <div class="progress" style="height: 6px; flex:1; background-color: #E5E5E5;">
                         <div class="progress-bar" role="progressbar" 
                         style="width: {{ $progressPeserta }}%; background-color: #E92D62;"
                         aria-valuenow="{{ $progressPeserta }}" 
@@ -119,48 +119,50 @@
             </div>
         </div>
 
-        <div class="d-flex justify-content-center" style="width: 40%;">
-            <div class="zoom-daftar-card d-flex flex-column">
-                <p class="zoom-daftar-title text-start fw-bold">Kelas Zoom</p>
-                <hr class="zoom-daftar-divider">
-                <div class="jadwal-list d-flex flex-row align-items-center" style="margin-block-end: 28px; gap: 70px">
-                    <div class="jadwal d-flex flex-row align-items-center gap-2">
-                        <img src="{{ asset('assets/icons/icon_calendar_gradient.svg') }}" alt="Calendar icon" height="24" width="24">
-                        <p>{{ $date }}</p>
+        @if(Auth::user()->role === 'student')
+            <div class="d-flex justify-content-center" style="width: 40%;">
+                <div class="zoom-daftar-card d-flex flex-column">
+                    <p class="zoom-daftar-title text-start fw-bold">Kelas Zoom</p>
+                    <hr class="zoom-daftar-divider">
+                    <div class="jadwal-list d-flex flex-row align-items-center" style="margin-block-end: 28px; gap: 70px">
+                        <div class="jadwal d-flex flex-row align-items-center gap-2">
+                            <img src="{{ asset('assets/icons/icon_calendar_gradient.svg') }}" alt="Calendar icon" height="24" width="24">
+                            <p>{{ $date }}</p>
+
+                        </div>
+                        <div class="jadwal d-flex flex-row align-items-center gap-2">
+                            <img src="{{ asset('assets/icons/icon_clock_gradient.svg') }}" alt="Clock icon" height="24" width="24">
+                            <p>{{$startTime}} - {{$endTime}}</p>
+
+                        </div>
 
                     </div>
-                    <div class="jadwal d-flex flex-row align-items-center gap-2">
-                        <img src="{{ asset('assets/icons/icon_clock_gradient.svg') }}" alt="Clock icon" height="24" width="24">
-                        <p>{{$startTime}} - {{$endTime}}</p>
+                    @if ($isRegistered)
+                        <div class="link-zoom d-flex flex-row gap-2 align-items-center">
+                            <img src="{{ asset('assets/icons/icon_link_gradient.svg') }}" alt="Link icon" height="24" width="24">
+                            <a href="{{$zoom->zoomLink}}">Link Zoom</a>
 
-                    </div>
+                        </div>
+                    
+                    @endif
+
+                    @if($isRegistered)
+                        <a href="{{$zoom->zoomLink}}" class="btn w-100 text-dark yellow-gradient-btn">
+                            Join Sekarang
+                        </a>
+                    @else
+                        <form action="{{ route('zoom.register', $zoom->id) }}" method="POST" class="w-100">
+                            @csrf
+                            <button type="submit" class="btn w-100 text-dark yellow-gradient-btn">
+                                Daftar Sekarang
+                            </button>
+                        </form>
+                    @endif
+
 
                 </div>
-                @if ($isRegistered)
-                    <div class="link-zoom d-flex flex-row gap-2 align-items-center">
-                        <img src="{{ asset('assets/icons/icon_link_gradient.svg') }}" alt="Link icon" height="24" width="24">
-                        <a href="{{$zoom->zoomLink}}">Link Zoom</a>
-
-                    </div>
-                
-                @endif
-
-                @if($isRegistered)
-                    <a href="{{$zoom->zoomLink}}" class="btn w-100 text-dark yellow-gradient-btn">
-                        Join Sekarang
-                    </a>
-                @else
-                    <form action="{{ route('zoom.register', $zoom->id) }}" method="POST" class="w-100">
-                        @csrf
-                        <button type="submit" class="btn w-100 text-dark yellow-gradient-btn">
-                            Daftar Sekarang
-                        </button>
-                    </form>
-                @endif
-
-
             </div>
-        </div>
+        @endif
     </div>
 
     <div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">

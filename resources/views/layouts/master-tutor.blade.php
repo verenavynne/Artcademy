@@ -13,6 +13,8 @@
   @include('styles.form-style')
   @include('styles.zoom-card')
   @include('styles.course-card')
+  @include('styles.tutor-card')
+  @include('styles.testimoni-card')
   
   <link rel="icon" type="image/png" href="{{ asset('assets/artcademy-icon.png') }}">
   <link rel="preconnect" href="https://fonts.googleapis.com">

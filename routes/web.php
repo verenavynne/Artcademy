@@ -49,9 +49,6 @@ Route::post('logout', function () {
 })->name('logout');
 
 Route::middleware(['auth', 'checkRole:student'])->prefix('/student')->group(function () {
-    Route::get('/course/{id}', [CourseController::class, 'showCourseDetail'])
-    ->name('course.detail');
-
     Route::post('/course/{id}/enroll', [CourseEnrollmentController::class, 'createEnrollment'])
         ->name('course.enroll')
         ->middleware('auth');
@@ -73,7 +70,6 @@ Route::middleware(['auth', 'checkRole:student'])->prefix('/student')->group(func
     
     Route::get('/certificate/{courseId}/generate', [StudentCertificateController::class, 'generateCertificate'])->name('certificate.generate');
 
-    Route::get('/zoom-detail/{id}', [ZoomController::class,'showDetail'])->name('zoom.showDetail');
     Route::post('/zoom/{id}/register', [ZoomController::class, 'register'])
     ->name('zoom.register')
     ->middleware('auth');
@@ -153,6 +149,11 @@ Route::middleware(['auth'])->group(function(){
     Route::get('/add-portfolio', function(){
         return view('profile.add-portfolio');
     })->name('add-portfolio');
+
+    Route::get('/course/{id}', [CourseController::class, 'showCourseDetail'])
+    ->name('course.detail');
+
+    Route::get('/zoom-detail/{id}', [ZoomController::class,'showDetail'])->name('zoom.showDetail');
     
     Route::post('/add-portfolio/submit', [PortfolioController::class, 'addPortfolio'])->name('portfolio.add');
     Route::get('/edit-portfolio/{id}',[PortfolioController::class, 'editPortfolio'])->name('portfolio.edit');

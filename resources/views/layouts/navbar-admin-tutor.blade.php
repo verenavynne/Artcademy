@@ -31,7 +31,7 @@
                 <iconify-icon icon="mdi:chevron-down" class="dropdown-icon ms-2"></iconify-icon>
             </a>
             <ul class="dropdown-menu dropdown-menu-end" style="z-index: 9999;">
-                <li><a class="dropdown-item" href="#">Profil</a></li>
+                <li><a class="dropdown-item" href="{{ Auth::user()->role === 'admin' ? route('profile.info') : route('my-profile') }}">Profil</a></li>
                 <li>
                     <a href="#" class="dropdown-item text-danger"
                         onclick="event.preventDefault(); document.getElementById('logout-form').submit();">

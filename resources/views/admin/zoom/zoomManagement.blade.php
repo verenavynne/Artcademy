@@ -1,7 +1,7 @@
 @extends('layouts.master-admin')
 
 @section('content')
-<div class="container ps-4 container-content-admin">
+<div class="container ps-4 container-content">
 
     <div class="d-flex justify-content-between align-items-center">
         <h4 class="fw-bold">Manajemen Zoom</h4>
@@ -58,90 +58,92 @@
         </form>
     </div>
 
-    <div class="table-responsive shadow-sm rounded">
-        <table class="table align-middle table-hover">
-            <thead class="sticky-top">
-                <tr>
-                    <th class="text-center">No.</th>
-                    <th>Waktu Dibuat</th>
-                    <th>Topik Zoom</th>
-                    <th>Kursus</th>
-                    <th>Jadwal Zoom</th>
-                    <th class="text-center">Jumlah Pendaftar</th>
-                    <th>Terakhir Diubah</th>
-                    <th>Status</th>
-                    <th>Aksi</th>
-                </tr>
-            </thead>
-            <tbody>
-                @forelse ($zooms as $zoom)
-                <tr>
-                    <td class="text-center">{{ $loop->iteration + ($zooms->currentPage() - 1) * $zooms->perPage() }}</td>
-                    <td>{{ $zoom->created_at->format('d M Y H:i') }}</td>
-                    <td class="text-truncate-ellipsis" title="{{ $zoom->zoomName }}">{{ $zoom->zoomName }}</td>
-                    <td class="text-truncate-ellipsis" title="{{ $zoom->course->courseName ?? '-' }}">{{ $zoom->course->courseName ?? '-' }}</td>
-                    <td>{{ \Carbon\Carbon::parse($zoom->zoomDate.' '.$zoom->start_time)->format('d M Y H:i') }}</td>
-                    <td class="text-center">{{ $zoom->zoomRegistereds->count() }}</td>
-                    <td>{{ $zoom->updated_at->format('d M Y H:i') }}</td>
-                    <td>
-                        @php
-                            $now = \Carbon\Carbon::now();
-                            $zoomDateTime = \Carbon\Carbon::parse($zoom->zoomDate.' '.$zoom->start_time);
+    <div class="table-section">
+        <div class="table-data">
+            <table class="table table-borderless">
+                <thead class="sticky-top">
+                    <tr>
+                        <th class="text-center">No.</th>
+                        <th>Waktu Dibuat</th>
+                        <th>Topik Zoom</th>
+                        <th>Kursus</th>
+                        <th>Jadwal Zoom</th>
+                        <th class="text-center">Jumlah Pendaftar</th>
+                        <th>Terakhir Diubah</th>
+                        <th>Status</th>
+                        <th>Aksi</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @forelse ($zooms as $zoom)
+                    <tr>
+                        <td class="text-center">{{ $loop->iteration + ($zooms->currentPage() - 1) * $zooms->perPage() }}</td>
+                        <td>{{ $zoom->created_at->format('d M Y H:i') }}</td>
+                        <td class="text-truncate-ellipsis" title="{{ $zoom->zoomName }}">{{ $zoom->zoomName }}</td>
+                        <td class="text-truncate-ellipsis" title="{{ $zoom->course->courseName ?? '-' }}">{{ $zoom->course->courseName ?? '-' }}</td>
+                        <td>{{ \Carbon\Carbon::parse($zoom->zoomDate.' '.$zoom->start_time)->format('d M Y H:i') }}</td>
+                        <td class="text-center">{{ $zoom->zoomRegistereds->count() }}</td>
+                        <td>{{ $zoom->updated_at->format('d M Y H:i') }}</td>
+                        <td>
+                            @php
+                                $now = \Carbon\Carbon::now();
+                                $zoomDateTime = \Carbon\Carbon::parse($zoom->zoomDate.' '.$zoom->start_time);
 
-                            if($zoom->zoomStatus === 'draft'){
-                                $displayStatus = 'Draft';
-                                $bgColor = '#E7F6FE';
-                                $textColor = 'var(--blue-gradient-color)';
-                            } elseif($zoom->zoomStatus === 'dihapus'){
-                                $displayStatus = 'Dihapus';
-                                $bgColor = '#FFEAF0';
-                                $textColor = 'var(--pink-gradient-color)';
-                            } elseif($zoom->zoomStatus === 'publikasi'){
-                                if($zoomDateTime->isPast()){
-                                    $displayStatus = 'Selesai';
-                                    $bgColor = '#EAFFEC';
-                                    $textColor = 'var(--green-gradient-color)';
+                                if($zoom->zoomStatus === 'draft'){
+                                    $displayStatus = 'Draft';
+                                    $bgColor = '#E7F6FE';
+                                    $textColor = 'var(--blue-gradient-color)';
+                                } elseif($zoom->zoomStatus === 'dihapus'){
+                                    $displayStatus = 'Dihapus';
+                                    $bgColor = '#FFEAF0';
+                                    $textColor = 'var(--pink-gradient-color)';
+                                } elseif($zoom->zoomStatus === 'publikasi'){
+                                    if($zoomDateTime->isPast()){
+                                        $displayStatus = 'Selesai';
+                                        $bgColor = '#EAFFEC';
+                                        $textColor = 'var(--green-gradient-color)';
+                                    } else {
+                                        $displayStatus = 'Akan Datang';
+                                        $bgColor = '#FFF4E0';
+                                        $textColor = 'var(--orange-gradient-color)';
+                                    }
                                 } else {
-                                    $displayStatus = 'Akan Datang';
-                                    $bgColor = '#FFF4E0';
-                                    $textColor = 'var(--orange-gradient-color)';
+                                    $displayStatus = ucfirst($zoom->zoomStatus);
+                                    $bgColor = '#eee';
+                                    $textColor = '#333';
                                 }
-                            } else {
-                                $displayStatus = ucfirst($zoom->zoomStatus);
-                                $bgColor = '#eee';
-                                $textColor = '#333';
-                            }
-                        @endphp
-                        <div class="course-status-text-container" style="background: {{ $bgColor }}">
-                            <p class="course-status-text" style="background: {{ $textColor }}; margin:0; background-clip: text; font-weight:700; font-size:var(--font-size-small)">
-                                {{ $displayStatus }}
-                            </p>
-                        </div>
-                    </td>
-                    <td class="text-nowrap">
-                        <a href="{{ route('admin.zoom.show', $zoom->id) }}" class="btn btn-sm p-0 me-2 border-0 bg-transparent">
-                            <iconify-icon icon="fa6-solid:eye" width="20" height="20"></iconify-icon>
-                        </a>
-                        <a href="{{ route('admin.zoom.edit', $zoom->id) }}" class="btn btn-sm text-warning p-0 me-2 border-0 bg-transparent">
-                            <iconify-icon icon="lets-icons:edit" width="20" height="20"></iconify-icon>
-                        </a>
-                        <form action="{{ route('admin.zoom.destroy', $zoom->id) }}" method="POST" class="d-inline">
-                            @csrf
-                            @method('DELETE')
-                            <button class="btn btn-sm text-danger p-0 border-0 bg-transparent" 
-                                    onclick="return confirm('Yakin ingin hapus Zoom ini?')">
-                                <iconify-icon icon="fluent:delete-12-filled" width="20" height="20"></iconify-icon>
-                            </button>
-                        </form>
-                    </td>
-                </tr>
-                @empty
-                <tr>
-                    <td colspan="9" class="text-center text-muted py-4">Tidak ada data Zoom.</td>
-                </tr>
-                @endforelse
-            </tbody>
-        </table>
+                            @endphp
+                            <div class="course-status-text-container" style="background: {{ $bgColor }}">
+                                <p class="course-status-text" style="background: {{ $textColor }}; margin:0; background-clip: text; font-weight:700; font-size:var(--font-size-small)">
+                                    {{ $displayStatus }}
+                                </p>
+                            </div>
+                        </td>
+                        <td class="text-nowrap">
+                            <a href="{{ route('zoom.showDetail', $zoom->id) }}" class="btn btn-sm p-0 me-2 border-0 bg-transparent">
+                                <iconify-icon icon="fa6-solid:eye" width="20" height="20"></iconify-icon>
+                            </a>
+                            <a href="{{ route('admin.zoom.edit', $zoom->id) }}" class="btn btn-sm text-warning p-0 me-2 border-0 bg-transparent">
+                                <iconify-icon icon="lets-icons:edit" width="20" height="20"></iconify-icon>
+                            </a>
+                            <form action="{{ route('admin.zoom.destroy', $zoom->id) }}" method="POST" class="d-inline">
+                                @csrf
+                                @method('DELETE')
+                                <button class="btn btn-sm text-danger p-0 border-0 bg-transparent" 
+                                        onclick="return confirm('Yakin ingin hapus Zoom ini?')">
+                                    <iconify-icon icon="fluent:delete-12-filled" width="20" height="20"></iconify-icon>
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                    @empty
+                    <tr>
+                        <td colspan="9" class="text-center text-muted py-4">Tidak ada data Zoom.</td>
+                    </tr>
+                    @endforelse
+                </tbody>
+            </table>
+        </div>
     </div>
 
     <div class="d-flex justify-content-between align-items-center mt-4">
