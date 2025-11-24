@@ -60,7 +60,7 @@
                 </div>
             @endif
 
-            <form action="{{ route('admin.courses.saveCourse') }}" method="POST" enctype="multipart/form-data">
+            <form action="{{ route('admin.courses.updateCourse', $course->id) }}" method="POST" enctype="multipart/form-data">
                 @csrf
 
                 <!-- Judul & Tools -->

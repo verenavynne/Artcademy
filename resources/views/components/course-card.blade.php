@@ -30,9 +30,7 @@
     $isArchived = $course->courseStatus === 'arsip';
 @endphp
 
-<a href="{{ ($course->courseStatus === 'publikasi' && Auth::user()->role === 'student') 
-            ? route('course.detail', $course->id) 
-            : '#' }}"
+<a href="{{ $course->courseStatus === 'publikasi' ? route('course.detail', $course->id) : '#' }}"
    class="text-decoration-none text-black">
     <div class="course-card card article-card" style="cursor: {{ $isArchived ? 'default' : 'pointer' }}; height: 100%;">
 

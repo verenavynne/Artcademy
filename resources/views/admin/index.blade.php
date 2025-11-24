@@ -110,7 +110,7 @@
                         <td class="text-truncate-ellipsis" title="{{ $course->courseName }}">{{ $course->courseName }}</td>
                         <td class="text-truncate-ellipsis" title="{{ $course->courseType }}">{{ $course->courseType }}</td>
                         <td>{{ ucfirst($course->courseLevel) }}</td>
-                        <td class="text-center">5</td>
+                        <td class="text-center">{{ $course->course_enrollments_count }}</td>
                         <td>{{ $course->updated_at->format('d M Y H:i') }}</td>
                         <td>
                             @if($course->courseStatus === 'publikasi')
