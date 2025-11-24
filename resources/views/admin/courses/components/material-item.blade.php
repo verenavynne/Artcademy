@@ -6,6 +6,10 @@
                 <h6 class="fw-bold mb-0">Materi __MATERIAL_INDEX_PLUS_ONE__</h6>
                 <iconify-icon icon="iconamoon:arrow-down-2-bold" class="toggle-icon"></iconify-icon>
             </div>
+
+            <button type="button" class="btn p-0 text-danger remove-materi">
+                <iconify-icon icon="fluent:delete-12-filled" class="toggle-icon"></iconify-icon>
+            </button>
         </div>
 
         <div class="material-body">
@@ -46,6 +50,8 @@
 <script src="https://cdn.tiny.cloud/1/2er11i2hdiuvi67l797urfnb807szvxxzzrsxu79b1qgecmu/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
 <script>
     const tools = @json($tools);
+
+    // vbl / article
     document.addEventListener('click', e => {
         if (e.target.classList.contains('materi-type-radio')) {
             const materiGroup = e.target.closest('.materi-group');
@@ -126,6 +132,7 @@
         }
     });
 
+    // arrow icon
     document.addEventListener('DOMContentLoaded', function() {
         document.addEventListener('click', function(e) {
             const header = e.target.closest('.material-header');
@@ -142,5 +149,31 @@
             icon.setAttribute('icon', isActive ? 'iconamoon:arrow-up-2-bold' : 'iconamoon:arrow-down-2-bold');
             }
         });
+    });
+
+    // remove materi
+    document.addEventListener('click', e => {
+        if (e.target.classList.contains('remove-materi') || e.target.closest('.remove-materi')) {
+            const btn = e.target.closest('.remove-materi');
+            const materiGroup = btn.closest('.materi-group');
+            const parent = materiGroup.parentNode;
+
+            parent.removeChild(materiGroup);
+            updateAllIndexes();
+
+            const materiGroups = parent.querySelectorAll('.materi-group');
+            materiGroups.forEach((group, i) => {
+                const title = group.querySelector('h6');
+                title.textContent = `Materi ${i + 1}`;
+
+                const inputs = group.querySelectorAll('input, textarea');
+                inputs.forEach(input => {
+                    input.name = input.name
+                        .replace(/\[materials\]\[\d+\]/, `[materials][${i}]`)
+                        .replace(/__MATERIAL_INDEX__/, i)
+                        .replace(/__MATERIAL_INDEX_PLUS_ONE__/, i + 1);
+                });
+            });
+        }
     });
 </script>

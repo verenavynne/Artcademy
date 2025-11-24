@@ -10,7 +10,7 @@
             </div>
 
             <button type="button" class="btn p-0 text-danger remove-week">
-                <i class="bi bi-trash fs-5"></i>
+                <iconify-icon icon="fluent:delete-12-filled" class="toggle-icon"></iconify-icon>
             </button>
         </div>
 
@@ -52,6 +52,7 @@
 </template>
 
 <script>
+    // arrow icon
     document.addEventListener('DOMContentLoaded', function() {
         document.addEventListener('click', function(e) {
             const header = e.target.closest('.week-header');
@@ -68,5 +69,60 @@
             icon.setAttribute('icon', isActive ? 'iconamoon:arrow-up-2-bold' : 'iconamoon:arrow-down-2-bold');
             }
         });
+    });
+
+    document.addEventListener("DOMContentLoaded", function () {
+        // HAPUS WEEK
+        document.addEventListener("click", function (e) {
+            const btn = e.target.closest(".remove-week");
+            if (!btn) return;
+
+            const weekGroup = btn.closest(".week-group");
+            if (!weekGroup) return;
+
+            if (!confirm("Hapus minggu ini?")) return;
+
+            weekGroup.remove();
+            updateWeekIndexes();
+            updateAllIndexes();
+        });
+
+        // FUNGSI UPDATE INDEX
+        function updateWeekIndexes() {
+            document.querySelectorAll(".week-group").forEach((week, i) => {
+                week.setAttribute("data-week", i);
+
+                const title = week.querySelector("h5");
+                if (title) title.textContent = "Minggu " + (i + 1);
+
+                week.querySelectorAll("input, select").forEach(el => {
+                    if (el.name) {
+                        el.name = el.name.replace(/weeks\[\d+\]/, `weeks[${i}]`);
+                    }
+                });
+
+                const addMateriBtn = week.querySelector(".add-materi");
+                if (addMateriBtn) addMateriBtn.setAttribute("data-week", i);
+            });
+        }
+
+        document.getElementById("add-week").addEventListener("click", function () {
+            const container = document.getElementById("weeks-container");
+            
+            const newIndex = document.querySelectorAll(".week-group").length;
+
+            const newWeekHtml = generateWeekHtml(newIndex);
+
+            container.insertAdjacentHTML("beforeend", newWeekHtml);
+        });
+
+        function generateWeekHtml(index) {
+            let template = document.getElementById("week-template").innerHTML;
+
+            template = template.replace(/__WEEK_INDEX__/g, index);
+            template = template.replace(/__WEEK_INDEX_PLUS_ONE__/g, index + 1);
+
+            return template;
+        }
     });
 </script>
