@@ -92,8 +92,6 @@
 </style>
 
 <script>
-    let weekIndex = 0;
-
     const availableTutors = @json($tutors);
 
     // Template minggu
@@ -121,8 +119,9 @@
         }
 
         const container = document.getElementById('weekAccordion');
-        container.insertAdjacentHTML('beforeend', createWeekElement(weekIndex));
-        weekIndex++;
+        const newIndex = document.querySelectorAll('.week-group').length;
+
+        container.insertAdjacentHTML('beforeend', createWeekElement(newIndex));
     };
 
     document.addEventListener('click', e => {
@@ -137,6 +136,35 @@
         }
     });
 
+    // update index
+    function updateAllIndexes() {
+        document.querySelectorAll(".week-group").forEach((week, wIndex) => {
+            week.setAttribute("data-week", wIndex);
+
+            week.querySelector("h5").textContent = "Minggu " + (wIndex + 1);
+
+            week.querySelectorAll("input, select, textarea").forEach(el => {
+                if (el.name) {
+                    el.name = el.name.replace(/weeks\[\d+\]/g, `weeks[${wIndex}]`);
+                }
+            });
+
+            week.querySelectorAll(".materi-group").forEach((materi, mIndex) => {
+                materi.querySelector("h6").textContent = "Materi " + (mIndex + 1);
+
+                materi.querySelectorAll("input, textarea").forEach(el => {
+                    if (el.name) {
+                        el.name = el.name
+                            .replace(/materials\]\[\d+\]/g, `materials][${mIndex}]`)
+                            .replace(/__MATERIAL_INDEX__/g, mIndex)
+                            .replace(/__MATERIAL_INDEX_PLUS_ONE__/g, mIndex + 1);
+                    }
+                });
+            });
+        });
+    }
+
+    // draft / next button
     const form = document.getElementById('courseForm');
     const saveDraftBtn = document.getElementById('saveDraftBtn');
     const nextBtn = document.getElementById('nextBtn');
