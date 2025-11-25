@@ -1,5 +1,10 @@
 <div class="tutor-card d-flex flex-row">
-    <img class="tutor-profile-image" src="{{ asset('assets/course/default_tutor_profile.png') }}" alt="Tutor Profile Icon" style="">
+    <img class="tutor-profile-image" src="{{ Str::startsWith($tutor->lecturer->user->profilePicture, ['http://', 'https://']) 
+                ? $tutor->lecturer->user->profilePicture
+                : ($tutor->lecturer->user->profilePicture
+                ? asset('storage/' . $tutor->lecturer->user->profilePicture) 
+                : asset('assets/course/default_tutor_profile_zoom.png')) }}"
+        alt="Tutor Profile Icon" style="">
     <div class="tutor-info-container d-flex flex-column justify-content-center">
         <div class="d-flex flex-column" style="padding-block-end: 9px">
             <p class="tutor-name fw-bold">{{ $tutor->lecturer->user->name }}</p>

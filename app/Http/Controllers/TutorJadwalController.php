@@ -17,12 +17,16 @@ class TutorJadwalController extends Controller
 
         if ($status === 'selesai') {
             $zooms = Zoom::with(['tutor.lecturer.user'])
-                ->where('tutorId', $lecturerId)
+                ->whereHas('tutor', function ($query) use ($lecturerId) {
+                    $query->where('lecturerId', $lecturerId);
+                })
                 ->where('zoomDate', '<', $now)
                 ->get();
         } else {
             $zooms = Zoom::with(['tutor.lecturer.user'])
-                ->where('tutorId', $lecturerId)
+                ->whereHas('tutor', function ($query) use ($lecturerId) {
+                    $query->where('lecturerId', $lecturerId);
+                })
                 ->where('zoomDate', '>=', $now)
                 ->get();
         }

@@ -14,7 +14,13 @@
                 <img src="{{ asset('assets/icons/icon_calendar.svg') }}" alt="Tutor Profile" width="16" height="16">
                 <p style="margin:0; color: black; font-size: var(--font-size-mini)"> {{ \Carbon\Carbon::parse($zoom->zoomDate)->translatedFormat('d F Y') }}</p>
             </div>
-            <img class="zoom-tutor-profile" src="{{ asset('assets/course/default_tutor_profile_zoom.png') }}" alt="zoom Picture">
+            <img class="zoom-tutor-profile" 
+                src="{{ Str::startsWith($zoom->tutor->lecturer->user->profilePicture, ['http://', 'https://']) 
+                    ? $zoom->tutor->lecturer->user->profilePicture 
+                    : ($zoom->tutor->lecturer->user->profilePicture 
+                    ? asset('storage/' . $zoom->tutor->lecturer->user->profilePicture) 
+                    : asset('assets/course/default_tutor_profile_zoom.png')) }}"
+                alt="zoom Picture">
         </div>
     </div>
     <div class="zoom-card-bottom d-flex flex-column align-items-start">
@@ -23,10 +29,14 @@
             
         <div class="d-flex flex-row align-items-center gap-2">
                 
-            <img src="{{ asset('assets/course/default_tutor_profile_zoom.png') }}" 
-            class="rounded-circle zoom-tutor-image" 
-            width="37" 
-            height="37" 
+            <img src="{{ Str::startsWith($zoom->tutor->lecturer->user->profilePicture, ['http://', 'https://']) 
+                    ? $zoom->tutor->lecturer->user->profilePicture 
+                    : ($zoom->tutor->lecturer->user->profilePicture 
+                    ? asset('storage/' . $zoom->tutor->lecturer->user->profilePicture) 
+                    : asset('assets/course/default_tutor_profile_zoom.png')) }}"
+                class="rounded-circle zoom-tutor-image" 
+                width="37" 
+                height="37" 
             >
             <div class="d-flex flex-column">
                 <p style="margin: 0; font-size: var(--font-size-mini); color: var(--dark-gray-color); font-weight: 700">

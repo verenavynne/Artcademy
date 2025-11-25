@@ -69,12 +69,17 @@ class AdminZoomController extends Controller
         $startTime = Carbon::createFromFormat('H:i', $request->zoomTime);
         $endTime = (clone $startTime)->addMinutes((int) $request->zoomDuration);
 
+        $course = Course::findOrFail($validated['zoomCourse']);
+        $courseLecturer = $course->courseLecturers() // userId
+                ->where('lecturerId', $validated['zoomTutor'])
+                ->first();
+
         $zoom = Zoom::create([
             'zoomName' => $validated['zoomTopic'],
             'zoomDesc' => $validated['courseDesc'],
             'zoomLink' => $validated['zoomLink'],
             'courseId' => $validated['zoomCourse'],
-            'tutorId' => $validated['zoomTutor'],
+            'tutorId' => $courseLecturer->id,
             'zoomDate' => $validated['zoomDate'],
             'start_time'  => $startTime->format('H:i'),
             'end_time'    => $endTime->format('H:i'),
@@ -120,7 +125,7 @@ class AdminZoomController extends Controller
             'zoomDesc'      => $validated['courseDesc'],
             'zoomLink'      => $validated['zoomLink'],
             'courseId'      => $validated['zoomCourse'],
-            'tutorId'       => $validated['zoomTutor'],
+            'tutorId'       => $validated['zoomTutor'], // tutorId di tabel zoom
             'zoomDate'      => $validated['zoomDate'],
             'start_time'    => $startTime->format('H:i'),
             'end_time'      => $endTime->format('H:i'),

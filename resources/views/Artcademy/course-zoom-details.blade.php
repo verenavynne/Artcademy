@@ -48,8 +48,14 @@
 
                     </div>
                     <div class="d-flex flex-start me-4">
-                        <img class="tutor-picture" src="{{ asset('assets/course/default_tutor_profile_zoom.png') }}" alt="Course Picture" width="176" height="176" style="">
-
+                        <img 
+                            src="{{ Str::startsWith($zoom->tutor->lecturer->user->profilePicture, ['http://', 'https://']) 
+                                ? $zoom->tutor->lecturer->user->profilePicture 
+                                : ($zoom->tutor->lecturer->user->profilePicture 
+                                ? asset('storage/' . $zoom->tutor->lecturer->user->profilePicture) 
+                                : asset('assets/course/default_tutor_profile_zoom.png')) }}"
+                            class="tutor-picture" 
+                            alt="Course Picture" width="176" height="176">
                     </div>
                 </div>
 

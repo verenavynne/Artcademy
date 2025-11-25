@@ -14,7 +14,7 @@
             </a>
         </li>
         <li class="nav-item flex-fill text-center">
-            <a class="nav-link fs-5 {{ $status === 'selesai' ? 'active' : 'text-custom' }}" 
+            <a class="nav-link fs-5 {{ $status === 'selesai' ? 'active' : 'text-custom' }}"
                 href="{{ route('lecturer.jadwal-saya', ['status' => 'selesai']) }}">
                 Jadwal Selesai
             </a>
@@ -26,12 +26,14 @@
             @include('components.zoom-card')
         @empty
             <div class="d-flex justify-content-center align-items-center w-100" style="height: 200px;">
-                <p class="text-center m-0">Tidak ada zoom yang {{ status }}.</p>
+                <p class="text-center m-0">Tidak ada zoom yang {{ $status }}.</p>
             </div>
         @endforelse
     </div>
 
-    @include('lecturer.jadwal-saya.detail-zoom-popup')
+    @if($zooms->isNotEmpty())
+        @include('lecturer.jadwal-saya.detail-zoom-popup')
+    @endif
 </div>
 
 <style>    

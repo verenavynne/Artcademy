@@ -25,7 +25,11 @@
                             <p style="margin:0;color:white;font-size:14px;">Kelas Zoom</p>
                         </div>
 
-                        <img src="{{ asset('assets/course/default_tutor_profile_zoom.png') }}"
+                        <img src="{{ Str::startsWith($zoom->tutor->lecturer->user->profilePicture, ['http://', 'https://']) 
+                                ? $zoom->tutor->lecturer->user->profilePicture 
+                                : ($zoom->tutor->lecturer->user->profilePicture 
+                                ? asset('storage/' . $zoom->tutor->lecturer->user->profilePicture) 
+                                : asset('assets/course/default_tutor_profile_zoom.png')) }}"
                             class="zoom-header-image">
                     </div>
                 </div>

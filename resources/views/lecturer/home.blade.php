@@ -37,21 +37,25 @@
           </div>
 
 
-          <h3 class="fw-bold mb-0" style="font-size: 18px; color: var(--Black, #1B1B1B);">
-            {{ $zoom->zoomName }}
-          </h3>
-          
-          <div class="info-item-wrapper d-flex flex-row gap-4">
-            <div class="info-item d-flex align-items-center gap-2">
-              <iconify-icon icon="mdi:calendar-month" class="info-icon"></iconify-icon>
-              <span>{{ \Carbon\Carbon::parse($zoom->zoomDate)->translatedFormat('d F Y') }}</span>
-            </div>
+          @if($zoom)
+            <h3 class="fw-bold mb-0" style="font-size: 18px; color: var(--Black, #1B1B1B);">
+              {{ $zoom->zoomName }}
+            </h3>
+            
+            <div class="info-item-wrapper d-flex flex-row gap-4">
+              <div class="info-item d-flex align-items-center gap-2">
+                <iconify-icon icon="mdi:calendar-month" class="info-icon"></iconify-icon>
+                <span>{{ \Carbon\Carbon::parse($zoom->zoomDate)->translatedFormat('d F Y') }}</span>
+              </div>
 
-            <div class="info-item d-flex align-items-center gap-2">
-              <iconify-icon icon="mdi:clock-time-four-outline" class="info-icon"></iconify-icon>
-              <span>{{ \Carbon\Carbon::parse($zoom->start_time)->format('H:i') }} - {{ \Carbon\Carbon::parse($zoom->end_time)->format('H:i') }}</span>
+              <div class="info-item d-flex align-items-center gap-2">
+                <iconify-icon icon="mdi:clock-time-four-outline" class="info-icon"></iconify-icon>
+                <span>{{ \Carbon\Carbon::parse($zoom->start_time)->format('H:i') }} - {{ \Carbon\Carbon::parse($zoom->end_time)->format('H:i') }}</span>
+              </div>
             </div>
-          </div>
+          @else
+              <p class="text-muted">Tidak ada jadwal zoom mendatang</p>
+          @endif
 
         </div>
       </div>
