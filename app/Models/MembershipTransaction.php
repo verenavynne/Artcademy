@@ -25,4 +25,15 @@ class MembershipTransaction extends Model
     public function notifications(){
         return $this->morphMany(Notification::class, 'reference', 'referenceType', 'referenceId');
     }
+    
+    // update membershipStatus
+    public function getMembershipStatusAttribute($value)
+    {
+        if ($this->endDate && now()->greaterThan($this->endDate) && $value !== 'inactive') {
+            $this->update(['membershipStatus' => 'inactive']);
+            return 'inactive';
+        }
+
+        return $value;
+    }
 }

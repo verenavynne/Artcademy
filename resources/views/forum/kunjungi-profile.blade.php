@@ -1,4 +1,4 @@
-@extends($user->role === 'student' ? 'layouts.master' : 'layouts.master-tutor')
+@extends(Auth::user()->role === 'student' ? 'layouts.master' : 'layouts.master-tutor')
 
 @section('hide_footer')
 @endsection
@@ -71,8 +71,11 @@
                             <p class="profile-detail-name">{{ $user->name }}</p>
                             <p style="margin: 0">{{ $user->profession }}</p>
                             <div class="profile-detail-membership-container">
-                                <p class="profile-detail-membership">Membership Creative Studio</p>
-
+                                @if ($user->role === 'student')
+                                    {{ $membershipStatus === 'active' ? 'Membership ' . $membershipTransaction->membership->membershipName : 'Belum Berlangganan' }}
+                                @else
+                                    Tutor {{ $user->lecturer->specialization ?? '-' }}
+                                @endif
                             </div>
 
                         </div>

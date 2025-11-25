@@ -8,7 +8,11 @@
                 <p class="fw-bold " style="font-size: var(--font-size-primary); margin:0">{{ $user->name }}</p>
                 <p class="pb-2" style="font-size: 12px; margin: 0">{{ $user->profession }}</p>
                 <div class="profile-detail-membership-container">
-                    <p class="profile-detail-membership">Membership Creative Studio</p>
+                    @if ($user->role === 'student')
+                        {{ $membershipStatus === 'active' ? 'Membership ' . $membershipTransaction->membership->membershipName : 'Belum Berlangganan' }}
+                    @else
+                        Tutor {{ $user->lecturer->specialization ?? '-' }}
+                    @endif
                 </div>
             </div>
         </div>

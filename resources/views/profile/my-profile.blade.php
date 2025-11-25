@@ -43,10 +43,13 @@
                         <p style="margin: 0">{{ $user->profession }}</p>
                         <div class="profile-detail-membership-container">
                             <p class="profile-detail-membership">
-                                {{ $user->role == 'student' 
-                                    ? 'Membership Creative Studio' 
-                                    : 'Tutor ' . ($user->lecturer->specialization ?? '-') }}
+                                @if ($user->role === 'student')
+                                    {{ $membershipStatus === 'active' ? 'Membership ' . $membershipTransaction->membership->membershipName : 'Belum Berlangganan' }}
+                                @else
+                                    Tutor {{ $user->lecturer->specialization ?? '-' }}
+                                @endif
                             </p>
+
                         </div>
 
                     </div>

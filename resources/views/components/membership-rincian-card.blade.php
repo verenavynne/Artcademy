@@ -37,11 +37,17 @@
             </button>
         </form>
     @else
-        <a href="{{ route('membership.checkoutInfo', $membership->id) }}">
-            <button class="btn w-100 text-dark yellow-gradient-btn">
-                Checkout
+        @if($membershipStatus === 'active')
+            <button class="btn w-100 text-dark yellow-gradient-btn" disabled>
+                Membership {{ $membershipTransaction->membership->membershipName }} masih aktif
             </button>
-        </a>
+        @else
+            <a href="{{ route('membership.checkoutInfo', $membership->id) }}">
+                <button class="btn w-100 text-dark yellow-gradient-btn">
+                    Checkout
+                </button>
+            </a>
+        @endif
     @endif
 </div>
 
