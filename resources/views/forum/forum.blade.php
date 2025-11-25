@@ -13,37 +13,26 @@
     <div class="alert alert-success">{{ session('success') }}</div>
 @endif
 
-<div class="container-fluid d-flex flex-column justify-content-center px-4" style="margin-bottom: 75px;">
-    <div class="d-flex justify-content-center align-items-center px-5 gap-5 w-100 pt-1">
-        <form class="d-flex w-100" method="GET" action="#">
-            <div class="position-relative w-100">
-           
-                <input 
-                    class="form-control form-search" 
-                    type="text" 
-                    placeholder="Mau belajar apa hari ini?" 
-                    aria-label="Search" 
-                    name="query"
-                    value="{{ request('query') }}"
-                >
-
-                <button 
-                    type="submit" 
-                    class="icon-search btn position-absolute end-0 top-50 translate-middle-y p-0 border-0 bg-transparent"
-                    style="z-index: 2;"
-                >
-                    <img src="{{ asset('assets/icons/icon_search.svg') }}" alt="Search" style="width: 24px; height: 24px;">
-                </button>
+<div class="container-fluid d-flex flex-column justify-content-center px-5">
+    <div class="d-flex align-items-center gap-4 pt-1 w-100" style="margin-bottom: 18px">
+        @if($user->role === 'lecturer')
+            <div class="navigation-prev">
+                <a class="page-link" href="javascript:void(0);" onclick="window.history.back()">
+                    <img src="{{ asset('assets/icons/icon_pagination_before.svg') }}" alt="">
+                </a>
             </div>
-        </form>
-        <div class="d-flex flex-row justify-content-center align-items-center gap-5">
-            <a href="#">
-                <img src="{{ asset('assets/icons/icon_bookmark.svg') }}" alt="Bookmark" style="width: 24px; height: 24px;">
-            </a>
-            <a href="#">
-                <img src="{{ asset('assets/icons/icon_notif.svg') }}" alt="Notification" style="width: 24px; height: 24px;">
-            </a>
+        @endif
+        <div class="position-relative flex-grow-1">
+            <input type="text" class="custom-input-2 form-control rounded-pill" placeholder="Mau belajar apa hari ini?">
+            <iconify-icon icon="icon-park-outline:search" class="search-icon position-absolute">
+            </iconify-icon>
         </div>
+
+        @if($user->role === 'student')
+            @include('components.notification-panel')
+        @endif
+
+
     </div>
     <div class="row">
         <div class="col-3">
@@ -92,7 +81,7 @@
 
 <style>
 
-    .content{
+    .default-min-height{
         min-height: unset;
     }
     .feed-wrapper{
@@ -198,8 +187,6 @@
 
 
 </style>
-@endsection
-
 
 <script>
     document.addEventListener('DOMContentLoaded', () => {
@@ -360,29 +347,29 @@
             });
         });
 
+
         // Kasi typing effect chatbot
         const chatbot = document.getElementById('chatbot-comment');
-        if (!chatbot) return; 
-
-        let text = chatbot.getAttribute('data-text') || "";
-        let i = 0;
-
-        chatbot.textContent = '';
-
-        function type() {
-            if (i < text.length) {
-                chatbot.textContent += text.charAt(i);
-                i++;
-                setTimeout(type, 20);
+        if (chatbot) {
+            let text = chatbot.getAttribute('data-text') || "";
+            let i = 0;
+    
+            chatbot.textContent = '';
+    
+            function type() {
+                if (i < text.length) {
+                    chatbot.textContent += text.charAt(i);
+                    i++;
+                    setTimeout(type, 20);
+                }
             }
+    
+            type();
+
         }
-
-        type();
-
-        
 
     }) 
 </script>
-
+@endsection
 
 

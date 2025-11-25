@@ -2,14 +2,13 @@
 $autoOpen = $post->comments->whereNotNull('chatbotId')->isNotEmpty();
 @endphp
 
-<div class="post-card d-flex flex-column gap-3  position-relative">
+<div class="post-card d-flex flex-column gap-3  position-relative" id="post-{{ $post->id }}">
     <div class="post-card-header d-flex flex-row justify-content-between w-100 gap-3">
         @if($post->userId === Auth::id())
             <div class="dropdown position-absolute top-0 end-0 m-3">
                 <button class="btn btn-link text-dark p-0" type="button" id="dropdownMenu{{ $post->id }}"
                     data-bs-toggle="dropdown" aria-expanded="false"
                     >
-                    <!-- <img src="{{ asset('assets/icons/icon_menu.svg') }}" alt="" height="24" width="24"> -->
                     <iconify-icon icon="qlementine-icons:menu-dots-16"></iconify-icon>
                 </button>
                 <ul class="dropdown-menu" aria-labelledby="dropdownMenu{{ $post->id }}">
@@ -38,7 +37,7 @@ $autoOpen = $post->comments->whereNotNull('chatbotId')->isNotEmpty();
         @endif
         
         <div class="d-flex flex-row gap-2">
-            <img src="{{ asset('assets/default-profile.jpg') }}" alt="" height="42" width="42"
+            <img src="{{  $post->user->profilePicture ? asset('storage/' . $post->user->profilePicture) : asset('assets/default-profile.jpg') }}" alt="" height="42" width="42"
             class="profile-picture rounded-circle"
             style="object-fit: cover">
             <div class="d-flex flex-column">
@@ -122,7 +121,7 @@ $autoOpen = $post->comments->whereNotNull('chatbotId')->isNotEmpty();
         <hr class="divider w-100">
     
         <div class="balas-komen-section d-flex flex-row gap-2 w-100">
-            <img src="{{ asset('assets/default-profile.jpg') }}" alt="" height="42" width="42"
+            <img src="{{  auth()->user()->profilePicture ? asset('storage/' .  auth()->user()->profilePicture) : asset('assets/default-profile.jpg') }}" alt="" height="42" width="42"
             class="profile-picture rounded-circle"
             style="object-fit: cover">
     
@@ -164,7 +163,7 @@ $autoOpen = $post->comments->whereNotNull('chatbotId')->isNotEmpty();
         </div>
     
         @if($post->allComments->count())
-        <div class="d-flex flex-column gap-2">
+        <div class="d-flex flex-column gap-2 mt-3">
 
             @foreach ($post->comments as $comment )
             
@@ -172,7 +171,14 @@ $autoOpen = $post->comments->whereNotNull('chatbotId')->isNotEmpty();
                     <div class="d-flex flex-column gap-3">
                         <div class="komen-header">
                             <div class="d-flex flex-row gap-2">
-                                <img src="{{ asset('assets/default-profile.jpg') }}" alt="" height="42" width="42"
+                                <img src="{{
+                                        $comment->user
+                                            ? ($comment->user->profilePicture
+                                                ? asset('storage/' . $comment->user->profilePicture)
+                                                : asset('assets/default-profile.jpg'))
+                                            : asset('assets/default-profile.jpg')
+                                    }}" 
+                                    alt="" height="42" width="42"
                                 class="profile-picture rounded-circle"
                                 style="object-fit: cover">
                                 <div class="d-flex flex-column">
@@ -187,7 +193,8 @@ $autoOpen = $post->comments->whereNotNull('chatbotId')->isNotEmpty();
             
                         </div>
             
-                        <div class="komen-content" id="comment-text-{{ $comment->id }}">
+                        <div class="komen-content" id="comment-{{ $comment->id }}"  data-comment-id="{{ $comment->id }}"
+                            data-post-id="{{ $comment->postId }}">
                             @if (session('chatbot_comment_id') == $comment->id)
                                 <div id="chatbot-comment" data-text="{{ $comment->commentText }}"></div>
                             @else
@@ -241,7 +248,14 @@ $autoOpen = $post->comments->whereNotNull('chatbotId')->isNotEmpty();
                                 <hr class="divider w-100">
                             
                                 <div class="balas-komen-section d-flex flex-row gap-2 w-100">
-                                    <img src="{{ asset('assets/default-profile.jpg') }}" alt="" height="42" width="42"
+                                    <img src="{{
+                                        $comment->user
+                                            ? ($comment->user->profilePicture
+                                                ? asset('storage/' . $comment->user->profilePicture)
+                                                : asset('assets/default-profile.jpg'))
+                                            : asset('assets/default-profile.jpg')
+                                    }}" 
+                                    alt="" height="42" width="42"
                                     class="profile-picture rounded-circle"
                                     style="object-fit: cover">
                             
@@ -291,7 +305,7 @@ $autoOpen = $post->comments->whereNotNull('chatbotId')->isNotEmpty();
                                             <div class="d-flex flex-column gap-3">
                                                 <div class="komen-header">
                                                     <div class="d-flex flex-row gap-2">
-                                                        <img src="{{ asset('assets/default-profile.jpg') }}" alt="" height="42" width="42"
+                                                        <img src="{{  $replies->user->profilePicture ? asset('storage/' . $replies->user->profilePicture) : asset('assets/default-profile.jpg') }}" alt="" height="42" width="42"
                                                         class="profile-picture rounded-circle"
                                                         style="object-fit: cover">
                                                         <div class="d-flex flex-column">
@@ -306,7 +320,10 @@ $autoOpen = $post->comments->whereNotNull('chatbotId')->isNotEmpty();
                                     
                                                 </div>
                                     
-                                                <div class="komen-content">
+                                                <div class="komen-content" id="comment-{{ $replies->id }}" 
+                                                    data-comment-id="{{ $replies->id }}"
+                                                    data-post-id="{{ $replies->postId }}"
+                                                    data-parent-id="{{ $comment->id }}">
                                                     <p>{{ $replies->commentText }}</p>
                                     
                                                 </div>

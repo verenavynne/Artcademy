@@ -33,6 +33,14 @@
         font-family: 'Afacad', sans-serif;
     }
 
+    /* Search input */
+    .search-icon {
+        right: 30px;
+        top: 50%;
+        transform: translateY(-50%);
+        cursor: pointer;
+    }
+
     /* For disabled item */
     [aria-disabled="true"] {
         opacity: 0.5;

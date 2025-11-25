@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Course;
 use App\Models\CourseEnrollment;
+use App\Models\Notification;
 use App\Models\Project;
 use App\Models\ProjectCriteria;
 use App\Models\ProjectSubmission;
@@ -33,6 +34,7 @@ class CourseController extends Controller
 
     public function index(Request $request)
     {
+        $user = Auth::user();
         $type = $request->query('type');
         $search = strtolower($request->query('query'));
 
@@ -98,7 +100,15 @@ class CourseController extends Controller
             $courses = $baseQuery->paginate(16)->withQueryString();
         }
 
-        return view('Artcademy.course', compact('type', 'search', 'dasarCourses', 'menengahCourses', 'lanjutanCourses', 'courses'));
+        $notifications = Notification::where('userId', $user->id)
+            ->orderBy('notificationDate', 'desc')
+            ->get();
+        
+        $unreadCount = Notification::where('status', 'unread')
+        ->where('userId', $user->id)
+        ->count();
+
+        return view('Artcademy.course', compact('type', 'search', 'dasarCourses', 'menengahCourses', 'lanjutanCourses', 'courses','notifications', 'unreadCount'));
     }
 
     public function showCourseDetail($id)

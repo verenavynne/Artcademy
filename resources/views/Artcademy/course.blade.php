@@ -2,40 +2,36 @@
 
 @section('content')
 
-<div class="container-fluid d-flex flex-column justify-content-center" style="margin-bottom: 75px;">
-    <div class="d-flex justify-content-center align-items-center px-5 gap-5 w-100 pt-1">
-        <form class="d-flex w-100" method="GET" action="{{route('course')}}">
-            <div class="position-relative w-100">
-           
+<div class="container-fluid d-flex flex-column justify-content-center px-5" style="margin-bottom: 75px;">
+    <div class="d-flex align-items-center gap-4 pt-1 w-100">
+        <div class="position-relative flex-grow-1">
+            <form class="d-flex w-100" method="GET" action="{{route('course')}}">
                 <input 
-                    class="form-control form-search" 
                     type="text" 
-                    placeholder="Mau belajar apa hari ini?" 
-                    aria-label="Search" 
+                    class="custom-input-2 form-control rounded-pill" 
+                    placeholder="Mau belajar apa hari ini?"
                     name="query"
                     value="{{ request('query') }}"
                 >
-
+    
                 <button 
-                    type="submit" 
-                    class="icon-search btn position-absolute end-0 top-50 translate-middle-y p-0 border-0 bg-transparent"
-                    style="z-index: 2;"
+                    type="submit"
+                    class="btn position-absolute end-0 top-50 p-0 pe-4 border-0 bg-transparent"
+                    style="z-index: 5;"
                 >
-                    <img src="{{ asset('assets/icons/icon_search.svg') }}" alt="Search" style="width: 24px; height: 24px;">
+                    <iconify-icon 
+                        icon="icon-park-outline:search" 
+                        class="search-icon"
+                        style="font-size: 22px;"
+                    ></iconify-icon>
                 </button>
-            </div>
-        </form>
-        <div class="d-flex flex-row gap-5">
-            <a href="#">
-                <img src="{{ asset('assets/icons/icon_bookmark.svg') }}" alt="Bookmark" style="width: 24px; height: 24px;">
-            </a>
-            <a href="#">
-                <img src="{{ asset('assets/icons/icon_notif.svg') }}" alt="Notification" style="width: 24px; height: 24px;">
-            </a>
+            </form>
         </div>
+
+        @include('components.notification-panel')
     </div>
 
-    <div class="d-flex flex-row justify-content-center align-items-center category-btn-group px-5 gap-4">
+    <div class="d-flex flex-row justify-content-center align-items-center category-btn-group gap-4">
         <a href="#" >
             <button class="category-btn filter-icon"><img src="{{ asset('assets/icons/icon_filter.svg') }}" alt="Filter"></button>
         </a>
@@ -56,13 +52,13 @@
         </a>
     </div>
 
-    <div class="container-fluid px-5 pb-4">
+    <div class="container-fluid pb-4">
         <p class="title-dasar text-start fw-bold mb-3">Level Dasar</p>
         <p class="text-start" style="font-size: var(--font-size-normal)">Baru mulai? No worries! Di sini tempat paling pas buat kamu yang lagi cari pondasi kuat di dunia seni</p>
     </div>
 
 
-    <div class="container-fluid d-flex flex-column px-5 align-items-center">
+    <div class="container-fluid d-flex flex-column align-items-center">
         @if ($dasarCourses->isEmpty())
             <p class="text-center text-muted" style="font-size: var(--font-size-normal)">
                 Belum ada kursus untuk level dasar saat ini.
@@ -78,12 +74,12 @@
         @endif
     </div>
 
-    <div class="container-fluid px-5 pb-4" style="margin-top: 80px;">
+    <div class="container-fluid pb-4" style="margin-top: 80px;">
         <p class="title-menengah text-start fw-bold mb-3">Level Menengah</p>
         <p class="text-start" style="font-size: var(--font-size-normal)">Udah ngerti dasar-dasarnya? Saatnya upgrade skill, eksplor teknik baru, dan asah gaya unikmu</p>
     </div>
 
-        <div class="container-fluid d-flex flex-column px-5 align-items-center">
+    <div class="container-fluid d-flex flex-column align-items-center">
         @if ($menengahCourses->isEmpty())
             <p class="text-center text-muted" style="font-size: var(--font-size-normal)">
                 Belum ada kursus untuk level menengah saat ini.
@@ -99,12 +95,12 @@
         @endif
     </div>
 
-    <div class="container-fluid px-5 pb-4" style="margin-top: 80px;">
+    <div class="container-fluid pb-4" style="margin-top: 80px;">
         <p class="title-lanjutan text-start fw-bold mb-3">Level Lanjutan</p>
         <p class="text-start" style="font-size: var(--font-size-normal)">Siap naik ke level pro? Tantang dirimu, perdalam skill, dan siapin karya buat dunia lihat</p>
     </div>
 
-        <div class="container-fluid d-flex flex-column px-5 align-items-center">
+    <div class="container-fluid d-flex flex-column  align-items-center">
         @if ($lanjutanCourses->isEmpty())
             <p class="text-center text-muted" style="font-size: var(--font-size-normal)">
                 Belum ada kursus untuk level lanjutan saat ini.
@@ -121,12 +117,12 @@
     </div>
 
     @if(is_null($type))
-    <div class="container-fluid px-5 pb-4" style="margin-top: 80px;">
+    <div class="container-fluid pb-4" style="margin-top: 80px;">
         <p class="title-lanjutan text-start fw-bold mb-3">Semua Kursus</p>
         <p class="text-start" style="font-size: var(--font-size-normal)">Asah skill mu dan jelajahi berbagai kursus yang sesuai dengan bidangmu</p>
     </div>
 
-    <div class="container-fluid d-flex flex-column px-5 align-items-center">
+    <div class="container-fluid d-flex flex-column align-items-center">
         <div class="d-flex flex-wrap justify-content-center" style="gap: 36px">
             @foreach ($courses as $course)
                 @include('components.course-card', ['course' => $course])
@@ -181,4 +177,5 @@
         -webkit-text-fill-color: transparent;
     }
 </style>
+
 @endsection

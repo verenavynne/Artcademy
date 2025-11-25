@@ -14,4 +14,8 @@ class Event extends Model
         return $this->hasMany(EventTransaction::class,'eventId');
     }
 
+    public function notifications(){
+        return $this->morphMany(Notification::class, 'reference', 'referenceType', 'referenceId');
+    }
+
 }

@@ -9,6 +9,7 @@ use App\Http\Controllers\ForumController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\HomePageController;
 use App\Http\Controllers\MembershipController;
+use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\PortfolioController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProfileController;
@@ -173,6 +174,8 @@ Route::middleware(['auth'])->group(function(){
     Route::post('/forum/add-comment-reply',[CommentController::class, 'addCommentReply'])->name('comment.reply');
     Route::post('/forum/post/update/{id}', [PostController::class, 'update'])->name('post.update');
     Route::get('/forum/visit-profile/{id}',[ForumController::class, 'showFriendProfile'])->name('forum.visit-profile');
+
+    Route::get('/notification/show/{id}',[NotificationController::class, 'show'])->name('notification.show');
 });
 
 Route::get('/my-transaction-history',function(){

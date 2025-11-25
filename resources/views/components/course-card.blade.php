@@ -70,7 +70,6 @@
                 <p style="margin:0; font-size: var(--font-size-tiny); font-weight: 700">
                     {{ $course->courseName }}
                 </p>
-                <img src="{{ asset('assets/icons/icon_bookmark.svg') }}" alt="Bookmark" style="height: 24px; width: 24px">
             </div>
 
             <div class="d-flex flex-row align-items-center gap-2">

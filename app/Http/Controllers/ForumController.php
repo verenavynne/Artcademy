@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Comment;
+use App\Models\Notification;
 use App\Models\Portfolio;
 use App\Models\Post;
 use App\Models\User;
@@ -19,7 +20,14 @@ class ForumController extends Controller
         ->get();
 
         $otherProfile = User::where('id', '!=', $user->id)->get();
-        return view('forum.forum', compact('user', 'posts', 'otherProfile'));
+        $notifications = Notification::where('userId', $user->id)
+            ->orderBy('notificationDate', 'desc')
+            ->get();
+        $unreadCount = Notification::where('status', 'unread')
+            ->where('userId', $user->id)
+            ->count();
+
+        return view('forum.forum', compact('user', 'posts', 'otherProfile', 'notifications', 'unreadCount'));
     }
 
     public function showFriendProfile($id)

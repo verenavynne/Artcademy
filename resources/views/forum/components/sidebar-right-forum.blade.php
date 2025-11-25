@@ -68,7 +68,7 @@
         border-radius: 20px;
         background: white;
         box-shadow: 0 4px 8px 0 var(--brown-shadow-color);
-        min-height: 550px;
+        min-height: 500px;
     }
 
     .forum-footer p{

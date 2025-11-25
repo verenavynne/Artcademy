@@ -31,4 +31,8 @@ class ProjectSubmission extends Model
     {
         return $this->hasMany(LecturerProjectComment::class, 'projectSubmissionId');
     }
+
+    public function notifications(){
+        return $this->morphMany(Notification::class, 'reference', 'referenceType', 'referenceId');
+    }
 }

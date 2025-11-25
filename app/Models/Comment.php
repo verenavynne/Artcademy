@@ -36,4 +36,8 @@ class Comment extends Model
         return $this->belongsTo(Comment::class, 'parentId');
     }
 
+    public function notifications(){
+        return $this->morphMany(Notification::class, 'reference', 'referenceType', 'referenceId');
+    }
+
 }

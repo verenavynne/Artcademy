@@ -21,4 +21,8 @@ class MembershipTransaction extends Model
     public function payment(){
         return $this->belongsTo(Payment::class,'paymentId');
     }
+
+    public function notifications(){
+        return $this->morphMany(Notification::class, 'reference', 'referenceType', 'referenceId');
+    }
 }

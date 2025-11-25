@@ -3,17 +3,14 @@
 @section('content')
 <div class="container-fluid px-5">
     <!-- search bar -->
-    <div class="d-flex align-items-center gap-4 w-100">
+    <div class="d-flex align-items-center pt-1 gap-4 w-100">
         <div class="position-relative flex-grow-1">
             <input type="text" class="custom-input-2 form-control rounded-pill" placeholder="Mau belajar apa hari ini?">
             <iconify-icon icon="icon-park-outline:search" class="search-icon position-absolute">
             </iconify-icon>
         </div>
 
-        <div class="d-flex gap-4 fs-4">
-            <iconify-icon icon="material-symbols:bookmark-outline-rounded"></iconify-icon>
-            <iconify-icon icon="solar:bell-linear"></iconify-icon>
-        </div>
+        @include('components.notification-panel')
     </div>
 
     <!-- header -->
@@ -259,35 +256,23 @@
 </div>
 
 <!-- Illustration -->
- <p class="mb-2 text-center">Mulai dari ide kecil, wujudkan jadi karya nyata, dari hobi yang kamu suka, jadi skill yang menginspirasi!</p>
- <p class="mb-5 text-center">—Artcademy</p>
-
-<a href="{{ route('logout') }}" class="nav-link mt-4"
-    onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-    logout
-</a>
-
-<form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-    @csrf
-</form>
+<p class="mb-2 text-center">Mulai dari ide kecil, wujudkan jadi karya nyata, dari hobi yang kamu suka, jadi skill yang menginspirasi!</p>
+<p class="mb-5 text-center">—Artcademy</p>
 
 <style>
     .pink-blur-blob{
-    width: 500px;
-    height: 500px;
-    flex-shrink: 0;
-    border-radius: 519px;
-    background: var(--pink-medium, #FF5D8B);
-    filter: blur(250px);
-    z-index: -1 ! important;
-    position: absolute;
-    right: 0%;
-    top: 100%;
-    transform: translateY(-50%);
+        width: 500px;
+        height: 500px;
+        flex-shrink: 0;
+        border-radius: 519px;
+        background: var(--pink-medium, #FF5D8B);
+        filter: blur(250px);
+        z-index: -1 ! important;
+        position: absolute;
+        right: 0%;
+        top: 100%;
+        transform: translateY(-50%);
     }
-
-
-
 
     .search-icon {
         right: 30px;

@@ -80,4 +80,5 @@ class User extends Authenticatable
     public function portfolios(){
         return $this->hasMany(Portfolio::class,'userId');
     }
+
 }

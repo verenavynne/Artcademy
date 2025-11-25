@@ -33,4 +33,8 @@ class Post extends Model
     public function files(){
         return $this->hasMany(PostFile::class, 'postId');
     }
+
+    public function notifications(){
+        return $this->morphMany(Notification::class, 'reference', 'referenceType', 'referenceId');
+    }
 }

@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Comment;
 use App\Models\CommentFile;
+use App\Models\Notification;
+use App\Models\Post;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class CommentController extends Controller
@@ -53,6 +56,9 @@ class CommentController extends Controller
                 ]);
             }
         }
+
+        $postOwnerId = Post::find($request->postId)->userId;
+        $this->createNotification($postOwnerId, auth()->id(), 'post', $comment->id);
 
         return back()->with('success', 'Komentar berhasil ditambahkan!');
     }
@@ -104,6 +110,34 @@ class CommentController extends Controller
             }
         }
 
+        $commentOwnerId = Comment::find($request->parentId)->userId;
+        $this->createNotification($commentOwnerId, auth()->id(), 'comment', $reply->id);
+
         return back()->with('success', 'Komentar berhasil ditambahkan!');
+    }
+
+    private function createNotification(int $userId, int $actorId, string $referenceType, int $referenceId){
+        if($actorId === $userId){
+            return;
+        }
+
+        $notificationMessage = null;
+        $actorName = User::find($actorId)->name ?? 'Seseorang';
+
+        if($referenceType === 'post'){
+            $notificationMessage = "{$actorName} mengomentari postingan kamu";
+        }else if($referenceType === 'comment'){
+            $notificationMessage = "{$actorName} membalas komentar kamu";
+        };
+
+        Notification::create([
+            'userId' => $userId,
+            'actorId' => $actorId,
+            'notificationMessage' => $notificationMessage,
+            'notificationDate' => now(),
+            'referenceType' => $referenceType,
+            'referenceId' => $referenceId,
+            'status' => 'unread',
+        ]);
     }
 }

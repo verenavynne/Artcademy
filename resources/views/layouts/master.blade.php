@@ -42,4 +42,47 @@
         background-color: rgba(255, 249, 239, 1);
     }
 </style>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+
+    // Auto scroll when click notif about comment
+    function autoscrollToHash() {
+        const hash = window.location.hash;
+        if (!hash) return;
+
+        const el = document.querySelector(hash);
+        if (!el) {
+            console.log("Not on forum page, skipping autoscroll.");
+            return;
+        }
+
+        const postId   = el.dataset.postId;
+        const parentId = el.dataset.parentId;
+
+        // Buka comment parent
+        const commentToggle = document.querySelector(
+            `.comment-toggle[data-target="#comment-${postId}"]`
+        );
+        if (commentToggle) commentToggle.click();
+
+        if (parentId) {
+            const replyToggle = document.querySelector(
+                `.reply-toggle[data-target="#reply-${parentId}"]`
+            );
+            if (replyToggle) replyToggle.click();
+        }
+
+       
+        setTimeout(() => {
+            el.scrollIntoView({ behavior: "smooth", block: "center" });
+        }, 250);
+    }
+
+    autoscrollToHash();
+    
+    window.addEventListener("hashchange", autoscrollToHash);
+});
+</script>
+
 </html>
