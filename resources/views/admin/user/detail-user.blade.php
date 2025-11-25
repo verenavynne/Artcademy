@@ -26,8 +26,8 @@
                         : ($user->profilePicture 
                             ? asset('storage/' . $user->profilePicture) 
                             : asset('assets/default-profile.jpg')) }}"
-                    class="profile-picture rounded-circle object-fit"
-                    width="100" height="100">
+                    class="profile-picture rounded-circle"
+                    width="100" height="100" style="object-fit: cover">
 
                 <div>   
                     <p class="fw-bold mb-2 fs-5">
@@ -41,33 +41,38 @@
                     </p>
                     @if($user->role !== 'admin')
                         @php
-                            if($user->role === 'lecturer' && $user->lecturer->specialization === 'Seni Lukis & Digital Art'){
-                                $displayStatus = 'Seni Lukis & Digital Art';
+                            $membershipName = $membershipTransaction->membership->membershipName ?? null;
+                            $specialization = $user->lecturer->specialization ?? null;
+
+                            if( ($membershipStatus === 'active' && $membershipName === 'Basic Canvas') || 
+                                ($user->role === 'lecturer' && $specialization === 'Seni Lukis & Digital Art')) {
                                 $bgColor = '#FFF4E0';
                                 $textColor = 'var(--orange-gradient-color)';
-                            } elseif($user->role === 'lecturer' && $user->lecturer->specialization === 'Seni Tari'){
-                                $displayStatus = 'Seni Tari';
+                            } elseif( ($membershipStatus === 'active' && $membershipName === 'Masterpiece Pro') || 
+                                ($user->role === 'lecturer' && $specialization === 'Seni Tari')) {
                                 $bgColor = '#FFEAF0';
                                 $textColor = 'var(--pink-gradient-color)';
-                            } elseif($user->role === 'lecturer' && $user->lecturer->specialization === 'Seni Musik'){
-                                $displayStatus = 'Seni Musik';
+                            } elseif($user->role === 'lecturer' && $specialization === 'Seni Musik') {
                                 $bgColor = '#fffdeaff';
                                 $textColor = 'var(--yellow-gradient-color)';
-                            } elseif($user->role === 'lecturer' && $user->lecturer->specialization === 'Seni Fotografi'){
-                                $displayStatus = 'Seni Fotografi';
+                            } elseif( ($membershipStatus === 'active'&& $membershipName === 'Creative Studio') || 
+                                ($user->role === 'lecturer' && $specialization === 'Seni Fotografi')) {
                                 $bgColor = '#E7F6FE';
                                 $textColor = 'var(--blue-gradient-color)';
                             } else {
-                                $bgColor = '#E7F6FE';
-                                $textColor = 'var(--blue-gradient-color)';
+                                $bgColor = '#D9D9D9';
+                                $textColor = '#6c757d';
                             }
                         @endphp
+
                         <div class="status-text-container" style="background: {{ $bgColor }}">
                             <p class="status-text" style="background: {{ $textColor }}; margin:0; background-clip: text; font-weight:700; font-size:var(--font-size-small)">
                                 @if($user->role === 'student')
-                                    Member Creative Studio
+                                    {{ ($membershipName && $membershipStatus === 'active')
+                                        ? Member . $membershipName
+                                        : 'Belum Berlangganan' }}
                                 @elseif($user->role === 'lecturer')
-                                    {{ $displayStatus }}
+                                    {{ $specialization }}
                                 @endif
                             </p>
                         </div>

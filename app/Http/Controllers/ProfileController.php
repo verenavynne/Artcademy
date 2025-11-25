@@ -9,6 +9,7 @@ use App\Models\ProjectSubmission;
 use App\Models\StudentWeekProgress;
 use App\Models\User;
 use App\Models\ZoomRegistered;
+use App\Models\MembershipTransaction;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -23,13 +24,20 @@ class ProfileController extends Controller
         $posts = Post::where('userId', $user->id)->get();
         $activeTab = request('tab', 'portfolio');
 
+        $membershipTransaction = MembershipTransaction::where('studentId', $user->id)
+            ->where('membershipStatus', 'active')
+            ->with('membership')
+            ->first();
+
+        $membershipStatus = $membershipTransaction?->membershipStatus ?? 'inactive';
+
         if ($user->role === 'student') {
             $layout = 'layouts.master';
         } elseif ($user->role === 'lecturer') {
             $layout = 'layouts.master-tutor';
         }
 
-        return view('profile.my-profile', compact('user', 'portfolios', 'layout','posts','activeTab'));
+        return view('profile.my-profile', compact('user', 'portfolios', 'layout','posts','activeTab', 'membershipTransaction', 'membershipStatus'));
 
     }
 

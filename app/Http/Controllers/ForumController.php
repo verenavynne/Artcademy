@@ -7,6 +7,7 @@ use App\Models\Notification;
 use App\Models\Portfolio;
 use App\Models\Post;
 use App\Models\User;
+use App\Models\MembershipTransaction;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -19,7 +20,9 @@ class ForumController extends Controller
         ->orderBy('created_at', 'desc')
         ->get();
 
-        $otherProfile = User::where('id', '!=', $user->id)->get();
+        $otherProfile = User::where('id', '!=', $user->id)
+            ->where('role', '!=', 'admin')->get();
+        
         $notifications = Notification::where('userId', $user->id)
             ->orderBy('notificationDate', 'desc')
             ->get();
@@ -27,17 +30,31 @@ class ForumController extends Controller
             ->where('userId', $user->id)
             ->count();
 
-        return view('forum.forum', compact('user', 'posts', 'otherProfile', 'notifications', 'unreadCount'));
+        $membershipTransaction = MembershipTransaction::where('studentId', $user->id)
+            ->where('membershipStatus', 'active')
+            ->with('membership')
+            ->first();
+
+        $membershipStatus = $membershipTransaction?->membershipStatus ?? 'belum berlangganan';
+
+        return view('forum.forum', compact('user', 'posts', 'otherProfile', 'notifications', 'unreadCount', 'membershipTransaction', 'membershipStatus'));
     }
 
     public function showFriendProfile($id)
     {
-        $user = User::where('id', $id)->firstOrFail();
+        $user = User::with('lecturer')->where('id', $id)->firstOrFail();
         $portfolios = Portfolio::where('userId', $user->id)->get();
         $posts = Post::where('userId', $user->id)->get();
-        $otherProfile = User::where('id', '!=', auth()->id())->get();
+        $otherProfile = User::where('id', '!=', auth()->id())->where('role', '!=', 'admin')->get();
         $activeTab = request('tab', 'portfolio');
 
-        return view('forum.kunjungi-profile', compact('user', 'portfolios','posts', 'otherProfile', 'activeTab'));
+        $membershipTransaction = MembershipTransaction::where('studentId', $user->id)
+            ->where('membershipStatus', 'active')
+            ->with('membership')
+            ->first();
+
+        $membershipStatus = $membershipTransaction?->membershipStatus ?? 'belum berlangganan';
+
+        return view('forum.kunjungi-profile', compact('user', 'portfolios','posts', 'otherProfile', 'activeTab', 'membershipTransaction', 'membershipStatus'));
     }
 }

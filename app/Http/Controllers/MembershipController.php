@@ -19,7 +19,16 @@ class MembershipController extends Controller
     public function detail($membershipId)
     {
         $membership = Membership::findOrFail($membershipId);
-        return view('membership.membership-detail', compact('membership'));
+
+        $user = Auth::user();
+        $membershipTransaction = MembershipTransaction::where('studentId', $user->id)
+            ->where('membershipStatus', 'active')
+            ->with('membership')
+            ->first();
+
+        $membershipStatus = $membershipTransaction?->membershipStatus ?? 'belum berlangganan';
+
+        return view('membership.membership-detail', compact('membership', 'membershipTransaction', 'membershipStatus'));
     }
 
     public function checkoutInfo($membershipId)

@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Validator;
 use App\Models\User;
 use App\Models\Lecturer;
 use App\Models\Admin;
+use App\Models\MembershipTransaction;
 
 class AdminUserController extends Controller
 {
@@ -100,7 +101,14 @@ class AdminUserController extends Controller
     public function detail($userId)
     {
         $user = User::with('lecturer')->findOrFail($userId);
-        return view('admin.user.detail-user', compact('user'));
+        $membershipTransaction = MembershipTransaction::where('studentId', $user->id)
+            ->where('membershipStatus', 'active')
+            ->with('membership')
+            ->first();
+
+        $membershipStatus = $membershipTransaction?->membershipStatus ?? 'belum berlangganan';
+
+        return view('admin.user.detail-user', compact('user', 'membershipTransaction', 'membershipStatus'));
     }
 
     public function toggleStatus($userId)
