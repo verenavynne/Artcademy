@@ -61,7 +61,7 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'name' => ['required', 'string', 'min:5', 'max:20'],
+            'name' => ['required', 'string', 'min:5', 'max:50'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'phoneNumber' => [
                 'required',
@@ -73,7 +73,7 @@ class RegisterController extends Controller
         ], [
             'name.required' => 'Nama wajib diisi.',
             'name.min' => 'Nama minimal 5 karakter.',
-            'name.max' => 'Nama maksimal 20 karakter.',
+            'name.max' => 'Nama maksimal 50 karakter.',
 
             'email.required' => 'Email wajib diisi.',
             'email.email' => 'Format email tidak valid.',
