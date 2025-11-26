@@ -16,13 +16,20 @@ class HomePageController extends Controller
             ->inRandomOrder()
             ->take(4)
             ->get();
+
+        if($user){
+            $notifications = Notification::where('userId', $user->id)
+                ->orderBy('notificationDate', 'desc')
+                ->get();
+            $unreadCount = Notification::where('status', 'unread')
+            ->where('userId', $user->id)
+            ->count();
+
+        }else{
+            $notifications = collect(); 
+            $unreadCount = 0;   
+        }
             
-        $notifications = Notification::where('userId', $user->id)
-            ->orderBy('notificationDate', 'desc')
-            ->get();
-        $unreadCount = Notification::where('status', 'unread')
-        ->where('userId', $user->id)
-        ->count();
 
         return view('Artcademy.home', compact('courses', 'notifications', 'unreadCount'));
     }

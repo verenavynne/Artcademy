@@ -1,3 +1,6 @@
+@if(!Auth::check())
+<iconify-icon icon="solar:bell-linear" id="notifToggle" style="cursor:pointer"></iconify-icon>
+@else
 <div class="position-relative d-flex gap-4 fs-4">
     @if($unreadCount > 0)
         <div class="position-relative" style="cursor:pointer;" id="notifToggle">
@@ -69,6 +72,7 @@
         </ul>
     </div>
 </div>
+@endif
 
 <style>
 

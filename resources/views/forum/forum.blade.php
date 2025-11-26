@@ -9,11 +9,11 @@
 @endif
 
 @section('content')
-@if(session('success'))
-    <div class="alert alert-success">{{ session('success') }}</div>
-@endif
 
 <div class="container-fluid d-flex flex-column justify-content-center px-5">
+    @if(session('success'))
+        <div class="alert alert-success">{{ session('success') }}</div>
+    @endif
     <div class="d-flex align-items-center gap-4 pt-1 w-100" style="margin-bottom: 18px">
         @if($user->role === 'lecturer')
             <div class="navigation-prev">
