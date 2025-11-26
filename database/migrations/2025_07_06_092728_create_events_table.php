@@ -13,12 +13,16 @@ return new class extends Migration
     {
         Schema::create('events', function (Blueprint $table) {
             $table->id();
+            $table->string('eventCategory');
             $table->string('eventName');
             $table->text('eventDesc');
             $table->date('eventDate');
+            $table->integer('eventDuration');
+            $table->time('start_time');
             $table->string('eventPlace');
             $table->float('eventPrice');
             $table->integer('eventSlot');
+            $table->string('eventBanner');
             $table->timestamps();
         });
     }

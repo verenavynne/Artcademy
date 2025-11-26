@@ -61,7 +61,7 @@
       </li>
 
       <li class="nav-item">
-        <a href="#" class="nav-link-admin" style="gap: 12px">
+        <a href="{{ route('admin.event.index') }}" class="nav-link-admin {{ request()->routeIs('admin.event.*') ? 'active' : '' }}" style="gap: 12px">
           <iconify-icon 
             icon="material-symbols:edit-calendar-outline-rounded" 
             data-regular="material-symbols:edit-calendar-outline-rounded" 

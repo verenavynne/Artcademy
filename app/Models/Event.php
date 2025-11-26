@@ -8,7 +8,7 @@ class Event extends Model
 {
     protected $table='events';
 
-    protected $fillable=['eventName','eventDesc','eventDate','eventPlace','eventPrice','eventSlot'];
+    protected $fillable=['eventCategory', 'eventName','eventDesc','eventDate','eventDuration', 'start_time', 'eventPlace','eventPrice','eventSlot', 'eventBanner'];
 
     public function eventTransaction(){
         return $this->hasMany(EventTransaction::class,'eventId');

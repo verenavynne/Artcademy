@@ -27,6 +27,7 @@ use App\Http\Controllers\AdminCourseController;
 use App\Http\Controllers\AdminZoomController;
 use App\Http\Controllers\AdminUserController;
 use App\Http\Controllers\AdminProfileController;
+use App\Http\Controllers\AdminEventController;
 
 use App\Http\Controllers\TutorHomeController;
 use App\Http\Controllers\TutorMyCourseController;
@@ -118,7 +119,12 @@ Route::middleware(['auth', 'checkRole:admin'])->prefix('/admin')->group(function
     // Manajemen Zoom
     Route::resource('/zoom', AdminZoomController::class)->names('admin.zoom');
     Route::post('/zoom/createZoom', [AdminZoomController::class, 'createZoom'])->name('admin.zoom.createZoom');
-    Route::post('/courses/updateZoom/{zoomId}', [AdminZoomController::class, 'updateZoom'])->name('admin.zoom.updateZoom');
+    Route::post('/updateZoom/{zoomId}', [AdminZoomController::class, 'updateZoom'])->name('admin.zoom.updateZoom');
+
+    // Manajemen Event
+    Route::resource('/event', AdminEventController::class)->names('admin.event');
+    Route::post('/event/createEvent', [AdminEventController::class, 'createEvent'])->name('admin.event.createEvent');
+    Route::post('/updateEvent/{eventId}', [AdminEventController::class, 'updateEvent'])->name('admin.event.updateEvent');
 
 
     // Manajemen Kursus

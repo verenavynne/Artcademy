@@ -216,6 +216,7 @@
         background: var(--pink-gradient-color);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
+        width: 100%;
     }
 
     .statusTabs .nav-link:hover::after,
