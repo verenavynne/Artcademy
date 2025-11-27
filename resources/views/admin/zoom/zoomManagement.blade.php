@@ -36,7 +36,7 @@
                 <option value="25" {{ request('perPage') == 25 ? 'selected' : '' }}>25</option>
                 <option value="50" {{ request('perPage') == 50 ? 'selected' : '' }}>50</option>
             </select>
-            <span>Data Pengguna</span>
+            <span style="font-size:18px">Data Pengguna</span>
         </form>
 
         <form action="{{ route('admin.zoom.index') }}" method="GET" class="d-flex align-items-center">
@@ -138,7 +138,7 @@
                     </tr>
                     @empty
                     <tr>
-                        <td colspan="9" class="text-center text-muted py-4">Tidak ada data Zoom.</td>
+                        <td colspan="9" class="text-center text-muted py-4" style="display: table-cell;">Tidak ada data Zoom.</td>
                     </tr>
                     @endforelse
                 </tbody>
