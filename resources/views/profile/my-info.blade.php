@@ -1,7 +1,7 @@
 @extends($layout)
 
 @section('content')
-<div class="container-fluid d-flex flex-column justify-content-center px-4" style="margin-bottom: 75px;">
+<div class="container-fluid d-flex flex-column justify-content-center px-4" style="margin-bottom: 75px; width: calc(100% - 300px);">
     @if(session('success'))
         <div class="alert alert-success">{{ session('success') }}</div>
     @endif
