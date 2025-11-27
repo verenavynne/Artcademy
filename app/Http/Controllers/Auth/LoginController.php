@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
+use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
@@ -56,6 +57,16 @@ class LoginController extends Controller
         throw ValidationException::withMessages([
             'email' => ['Email atau kata sandi yang kamu masukkan salah.'],
         ]);
+    }
+
+    protected function authenticated(Request $request, $user)
+    {
+        if ($user->userStatus !== 'active') {
+            Auth::logout();
+            throw ValidationException::withMessages([
+                'email' => ['Akun kamu dinonaktifkan.'],
+            ]);
+        }
     }
 
     /**

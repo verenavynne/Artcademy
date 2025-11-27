@@ -146,11 +146,12 @@
        
     </div>
 
-      <a href="{{ route('add-portfolio') }}"
-            class="btn yellow-gradient-btn position-fixed bottom-0 end-0 m-4 shadow">
-            <iconify-icon icon="ic:round-plus"></iconify-icon>
-            Tambah Portofolio
-        </a>
+    <a href="{{ route('add-portfolio') }}"
+        class="btn yellow-gradient-btn position-fixed end-0 m-4 shadow"
+        style="bottom: {{ Auth::check() && Auth::user()->role === 'lecturer' ? '60px' : '0' }};">
+        <iconify-icon icon="ic:round-plus"></iconify-icon>
+        Tambah Portofolio
+    </a>
     
 
     <!-- Pop up each porto -->

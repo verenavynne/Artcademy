@@ -21,6 +21,7 @@ class TutorJadwalController extends Controller
                     $query->where('lecturerId', $lecturerId);
                 })
                 ->where('zoomDate', '<', $now)
+                ->where('zoomStatus', 'publikasi')
                 ->get();
         } else {
             $zooms = Zoom::with(['tutor.lecturer.user'])
@@ -28,6 +29,7 @@ class TutorJadwalController extends Controller
                     $query->where('lecturerId', $lecturerId);
                 })
                 ->where('zoomDate', '>=', $now)
+                ->where('zoomStatus', 'publikasi')
                 ->get();
         }
 

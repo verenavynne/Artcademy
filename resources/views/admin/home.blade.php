@@ -13,7 +13,7 @@
         Tambah Kursus
       </button>
 
-      <button class="btn-tambah">
+      <button class="btn-tambah" onclick="window.location='{{ route('admin.event.create') }}'">
         <span class="icon-circle-event">
           <iconify-icon icon="ic:round-plus" class="tambah-icon"></iconify-icon>
         </span>
