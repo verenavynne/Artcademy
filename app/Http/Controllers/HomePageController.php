@@ -25,6 +25,11 @@ class HomePageController extends Controller
             ->where('userId', $user->id)
             ->count();
 
+            if ($user->role === 'admin') {
+                return redirect()->route('admin.home');
+            } elseif ($user->role === 'lecturer') {
+                return redirect()->route('lecturer.home');
+            }
         }else{
             $notifications = collect(); 
             $unreadCount = 0;   

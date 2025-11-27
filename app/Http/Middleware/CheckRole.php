@@ -26,7 +26,7 @@ class CheckRole
             if ($user->role === 'admin') {
                 return redirect('/admin/home');
             } elseif ($user->role === 'student') {
-                return redirect('/student/home');
+                return redirect('/');
             } elseif ($user->role === 'lecturer') {
                 return redirect('/lecturer/home');
             }
