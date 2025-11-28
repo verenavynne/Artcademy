@@ -9,7 +9,7 @@
         </a>
     </div>
 
-    <div class="d-flex flex-row justify-content-evenly" style="width: 100%; align-items: flex-start; align-self: stretch; gap: 48px;">
+    <div class="d-flex flex-row justify-content-evenly" style="width: 100%; align-items: flex-start; align-self: stretch; gap: 24px;">
         <!-- <div style="width: 20%"> -->
             @include('profile.components.sidebar-profile')
         <!-- </div> -->
@@ -48,6 +48,13 @@
 @endsection
 
 <style>
+
+    .navigation-prev {
+        position: sticky;
+        top: 94px;
+        z-index: 1020;
+        padding-left: 8px;
+    }
 
     .title{
         margin-block-end: 0

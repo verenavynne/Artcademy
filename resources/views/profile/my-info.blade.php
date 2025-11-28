@@ -1,7 +1,7 @@
 @extends($layout)
 
 @section('content')
-<div class="container-fluid d-flex flex-column justify-content-center px-4" style="margin-bottom: 75px; width: calc(100% - 300px);">
+<div class="container-fluid d-flex flex-column justify-content-center px-5" style="margin-bottom: 75px; width: {{ $user->role == 'student' ? '100%' : 'calc(100% - 300px)' }}">
     @if(session('success'))
         <div class="alert alert-success">{{ session('success') }}</div>
     @endif
@@ -19,7 +19,7 @@
         @endif
     </div>
 
-    <div class="d-flex flex-row justify-content-between" style="width: 100%;">
+    <div class="d-flex flex-row justify-content-evenly" style="width: 100%; gap: 24px;">
         @if ($user->role === 'student')
             <!-- <div style="width: 20%"> -->
                 @include('profile.components.sidebar-profile')
@@ -186,6 +186,14 @@
 </script>
 
 <style>
+
+    .navigation-prev {
+        position: sticky;
+        top: 94px;
+        z-index: 1020;
+        padding-left: 8px;
+    }
+
     .title{
         margin-block-end: 0;
     }

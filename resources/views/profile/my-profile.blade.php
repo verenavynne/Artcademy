@@ -13,7 +13,7 @@
         </a>
     </div>
 
-    <div class="d-flex flex-row justify-content-between" style="width: 100%; ">
+    <div class="d-flex flex-row justify-content-evenly" style="width: 100%; gap: 24px; ">
         @if($user->role === 'student')
             <!-- <div style="width: 20%"> -->
                 @include('profile.components.sidebar-profile')

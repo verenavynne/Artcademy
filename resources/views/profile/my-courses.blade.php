@@ -9,7 +9,7 @@
         </a>
     </div>
 
-    <div class="d-flex flex-row justify-content-evenly" style="width: 100%; align-items: flex-start; align-self: stretch; gap: 48px;">
+    <div class="d-flex flex-row justify-content-evenly" style="width: 100%; align-items: flex-start; align-self: stretch; gap: 24px;">
         <!-- <div style="width: 20%"> -->
             @include('profile.components.sidebar-profile')
         <!-- </div> -->
