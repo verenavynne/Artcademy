@@ -47,7 +47,8 @@ class CourseController extends Controller
             $mappedLevel = 'lanjutan';
         }
 
-        $baseQuery = Course::query();
+        $baseQuery = Course::query()
+                ->where('courseStatus', 'publikasi');
 
         if ($type) {
             $baseQuery->where('courseType', $type);
@@ -129,8 +130,13 @@ class CourseController extends Controller
             $layout = 'layouts.master-tutor';
         }
         
-        $course = Course::with(['courseLecturers.lecturer.user', 'weeks.materials', 'zooms'])
-                        ->findOrFail($id);
+        $course = Course::with([
+            'courseLecturers.lecturer.user', 
+            'weeks.materials', 
+            'zooms' => function ($query) {
+                $query->where('zoomStatus', 'publikasi');
+            }
+        ])->findOrFail($id);
 
         $otherCourses = Course::where('id', '!=', $id)
         ->inRandomOrder()

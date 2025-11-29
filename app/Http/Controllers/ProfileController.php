@@ -44,6 +44,14 @@ class ProfileController extends Controller
     public function showMyCourses()
     {
         $user = Auth::user();
+        $membershipTransaction = MembershipTransaction::where('studentId', $user->id)
+            ->where('membershipStatus', 'active')
+            ->with('membership')
+            ->first();
+
+        $membershipStatus = $membershipTransaction?->membershipStatus ?? 'inactive';
+        $userMembershipLevel = $membershipTransaction?->membershipId ?? 0;
+
         $ongoingCoursesEnrollment = CourseEnrollment::where('studentId', $user->id)
         ->where('status', 'ongoing')
         ->get()
@@ -83,7 +91,31 @@ class ProfileController extends Controller
         });
         $activeTab = request('tab', 'dalam-proses');
 
-        return view('profile.my-courses', compact('ongoingCoursesEnrollment','finishedCoursesEnrollment', 'activeTab'));
+        foreach ($ongoingCoursesEnrollment as $enrollment) {
+            $courseLevelMap = [
+                'dasar' => 1,
+                'menengah' => 2,
+                'lanjutan' => 3,
+            ];
+
+            $courseLevel = $courseLevelMap[$enrollment->course->courseLevel] ?? 0;
+
+            $enrollment->isLocked = $userMembershipLevel < $courseLevel;
+        }
+
+        foreach ($finishedCoursesEnrollment as $enrollment) {
+            $courseLevelMap = [
+                'dasar' => 1,
+                'menengah' => 2,
+                'lanjutan' => 3,
+            ];
+
+            $courseLevel = $courseLevelMap[$enrollment->course->courseLevel] ?? 0;
+
+            $enrollment->isLocked = $userMembershipLevel < $courseLevel;
+        }
+
+        return view('profile.my-courses', compact('ongoingCoursesEnrollment','finishedCoursesEnrollment', 'activeTab', 'enrollment'));
     }
 
     public function showMySchedule()

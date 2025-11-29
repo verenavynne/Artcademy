@@ -116,7 +116,7 @@
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="9" class="text-center text-muted py-4">Tidak ada data kursus.</td>
+                            <td colspan="9" class="text-center text-muted py-4" style="display: table-cell;">Tidak ada data pengguna.</td>
                         </tr>
                     @endforelse
                 </tbody>

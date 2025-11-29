@@ -1,7 +1,7 @@
 <div class="popup-overlay" id="popupOverlay">
   <div class="popup-card">
     <button class="close-btn" id="closePopupBtn">
-      <i class="fa fa-times"></i>
+      <iconify-icon icon="si:close-fill" class="tambah-icon"></iconify-icon>
     </button>
 
     <h4 class="popup-title">Tambah Pengguna</h4>
@@ -104,7 +104,7 @@
         <label>Foto Tutor</label>
         <div class="file-upload">
             <button type="button" class="btn pink-cream-btn px-4" id="addProfileBtn">Pilih File</button>
-            <span id="fileName" class="file-text">Tidak ada file yang dipilih</span>
+            <span id="fileName" style="color: #D0C4AF;">Tidak ada file yang dipilih</span>
             <input type="file" name="profilePicture" id="profilePicture" accept="image/*" class="d-none">
         </div>
       </div>
@@ -185,14 +185,19 @@
 
 /* Close Button */
 .close-btn {
-  background: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 28px;
+  height: 28px;
+  background: #F9EEDB;
+  border-radius: 100px;
   border: none;
   position: absolute;
   top: 16px;
   right: 16px;
-  font-size: 18px;
   cursor: pointer;
-  color: #9C8A6A;
+  color: #E5C69B;
 }
 
 /* Title */
@@ -231,7 +236,11 @@
 .file-upload {
   display: flex;
   align-items: center;
-  gap: 14px;
+  gap: 16px;
+  background-color: var(--very-light-grey-color);
+  border-radius: 40px;
+  box-shadow: 0px 4px 8px var(--brown-shadow-color);
+  width: 100%; 
 }
 
 .spinner-border {

@@ -34,9 +34,23 @@
     $menit = $course->courseDurationInMinutes % 60;
 @endphp
 
-<a href="{{ route('course.detail', $course->id) }}" 
+<a href="{{ $enrollment->isLocked ? '#' : route('course.detail', $course->id) }}" 
    class="text-decoration-none text-black">
     <div class="course-card card article-card" style="cursor: pointer; height: 100%;">
+
+        @if($enrollment->isLocked)
+            <div class="overlay-arsip d-flex flex-column justify-content-center align-items-center">
+                <div class="overlay-content d-flex w-70 p-2 gap-3">
+                    <div class="icon-circle d-flex justify-content-center align-items-center">
+                        <iconify-icon icon="ic:round-lock" style="color: #E92D62; font-size: 24px;"></iconify-icon>
+                    </div>
+                    <p class="text-start m-0">
+                        Membership kamu sudah tidak mendukung level kursus ini. Upgrade untuk melanjutkan!
+                    </p>
+                </div>
+            </div>
+        @endif
+
         <div class="course-card-header d-flex flex-column justify-content-between" style="background: {{ $backgroundColor }}">
             <div class="course-type-text-container mb-2" style="background: {{ $backgroundCourseTypeText }}">
                 <p style="margin: 0; color: white; font-size: var(--font-size-mini)">
