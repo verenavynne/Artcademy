@@ -20,7 +20,7 @@
                         <a class="nav-link {{ request()->routeIs('course') ? 'active' : '' }}" href="{{ route('course') }}">Kursus</a>
                     </li>
                      <li class="nav-item">
-                        <a class="nav-link " href="">Event</a>
+                        <a class="nav-link {{ request()->routeIs('event') ? 'active' : '' }}" href="{{ route(name: 'event') }}">Event</a>
                     </li>
                      <li class="nav-item">
                         <a class="nav-link {{ request()->routeIs('membership') ? 'active' : '' }}" href="{{ route('membership') }}">Membership</a>

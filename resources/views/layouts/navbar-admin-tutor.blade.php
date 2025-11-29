@@ -241,7 +241,6 @@
         const panel = document.getElementById("notifPanel")
 
         toggle.addEventListener("click", function(event){
-            console.log('vyn masukkkk', toggle)
             event.stopPropagation();
             panel.classList.toggle("show");
         });

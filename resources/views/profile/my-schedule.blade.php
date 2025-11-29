@@ -36,7 +36,9 @@
                     <p style="font-size: 18px">Event seru siap bikin kamu makin jago dan makin terinspirasi. Yuk join sekarang!</p>
 
                     <div class="events-section pt-3">
-                       
+                       @foreach($events as $event)
+                            @include('components.event-card', ['event'=> $event->event])
+                       @endforeach
 
                     </div>
     
@@ -60,6 +62,7 @@
         margin-block-end: 0
     }
 
+    .events-section,
     .zooms-section{
         display: grid;
         grid-template-columns: repeat(3, 1fr) ;

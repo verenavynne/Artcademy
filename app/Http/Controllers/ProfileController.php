@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\CourseEnrollment;
+use App\Models\EventTransaction;
 use App\Models\Portfolio;
 use App\Models\Post;
 use App\Models\ProjectSubmission;
@@ -123,9 +124,11 @@ class ProfileController extends Controller
         $user = Auth::user();
         $zooms = ZoomRegistered::where('studentId', $user->id)
         ->get();
+        $events = EventTransaction::where('studentId', $user->id)->get();
         $activeTab = request('tab', 'kelas-zoom');
 
-        return view('profile.my-schedule', compact('zooms','activeTab'));
+
+        return view('profile.my-schedule', compact('zooms','events','activeTab'));
     }
 
     public function showMyInfo()

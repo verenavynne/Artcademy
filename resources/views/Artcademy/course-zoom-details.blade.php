@@ -130,7 +130,7 @@
                 <div class="zoom-daftar-card d-flex flex-column">
                     <p class="zoom-daftar-title text-start fw-bold">Kelas Zoom</p>
                     <hr class="zoom-daftar-divider">
-                    <div class="jadwal-list d-flex flex-row align-items-center" style="margin-block-end: 28px; gap: 70px">
+                    <div class="jadwal-list d-flex flex-row align-items-center justify-content-between" style="margin-block-end: 28px;">
                         <div class="jadwal d-flex flex-row align-items-center gap-2">
                             <img src="{{ asset('assets/icons/icon_calendar_gradient.svg') }}" alt="Calendar icon" height="24" width="24">
                             <p>{{ $date }}</p>

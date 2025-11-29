@@ -170,6 +170,7 @@
 
     // buka popup saat tombol diklik
     document.getElementById('openPasswordPopupBtn').addEventListener('click', function() {
+        console.log('vynnn open password')
         openPasswordPopup();
     });
 

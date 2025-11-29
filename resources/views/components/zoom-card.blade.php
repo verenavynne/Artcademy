@@ -1,7 +1,7 @@
 <div class="zoom-card card article-card" height="100%" 
     @if(Auth::check() && Auth::user()->role === 'student')
          onclick="window.location.href='{{ route('zoom.showDetail', $zoom->id) }}'"
-     @endif
+    @endif
     style="cursor: pointer;">
     <div class="zoom-card-header d-flex flex-column justify-content-between" style="background: var(--orange-gradient-color)">
         <div class="zoom-text-container d-flex flex-row mb-2 gap-2" style="background: #D99F18">

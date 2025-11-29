@@ -106,7 +106,7 @@
                             </div>
                         </td>
                         <td class="text-nowrap">
-                            <a href="#" class="btn btn-sm p-0 me-2 border-0 bg-transparent">
+                            <a href="{{ route('event.detail', $event->id) }}" class="btn btn-sm p-0 me-2 border-0 bg-transparent">
                                 <iconify-icon icon="fa6-solid:eye" width="20" height="20"></iconify-icon>
                             </a>
                             <a href="{{ route('admin.event.edit', $event->id) }}" class="btn btn-sm text-warning p-0 me-2 border-0 bg-transparent">
