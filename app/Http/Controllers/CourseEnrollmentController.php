@@ -8,6 +8,7 @@ use App\Models\CourseMateri;
 use App\Models\CourseWeek;
 use App\Models\StudentMateriProgress;
 use App\Models\StudentWeekProgress;
+use App\Models\MembershipTransaction;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -16,6 +17,29 @@ class CourseEnrollmentController extends Controller
     public function createEnrollment($id)
     {
         $user = Auth::user();
+        $course = Course::findOrFail($id);
+
+        $levelMap = [
+            'dasar' => 1,
+            'menengah' => 2,
+            'lanjutan' => 3,
+        ];
+
+        $courseLevelNum = $levelMap[$course->courseLevel];
+
+        $membershipTransaction = MembershipTransaction::where('studentId', $user->id)
+            ->where('membershipStatus', 'active')
+            ->with('membership')
+            ->first();
+
+        $membershipStatus = $membershipTransaction?->membershipStatus ?? 'inactive';
+        $userMembershipLevel = $membershipTransaction?->membershipId ?? 0;
+
+        if ($userMembershipLevel < $courseLevelNum) {
+            return redirect()->back()
+                ->with('show_membership_modal', true)
+                ->with('modal_message', 'Yuk upgrade membership kamu untuk mengakses kursus ini.');
+        }
 
         $existing = CourseEnrollment::where('courseId', $id)
             ->where('studentId', $user->id)
