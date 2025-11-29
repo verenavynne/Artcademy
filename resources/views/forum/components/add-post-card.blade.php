@@ -51,7 +51,7 @@
             </label>
         </div>
 
-        <button type="submit" class="btn py-2 px-4 text-dark yellow-gradient-btn d-flex flex-row gap-2">
+        <button type="submit" class="btn py-2 px-4 text-dark yellow-gradient-btn align-items-center d-flex flex-row gap-2">
             Post
         </button>
     </div>

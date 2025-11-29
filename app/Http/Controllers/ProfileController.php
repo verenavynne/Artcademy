@@ -116,7 +116,7 @@ class ProfileController extends Controller
             $enrollment->isLocked = $userMembershipLevel < $courseLevel;
         }
 
-        return view('profile.my-courses', compact('ongoingCoursesEnrollment','finishedCoursesEnrollment', 'activeTab', 'enrollment'));
+        return view('profile.my-courses', compact('ongoingCoursesEnrollment','finishedCoursesEnrollment', 'activeTab'));
     }
 
     public function showMySchedule()

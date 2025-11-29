@@ -131,6 +131,8 @@ class AdminZoomController extends Controller
             'end_time'      => $endTime->format('H:i'),
             'zoomDuration'  => $validated['zoomDuration'],
             'zoomQuota'     => $validated['zoomQuota'],
+            'zoomStatus' => 'publikasi',
+
         ]);
 
         return redirect()->route('admin.zoom.index')

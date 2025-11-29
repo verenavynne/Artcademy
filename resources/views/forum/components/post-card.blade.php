@@ -154,7 +154,7 @@ $autoOpen = $post->comments->whereNotNull('chatbotId')->isNotEmpty();
                             </label>
                         </div>
             
-                        <button class="btn py-2 px-4 text-dark yellow-gradient-btn d-flex flex-row gap-2">
+                        <button class="btn py-2 px-4 text-dark yellow-gradient-btn align-items-center d-flex flex-row gap-2">
                             Balas
                         </button>
                     </div>
@@ -289,7 +289,7 @@ $autoOpen = $post->comments->whereNotNull('chatbotId')->isNotEmpty();
                                                     </label>
                                                 </div>
                                     
-                                                <button class="btn py-2 px-4 text-dark yellow-gradient-btn d-flex flex-row gap-2">
+                                                <button class="btn py-2 px-4 text-dark yellow-gradient-btn align-items-center d-flex flex-row gap-2">
                                                     Balas
                                                 </button>
                                             </div>

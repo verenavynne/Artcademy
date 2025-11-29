@@ -34,7 +34,8 @@ class DatabaseSeeder extends Seeder
             ProjectToolSeeder::class,
             LecturerProjectGradeandCommentSeeder::class,
             MembershipSeeder::class,
-            ChatbotSeeder::class
+            ChatbotSeeder::class,
+            EventSeeder::class
 
         ]);
     }

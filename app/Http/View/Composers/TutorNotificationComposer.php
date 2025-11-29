@@ -20,7 +20,7 @@ class TutorNotificationComposer
     {
         $user = Auth::user();
 
-        if($user && $user->role === 'lecturer'){
+        if($user){
             $notifications = Notification::where('userId', $user->id)
                 ->orderBy('notificationDate', 'desc')
                 ->get();

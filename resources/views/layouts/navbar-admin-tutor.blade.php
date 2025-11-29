@@ -6,6 +6,7 @@
     </div>
 
     <div class="d-flex align-items-center gap-4"> 
+        @if(auth()->user()->role === 'lecturer')
         <button class="btn btn-link p-0 position-relative" id="notifToggle" style="cursor:pointer">
            <iconify-icon icon="solar:bell-linear" class="notif-icon"></iconify-icon>
         </button>
@@ -66,6 +67,7 @@
                 @endif
             </ul>
         </div>
+        @endif
 
         <div class="dropdown">
             <a class="profil d-flex align-items-center text-decoration-none text-dark " href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">

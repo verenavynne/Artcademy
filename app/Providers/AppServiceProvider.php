@@ -29,6 +29,6 @@ class AppServiceProvider extends ServiceProvider
         \Midtrans\Config::$is3ds = true;
 
         // For tutor notif
-        view()->composer('*', TutorNotificationComposer::class);
+        view()->composer('layouts.master-tutor', TutorNotificationComposer::class);
     }
 }

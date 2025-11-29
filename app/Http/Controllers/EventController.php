@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Event;
 use App\Models\EventTransaction;
+use App\Models\Notification;
 use App\Models\Payment;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -13,6 +14,7 @@ class EventController extends Controller
 {
     public function show()
     {
+        $user = Auth::user();
         $workshopSection = request('workshop_section', 1);
         $webinarSection = request('webinar_section', 1);
         $now = Carbon::now();
@@ -28,7 +30,14 @@ class EventController extends Controller
         ->paginate(4,['*'], 'workshop_section')
         ->appends(['webinar_section'=> $webinarSection]);
 
-        return view('event.event', compact('webinars', 'workshops'));
+        $notifications = Notification::where('userId', $user->id)
+            ->orderBy('notificationDate', 'desc')
+            ->get();
+        $unreadCount = Notification::where('status', 'unread')
+            ->where('userId', $user->id)
+            ->count();
+
+        return view('event.event', compact('webinars', 'workshops', 'notifications','unreadCount'));
     }
 
     public function showDetail($id)
