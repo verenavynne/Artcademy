@@ -106,16 +106,6 @@
                     <div class="col-md">
                         <div class="d-flex justify-content-between">
                             <label class="form-label fw-semibold">Harga Event</label>
-                            <div class="d-flex">
-                                <div class="form-check form-switch">
-                                    <input class="form-check-input" 
-                                        type="checkbox" 
-                                        role="switch" 
-                                        id="eventGratis"
-                                        {{ $event->eventPrice == 0 ? 'checked' : '' }}>
-                                </div>
-                                <label class="fw-semibold">Gratis</label>
-                            </div>
                             
                         </div>
                         <input type="number" name="eventPrice" class="form-control rounded-pill custom-input" placeholder="50000"
@@ -188,20 +178,6 @@
             document.getElementById('bannerPreview').src = e.target.result;
         }
         reader.readAsDataURL(file);
-    });
-
-    // event price
-    const priceInput = document.querySelector('input[name="eventPrice"]');
-    const freeSwitch = document.getElementById('eventGratis');
-
-    freeSwitch.addEventListener('change', function () {
-        if (this.checked) {
-            priceInput.value = 0;
-            priceInput.readOnly = true;
-        } else {
-            priceInput.readOnly = false;
-            priceInput.value = '';
-        }
     });
 </script>
 

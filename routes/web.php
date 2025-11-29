@@ -5,6 +5,7 @@ use App\Http\Controllers\CourseController;
 use App\Http\Controllers\CourseDetailController;
 use App\Http\Controllers\CourseEnrollmentController;
 use App\Http\Controllers\CourseWeekController;
+use App\Http\Controllers\EventController;
 use App\Http\Controllers\ForumController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\HomePageController;
@@ -39,6 +40,7 @@ Route::get('/', [HomePageController::class, 'index'])->name('home');
 Route::get('/course', [CourseController::class, 'index']
 )->name('course');
 
+Route::get('/event', [EventController::class, 'show'])->name('event');
 
 Auth::routes();
 
@@ -87,6 +89,12 @@ Route::middleware(['auth', 'checkRole:student'])->prefix('/student')->group(func
     Route::get('/membership/checkout-info/{membershipId}', [MembershipController::class, 'checkoutInfo'])->name('membership.checkoutInfo');
     Route::post('/membership/payment', [MembershipController::class, 'processPayment'])->name('membership.pay');
     Route::post('/payment/update-payment-status', [MembershipController::class, 'updatePaymentStatus'])->name('membership.updatePaymentStatus');
+
+    // Event
+    
+    Route::get('/event/checkout-info/{eventId}', [EventController::class, 'checkoutInfo'])->name('event.checkoutInfo');
+    Route::post('/event/payment',[EventController::class, 'processPayment'])->name('event.pay');
+    Route::post('/event/payment/update-payment-status', [EventController::class, 'updatePaymentStatus'])->name('event.updatePaymentStatus');
    
 });
 
@@ -182,6 +190,8 @@ Route::middleware(['auth'])->group(function(){
     Route::get('/forum/visit-profile/{id}',[ForumController::class, 'showFriendProfile'])->name('forum.visit-profile');
 
     Route::get('/notification/show/{id}',[NotificationController::class, 'show'])->name('notification.show');
+
+    Route::get('/event/{id}',[EventController::class, 'showDetail'])->name('event.detail');
 });
 
 Route::get('/my-transaction-history',function(){
