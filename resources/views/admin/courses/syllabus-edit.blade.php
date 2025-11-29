@@ -75,13 +75,13 @@
                     <!-- Judul dan Tutor -->
                     <div class="week-body">
                         <div class="row mb-4">
-                            <div class="col-md-6">
+                            <div class="col-md">
                                 <label class="fw-semibold">Judul</label>
                                 <input type="text" name="weeks[{{ $loop->index }}][weekName]" 
                                     value="{{ $week->weekName }}" 
                                     class="form-control border-0 rounded-pill shadow-sm px-3 py-2 bg-light-subtle custom-input" required>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md">
                                 <label class="fw-semibold">Tutor</label>
                                 <select name="weeks[{{ $loop->index }}][tutorId]" 
                                     class="form-select border-0 rounded-pill shadow-sm px-3 py-2 bg-light-subtle custom-input" required>
@@ -111,14 +111,14 @@
 
                                 <div class="material-body">
                                     <div class="row">
-                                        <div class="col-md-6">
+                                        <div class="col-md">
                                             <label class="fw-semibold">Nama Materi</label>
                                             <input type="text" name="weeks[{{ $loop->parent->index }}][materials][{{ $loop->index }}][materiName]"
                                                 value="{{ $materi->materiName }}" 
                                                 placeholder="Nama Materi" class="form-control mb-2 rounded-pill custom-input" required> 
                                         </div>
 
-                                        <div class="col-md-6">
+                                        <div class="col-md">
                                             <label class="fw-semibold">Durasi Materi (menit)</label>
                                             <input type="number" name="weeks[{{ $loop->parent->index }}][materials][{{ $loop->index }}][duration]"
                                                 value="{{ $materi->duration }}"

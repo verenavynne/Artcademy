@@ -65,13 +65,13 @@
 
                 <!-- Judul & Tools -->
                 <div class="row mb-3">
-                    <div class="col-md-6 mb-3">
+                    <div class="col-md mb-3">
                         <label class="form-label fw-semibold">Judul Proyek</label>
                         <input type="text" name="projectName" 
                             value="{{ old('projectName', $project->projectName ?? '') }}" 
                             class="form-control rounded-pill custom-input" placeholder="Masukkan Judul Proyek">
                     </div>
-                    <div class="col-md-6 mb-3">
+                    <div class="col-md mb-3">
                         <label class="form-label fw-semibold">Tools yang digunakan</label>
                         <select name="projectTools[]" multiple class="form-select rounded-pill custom-input">
                             @foreach ($tools as $tool)
@@ -86,13 +86,13 @@
 
                 <!-- Konsep & Requirement -->
                 <div class="row mb-3">
-                    <div class="col-md-6 mb-3">
+                    <div class="col-md mb-3">
                         <label class="form-label fw-semibold">Konsep Proyek</label>
                         <textarea name="projectConcept" class="form-control tinymce-editor"
                         placeholder="Bagaimana konsep untuk proyek ini?">
                         {{ old('projectConcept', $project->projectConcept ?? '') }}</textarea>
                     </div>
-                    <div class="col-md-6 mb-3">
+                    <div class="col-md mb-3">
                         <label class="form-label fw-semibold">Requirement</label>
                         <textarea name="projectRequirement" class="form-control tinymce-editor"
                         placeholder="Cth: penggunaan warna, bentuk, dsb">
@@ -104,7 +104,7 @@
                 <div class="mb-3">
                     <label class="form-label fw-semibold">Kriteria Penilaian</label>
                     <div class="row g-3">
-                        <div class="col-md-4">
+                        <div class="col-md">
                             <label class="form-label">Kreativitas</label>
                             <select id="creativity" name="criteriaCreativity" class="form-select rounded-pill custom-input">
                                 <option value="{{ $criteriaWeights['Kreativitas'] ?? 0 }}" disabled selected>
@@ -112,7 +112,7 @@
                                 </option>
                             </select>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md">
                             <label class="form-label">Keterbacaan</label>
                             <select id="readability" name="criteriaReadability" class="form-select rounded-pill custom-input"  disabled>
                                 <option value="{{ $criteriaWeights['Keterbacaan'] ?? 0 }}" disabled selected>
@@ -120,7 +120,7 @@
                                 </option>
                             </select>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md">
                             <label class="form-label">Kesesuaian Tema</label>
                             <select id="theme" name="criteriaTheme" class="form-select rounded-pill custom-input" disabled>
                                 <option value="{{ $criteriaWeights['Kesesuaian Tema'] ?? 0 }}" disabled selected>

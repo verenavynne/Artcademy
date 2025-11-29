@@ -14,7 +14,7 @@
 
         <div class="material-body">
             <div class="row">
-                <div class="col-md-6">
+                <div class="col-md">
                     <label class="fw-semibold">Nama Materi</label>
                     <input type="text" name="weeks[__WEEK_INDEX__][materials][__MATERIAL_INDEX__][materiName]" 
                         placeholder="Nama Materi" class="form-control mb-2 rounded-pill custom-input" required> 
@@ -78,7 +78,7 @@
             } else if (type === 'video') {
                 html = `
                     <div class="row mb-3">
-                        <div class="col-md-6 mb-3 mb-md-0">
+                        <div class="col-md mb-3 mb-md-0">
                             <label class="form-label fw-semibold">Judul Video</label>
                             <input type="text" 
                                 name="${baseName}[vblName]" 
@@ -86,7 +86,7 @@
                                 class="form-control rounded-pill custom-input">
                         </div>
 
-                        <div class="col-md-6">
+                        <div class="col-md">
                             <label class="form-label fw-semibold">Link Video</label>
                             <div class="d-flex align-items-center px-3 py-2 rounded-pill shadow-sm bg-light-subtle custom-input">
                                 <iconify-icon icon="material-symbols:link-rounded" class="me-2"></iconify-icon>                    

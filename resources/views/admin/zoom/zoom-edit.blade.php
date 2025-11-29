@@ -24,14 +24,14 @@
 
                 <!-- Topik Zoom -->
                 <div class="row mb-3">
-                    <div class="col-md-6">
+                    <div class="col-md">
                         <label class="form-label fw-semibold">Topik Kelas Zoom</label>
                         <input type="text" name="zoomTopic" class="form-control rounded-pill custom-input" 
                                value="{{ old('zoomTopic', $zoom->zoomName) }}" required>
                     </div>
 
                     <!-- Pilihan Kursus -->
-                    <div class="col-md-6">
+                    <div class="col-md">
                         <label class="form-label fw-semibold">Pilih Kursus</label>
                         <select name="zoomCourse" class="form-select rounded-pill custom-input" required>
                             <option disabled>Zoom ini berkaitan dengan kursus apa?</option>
@@ -53,14 +53,14 @@
 
                 <!-- Link Zoom -->
                 <div class="row mb-3">
-                    <div class="col-md-6">
+                    <div class="col-md">
                         <label class="form-label fw-semibold">Lokasi Kelas Zoom</label>
                         <input type="text" name="zoomLink" class="form-control rounded-pill custom-input"
                                value="{{ old('zoomLink', $zoom->zoomLink) }}" required>
                     </div>
 
                     <!-- Tutor -->
-                    <div class="col-md-6">
+                    <div class="col-md">
                         <label class="form-label fw-semibold">Tutor</label>
                         <select name="zoomTutor" class="form-select rounded-pill custom-input" required>
                             <option disabled>Pilih Tutor</option>
@@ -78,14 +78,14 @@
                 
                 <!-- Tanggal -->
                 <div class="row mb-3">
-                    <div class="col-md-6">
+                    <div class="col-md">
                         <label class="form-label fw-semibold">Tanggal</label>
                         <input type="date" name="zoomDate" class="form-control rounded-pill custom-input"
                                value="{{ old('zoomDate', $zoom->zoomDate) }}" required>
                     </div>
 
                     <!-- Kuota -->
-                    <div class="col-md-6">
+                    <div class="col-md">
                         <label class="form-label fw-semibold">Maksimal Peserta</label>
                         <select name="zoomQuota" class="form-select rounded-pill custom-input" required>
                             <option disabled>Pilih Jumlah Maksimal Peserta</option>
@@ -98,13 +98,13 @@
 
                 <!-- Durasi dan Waktu -->
                 <div class="row mb-3">
-                    <div class="col-md-6">
+                    <div class="col-md">
                         <label class="form-label fw-semibold">Durasi (menit)</label>
                         <input type="text" name="zoomDuration" class="form-control rounded-pill custom-input"
                                value="{{ old('zoomDuration', $zoom->zoomDuration) }}" required>
                     </div>
 
-                    <div class="col-md-6">
+                    <div class="col-md">
                         <label class="form-label fw-semibold">Waktu</label>
                         <input type="time" name="zoomTime" class="form-control rounded-pill custom-input"
                                value="{{ old('zoomTime', $zoom->start_time) }}" required>

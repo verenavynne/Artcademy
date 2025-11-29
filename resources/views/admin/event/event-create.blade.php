@@ -34,7 +34,7 @@
                 
                 <div class="row mb-3">
                     <!-- Kategori -->
-                    <div class="col-md-6">
+                    <div class="col-md">
                         <label class="form-label fw-semibold">Kategori</label>
                         <select name="eventCategory" class="form-select rounded-pill custom-input">
                             <option selected disabled>Pilih kategori</option>
@@ -44,7 +44,7 @@
                     </div>
 
                     <!-- Maksimal peserta -->
-                    <div class="col-md-6">
+                    <div class="col-md">
                         <label class="form-label fw-semibold">Maksimal Peserta</label>
                         <select name="eventSlot" class="form-select rounded-pill custom-input" required>
                             <option selected disabled>Pilih Jumlah Maksimal Peserta</option>
@@ -65,7 +65,7 @@
 
                 <div class="row mb-3">
                     <!-- Banner -->
-                    <div class="col-md-6">
+                    <div class="col-md">
                         <label class="form-label fw-semibold">Banner Event</label>
                         <div class="upload-banner-wrapper" onclick="document.getElementById('bannerInput').click()">
                             <div id="previewContainer" class="preview-container d-none">
@@ -83,7 +83,7 @@
                             accept="image/png, image/jpeg" required>
                     </div>
 
-                    <div class="col-md-6">
+                    <div class="col-md">
                         <!-- Deskripsi -->
                         <div>
                             <label class="form-label fw-semibold">Deskripsi Event</label>
@@ -97,13 +97,13 @@
                     
                 <div class="row mb-4">
                     <!-- Link Event -->
-                    <div class="col-md-6">
+                    <div class="col-md">
                         <label class="form-label fw-semibold">Lokasi Event</label>
                         <input type="text" name="eventPlace" class="form-control rounded-pill custom-input" placeholder="Masukkan Lokasi Event" required>
                     </div>
 
                     <!-- Harga -->
-                    <div class="col-md-6">
+                    <div class="col-md">
                         <div class="d-flex justify-content-between">
                             <label class="form-label fw-semibold">Harga Event</label>
                             <div class="d-flex">
@@ -135,13 +135,13 @@
 
                 <div class="row">
                     <!-- Durasi -->
-                    <div class="col-md-6">
+                    <div class="col-md">
                         <label class="form-label fw-semibold">Durasi (menit)</label>
                         <input type="text" name="eventDuration" class="form-control rounded-pill custom-input" placeholder="90" required>
                     </div>
 
                     <!-- Waktu -->
-                    <div class="col-md-6">
+                    <div class="col-md">
                         <label class="form-label fw-semibold">Waktu</label>
                         <input type="time" name="eventStartTime" class="form-control rounded-pill custom-input" required>
                     </div>
