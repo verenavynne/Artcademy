@@ -63,7 +63,7 @@
                 <form action="{{ route('profile.update') }}" method="POST">
                     @csrf
                     <div class="row mb-4">
-                        <div class="col-md-6">
+                        <div class="col-md">
                             <label for="name" class="form-label">Nama</label>
                             <input type="text" id="name" name="name" 
                                     class="form-control rounded-pill @error('name') is-invalid @enderror" 
@@ -73,7 +73,7 @@
                                 <div class="invalid-feedback d-block">{{ $message }}</div>
                             @enderror
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md">
                             <label for="email" class="form-label">Email</label>
                             <input type="text" id="email" name="email" 
                                     class="form-control rounded-pill @error('email') is-invalid @enderror" 
@@ -96,7 +96,7 @@
                             @enderror
                         </div>
                         @if ($user->role !== 'admin')
-                            <div class="col-md-6">
+                            <div class="col-md">
                                 <label for="gender" class="form-label">Jenis Kelamin</label>
                                 <select id="gender" 
                                         name="gender" 
@@ -115,7 +115,7 @@
                     </div>
                     @if ($user->role !== 'admin')
                     <div class="row mb-4">
-                        <div class="col-md-6">
+                        <div class="col-md">
                             <label for="dob" class="form-label">Tanggal lahir</label>
                             <input type="date" 
                                     id="dob" 
@@ -126,7 +126,7 @@
                                 <div class="invalid-feedback d-block">{{ $message }}</div>
                             @enderror
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md">
                             <label for="profession" class="form-label">Profesi</label>
                             <input type="text" id="profession" name="profession" 
                                     class="form-control rounded-pill @error('profession') is-invalid @enderror" 

@@ -17,7 +17,7 @@
         <!-- Judul dan Tutor -->
         <div class="week-body">
             <div class="row mb-4">
-                <div class="col-md-6">
+                <div class="col-md">
                     <label class="fw-semibold">Judul</label>
                     <input type="text" name="weeks[__WEEK_INDEX__][weekName]" 
                         placeholder="Masukkan Judul" 

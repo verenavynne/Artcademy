@@ -5,7 +5,7 @@
     <div class="alert alert-success">{{ session('success') }}</div>
 @endif
 
-<div class="container-fluid d-flex flex-column justify-content-center px-5" style="margin-bottom: 75px;">
+<div class="container-fluid d-flex flex-column justify-content-center px-5" style="margin-bottom: 75px; width: {{ $user->role == 'student' ? '100%' : 'calc(100% - 300px)' }}">
 
     <div class="navigation-prev d-flex flex-start pb-4 sticky-top">
         <a class="page-link" href="javascript:void(0);" onclick="window.history.back()">

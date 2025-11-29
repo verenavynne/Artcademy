@@ -65,11 +65,11 @@
 
                 <!-- Judul & Tools -->
                 <div class="row mb-3">
-                    <div class="col-md-6 mb-3">
+                    <div class="col-md mb-3">
                         <label class="form-label fw-semibold">Judul Proyek</label>
                         <input type="text" name="projectName" class="form-control rounded-pill custom-input" placeholder="Masukkan Judul Proyek" required>
                     </div>
-                    <div class="col-md-6 mb-3">
+                    <div class="col-md mb-3">
                         <label class="form-label fw-semibold">Tools yang digunakan</label>
                         <select name="projectTools[]" class="form-select rounded-pill custom-input" multiple required>
                             @foreach ($tools as $tool)
@@ -81,12 +81,12 @@
 
                 <!-- Konsep & Requirement -->
                 <div class="row mb-3">
-                    <div class="col-md-6 mb-3">
+                    <div class="col-md mb-3">
                         <label class="form-label fw-semibold">Konsep Proyek</label>
                         <textarea name="projectConcept" class="form-control rounded-4 custom-input tinymce-editor"
                             placeholder="Bagaimana konsep untuk proyek ini?" required></textarea>
                     </div>
-                    <div class="col-md-6 mb-3">
+                    <div class="col-md mb-3">
                         <label class="form-label fw-semibold">Requirement</label>
                         <textarea name="projectRequirement" class="form-control rounded-4 custom-input tinymce-editor"
                             placeholder="Cth: penggunaan warna, bentuk, dsb" required></textarea>
@@ -97,19 +97,19 @@
                 <div class="mb-3">
                     <label class="form-label fw-semibold">Kriteria Penilaian</label>
                     <div class="row g-3">
-                        <div class="col-md-4">
+                        <div class="col-md">
                             <label class="form-label">Kreativitas</label>
                             <select id="creativity" name="criteriaCreativity" class="form-select rounded-pill custom-input" required>
                                 <option selected disabled>Pilih Persentase</option>
                             </select>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md">
                             <label class="form-label">Keterbacaan</label>
                             <select id="readability" name="criteriaReadability" class="form-select rounded-pill custom-input" required disabled>
                                 <option selected disabled>Pilih Persentase</option>
                             </select>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md">
                             <label class="form-label">Kesesuaian Tema</label>
                             <select id="theme" name="criteriaTheme" class="form-select rounded-pill custom-input" required disabled>
                                 <option selected disabled>Pilih Persentase</option>

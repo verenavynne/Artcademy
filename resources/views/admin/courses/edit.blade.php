@@ -61,7 +61,7 @@
 
                 <!-- Jenis Kursus -->
                 <div class="row mb-3">
-                    <div class="col-md-6 mb-3">
+                    <div class="col-md mb-3">
                         <label class="form-label fw-semibold">Kategori Kursus</label>
                         <select name="courseType" class="form-select rounded-pill custom-input" required>
                             <option disabled {{ !$course ? 'selected' : '' }}>Pilih Kategori Kursus</option>
@@ -73,7 +73,7 @@
                     </div>
 
                     <!-- Level -->
-                    <div class="col-md-6 mb-3">
+                    <div class="col-md mb-3">
                         <label class="form-label fw-semibold">Level Kursus</label>
                         <select name="courseLevel" class="form-select rounded-pill custom-input" required>
                             <option disabled {{ !$course ? 'selected' : '' }}>Pilih Level</option>
@@ -104,7 +104,7 @@
 
                 <div class="row mb-3">
                     <!-- Tipe Pembayaran -->
-                    <div class="col-md-6 mb-3">
+                    <div class="col-md mb-3">
                         <label class="form-label fw-semibold">Tipe Pembayaran</label>
                         <select name="coursePaymentType" class="form-select rounded-pill custom-input" required>
                             <option disabled {{ !$course ? 'selected' : '' }}>Pilih Tipe Pembayaran</option>
@@ -114,7 +114,7 @@
                     </div>
 
                     <!-- Tutor  -->
-                    <div class="col-md-6 mb-4">
+                    <div class="col-md mb-4">
                         <label class="form-label fw-semibold">Pilih 3 Tutor</label>
 
                         <div id="lecturers-container" class="border rounded-4 p-3 custom-input">
