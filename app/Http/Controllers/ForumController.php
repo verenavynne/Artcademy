@@ -42,6 +42,7 @@ class ForumController extends Controller
 
     public function showFriendProfile($id)
     {
+        $authUser = Auth::user();
         $user = User::with('lecturer')->where('id', $id)->firstOrFail();
         $portfolios = Portfolio::where('userId', $user->id)->get();
         $posts = Post::where('userId', $user->id)->get();
@@ -55,6 +56,6 @@ class ForumController extends Controller
 
         $membershipStatus = $membershipTransaction?->membershipStatus ?? 'belum berlangganan';
 
-        return view('forum.kunjungi-profile', compact('user', 'portfolios','posts', 'otherProfile', 'activeTab', 'membershipTransaction', 'membershipStatus'));
+        return view('forum.kunjungi-profile', compact('user', 'authUser', 'portfolios','posts', 'otherProfile', 'activeTab', 'membershipTransaction', 'membershipStatus'));
     }
 }

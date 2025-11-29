@@ -12,13 +12,7 @@
         <div class="d-flex flex-column" style="width: 60%;">
             <div class="article-content-container d-flex flex-column">
                 <p class="article-name">{{ $materi->articleName }}</p>
-                <p class="article-text">{{ $materi->articleText }}</p>
-                <p class="article-text">
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quaerat sit adipisci, dolorem impedit labore architecto consectetur facilis unde eum iure quo minus asperiores fuga quas repellat, voluptates corporis, repellendus sed.
-                    Lorem, ipsum dolor sit amet consectetur adipisicing elit. Porro rem incidunt ratione harum, nulla distinctio explicabo! Odit illum nesciunt ipsa repellendus, vel harum sequi cum, eum recusandae eligendi deserunt facere.
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolor tempora consequatur animi fugiat iusto quasi veniam natus sunt eius. Ex minima ipsam, saepe eveniet dolor esse explicabo accusantium culpa magnam.
-                    Lorem, ipsum dolor sit amet consectetur adipisicing elit. Soluta doloremque adipisci deserunt provident libero esse minus nemo labore porro, eius nihil sint. Nisi modi blanditiis debitis laborum architecto veniam delectus.
-                </p>
+                <p class="article-text">{!! $materi->articleText !!}</p>
                 <!-- TODO ambil articleText pake cara !!$article->articleText !! -->
         
                 <div class="tandai-baca-article-btn d-flex justify-content-end">
