@@ -12,24 +12,41 @@ class TutorNilaiProjectController extends Controller
 {
     public function index(Request $request)
     {
-        $lecturerId = Auth::id();
+        $authLecturerId = Auth::id();
         $status = $request->query('status', 'menunggu');
 
-        $submissions = ProjectSubmission::whereHas('project.course.courseLecturers', function ($q) use ($lecturerId) {
-            $q->where('lecturerId', $lecturerId);
+        $submissions = ProjectSubmission::whereHas('project.course.courseLecturers', function ($q) use ($authLecturerId) {
+            $q->where('lecturerId', $authLecturerId);
         })
-        ->with(['student', 'project.projectCriterias.criteria', 'lecturerGrades.projectCriteria.criteria'])
+        ->with([
+            'student',
+            'project.course.courseLecturers',
+            'project.projectCriterias.criteria',
+            'lecturerGrades' => function ($q) use ($authLecturerId) {
+                $q->whereHas('courseLecturer', function ($q2) use ($authLecturerId) {
+                    $q2->where('lecturerId', $authLecturerId);
+                });
+            },
+            'lecturerGrades.projectCriteria.criteria'
+        ])
         ->get()
-        ->filter(function ($submission) use ($lecturerId, $status) {
-            $isGraded = $submission->lecturerGrades()
-                            ->where('courseLecturerId', $lecturerId)
-                            ->exists();
+        ->map(function ($submission) use ($authLecturerId) {
 
-            if ($status === 'selesai') {
-                return $isGraded; 
-            } else {
-                return !$isGraded;
-            }
+            $courseLecturerId = $submission->project->course
+                ->courseLecturers()
+                ->where('lecturerId', $authLecturerId)
+                ->value('id');
+
+            $submission->courseLecturerId = $courseLecturerId;
+
+            $submission->isGraded = $submission->lecturerGrades->isNotEmpty();
+
+            return $submission;
+        })
+        ->filter(function ($submission) use ($status) {
+            return $status === 'selesai'
+                ? $submission->isGraded
+                : !$submission->isGraded;
         });
 
         return view('lecturer.nilai-projek.nilai-projek', compact('submissions', 'status'));
@@ -52,12 +69,17 @@ class TutorNilaiProjectController extends Controller
     {
         $submission = ProjectSubmission::findOrFail($submissionId);
 
-        $lecturerId = auth()->user()->lecturer->id;
+        $authLecturerId = auth()->user()->lecturer->id;
+
+        $courseLecturerId = $submission->project->course
+            ->courseLecturers()
+            ->where('lecturerId', $authLecturerId)
+            ->value('id');
 
         foreach ($request->scores as $projectCriteriaId => $score) {
             LecturerProjectGrade::create(
                 [
-                    'courseLecturerId'    => $lecturerId,
+                    'courseLecturerId'    => $courseLecturerId,
                     'projectSubmissionId' => $submissionId,
                     'projectCriteriaId'   => $projectCriteriaId,
                     'score' => $score,
@@ -68,14 +90,14 @@ class TutorNilaiProjectController extends Controller
         if ($request->comment) {
             LecturerProjectComment::create(
                 [
-                    'courseLecturerId'    => $lecturerId,
+                    'courseLecturerId'    => $courseLecturerId,
                     'projectSubmissionId' => $submissionId,
                     'comment' => $request->comment,
                 ]
             );
         }
 
-        return redirect()->route('lecturer.nilai-projek')
+        return redirect()->route('lecturer.nilai-projek', ['status' => 'selesai'])
                  ->with('success', 'Penilaian berhasil disimpan!');
     }
 }

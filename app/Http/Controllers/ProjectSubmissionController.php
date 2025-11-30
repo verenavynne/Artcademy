@@ -8,6 +8,7 @@ use App\Models\ProjectSubmission;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 
 class ProjectSubmissionController extends Controller
 {
@@ -83,7 +84,7 @@ class ProjectSubmissionController extends Controller
                     'icon' => $this->getIconForCriteria($g->projectCriteria->criteria->criteriaName),
                 ])
                 ->values();
-            dd($lecturer->projectGrades());
+                dd($lecturer->projectGrades());
 
             $comment = optional(
                 $lecturer->projectComments
@@ -94,7 +95,11 @@ class ProjectSubmissionController extends Controller
             return [
                 'name' => $lecturer->lecturer->user->name ?? 'Unknown',
                 'specialization' => $lecturer->lecturer->specialization ?? '-',
-                'photo' => $lecturer->lecturer->user->profilePicture ?? 'assets/default-profile.jpg',
+                'photo' => $lecturer->lecturer->user->profilePicture
+                    ? (Str::startsWith($lecturer->lecturer->user->profilePicture, ['http://', 'https://'])
+                        ? $lecturer->lecturer->user->profilePicture
+                        : asset('storage/' . $lecturer->lecturer->user->profilePicture))
+                    : asset('assets/default-profile.jpg'),
                 'grades' => $grades,
                 'comment' => $comment,
             ];
