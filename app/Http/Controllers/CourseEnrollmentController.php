@@ -35,7 +35,7 @@ class CourseEnrollmentController extends Controller
         $membershipStatus = $membershipTransaction?->membershipStatus ?? 'inactive';
         $userMembershipLevel = $membershipTransaction?->membershipId ?? 0;
 
-        if ($userMembershipLevel < $courseLevelNum) {
+        if ($userMembershipLevel < $courseLevelNum && $course->coursePaymentType === 'berbayar') {
             return redirect()->back()
                 ->with('show_membership_modal', true)
                 ->with('modal_message', 'Yuk upgrade membership kamu untuk mengakses kursus ini.');
