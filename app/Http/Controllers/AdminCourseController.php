@@ -164,7 +164,6 @@ class AdminCourseController extends Controller
             'weeks.*.weekName' => 'required|string|max:255',
             'weeks.*.tutorId' => 'required|exists:lecturers,id',
             'weeks.*.materials' => 'array',
-            'weeks.*.materials.*.materiName' => 'required|string|max:255',
             'weeks.*.materials.*.duration' => 'required|integer',
             'weeks.*.materials.*.articleName' => 'nullable|string|max:255',
             'weeks.*.materials.*.articleText' => 'nullable|string',
@@ -192,7 +191,6 @@ class AdminCourseController extends Controller
             if (!empty($weekData['materials'])) {
                 foreach ($weekData['materials'] as $materiData) {
                     $materi = $week->materials()->create([
-                        'materiName' => $materiData['materiName'],
                         'duration' => $materiData['duration'],
                         'articleName' => $materiData['articleName'] ?? null,
                         'articleText' => $materiData['articleText'] ?? null,
@@ -232,7 +230,6 @@ class AdminCourseController extends Controller
             'weeks.*.weekName' => 'required|string|max:255',
             'weeks.*.tutorId' => 'required|exists:lecturers,id',
             'weeks.*.materials' => 'array',
-            'weeks.*.materials.*.materiName' => 'required|string|max:255',
             'weeks.*.materials.*.duration' => 'required|integer',
             'weeks.*.materials.*.articleName' => 'nullable|string|max:255',
             'weeks.*.materials.*.articleText' => 'nullable|string',
@@ -453,7 +450,6 @@ class AdminCourseController extends Controller
             'weeks.*.weekName' => 'required|string|max:255',
             'weeks.*.tutorId' => 'required|exists:lecturers,id',
             'weeks.*.materials' => 'array',
-            'weeks.*.materials.*.materiName' => 'required|string|max:255',
             'weeks.*.materials.*.duration' => 'required|integer',
             'weeks.*.materials.*.articleName' => 'nullable|string|max:255',
             'weeks.*.materials.*.articleText' => 'nullable|string',
@@ -483,7 +479,6 @@ class AdminCourseController extends Controller
             if (!empty($weekData['materials'])) {
                 foreach ($weekData['materials'] as $materiData) {
                     $materi = $week->materials()->create([
-                        'materiName' => $materiData['materiName'],
                         'duration' => $materiData['duration'],
                         'articleName' => $materiData['articleName'] ?? null,
                         'articleText' => $materiData['articleText'] ?? null,
@@ -525,7 +520,6 @@ class AdminCourseController extends Controller
             'weeks.*.weekName' => 'required|string|max:255',
             'weeks.*.tutorId' => 'required|exists:lecturers,id',
             'weeks.*.materials' => 'array',
-            'weeks.*.materials.*.materiName' => 'required|string|max:255',
             'weeks.*.materials.*.duration' => 'required|integer',
             'weeks.*.materials.*.articleName' => 'nullable|string|max:255',
             'weeks.*.materials.*.articleText' => 'nullable|string',

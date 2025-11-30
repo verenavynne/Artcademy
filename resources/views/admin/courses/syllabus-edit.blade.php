@@ -111,14 +111,7 @@
 
                                 <div class="material-body">
                                     <div class="row">
-                                        <div class="col-md">
-                                            <label class="fw-semibold">Nama Materi</label>
-                                            <input type="text" name="weeks[{{ $loop->parent->index }}][materials][{{ $loop->index }}][materiName]"
-                                                value="{{ $materi->materiName }}" 
-                                                placeholder="Nama Materi" class="form-control mb-2 rounded-pill custom-input" required> 
-                                        </div>
-
-                                        <div class="col-md">
+                                        <div class="col-md-12">
                                             <label class="fw-semibold">Durasi Materi (menit)</label>
                                             <input type="number" name="weeks[{{ $loop->parent->index }}][materials][{{ $loop->index }}][duration]"
                                                 value="{{ $materi->duration }}"

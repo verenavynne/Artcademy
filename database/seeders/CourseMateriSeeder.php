@@ -19,7 +19,6 @@ class CourseMateriSeeder extends Seeder
             'Seni Lukis & Digital Art' => [
                 'Minggu 1: Pengenalan Concept Art & Ideation' => [
                     [
-                        'materiName' => 'Apa itu Concept Art?',
                         'articleName' => 'Pengantar Concept Art',
                         'articleText' => 'Pelajari peran concept art dalam industri game dan film.',
                         'vblName' => null,
@@ -28,7 +27,6 @@ class CourseMateriSeeder extends Seeder
                         'duration' => 10
                     ],
                     [
-                        'materiName' => 'Menemukan Ide Awal',
                         'articleName' => null,
                         'articleText' => null,
                         'vblName' => 'Video Brainstorming Ide untuk Art',
@@ -37,7 +35,6 @@ class CourseMateriSeeder extends Seeder
                         'duration' => 20
                     ],
                     [
-                        'materiName' => 'Apa itu Concept Art? 2',
                         'articleName' => 'Pelajari Konsep Art dalam Film',
                         'articleText' => 'Pelajari peran concept art dalam industri game dan film.',
                         'vblName' => null,
@@ -46,7 +43,6 @@ class CourseMateriSeeder extends Seeder
                         'duration' => 10
                     ],
                     [
-                        'materiName' => 'Apa itu Concept Art? 3',
                         'articleName' => 'Pelajari Konsep Art dalam Game',
                         'articleText' => 'Pelajari peran concept art dalam industri game dan film.',
                         'vblName' => null,
@@ -55,7 +51,6 @@ class CourseMateriSeeder extends Seeder
                         'duration' => 10
                     ],
                     [
-                        'materiName' => 'Apa itu Concept Art? 4',
                         'articleName' => 'Pelajari Konsep Art dalam Lukisan',
                         'articleText' => 'Pelajari peran concept art dalam industri game dan film.',
                         'vblName' => null,
@@ -66,7 +61,6 @@ class CourseMateriSeeder extends Seeder
                 ],
                 'Minggu 2: Desain Karakter Dasar' => [
                     [
-                        'materiName' => 'Proporsi dan Gesture',
                         'articleName' => null,
                         'articleText' => null,
                         'vblName' => 'Video Proporsi Tubuh',
@@ -75,7 +69,6 @@ class CourseMateriSeeder extends Seeder
                         'duration' => 10
                     ],
                     [
-                        'materiName' => 'Ekspresi dan Kepribadian',
                         'articleName' => 'Membangun Ekspresi Karakter',
                         'articleText' => 'Cara menampilkan kepribadian karakter melalui desain visual.',
                         'vblName' => null,
@@ -84,7 +77,6 @@ class CourseMateriSeeder extends Seeder
                         'duration' => 10
                     ],
                     [
-                        'materiName' => 'Ekspresi dan Kepribadian 2',
                         'articleName' => 'Gaya Visual Kartun',
                         'articleText' => 'Cara menonjolkan ekspresi dalam desain karakter kartun.',
                         'vblName' => null,
@@ -93,7 +85,6 @@ class CourseMateriSeeder extends Seeder
                         'duration' => 10
                     ],
                     [
-                        'materiName' => 'Ekspresi dan Kepribadian 3',
                         'articleName' => 'Menampilkan Emosi Karakter',
                         'articleText' => 'Teknik menggambarkan emosi yang kuat dalam ilustrasi karakter.',
                         'vblName' => null,
@@ -102,7 +93,6 @@ class CourseMateriSeeder extends Seeder
                         'duration' => 10
                     ],
                     [
-                        'materiName' => 'Ekspresi dan Kepribadian 4',
                         'articleName' => 'Kepribadian Melalui Warna dan Bentuk',
                         'articleText' => 'Gunakan warna dan bentuk untuk memperkuat karakter visual.',
                         'vblName' => null,
@@ -113,7 +103,6 @@ class CourseMateriSeeder extends Seeder
                 ],
                 'Minggu 3: Environment & Props Design' => [
                     [
-                        'materiName' => 'Perspektif 1-Point & 2-Point untuk Pemula',
                         'articleName' => null,
                         'articleText' => null,
                         'vblName' => 'Video Perspektif Dasar',
@@ -122,7 +111,6 @@ class CourseMateriSeeder extends Seeder
                         'duration' => 10
                     ],
                     [
-                        'materiName' => 'Mood Board: Cara Cari Referensi Efisien',
                         'articleName' => 'Panduan Membuat Mood Board',
                         'articleText' => 'Artikel tentang cara mengumpulkan referensi visual efektif.',
                         'vblName' => null,
@@ -131,7 +119,6 @@ class CourseMateriSeeder extends Seeder
                         'duration' => 10
                     ],
                     [
-                        'materiName' => 'Speed Painting Environment Fantasi/Sci-fi',
                         'articleName' => null,
                         'articleText' => null,
                         'vblName' => 'Video Speed Painting Fantasi',
@@ -140,7 +127,6 @@ class CourseMateriSeeder extends Seeder
                         'duration' => 10
                     ],
                     [
-                        'materiName' => 'Prop Design (Senjata, Kendaraan) yang Fungsional',
                         'articleName' => null,
                         'articleText' => null,
                         'vblName' => 'Video Prop Design Fungsional',
@@ -155,7 +141,6 @@ class CourseMateriSeeder extends Seeder
             'Seni Tari' => [
                 'Minggu 1: Dasar Gerak dan Irama' => [
                     [
-                        'materiName' => 'Pemanasan Tubuh Penari',
                         'articleName' => null,
                         'articleText' => null,
                         'vblName' => 'Video Pemanasan Penari',
@@ -164,7 +149,6 @@ class CourseMateriSeeder extends Seeder
                         'duration' => 10
                     ],
                     [
-                        'materiName' => 'Irama dan Tempo',
                         'articleName' => 'Memahami Ritme dalam Gerakan',
                         'articleText' => 'Penjelasan tentang sinkronisasi gerak dan musik dalam tarian.',
                         'vblName' => null,
@@ -173,7 +157,6 @@ class CourseMateriSeeder extends Seeder
                         'duration' => 10
                     ],
                     [
-                        'materiName' => 'Irama dan Tempo 2',
                         'articleName' => 'Gerak Harmonis dengan Musik',
                         'articleText' => 'Bagaimana menyesuaikan tempo tubuh dengan beat musik.',
                         'vblName' => null,
@@ -182,7 +165,6 @@ class CourseMateriSeeder extends Seeder
                         'duration' => 10
                     ],
                     [
-                        'materiName' => 'Irama dan Tempo 3',
                         'articleName' => 'Teknik Sinkronisasi Gerak',
                         'articleText' => 'Langkah-langkah agar gerak tari mengikuti alunan musik dengan tepat.',
                         'vblName' => null,
@@ -193,7 +175,6 @@ class CourseMateriSeeder extends Seeder
                 ],
                 'Minggu 2: Teknik Tari Tradisional' => [
                     [
-                        'materiName' => 'Gerak Tari Daerah',
                         'articleName' => null,
                         'articleText' => null,
                         'vblName' => 'Video Tari Nusantara',
@@ -202,7 +183,6 @@ class CourseMateriSeeder extends Seeder
                         'duration' => 10
                     ],
                     [
-                        'materiName' => 'Gerak Tari Saman',
                         'articleName' => null,
                         'articleText' => null,
                         'vblName' => 'Video Tari Saman Aceh',
@@ -211,7 +191,6 @@ class CourseMateriSeeder extends Seeder
                         'duration' => 10
                     ],
                     [
-                        'materiName' => 'Gerak Tari Kpop',
                         'articleName' => null,
                         'articleText' => null,
                         'vblName' => 'Video Tari Modern K-Pop',
@@ -220,7 +199,6 @@ class CourseMateriSeeder extends Seeder
                         'duration' => 10
                     ],
                     [
-                        'materiName' => 'Gerak Tari Barat',
                         'articleName' => null,
                         'articleText' => null,
                         'vblName' => 'Video Tari Kontemporer Barat',
@@ -231,7 +209,6 @@ class CourseMateriSeeder extends Seeder
                 ],
                 'Minggu 3: Koreografi dan Improvisasi' => [
                     [
-                        'materiName' => 'Menyusun Pola Gerak',
                         'articleName' => 'Dasar Menyusun Koreografi',
                         'articleText' => 'Panduan menyusun urutan gerak untuk pertunjukan tari.',
                         'vblName' => null,
@@ -240,7 +217,6 @@ class CourseMateriSeeder extends Seeder
                         'duration' => 10
                     ],
                     [
-                        'materiName' => 'Improvisasi di Atas Panggung',
                         'articleName' => null,
                         'articleText' => null,
                         'vblName' => 'Video Improvisasi Panggung',
@@ -249,7 +225,6 @@ class CourseMateriSeeder extends Seeder
                         'duration' => 10
                     ],
                     [
-                        'materiName' => 'Menyusun Pola Gerak 2',
                         'articleName' => 'Struktur Gerakan Tarian',
                         'articleText' => 'Teknik menciptakan variasi gerakan dalam satu koreografi.',
                         'vblName' => null,
@@ -258,7 +233,6 @@ class CourseMateriSeeder extends Seeder
                         'duration' => 10
                     ],
                     [
-                        'materiName' => 'Menyusun Pola Gerak 3',
                         'articleName' => 'Alur dan Transisi Gerakan',
                         'articleText' => 'Menciptakan transisi halus antar bagian dalam tarian.',
                         'vblName' => null,
@@ -267,7 +241,6 @@ class CourseMateriSeeder extends Seeder
                         'duration' => 10
                     ],
                     [
-                        'materiName' => 'Menyusun Pola Gerak 4',
                         'articleName' => 'Ekspresi dalam Koreografi',
                         'articleText' => 'Menggabungkan emosi dan narasi dalam setiap gerakan.',
                         'vblName' => null,
@@ -278,7 +251,6 @@ class CourseMateriSeeder extends Seeder
                 ],
                 'Minggu 4: Penampilan Akhir' => [
                     [
-                        'materiName' => 'Latihan Akhir Pertunjukan',
                         'articleName' => null,
                         'articleText' => null,
                         'vblName' => 'Video Gladi Resik Pertunjukan',
@@ -293,7 +265,6 @@ class CourseMateriSeeder extends Seeder
             'Seni Musik' => [
                 'Minggu 1: Teori Musik Dasar' => [
                     [
-                        'materiName' => 'Nada dan Skala',
                         'articleName' => 'Mengenal Tangga Nada',
                         'articleText' => 'Pelajari dasar tangga nada mayor dan minor serta penggunaannya.',
                         'vblName' => null,
@@ -302,7 +273,6 @@ class CourseMateriSeeder extends Seeder
                         'duration' => 10
                     ],
                     [
-                        'materiName' => 'Nada dan Skala 2',
                         'articleName' => 'Interval dan Harmoni',
                         'articleText' => 'Bagaimana interval membentuk harmoni dalam musik.',
                         'vblName' => null,
@@ -311,7 +281,6 @@ class CourseMateriSeeder extends Seeder
                         'duration' => 10
                     ],
                     [
-                        'materiName' => 'Nada dan Skala 3',
                         'articleName' => 'Chord Dasar untuk Pemula',
                         'articleText' => 'Penjelasan tentang pembentukan chord mayor, minor, dan dim.',
                         'vblName' => null,
@@ -320,7 +289,6 @@ class CourseMateriSeeder extends Seeder
                         'duration' => 10
                     ],
                     [
-                        'materiName' => 'Nada dan Skala 4',
                         'articleName' => 'Progresi Akor Populer',
                         'articleText' => 'Memahami progresi akor yang sering digunakan dalam lagu.',
                         'vblName' => null,
@@ -329,7 +297,6 @@ class CourseMateriSeeder extends Seeder
                         'duration' => 10
                     ],
                     [
-                        'materiName' => 'Nada dan Skala 5',
                         'articleName' => 'Membaca Notasi Musik',
                         'articleText' => 'Cara membaca partitur dan simbol musik dasar.',
                         'vblName' => null,
@@ -341,7 +308,6 @@ class CourseMateriSeeder extends Seeder
 
                 'Minggu 2: Instrumen dan Vokal' => [
                     [
-                        'materiName' => 'Teknik Vokal Dasar',
                         'articleName' => null,
                         'articleText' => null,
                         'vblName' => 'Video Latihan Vokal Pemula',
@@ -350,7 +316,6 @@ class CourseMateriSeeder extends Seeder
                         'duration' => 10
                     ],
                     [
-                        'materiName' => 'Teknik Vokal Dasar 2',
                         'articleName' => null,
                         'articleText' => null,
                         'vblName' => 'Video Latihan Resonansi Suara',
@@ -359,7 +324,6 @@ class CourseMateriSeeder extends Seeder
                         'duration' => 10
                     ],
                     [
-                        'materiName' => 'Teknik Vokal Dasar 3',
                         'articleName' => null,
                         'articleText' => null,
                         'vblName' => 'Video Teknik Pernapasan Diafragma',
@@ -368,7 +332,6 @@ class CourseMateriSeeder extends Seeder
                         'duration' => 10
                     ],
                     [
-                        'materiName' => 'Teknik Vokal Dasar 4',
                         'articleName' => null,
                         'articleText' => null,
                         'vblName' => 'Video Latihan Vibrato dan Dinamika',
@@ -380,7 +343,6 @@ class CourseMateriSeeder extends Seeder
 
                 'Minggu 3: Komposisi dan Aransemen' => [
                     [
-                        'materiName' => 'Menulis Lagu Sendiri',
                         'articleName' => 'Langkah Awal Komposisi Lagu',
                         'articleText' => 'Mulai membuat melodi dan lirik sederhana dari ide pribadi.',
                         'vblName' => null,
@@ -389,7 +351,6 @@ class CourseMateriSeeder extends Seeder
                         'duration' => 10
                     ],
                     [
-                        'materiName' => 'Menulis Lagu Sendiri 2',
                         'articleName' => 'Membangun Struktur Lagu',
                         'articleText' => 'Pelajari bagian verse, chorus, dan bridge dalam lagu.',
                         'vblName' => null,
@@ -398,7 +359,6 @@ class CourseMateriSeeder extends Seeder
                         'duration' => 10
                     ],
                     [
-                        'materiName' => 'Menulis Lagu Sendiri 3',
                         'articleName' => 'Menulis Lirik yang Menyentuh',
                         'articleText' => 'Teknik menciptakan lirik yang punya makna dan emosi.',
                         'vblName' => null,
@@ -407,7 +367,6 @@ class CourseMateriSeeder extends Seeder
                         'duration' => 10
                     ],
                     [
-                        'materiName' => 'Aransemen Lagu',
                         'articleName' => null,
                         'articleText' => null,
                         'vblName' => 'Video Aransemen Lagu Populer',
@@ -419,7 +378,6 @@ class CourseMateriSeeder extends Seeder
 
                 'Minggu 4: Performance Project' => [
                     [
-                        'materiName' => 'Latihan Panggung',
                         'articleName' => null,
                         'articleText' => null,
                         'vblName' => 'Video Persiapan Konser Mini',
@@ -428,7 +386,6 @@ class CourseMateriSeeder extends Seeder
                         'duration' => 10
                     ],
                     [
-                        'materiName' => 'Latihan Panggung 2',
                         'articleName' => null,
                         'articleText' => null,
                         'vblName' => 'Video Gestur Panggung Profesional',
@@ -437,7 +394,6 @@ class CourseMateriSeeder extends Seeder
                         'duration' => 10
                     ],
                     [
-                        'materiName' => 'Latihan Panggung 3',
                         'articleName' => null,
                         'articleText' => null,
                         'vblName' => 'Video Latihan Band Ensemble',
@@ -446,7 +402,6 @@ class CourseMateriSeeder extends Seeder
                         'duration' => 10
                     ],
                     [
-                        'materiName' => 'Latihan Panggung 4',
                         'articleName' => null,
                         'articleText' => null,
                         'vblName' => 'Video Evaluasi Penampilan',
@@ -461,7 +416,6 @@ class CourseMateriSeeder extends Seeder
             'Seni Fotografi' => [
                 'Minggu 1: Dasar Kamera dan Pencahayaan' => [
                     [
-                        'materiName' => 'Memahami Exposure',
                         'articleName' => 'Mengenal Segitiga Exposure',
                         'articleText' => 'Pelajari hubungan antara ISO, aperture, dan shutter speed untuk hasil foto ideal.',
                         'vblName' => null,
@@ -470,7 +424,6 @@ class CourseMateriSeeder extends Seeder
                         'duration' => 10
                     ],
                     [
-                        'materiName' => 'Teknik Pencahayaan',
                         'articleName' => null,
                         'articleText' => null,
                         'vblName' => 'Pencahayaan Dasar untuk Fotografer Pemula',
@@ -479,7 +432,6 @@ class CourseMateriSeeder extends Seeder
                         'duration' => 10
                     ],
                     [
-                        'materiName' => 'Memahami Exposure 2',
                         'articleName' => 'Membaca Histogram Foto',
                         'articleText' => 'Cara memahami eksposur dengan bantuan histogram pada kamera atau software editing.',
                         'vblName' => null,
@@ -488,7 +440,6 @@ class CourseMateriSeeder extends Seeder
                         'duration' => 10
                     ],
                     [
-                        'materiName' => 'Teknik Pencahayaan 2',
                         'articleName' => null,
                         'articleText' => null,
                         'vblName' => 'Lighting Studio Sederhana',
@@ -500,7 +451,6 @@ class CourseMateriSeeder extends Seeder
 
                 'Minggu 2: Komposisi Visual' => [
                     [
-                        'materiName' => 'Rule of Thirds dan Leading Lines',
                         'articleName' => 'Komposisi Visual untuk Pemula',
                         'articleText' => 'Mempelajari dasar-dasar penataan elemen dalam foto agar lebih estetis.',
                         'vblName' => null,
@@ -509,7 +459,6 @@ class CourseMateriSeeder extends Seeder
                         'duration' => 10
                     ],
                     [
-                        'materiName' => 'Rule of Thirds dan Leading Lines 2',
                         'articleName' => 'Mengenal Framing dan Simetri',
                         'articleText' => 'Gunakan elemen lingkungan untuk membingkai subjek dan menciptakan keseimbangan visual.',
                         'vblName' => null,
@@ -518,7 +467,6 @@ class CourseMateriSeeder extends Seeder
                         'duration' => 10
                     ],
                     [
-                        'materiName' => 'Rule of Thirds dan Leading Lines 3',
                         'articleName' => 'Menangkap Perspektif Unik',
                         'articleText' => 'Eksperimen dengan angle dan depth of field untuk hasil yang menarik.',
                         'vblName' => null,
@@ -527,7 +475,6 @@ class CourseMateriSeeder extends Seeder
                         'duration' => 10
                     ],
                     [
-                        'materiName' => 'Rule of Thirds dan Leading Lines 4',
                         'articleName' => 'Panduan Visual Storytelling',
                         'articleText' => 'Belajar menyampaikan cerita melalui komposisi dan pencahayaan.',
                         'vblName' => null,
@@ -539,7 +486,6 @@ class CourseMateriSeeder extends Seeder
 
                 'Minggu 3: Fotografi Potret & Lanskap' => [
                     [
-                        'materiName' => 'Teknik Potret Manusia',
                         'articleName' => null,
                         'articleText' => null,
                         'vblName' => 'Panduan Fotografi Potret',
@@ -548,7 +494,6 @@ class CourseMateriSeeder extends Seeder
                         'duration' => 10
                     ],
                     [
-                        'materiName' => 'Teknik Potret Manusia 2',
                         'articleName' => null,
                         'articleText' => null,
                         'vblName' => 'Membentuk Mood dalam Potret',
@@ -557,7 +502,6 @@ class CourseMateriSeeder extends Seeder
                         'duration' => 10
                     ],
                     [
-                        'materiName' => 'Teknik Potret Manusia 3',
                         'articleName' => null,
                         'articleText' => null,
                         'vblName' => 'Fotografi Lanskap Dramatis',
@@ -569,7 +513,6 @@ class CourseMateriSeeder extends Seeder
 
                 'Minggu 4: Editing & Portofolio' => [
                     [
-                        'materiName' => 'Basic Editing dengan Lightroom',
                         'articleName' => null,
                         'articleText' => null,
                         'vblName' => 'Edit Warna dan Kontras',
@@ -578,7 +521,6 @@ class CourseMateriSeeder extends Seeder
                         'duration' => 10
                     ],
                     [
-                        'materiName' => 'Basic Editing dengan Lightroom 2',
                         'articleName' => null,
                         'articleText' => null,
                         'vblName' => 'Retouching Foto Potret',
@@ -587,7 +529,6 @@ class CourseMateriSeeder extends Seeder
                         'duration' => 10
                     ],
                     [
-                        'materiName' => 'Menyusun Portofolio Fotografi',
                         'articleName' => 'Strategi Membangun Portofolio Profesional',
                         'articleText' => 'Tips menyusun portofolio foto yang menarik untuk klien dan lomba.',
                         'vblName' => null,
@@ -607,7 +548,6 @@ class CourseMateriSeeder extends Seeder
                 foreach ($materis[$courseType][$weekName] as $item) {
                     CourseMateri::create([
                         'weekId' => $week->id,
-                        'materiName' => $item['materiName'], 
                         'articleName' => $item['articleName'],
                         'articleText' => $item['articleText'],
                         'vblName' => $item['vblName'],
