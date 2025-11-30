@@ -13,17 +13,25 @@
         'Seni Musik' => '#D5B91B', 
     };
 
-    $backgroundCourseLevel= match($course->courseLevel){
-        'dasar' => ' #FFEFDE',    
-        'menengah' => '#E7F6FE',         
-        'lanjutan' => '#FFEAF0', 
-    };
+    if ($course->coursePaymentType === 'gratis') {
+        $backgroundCourseLevel = '#DAFFE9';
+        $backgroundCourseLevelText = 'var(--green-gradient-color)';
+        $text = 'Gratis';
+    } else {
+        $text = 'Level ' . ucfirst($course->courseLevel);
 
-    $backgroundCourseLevelText = match($course->courseLevel){
-        'dasar' => 'var(--orange-gradient-color)',    
-        'menengah' => 'var(--blue-gradient-color)',         
-        'lanjutan' => 'var(--pink-gradient-color)', 
-    };
+        $backgroundCourseLevel = match($course->courseLevel){
+            'dasar' => '#FFEFDE',
+            'menengah' => '#E7F6FE',
+            'lanjutan' => '#FFEAF0',
+        };
+
+        $backgroundCourseLevelText = match($course->courseLevel){
+            'dasar' => 'var(--orange-gradient-color)',
+            'menengah' => 'var(--blue-gradient-color)',
+            'lanjutan' => 'var(--pink-gradient-color)',
+        };
+    }
 
     $jam = floor($course->courseDurationInMinutes / 60);
     $menit = $course->courseDurationInMinutes % 60;
@@ -103,7 +111,7 @@
             <div class="course-level-text-container" style="background: {{ $backgroundCourseLevel }}">
                 <p class="course-level-text" 
                    style="background: {{ $backgroundCourseLevelText }}; margin: 0; background-clip: text; font-weight: 700">
-                   Level {{ $course->courseLevel }}
+                   {{ $text }}
                 </p>
             </div>
         </div>

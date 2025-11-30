@@ -31,7 +31,7 @@
                 @if ($user->role === 'student')
                     <p class="title text-start fw-bold">Info Pribadi</p>
                     <hr class="divider">
-                @else
+                @elseif($user->role === 'admin')
                     <div class="d-flex flex-row align-items-center gap-3">
                         <div style="position: relative; width: 100px; height: 100px;">
                             <img src="{{ Str::startsWith($user->profilePicture, ['http://', 'https://']) 
@@ -156,9 +156,13 @@
 
 <script>
     // edit profile picture
-    document.getElementById('editProfileBtn').addEventListener('click', function() {
-        document.getElementById('profilePicture').click();
-    });
+    const editBtn = document.getElementById('editProfileBtn');
+
+    if (editBtn) {
+        editBtn.addEventListener('click', function() {
+            document.getElementById('profilePicture').click();
+        });
+    }
 
     // Open & Close Popup
     const passwordPopupOverlay = document.getElementById('passwordPopupOverlay');

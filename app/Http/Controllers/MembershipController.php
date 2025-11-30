@@ -82,6 +82,12 @@ class MembershipController extends Controller
     public function updatePaymentStatus(Request $request)
     {
         try {
+            $user = Auth::user();
+            $activeTransaction = MembershipTransaction::where('studentId', $user->id)
+                ->where('membershipStatus', 'active')
+                ->with('membership')
+                ->first();
+
             $snapToken = $request->snap_token;
             $transactionStatus = $request->transaction_status ?? $request->status;
             $membershipId = (int) $request->membershipId;
@@ -98,6 +104,11 @@ class MembershipController extends Controller
             $payment->update(['paymentStatus' => $newStatus]);
 
             if ($newStatus === 'paid') {
+
+                if ($activeTransaction) {
+                    $activeTransaction->update(['membershipStatus' => 'inactive']);
+                }
+
                 MembershipTransaction::firstOrCreate(
                     ['paymentId' => $payment->id],
                     [

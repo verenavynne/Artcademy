@@ -22,18 +22,17 @@
   </ul>
 
   <div class="admin-tutor-card-wrapper d-flex flex-row flex-wrap">
-    @foreach($submissions as $submission)
-      @php
-          $grades = $submission->lecturerGrades()->where('courseLecturerId', auth()->user()->lecturer->id)->get();
-          $isGraded = $grades->count() > 0;
-      @endphp
+    @forelse($submissions as $submission)
 
-      @if(!$isGraded)
-        @include('components.nilai-projek-card')
+      @if(!$submission->isGraded)
+          @include('components.nilai-projek-card')
       @else
-        @include('components.selesai-nilai-projek-card')
+          @include('components.selesai-nilai-projek-card')
       @endif
-    @endforeach
+
+    @empty
+      <p class="text-center w-100">Tidak ada projek yang {{ $status === 'selesai' ? 'sudah selesai' : 'perlu' }} dinilai.</p>
+    @endforelse
   </div>
 </div>
 

@@ -48,7 +48,7 @@ class CourseController extends Controller
         }
 
         $baseQuery = Course::query()
-                ->where('courseStatus', 'publikasi');
+            ->where('courseStatus', 'publikasi');
 
         if ($type) {
             $baseQuery->where('courseType', $type);
@@ -57,8 +57,8 @@ class CourseController extends Controller
         if ($search) {
             $baseQuery->where(function ($q) use ($search, $mappedLevel) {
                 $q->where('courseName', 'like', "%$search%")
-                ->orWhere('courseType', 'like', "%$search%")
-                ->orWhere('courseLevel', 'like', "%$search%");
+                    ->orWhere('courseType', 'like', "%$search%")
+                    ->orWhere('courseLevel', 'like', "%$search%");
 
                 if ($mappedLevel) {
                     $q->orWhere('courseLevel', $mappedLevel);
@@ -68,51 +68,122 @@ class CourseController extends Controller
 
         if ($type) {
             $dasarCourses = (clone $baseQuery)
-            ->where('courseLevel', 'dasar')
-            ->with('courseLecturers.lecturer.user')
-            ->get();
+                ->where('courseLevel', 'dasar')
+                ->with('courseLecturers.lecturer.user')
+                ->get();
             $menengahCourses = (clone $baseQuery)
-            ->where('courseLevel', 'menengah')
-            ->with('courseLecturers.lecturer.user')
-            ->get();
+                ->where('courseLevel', 'menengah')
+                ->with('courseLecturers.lecturer.user')
+                ->get();
             $lanjutanCourses = (clone $baseQuery)
-            ->where('courseLevel', 'lanjutan')
-            ->with('courseLecturers.lecturer.user')
-            ->get();
+                ->where('courseLevel', 'lanjutan')
+                ->with('courseLecturers.lecturer.user')
+                ->get();
 
-            $courses = collect(); 
+            $courses = collect();
         } else {
             $dasarCourses = (clone $baseQuery)
-            ->where('courseLevel', 'dasar')
-            ->with('courseLecturers.lecturer.user')
-            ->take(4)
-            ->get();
+                ->where('courseLevel', 'dasar')
+                ->with('courseLecturers.lecturer.user')
+                ->take(4)
+                ->get();
             $menengahCourses = (clone $baseQuery)
-            ->where('courseLevel', 'menengah')
-            ->with('courseLecturers.lecturer.user')
-            ->take(4)
-            ->get();
+                ->where('courseLevel', 'menengah')
+                ->with('courseLecturers.lecturer.user')
+                ->take(4)
+                ->get();
             $lanjutanCourses = (clone $baseQuery)
-            ->where('courseLevel', 'lanjutan')
-            ->with('courseLecturers.lecturer.user')
-            ->take(4)
-            ->get();
+                ->where('courseLevel', 'lanjutan')
+                ->with('courseLecturers.lecturer.user')
+                ->take(4)
+                ->get();
 
             $courses = $baseQuery->paginate(16)->withQueryString();
         }
 
-        if($user){
+        // data enrollment untuk ongoing card
+        $enrollmentMap = collect();
+
+        if ($user) {
+            // ambil semua enrollment user
+            $enrollments = CourseEnrollment::where('studentId', $user->id)
+                ->with(['course.weeks', 'course.project'])
+                ->get();
+
+            // mapping level
+            $courseLevelMap = [
+                'dasar' => 1,
+                'menengah' => 2,
+                'lanjutan' => 3,
+            ];
+
+            // hitung progress + locked
+            $enrollments = $enrollments->map(function ($enrollment) use ($courseLevelMap, $user) {
+
+                $totalWeeks = $enrollment->course->weeks->count();
+
+                $weekProgressList = StudentWeekProgress::where('courseEnrollmentId', $enrollment->id)->get();
+
+                $sumProgress = $weekProgressList->sum('progress');
+
+                $progress = $totalWeeks > 0
+                    ? round(($sumProgress / ($totalWeeks * 100)) * 100)
+                    : 0;
+
+                // cek project
+                $isProjectSubmitted = ProjectSubmission::where('projectId', $enrollment->course->project->id)
+                    ->where('studentId', $enrollment->studentId)
+                    ->exists();
+
+                if ($progress == 100 && !$isProjectSubmitted) {
+                    $progress = 80;
+                }
+
+                $enrollment->progress = $progress;
+
+                // lock rules
+                $courseLevel = $courseLevelMap[$enrollment->course->courseLevel] ?? 0;
+
+                $enrollment->isLocked =
+                    $user->membershipId < $courseLevel &&
+                    $enrollment->course->coursePaymentType === 'berbayar';
+
+                return $enrollment;
+            });
+
+            // mapping based on courseId
+            $enrollmentMap = $enrollments->keyBy('courseId');
+        }
+
+        // apply enrollment ke course
+        $applyEnrollment = function ($courseList) use ($enrollmentMap) {
+            foreach ($courseList as $course) {
+                if ($enrollmentMap->has($course->id)) {
+                    $course->isEnrolled = true;
+                    $course->enrollment = $enrollmentMap[$course->id];
+                } else {
+                    $course->isEnrolled = false;
+                    $course->enrollment = null;
+                }
+            }
+        };
+
+        $applyEnrollment($dasarCourses);
+        $applyEnrollment($menengahCourses);
+        $applyEnrollment($lanjutanCourses);
+        $applyEnrollment($courses);
+
+        if ($user) {
             $notifications = Notification::where('userId', $user->id)
                 ->orderBy('notificationDate', 'desc')
                 ->get();
-            
-            $unreadCount = Notification::where('status', 'unread')
-            ->where('userId', $user->id)
-            ->count();
 
+            $unreadCount = Notification::where('status', 'unread')
+                ->where('userId', $user->id)
+                ->count();
         }else{
-            $notifications = collect(); 
-            $unreadCount = 0;   
+            $notifications = collect();
+            $unreadCount = 0;
         }
 
         return view('Artcademy.course', compact('type', 'search', 'dasarCourses', 'menengahCourses', 'lanjutanCourses', 'courses','notifications', 'unreadCount'));

@@ -14,13 +14,7 @@
 
         <div class="material-body">
             <div class="row">
-                <div class="col-md">
-                    <label class="fw-semibold">Nama Materi</label>
-                    <input type="text" name="weeks[__WEEK_INDEX__][materials][__MATERIAL_INDEX__][materiName]" 
-                        placeholder="Nama Materi" class="form-control mb-2 rounded-pill custom-input" required> 
-                </div>
-
-                <div class="col-md-6">
+                <div class="col-md-12">
                     <label class="fw-semibold">Durasi Materi (menit)</label>
                     <input type="number" name="weeks[__WEEK_INDEX__][materials][__MATERIAL_INDEX__][duration]" 
                         placeholder="Masukkan durasi (menit)" class="form-control mb-2 rounded-pill custom-input" required> 

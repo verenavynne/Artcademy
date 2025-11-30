@@ -64,10 +64,17 @@
                 Belum ada kursus untuk level dasar saat ini.
             </p>
         @else
-        <div class="d-flex flex-wrap justify-content-center" style="gap: 36px">
+        <div class="d-flex flex-wrap justify-content-center" style="gap: 35px">
                 <!-- Course Card -->
             @foreach ($dasarCourses as $course)
-                @include('components.course-card', ['course' => $course])
+                @if($course->isEnrolled)
+                    @include('components.course-ongoing-card', [
+                        'enrollment' => $course->enrollment,
+                        'course' => $course
+                    ])
+                @else
+                    @include('components.course-card', ['course' => $course])
+                @endif
             @endforeach
                 
         </div>
@@ -85,10 +92,17 @@
                 Belum ada kursus untuk level menengah saat ini.
             </p>
         @else
-        <div class="d-flex flex-wrap justify-content-center" style="gap: 36px">
+        <div class="d-flex flex-wrap justify-content-center" style="gap: 35px">
                 <!-- Course Card -->
             @foreach ($menengahCourses as $course)
-                @include('components.course-card', ['course' => $course])
+               @if($course->isEnrolled)
+                    @include('components.course-ongoing-card', [
+                        'enrollment' => $course->enrollment,
+                        'course' => $course
+                    ])
+                @else
+                    @include('components.course-card', ['course' => $course])
+                @endif
             @endforeach
                 
         </div>
@@ -106,10 +120,17 @@
                 Belum ada kursus untuk level lanjutan saat ini.
             </p>
         @else
-        <div class="d-flex flex-wrap justify-content-center" style="gap: 36px">
+        <div class="d-flex flex-wrap justify-content-center" style="gap: 35px">
                 <!-- Course Card -->
             @foreach ($lanjutanCourses as $course)
-                @include('components.course-card', ['course' => $course])
+                @if($course->isEnrolled)
+                    @include('components.course-ongoing-card', [
+                        'enrollment' => $course->enrollment,
+                        'course' => $course
+                    ])
+                @else
+                    @include('components.course-card', ['course' => $course])
+                @endif
             @endforeach
                 
         </div>
@@ -123,9 +144,16 @@
     </div>
 
     <div class="container-fluid d-flex flex-column align-items-center">
-        <div class="d-flex flex-wrap justify-content-center" style="gap: 36px">
+        <div class="d-flex flex-wrap justify-content-center" style="gap: 35px">
             @foreach ($courses as $course)
-                @include('components.course-card', ['course' => $course])
+                @if($course->isEnrolled)
+                    @include('components.course-ongoing-card', [
+                        'enrollment' => $course->enrollment,
+                        'course' => $course
+                    ])
+                @else
+                    @include('components.course-card', ['course' => $course])
+                @endif
             @endforeach
         </div>
     </div>

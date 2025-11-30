@@ -336,7 +336,6 @@
 
     .form-container {
         flex-grow: 1;
-        overflow-y: auto;
         height: 100%; 
         background-color: white;
         border-radius: 24px;

@@ -3,7 +3,7 @@
 @section('hide_footer')
 @endsection
 
-@if($user->role === 'lecturer')
+@if($authUser->role === 'lecturer')
     @section('hide_sidebar')
     @endsection
 @endif
