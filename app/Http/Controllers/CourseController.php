@@ -173,20 +173,7 @@ class CourseController extends Controller
         $applyEnrollment($lanjutanCourses);
         $applyEnrollment($courses);
 
-        if ($user) {
-            $notifications = Notification::where('userId', $user->id)
-                ->orderBy('notificationDate', 'desc')
-                ->get();
-
-            $unreadCount = Notification::where('status', 'unread')
-                ->where('userId', $user->id)
-                ->count();
-        }else{
-            $notifications = collect();
-            $unreadCount = 0;
-        }
-
-        return view('Artcademy.course', compact('type', 'search', 'dasarCourses', 'menengahCourses', 'lanjutanCourses', 'courses','notifications', 'unreadCount'));
+        return view('Artcademy.course', compact('type', 'search', 'dasarCourses', 'menengahCourses', 'lanjutanCourses', 'courses'));
     }
 
     public function showCourseDetail($id)

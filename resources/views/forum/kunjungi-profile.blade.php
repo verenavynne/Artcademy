@@ -14,36 +14,17 @@
 @endif
 
 <div class="container-fluid d-flex flex-column justify-content-center px-4" style="margin-bottom: 75px;">
-    <div class="d-flex justify-content-center align-items-center px-5 gap-5 w-100 pt-1">
-        <form class="d-flex w-100" method="GET" action="#">
-            <div class="position-relative w-100">
-           
-                <input 
-                    class="form-control form-search" 
-                    type="text" 
-                    placeholder="Mau belajar apa hari ini?" 
-                    aria-label="Search" 
-                    name="query"
-                    value="{{ request('query') }}"
-                >
-
-                <button 
-                    type="submit" 
-                    class="icon-search btn position-absolute end-0 top-50 translate-middle-y p-0 border-0 bg-transparent"
-                    style="z-index: 2;"
-                >
-                    <img src="{{ asset('assets/icons/icon_search.svg') }}" alt="Search" style="width: 24px; height: 24px;">
-                </button>
-            </div>
-        </form>
-        <div class="d-flex flex-row justify-content-center align-items-center gap-5">
-            <a href="#">
-                <img src="{{ asset('assets/icons/icon_bookmark.svg') }}" alt="Bookmark" style="width: 24px; height: 24px;">
-            </a>
-            <a href="#">
-                <img src="{{ asset('assets/icons/icon_notif.svg') }}" alt="Notification" style="width: 24px; height: 24px;">
-            </a>
+    <div class="d-flex justify-content-center align-items-center px-5 gap-5 w-100 pt-1" style="margin-bottom: 18px">
+        <div class="position-relative flex-grow-1">
+            <input type="text" class="custom-input-2 form-control rounded-pill" placeholder="Mau belajar apa hari ini?">
+            <iconify-icon icon="icon-park-outline:search" class="search-icon position-absolute">
+            </iconify-icon>
         </div>
+
+        @if($authUser->role === 'student')
+            @include('components.notification-panel')
+        @endif
+       
     </div>
     <div class="row">
         <div class="col-3">

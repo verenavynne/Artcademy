@@ -12,6 +12,8 @@ use App\Models\User;
 use App\Models\ZoomRegistered;
 use App\Models\MembershipTransaction;
 use Illuminate\Http\Request;
+use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Hash;
@@ -144,6 +146,72 @@ class ProfileController extends Controller
         }
 
         return view('profile.my-info', compact('user', 'layout'));
+    }
+
+    public function showMyTransaction()
+    {
+        $user = Auth::user();
+        $eventTransaction = EventTransaction::where('studentId',$user->id)
+            ->with(['event', 'payment'])
+            ->get()
+            ->map(function($item){
+
+                $status = match($item->payment->paymentStatus) {
+                    'paid' => 'Dibayar',
+                    'pending' => 'Menunggu Pembayaran',
+                    'failed' => 'Gagal',
+                    default => 'Unknown'
+                };
+                return [
+                    'type' => 'Event',
+                    'name' => $item->event->eventName ?? null,
+                    'created_at' => $item->created_at,
+                    'price' => $item->payment->price,
+                    'tokenId' => $item->payment->midtransTokenId,
+                    'status' => $status
+
+                ];
+            });
+        $membershipTransaction = MembershipTransaction::where('studentId', $user->id)
+            ->with(['membership' ,'payment'])
+            ->get()
+            ->map(function($item){
+
+                $status = match($item->payment->paymentStatus) {
+                    'paid' => 'Dibayar',
+                    'pending' => 'Menunggu Pembayaran',
+                    'failed' => 'Gagal',
+                    default => 'Unknown'
+                };
+
+                return [
+                    'type' => 'Membership',
+                    'name' => $item->membership->membershipName ?? null,
+                    'created_at' => $item->created_at,
+                    'price' => $item->payment->price,
+                    'tokenId' => $item->payment->midtransTokenId,
+                    'status' => $status
+                ];
+            });
+
+        $merge = $eventTransaction
+            ->merge($membershipTransaction)
+            ->sortByDesc('created_at')
+            ->values();
+        
+        $currentPage = LengthAwarePaginator::resolveCurrentPage();
+        $perPage = 3;
+
+        $transactions = new LengthAwarePaginator(
+            $merge->slice(($currentPage - 1) * $perPage, $perPage)->values(),
+            $merge->count(),
+            $perPage,
+            $currentPage,
+            ['path' => Paginator::resolveCurrentPath()]
+        );
+
+        return view('profile.transaction-history', compact('transactions'));
+        
     }
 
     public function updateProfile(Request $request)

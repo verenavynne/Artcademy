@@ -2,7 +2,7 @@
 
 namespace App\Providers;
 
-use App\Http\View\Composers\TutorNotificationComposer;
+use App\Http\View\Composers\NotificationComposer;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Pagination\Paginator;
 
@@ -29,6 +29,6 @@ class AppServiceProvider extends ServiceProvider
         \Midtrans\Config::$is3ds = true;
 
         // For tutor notif
-        view()->composer('layouts.master-tutor', TutorNotificationComposer::class);
+        view()->composer('*', NotificationComposer::class);
     }
 }

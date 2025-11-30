@@ -44,37 +44,6 @@
 
                 <form action="{{ route('register') }}" method="POST">
                     @csrf
-                    <div class="mb-3">
-                        <label class="form-label fw-semibold">Pilih Role</label>
-                        <select id="selectedRole" name="role" class="form-select rounded-pill px-4 py-2 custom-input">
-                            <option selected disabled>Pilih role</option>
-                            <option value="lecturer">Tutor</option>
-                            <option value="student">Siswa</option>
-                        </select>
-                        @error('role')
-                            <div class="text-danger mt-1" style="font-size: 0.875rem;">
-                                {{ $message }}
-                            </div>
-                        @enderror
-                    </div>
-
-                    <div class="mb-3" id="specialization-group" style="display: none;">
-                        <label class="form-label fw-semibold">Keahlian</label>
-                        <select name="specialization" class="form-select rounded-pill px-4 py-2 custom-input">
-                            <option selected disabled>Pilih keahlianmu</option>
-                            <option value="Seni Lukis & Digital Art">Seni Lukis & Digital Art</option>
-                            <option value="Seni Tari">Seni Tari</option>
-                            <option value="Seni Musik">Seni Musik</option>
-                            <option value="Seni Fotografi">Seni Fotografi</option>
-                        </select>
-
-                        @error('specialization')
-                            <div class="text-danger mt-1" style="font-size: 0.875rem;">
-                                {{ $message }}
-                            </div>
-                        @enderror
-                    </div>
-
                     <div class="row">
                         <div class="col-md-6 mb-3">
                             <label class="form-label fw-semibold">Nama</label>
@@ -183,17 +152,6 @@
         input.type = isHidden ? 'text' : 'password';
         eyeIcon.setAttribute('icon', isHidden ? 'mingcute:eye-line' : 'mingcute:eye-close-line');
     }
-
-    const selectedRole = document.getElementById('selectedRole');
-    const specializationGroup = document.getElementById('specialization-group');
-
-    selectedRole.addEventListener('change', function () {
-        if (this.value.toLowerCase() === 'lecturer') {
-            specializationGroup.style.display = 'block';
-        } else {
-            specializationGroup.style.display = 'none';
-        }
-    });
 
 </script>
 

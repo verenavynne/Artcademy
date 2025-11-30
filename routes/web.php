@@ -80,8 +80,8 @@ Route::middleware(['auth', 'checkRole:student'])->prefix('/student')->group(func
 
     // Profile
     Route::get('/my-courses', [ProfileController::class, 'showMyCourses'])->name('profile.courses');
-
     Route::get('/my-schedule',[ProfileController::class, 'showMySchedule'])->name('profile.schedule');
+    Route::get('/my-transaction-history',[ProfileController::class, 'showMyTransaction'])->name('profile.history');
 
     // Membership
     Route::get('/membership',[MembershipController::class, 'index'])->name('membership');
@@ -91,10 +91,10 @@ Route::middleware(['auth', 'checkRole:student'])->prefix('/student')->group(func
     Route::post('/payment/update-payment-status', [MembershipController::class, 'updatePaymentStatus'])->name('membership.updatePaymentStatus');
 
     // Event
-    
     Route::get('/event/checkout-info/{eventId}', [EventController::class, 'checkoutInfo'])->name('event.checkoutInfo');
     Route::post('/event/payment',[EventController::class, 'processPayment'])->name('event.pay');
     Route::post('/event/payment/update-payment-status', [EventController::class, 'updatePaymentStatus'])->name('event.updatePaymentStatus');
+
    
 });
 
@@ -194,9 +194,7 @@ Route::middleware(['auth'])->group(function(){
     Route::get('/event/{id}',[EventController::class, 'showDetail'])->name('event.detail');
 });
 
-Route::get('/my-transaction-history',function(){
-    return view('profile.transaction-history');
-})->name('profile.history');
+
 
 
 

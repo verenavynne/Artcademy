@@ -68,8 +68,7 @@ class RegisterController extends Controller
                 'regex:/^\+[0-9]{12,16}$/'
             ],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
-            'role' => ['required', 'in:lecturer,student'],
-            'specialization' => ['required_if:role,lecturer'],
+          
         ], [
             'name.required' => 'Nama wajib diisi.',
             'name.min' => 'Nama minimal 5 karakter.',
@@ -86,8 +85,6 @@ class RegisterController extends Controller
             'password.min' => 'Kata sandi minimal 8 karakter.',
             'password.confirmed' => 'Konfirmasi kata sandi tidak cocok.',
 
-            'role.required' => 'Role wajib dipilih.',
-            'specialization.required_if' => 'Keahlian wajib dipilih',
         ]);
     }
 
@@ -103,21 +100,15 @@ class RegisterController extends Controller
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
-            'role' => $data['role'],
+            'role' => 'student',
             'phoneNumber' => $data['phoneNumber'],
             'userStatus' => 'active',
         ]);
-
-        if ($data['role'] === 'lecturer') {
-            Lecturer::create([
-                'id' => $user->id,
-                'specialization' => $data['specialization'],
-            ]);
-        } elseif ($data['role'] === 'student') {
-            Student::create([
-                'id' => $user->id,
-            ]);
-        }
+      
+        Student::create([
+            'id' => $user->id,
+        ]);
+        
 
         return $user;
     }

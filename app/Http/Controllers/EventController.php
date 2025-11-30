@@ -30,14 +30,7 @@ class EventController extends Controller
         ->paginate(4,['*'], 'workshop_section')
         ->appends(['webinar_section'=> $webinarSection]);
 
-        $notifications = Notification::where('userId', $user->id)
-            ->orderBy('notificationDate', 'desc')
-            ->get();
-        $unreadCount = Notification::where('status', 'unread')
-            ->where('userId', $user->id)
-            ->count();
-
-        return view('event.event', compact('webinars', 'workshops', 'notifications','unreadCount'));
+        return view('event.event', compact('webinars', 'workshops'));
     }
 
     public function showDetail($id)

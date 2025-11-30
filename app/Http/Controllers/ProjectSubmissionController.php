@@ -84,7 +84,6 @@ class ProjectSubmissionController extends Controller
                     'icon' => $this->getIconForCriteria($g->projectCriteria->criteria->criteriaName),
                 ])
                 ->values();
-                dd($lecturer->projectGrades());
 
             $comment = optional(
                 $lecturer->projectComments
@@ -105,7 +104,6 @@ class ProjectSubmissionController extends Controller
             ];
         });
 
-        dd($tutorEvaluations);
         $totalTutors = $lecturers->count();
         $tutorsThatHaveGraded = $lecturers->filter(function ($lecturer) use ($submission) {
             return $lecturer->projectGrades

@@ -116,12 +116,16 @@
         box-shadow: 0 4px 8px 0 var(--brown-shadow-color);
 
         opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
         transform: translateY(-10px);
         transition: opacity 0.25s ease, transform 0.25s ease;
     }
 
     .notification-panel.show {
         opacity: 1;
+        visibility: visible;
+        pointer-events: auto;
         transform: translateY(0);
         pointer-events: auto;
     }

@@ -6,7 +6,7 @@ use App\Models\Notification;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 
-class TutorNotificationComposer
+class NotificationComposer
 {
     /**
      * Create a new class instance.
@@ -22,7 +22,7 @@ class TutorNotificationComposer
 
         if($user){
             $notifications = Notification::where('userId', $user->id)
-                ->orderBy('notificationDate', 'desc')
+                ->orderBy('created_at', 'desc')
                 ->get();
             $unreadCount = Notification::where('status', 'unread')
                 ->where('userId', $user->id)

@@ -22,13 +22,6 @@ class ForumController extends Controller
 
         $otherProfile = User::where('id', '!=', $user->id)
             ->where('role', '!=', 'admin')->get();
-        
-        $notifications = Notification::where('userId', $user->id)
-            ->orderBy('notificationDate', 'desc')
-            ->get();
-        $unreadCount = Notification::where('status', 'unread')
-            ->where('userId', $user->id)
-            ->count();
 
         $membershipTransaction = MembershipTransaction::where('studentId', $user->id)
             ->where('membershipStatus', 'active')
@@ -37,7 +30,7 @@ class ForumController extends Controller
 
         $membershipStatus = $membershipTransaction?->membershipStatus ?? 'belum berlangganan';
 
-        return view('forum.forum', compact('user', 'posts', 'otherProfile', 'notifications', 'unreadCount', 'membershipTransaction', 'membershipStatus'));
+        return view('forum.forum', compact('user', 'posts', 'otherProfile', 'membershipTransaction', 'membershipStatus'));
     }
 
     public function showFriendProfile($id)
