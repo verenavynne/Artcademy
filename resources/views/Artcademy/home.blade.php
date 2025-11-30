@@ -214,7 +214,9 @@
                     Diskusikan karyamu dengan sesama kreator, dapatkan feedback mendalam dari mentor profesional,
                     dan temukan peluang kolaborasi seru bersama <strong>50.000++</strong> seniman yang siap berbagi inspirasi setiap hari!
                 </p>
-                <button class="btn px-4 py-2 yellow-gradient-btn text-dark">Lihat Forum</button>
+                <a href="{{ route('forum') }}">
+                    <button class="btn px-4 py-2 yellow-gradient-btn text-dark">Lihat Forum</button>
+                </a>
             </div>
         </div>
     </div>

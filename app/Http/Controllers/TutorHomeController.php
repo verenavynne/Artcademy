@@ -24,9 +24,36 @@ class TutorHomeController extends Controller
             ->first();
 
 
-        $submissions = ProjectSubmission::whereHas('project.course.courseLecturers', function ($q) use ($user) {
-            $q->where('lecturerId', $user->id);
-        })->take(4)->get();
+        $authLecturerId = $user->id;
+        $submissions = ProjectSubmission::whereHas('project.course.courseLecturers', function ($q) use ($authLecturerId) {
+            $q->where('lecturerId', $authLecturerId);
+        })
+        ->with([
+            'student',
+            'project.course.courseLecturers',
+            'project.projectCriterias.criteria',
+            'lecturerGrades' => function ($q) use ($authLecturerId) {
+                $q->whereHas('courseLecturer', function ($q2) use ($authLecturerId) {
+                    $q2->where('lecturerId', $authLecturerId);
+                });
+            },
+            'lecturerGrades.projectCriteria.criteria'
+        ])
+        ->get()
+        ->map(function ($submission) use ($authLecturerId) {
+            $courseLecturerId = $submission->project->course
+                ->courseLecturers()
+                ->where('lecturerId', $authLecturerId)
+                ->value('id');
+
+            $submission->courseLecturerId = $courseLecturerId;
+
+            $submission->isGraded = $submission->lecturerGrades->isNotEmpty();
+
+            return $submission;
+        })
+        ->filter(fn($submission) => !$submission->isGraded)
+        ->take(4); 
         
 
         $hour = now()->timezone('Asia/Jakarta')->hour;
