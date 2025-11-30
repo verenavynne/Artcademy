@@ -24,7 +24,7 @@
                 Saatnya upgrade skill dan tunjukin karya terbaikmu lewat portofolio yang kece. Terhubung bareng kreator sekreatif kamu, biar makin banyak inspirasi dan kolaborasi!
             </p>
             <div class="mt-4">
-                <a href="{{ route('login') }}">
+                <a href="{{ auth()->check() ? route('course') : route('login') }}">
                     <button class="yellow-gradient-btn">
                         Belajar Sekarang
                     </button>
