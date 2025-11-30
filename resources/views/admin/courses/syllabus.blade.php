@@ -164,6 +164,42 @@
         });
     }
 
+    document.addEventListener("DOMContentLoaded", function () {
+
+        // Tambah minggu pertama accordion
+        const addWeekBtn = document.getElementById("add-week");
+        addWeekBtn.click();
+
+        setTimeout(() => {
+            const firstWeek = document.querySelector('.week-group[data-week="0"]');
+            if (!firstWeek) return;
+
+            // EXPAND WEEK PERTAMA
+            firstWeek.classList.add('active');
+            const weekIcon = firstWeek.querySelector('.week-header .toggle-icon');
+            if (weekIcon) {
+                weekIcon.setAttribute('icon', 'iconamoon:arrow-up-2-bold');
+            }
+
+            // TAMBAH MATERI PERTAMA ACCORDION
+            const addMateriBtn = firstWeek.querySelector('.add-materi');
+            if (addMateriBtn) addMateriBtn.click();
+
+            // EXPAND MATERI PERTAMA
+            setTimeout(() => {
+                const firstMateri = firstWeek.querySelector('.materi-group');
+                if (firstMateri) {
+                    firstMateri.classList.add('active');
+                    const materiIcon = firstMateri.querySelector('.materi-header .toggle-icon');
+                    if (materiIcon) {
+                        materiIcon.setAttribute('icon', 'iconamoon:arrow-up-2-bold');
+                    }
+                }
+            }, 80);
+
+        }, 120);
+    });
+
     // draft / next button
     const form = document.getElementById('courseForm');
     const saveDraftBtn = document.getElementById('saveDraftBtn');
