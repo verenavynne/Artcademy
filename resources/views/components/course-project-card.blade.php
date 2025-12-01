@@ -19,13 +19,12 @@
                 <p class="projek-title-section">Tools</p>
 
                
-                <div class="tools-list-container d-flex flex-row"> 
-                     @foreach ($projectTools as $projectTool )
-                     <div class="tools-container d-flex flex-row">
-                         <img class="tool-icon" src="{{ asset($projectTool->tool->toolsPicture) }}" alt="ToolIcon" height="35" width="35">
-                         <p class="tool-name">{{ $projectTool->tool->toolsName }}</p>
-                     </div>
-                
+                <div class="tools-list-container"> 
+                    @foreach ($projectTools as $projectTool )
+                        <div class="tools-container d-flex flex-row">
+                            <img class="tool-icon" src="{{ asset($projectTool->tool->toolsPicture) }}" alt="ToolIcon" height="35" width="35">
+                            <p class="tool-name">{{ $projectTool->tool->toolsName }}</p>
+                        </div>
                     @endforeach
         
                 </div>
@@ -94,7 +93,9 @@
     }
 
      .tools-list-container{
-        gap: 80px;
+        gap: 20px;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
 
     }
 

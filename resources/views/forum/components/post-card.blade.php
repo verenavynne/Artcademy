@@ -43,7 +43,7 @@ $autoOpen = $post->comments->whereNotNull('chatbotId')->isNotEmpty();
             <div class="d-flex flex-column">
                 <div class="d-flex flex-row gap-2">
                     <p class="fw-bold" style="font-size: 16px; margin: 0">{{ $post->user->name }}</p>
-                    <p class="text-muted">2 hari yang lalu</p>
+                    <p class="text-muted"> {{ \Carbon\Carbon::parse($post->postDate)->timezone('Asia/Jakarta')->diffForHumans() }}</p>
                 </div>
                 @if($post->triggerChatbot)
                     <div class="d-flex flex-row align-items-center  gap-2">
@@ -184,7 +184,7 @@ $autoOpen = $post->comments->whereNotNull('chatbotId')->isNotEmpty();
                                 <div class="d-flex flex-column">
                                     <div class="d-flex flex-row gap-2">
                                         <p class="fw-bold" style="font-size: 16px; margin: 0">{{  optional($comment->user)->name ?? $comment->chatbot->chatbotName }}</p>
-                                        <p class="text-muted">2 hari yang lalu</p>
+                                        <p class="text-muted"> {{ \Carbon\Carbon::parse($comment->commentDate)->timezone('Asia/Jakarta')->diffForHumans() }}</p>
                                     </div>
                                     
                                     <p>Membalas <span class="fw-bold">@ {{ $comment->post->user->name }}</span></p>
@@ -311,7 +311,7 @@ $autoOpen = $post->comments->whereNotNull('chatbotId')->isNotEmpty();
                                                         <div class="d-flex flex-column">
                                                             <div class="d-flex flex-row gap-2">
                                                                 <p class="fw-bold" style="font-size: 16px; margin: 0">{{ $replies->user->name }}</p>
-                                                                <p class="text-muted">2 hari yang lalu</p>
+                                                                <p class="text-muted"> {{ \Carbon\Carbon::parse($replies->commentDate)->timezone('Asia/Jakarta')->diffForHumans() }}</p>
                                                             </div>
             
                                                             <p>Membalas <span class="fw-bold">@ {{ optional($replies->parent->user)->name ?? $replies->parent->chatbot->chatbotName }}</span></p>

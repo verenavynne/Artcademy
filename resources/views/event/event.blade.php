@@ -5,11 +5,11 @@
 <div class="container-fluid d-flex flex-column justify-content-center px-5" style="margin-bottom: 75px;">
     <div class="d-flex align-items-center gap-4 pt-1 w-100 pb-4">
         <div class="position-relative flex-grow-1">
-            <form class="d-flex w-100" method="GET" action="#">
+            <form class="d-flex w-100" method="GET" action="{{ route('event') }}">
                 <input 
                     type="text" 
                     class="custom-input-2 form-control rounded-pill" 
-                    placeholder="Mau belajar apa hari ini?"
+                    placeholder="Cari event apa hari ini?"
                     name="query"
                     value="{{ request('query') }}"
                 >

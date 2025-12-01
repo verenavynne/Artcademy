@@ -12,23 +12,43 @@ use Illuminate\Support\Facades\Auth;
 
 class EventController extends Controller
 {
-    public function show()
+    public function show(Request $request)
     {
         $user = Auth::user();
         $workshopSection = request('workshop_section', 1);
         $webinarSection = request('webinar_section', 1);
+        $query = $request->query('query');
         $now = Carbon::now();
 
         $webinars = Event::where('eventCategory', 'webinar')
-        ->whereRaw("(eventDate > CURDATE()) 
-                OR (eventDate = CURDATE() AND start_time > CURTIME())")
+        ->where(function ($q) {
+            $q->where('eventDate', '>', Carbon::today())
+              ->orWhere(function ($q2) {
+                  $q2->where('eventDate', Carbon::today())
+                     ->where('start_time', '>', Carbon::now()->format('H:i:s'));
+              });
+        })
+        ->when($query, function($q) use ($query){
+            $q->where('eventName','like', "%{$query}%");
+        })
         ->paginate(4, ['*'], 'webinar_section')
-        ->appends(['workshop_section' => $workshopSection]);
+        ->appends(['workshop_section' => $workshopSection ,'query' => $query]);
+
+
         $workshops = Event::where('eventCategory', 'workshop')
-        ->whereRaw("(eventDate > CURDATE()) 
-                OR (eventDate = CURDATE() AND start_time > CURTIME())")
+        ->where(function ($q) {
+            $q->where('eventDate', '>', Carbon::today())
+              ->orWhere(function ($q2) {
+                  $q2->where('eventDate', Carbon::today())
+                     ->where('start_time', '>', Carbon::now()->format('H:i:s'));
+              });
+        })
+        ->when($query, function($q) use ($query){
+            $q->where('eventName','like', "%{$query}%");
+        })
         ->paginate(4,['*'], 'workshop_section')
-        ->appends(['webinar_section'=> $webinarSection]);
+        ->appends(['webinar_section'=> $webinarSection, 'query' => $query]);
+
 
         return view('event.event', compact('webinars', 'workshops'));
     }

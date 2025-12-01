@@ -30,6 +30,9 @@
 
                         }else if($notification->referenceType === 'membership'){
                             $commentDetail = 'Yuk segera perpanjang membershipmu!';
+                        }else if($notification->referenceType === 'project'){
+                            $submission = \App\Models\ProjectSubmission::find($notification->referenceId);
+                            $commentDetail = $submission->project->projectName;
                         }
                     @endphp
                     
@@ -55,7 +58,7 @@
                             <div class="notif-detail d-flex flex-column">
                                 <p class="notif-message fw-bold" style="font-size: var(--font-size-tiny)">{{ $notification->notificationMessage }}</p>
                                 <p style="font-size: var(--font-size-tiny)">{{ $commentDetail }}</p>
-                                <p class="text-muted small" style="font-size: var(--font-size-mini)">2 hari yang lalu</p>
+                                <p class="text-muted small" style="font-size: var(--font-size-mini)"> {{ \Carbon\Carbon::parse($notification->notificationDate)->diffForHumans() }}</p>
                             </div>
                             
                         </li> 
@@ -222,6 +225,7 @@
         color: inherit !important;
     }
 
+    .notif-badge-unread,
     .notif-badge{
         height: 56px;
         width: 56px;
@@ -234,6 +238,17 @@
     
     .notif-badge{
         background: #EDEDED;
+    }
+
+    .notif-badge-unread{
+        background: var(--cream2-color)
+    }
+
+    .unread-icon{
+        width: 5px;
+        height: 5px;
+        background: var(--orange-gradient-color);
+        border-radius: 100%;
     }
 </style>
 
