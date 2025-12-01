@@ -21,6 +21,8 @@ class NotificationController extends Controller
             $link = route('forum') . '#comment-' . $notification->referenceId;
         }else if($notification->referenceType === 'membership'){
             $link = route('membership');
+        }else if($notification->referenceType === 'project'){
+            $link = route('lecturer.nilai-projek');
         }
 
         return redirect()->away($link);

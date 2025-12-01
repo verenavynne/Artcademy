@@ -59,7 +59,7 @@
                         <div class="notif-detail d-flex flex-column">
                             <p class="notif-message fw-bold" style="font-size: var(--font-size-tiny)">{{ $notification->notificationMessage }}</p>
                             <p style="font-size: var(--font-size-tiny)">{{ $commentDetail }}</p>
-                            <p class="text-muted small" style="font-size: var(--font-size-mini)">2 hari yang lalu</p>
+                            <p class="text-muted small" style="font-size: var(--font-size-mini)">{{ \Carbon\Carbon::parse($notification->notificationDate)->diffForHumans() }}</p>
                         </div>
                         
                     </li> 

@@ -13,10 +13,24 @@ use Illuminate\Support\Facades\Auth;
 
 class ForumController extends Controller
 {
-    public function show()
+    public function show(Request $request)
     {
         $user = Auth::user();
+        $query = $request->query('query');
         $posts = Post::with(['user', 'files', 'allComments.user', 'comments.files', 'comments.replies.user', 'comments.replies.files'])
+        ->when($query, function($q) use ($query){
+            $q->where(function($post) use ($query){
+                $post->where('postText', 'like', "%{$query}%")
+
+                ->orWhereHas('comments', function($comment) use ($query) {
+                    $comment->where('commentText', 'like', "%{$query}%");
+                })
+
+                ->orWhereHas('comments.replies', function($reply) use ($query) {
+                    $reply->where('commentText', 'like', "%{$query}%");
+                });
+            });
+        })
         ->orderBy('created_at', 'desc')
         ->get();
 

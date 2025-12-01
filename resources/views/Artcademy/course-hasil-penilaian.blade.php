@@ -139,7 +139,7 @@
                 </div>
 
                 @if ($allTutorsGraded)
-                    <a href="{{ route('certificate.generate', $courseId) }}" class="btn px-4 py-2 yellow-gradient-btn text-dark" >
+                    <a href="{{ route('certificate.generate', $courseId) }}" class="btn px-4 yellow-gradient-btn text-dark" >
                         Klaim Sertifikatmu
                     </a>
                 @else

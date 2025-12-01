@@ -9,3 +9,6 @@ Artisan::command('inspire', function () {
 
 Schedule::command('membership:check-membership-expiry')
 ->dailyAt('00:00');
+
+Schedule::command('grade:check-tutor-grade-deadline')
+->dailyAt('00:00');

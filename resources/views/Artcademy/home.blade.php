@@ -5,9 +5,27 @@
     <!-- search bar -->
     <div class="d-flex align-items-center pt-1 gap-4 w-100">
         <div class="position-relative flex-grow-1">
-            <input type="text" class="custom-input-2 form-control rounded-pill" placeholder="Mau belajar apa hari ini?">
-            <iconify-icon icon="icon-park-outline:search" class="search-icon position-absolute">
-            </iconify-icon>
+           <form class="d-flex w-100" method="GET" action="{{route('course')}}">
+                <input 
+                    type="text" 
+                    class="custom-input-2 form-control rounded-pill" 
+                    placeholder="Mau belajar apa hari ini?"
+                    name="query"
+                    value="{{ request('query') }}"
+                >
+    
+                <button 
+                    type="submit"
+                    class="btn position-absolute end-0 top-50 p-0 pe-4 border-0 bg-transparent"
+                    style="z-index: 5;"
+                >
+                    <iconify-icon 
+                        icon="icon-park-outline:search" 
+                        class="search-icon"
+                        style="font-size: 22px;"
+                    ></iconify-icon>
+                </button>
+            </form>
         </div>
 
         @include('components.notification-panel')
