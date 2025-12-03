@@ -79,9 +79,11 @@
             </a>
           </div>
 
-          @foreach($submissions as $submission)
+          @forelse($submissions as $submission)
             @include('components.nilai-projek-card')
-          @endforeach
+              @empty
+                <div class="empty-nilai-siswa">belum ada projek siswa</div>
+          @endforelse
 </div>
 
 </div>
@@ -119,6 +121,16 @@
 /* Tiap card */
 .admin-tutor-card-wrapper > * {
   min-width: 230px;
+}
+
+.empty-nilai-siswa{
+  padding: 150px;
+  align-items: center;
+  width: 100%;
+  justify-content: center;
+  font-size: 18px;
+  color: var(--dark-gray-color);
+  text-align: center;
 }
 
 /* Responsif */

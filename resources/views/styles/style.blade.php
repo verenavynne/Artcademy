@@ -87,9 +87,9 @@
         font-weight: 700;
     }
 
-    .nav-link.active::after {
+    /* .nav-link.active::after {
         transform: scaleX(1);
-    }
+    } */
 
     .navbar-button-login{
         background: var(--yellow-gradient-color);
