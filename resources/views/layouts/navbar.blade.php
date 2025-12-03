@@ -70,7 +70,7 @@
                             </ul>
                         </div>
                     @elseif(!Auth::check())
-                        <a href="{{ route('login') }}" class="btn navbar-button-login d-flex justify-content-center align-items-center"  role="button">Masuk</a>
+                        <a href="{{ route('login') }}" class="btn navbar-button-login d-flex justify-content-center align-items-center" style="border: none;" role="button">Masuk</a>
                     @endif
                 </div>
             </div>

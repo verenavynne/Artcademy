@@ -51,6 +51,11 @@
         border-radius: 53px;
         background: var(--cream2-color);
         box-shadow: 0 4px 8px rgba(67, 39, 0, 0.2);
+        transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 0.4s ease-in-out;
+    }
+
+    .pricing-card:hover {
+        transform: scale(1.02);
     }
 
     .card-top {
@@ -70,6 +75,12 @@
 
     .highlight {
         border: 2px solid var(--pink-color);
+        transform: scale(1.1);
+        z-index: 15;
+    }
+
+    .highlight:hover {
+        transform: scale(1.12);
     }
 
     .badge {
@@ -134,6 +145,7 @@
         cursor: pointer;
         font-size: 18px;
         transition: all .3s ease;
+        
     }
 
     .pink-cream-btn:hover {
@@ -143,5 +155,6 @@
 
     .yellow-gradient-btn:hover {
         transform: scale(1.05);
+        color: var(--black-color);
     }
 </style>

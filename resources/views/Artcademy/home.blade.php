@@ -174,11 +174,11 @@
         <h2 class="fw-bold mt-4 text-center"><span class="text-pink-gradient">Tutor Keren, </span>Ilmu Nggak Kaleng-Kaleng!</h2>
         <p class="mb-5 text-center">Para tutor berpengalaman siap berbagi ilmu dan insight kreatif buat kamu</p>
 
-         <div class="d-flex gap-4 justify-content-center flex-wrap">
-           <div class="card"></div>
-           <div class="card"></div>
-           <div class="card"></div>
-           <div class="card"></div>
+         <div class="d-flex justify-content-center flex-wrap" style="gap: 36px;">
+           @include ('components.home-tutor-card')
+           @include ('components.home-tutor-card')
+           @include ('components.home-tutor-card')
+           @include ('components.home-tutor-card')
         </div>
     </div>
 </div>
@@ -217,9 +217,10 @@
     <div class="container p-4 position-relative" style="z-index: 1;">
         <div class="row align-items-center">
             <div class="col-md-6 col-sm-12">
-                <div style="position: relative; height: 100%; top: -335px">
+                <div style="position: relative; height: 100%; top: -305px">
+                    
                     <img
-                        src="{{ asset('assets/home/forum.png') }}"
+                        src="{{ asset('assets/home/image forum.png') }}"
                         alt="Top Illustration"
                         class="img-fluid"
                         style="max-width: 490px; position: absolute;"
@@ -329,11 +330,14 @@
         align-items: center;
         padding: 2rem;
         border-radius: 2rem;
+        transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 0.4s ease-in-out;
     }
 
     .choice-item:hover {
         background: var(--pink-gradient-color);
         color: #fff;
+        transform: scale(1.06);
+
     }
 
     .choice-item .img-wrapper {
@@ -382,7 +386,13 @@
         box-shadow: 0px 4px 8px 0px rgba(67, 39, 0, 0.20);
         border: none;
         padding:8px;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
+
+      .course-card.card:hover{
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08) !important;
+      }
 
     .navigation-next{
         background: var(--yellow-gradient-color);

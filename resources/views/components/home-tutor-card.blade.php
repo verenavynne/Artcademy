@@ -1,74 +1,75 @@
-<div class="tutor-card-v2 rounded-5 shadow-sm">
-    <div class="p-3 d-flex justify-content-between align-items-start">
-        <div class="tutor-info-v2">
-            <h5 class="tutor-name-v2 fw-bold mb-0">Jane Doe</h5>
-            <p class="tutor-role-v2 text-muted small mb-0">Visual Artist di ABC</p>
+<div class="container-tutor-home-card">
+    <div class="tutor-header-content d-flex justify-content-between align-items-center" style="padding: 32px; width: 100%;">
+        <div class="tutor-name-wrapper">
+            <p class="tutor-name fw-bold mb-0">Jane Doe</p>
+            <p class="tutor-title mb-0" style="font-size:14px; color: var(--dark-gray-color);">Visual Artist di ABC</p>
         </div>
         
-        <a href="#" class="linkedin-icon-v2 rounded-circle d-flex align-items-center justify-content-center">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-linkedin" viewBox="0 0 16 16">
-                <path d="M0 1.146C0 .513.526 0 1.175 0h13.65C15.474 0 16 .513 16 1.146v13.708c0 .633-.526 1.146-1.175 1.146H1.175C.526 16 0 15.487 0 14.854V1.146zm4.943 12.248V9.357c0-.98-.348-1.65-1.228-1.65-.658 0-1.042.482-1.218.959-.06.166-.073.376-.073.582v4.204h-2.5V5.558h2.5v1.174h.034c.355-.602.833-.99 1.9-1.053 1.298-.073 2.27 1.05 2.27 3.321v5.15H4.943zm-2.5-8.239h-2.5V3.856h2.5v.512z"/>
-            </svg>
+        <a href="#" class="tutor-icon-linkedin-circle d-flex align-items-center justify-content-center">
+            <img src="{{ asset('assets/home/linkedin-logo.png')}}" alt="" height="33" width="33">
         </a>
     </div>
 
-    <div class="tutor-image-v2 d-flex justify-content-center">
-        <img src="path/to/tutor/image.png" alt="Jane Doe" style="width: 100%; height: 280px; object-fit: contain;"> 
+    <div class="tutor-image-area d-flex justify-content-center">
+       <img class="foto-tutor"src="assets/course/default_tutor_profile.png" alt="">
     </div>
 </div>
 
 <style>
-    /* Gaya untuk Judul (Jika belum ada dari jawaban sebelumnya) */
-/* .text-pink-gradient {
-    background: linear-gradient(45deg, #ff6b81, #ff99aa); 
+.tutor-name {
+    background: var(--pink-gradient-color);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
-    color: transparent; /* Fallback */
-} */
-
-/* Gaya untuk Card Tutor Versi 2 */
-.tutor-card-v2 {
-    width: 250px; /* Lebar card, sesuaikan jika perlu */
-    height: 380px; /* Tinggi card agar seragam */
-    background-color: white; /* Latar belakang card */
-    border-radius: 2rem !important; /* Membuat sudut sangat melengkung (rounded-5) */
-    overflow: hidden; /* Penting untuk menjaga gambar di dalam batas card */
+    color: transparent;
+    font-size: 16px; 
+}
+.container-tutor-home-card {
+    width: 300px; 
+    max-height: 348px; 
+    background-color: white; 
+    border-radius: 2rem !important; 
     transition: transform 0.3s ease, box-shadow 0.3s ease;
-    border: 1px solid #f0f0f0; 
+    box-shadow: 0 4px 8px 0 rgba(67, 39, 0, 0.20);
+    display: flex;
+    flex-direction: column; 
+    justify-content: flex-start;
+    align-items: center;    
 }
 
-/* Efek Hover */
-.tutor-card-v2:hover {
+.container-tutor-home-card:hover {
     transform: translateY(-5px);
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08) !important;
 }
 
-/* Gaya untuk Icon LinkedIn */
-.linkedin-icon-v2 {
-    width: 30px;
-    height: 30px;
-    background-color: #0077b5; /* Warna biru LinkedIn */
-    color: white;
-    font-size: 14px;
+.tutor-header-content {
+    flex-shrink: 0;
 }
 
-.linkedin-icon-v2 svg {
-    fill: currentColor; /* Agar icon SVG menggunakan warna putih */
+
+
+.tutor-image-area {
+    flex-grow: 1; 
+    display: flex;
+    justify-content: center;
+    align-items: ;
+    width: 100%;
+    height: 50%;
+    object-fit: cover;
+    aspect-ratio: 9/16;
 }
 
-/* Gaya untuk Area Gambar Tutor */
-.tutor-image-v2 {
-    /* Pastikan gambar mengisi sisa ruang di bawah info */
-    height: calc(100% - 70px); /* Kurangi tinggi header (sekitar 70px) */
-    align-items: flex-end; /* Memastikan gambar diletakkan di bagian bawah */
-    overflow: hidden; /* Mengatasi jika gambar sedikit keluar */
+.tutor-main-image {
+    width: 100%; 
+    height: auto; 
+    display: block; 
+    object-fit: contain;
+    transform: translateY(10px);
+    max-height: 80%;
 }
 
-/* Styling untuk container wrapper di halaman utama */
-.testimoni-card {
-    /* Hapus jika tidak diperlukan, tapi ini membantu jika ada padding/margin khusus */
-    padding: 0;
-    margin: 0;
+.foto-tutor{
+
 }
+
 </style>
