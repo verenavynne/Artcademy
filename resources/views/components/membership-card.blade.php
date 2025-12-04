@@ -39,7 +39,7 @@
         </ul>
 
         <a href="{{ route('membership.detail', ['membershipId' => $membership->id]) }}">
-            <button class="btn {{ $membership->membershipName === 'Creative Studio' ? 'yellow-gradient-btn' : 'pink-cream-btn' }} mb-3">Pilih Langganan</button>
+            <button class="btn-membership {{ $membership->membershipName === 'Creative Studio' ? 'yellow-gradient-btn' : 'pink-cream-btn' }} mb-3">Pilih Langganan</button>
         </a>
     </div>
 </div>
@@ -138,7 +138,7 @@
         color: var(--dark-gray-color);
     }
 
-    .btn {
+    .btn-membership {
         width: 100%;
         padding: 14px 0;
         border-radius: 40px;

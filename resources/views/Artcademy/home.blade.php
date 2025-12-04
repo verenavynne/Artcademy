@@ -175,10 +175,11 @@
         <p class="mb-5 text-center">Para tutor berpengalaman siap berbagi ilmu dan insight kreatif buat kamu</p>
 
          <div class="d-flex justify-content-center flex-wrap" style="gap: 36px;">
-           @include ('components.home-tutor-card')
-           @include ('components.home-tutor-card')
-           @include ('components.home-tutor-card')
-           @include ('components.home-tutor-card')
+            @forelse ($tutors as $tutor)
+                @include ('components.home-tutor-card')
+            @empty
+                <p>Tidak ada tutor</p>
+            @endforelse
         </div>
     </div>
 </div>
@@ -190,9 +191,9 @@
         <p class="mb-5 text-center">Pilih paket membership sesuai levelmu dan mulai eksplorasi tanpa batas!</p>
 
         <div class="d-flex gap-4 justify-content-center flex-wrap">
-           <div class="card"></div>
-           <div class="card"></div>
-           <div class="card"></div>
+            @foreach ($memberships as $membership)
+                @include('components.membership-card')
+            @endforeach
         </div>
     </div>
 </div>
@@ -204,10 +205,11 @@
         <p class="mb-5 text-center">Ikut event-nya, dapet ilmunya, dan bangun koneksi kreatif bareng!</p>
 
          <div class="d-flex mb-5 gap-4 justify-content-center flex-wrap">
-           <div class="card"></div>
-           <div class="card"></div>
-           <div class="card"></div>
-           <div class="card"></div>
+            @forelse($events as $event)
+                @include('components.event-card')
+            @empty
+                <p>Tidak ada event</p>
+            @endforelse
         </div>
     </div>
 </div>
@@ -249,10 +251,9 @@
         <p class="mb-5 text-center">Simak testimoni dari para alumni yang berhasil wujudin ide jadi karya nyata</p>
 
          <div class="d-flex gap-4 justify-content-center flex-wrap">
-           <div class="card"></div>
-           <div class="card"></div>
-           <div class="card"></div>
-           <div class="card"></div>
+           @foreach ($testimonis as $testimoni)
+                @include('components.testimoni-card')
+            @endforeach
         </div>
     </div>
 </div>

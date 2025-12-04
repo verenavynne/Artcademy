@@ -39,14 +39,6 @@ class CourseController extends Controller
         $type = $request->query('type');
         $search = strtolower($request->query('query'));
 
-        $membershipTransaction = MembershipTransaction::where('studentId', $user->id)
-            ->where('membershipStatus', 'active')
-            ->with('membership')
-            ->first();
-
-        $membershipStatus = $membershipTransaction?->membershipStatus ?? 'inactive';
-        $userMembershipLevel = $membershipTransaction?->membershipId ?? 0;
-
         $mappedLevel = null;
         if (str_contains($search, 'level dasar')) {
             $mappedLevel = 'dasar';
@@ -114,6 +106,14 @@ class CourseController extends Controller
         $enrollmentMap = collect();
 
         if ($user) {
+            $membershipTransaction = MembershipTransaction::where('studentId', $user->id)
+                ->where('membershipStatus', 'active')
+                ->with('membership')
+                ->first();
+
+            $membershipStatus = $membershipTransaction?->membershipStatus ?? 'inactive';
+            $userMembershipLevel = $membershipTransaction?->membershipId ?? 0;
+            
             // ambil semua enrollment user
             $enrollments = CourseEnrollment::where('studentId', $user->id)
                 ->with(['course.weeks', 'course.project'])

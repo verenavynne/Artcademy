@@ -1,8 +1,8 @@
 <div class="container-tutor-home-card">
     <div class="tutor-header-content d-flex justify-content-between align-items-center" style="padding: 32px; width: 100%;">
         <div class="tutor-name-wrapper">
-            <p class="tutor-name fw-bold mb-0">Jane Doe</p>
-            <p class="tutor-title mb-0" style="font-size:14px; color: var(--dark-gray-color);">Visual Artist di ABC</p>
+            <p class="tutor-name fw-bold mb-0">{{ $tutor->name }}</p>
+            <p class="tutor-title mb-0" style="font-size:14px; color: var(--dark-gray-color);">{{ $tutor->profession ?? $tutor->lecturer->specialization }}</p>
         </div>
         
         <a href="#" class="tutor-icon-linkedin-circle d-flex align-items-center justify-content-center">
@@ -11,7 +11,13 @@
     </div>
 
     <div class="tutor-image-area d-flex justify-content-center">
-       <img class="foto-tutor"src="assets/course/default_tutor_profile.png" alt="">
+       <img class="foto-tutor"
+            src="{{ Str::startsWith($tutor->profilePicture, ['http://', 'https://']) 
+                ? $tutor->profilePicture 
+                : ($tutor->profilePicture 
+                    ? asset('storage/' . $tutor->profilePicture) 
+                    : asset('assets/home/linkedin-logo.png')) }}"                     
+        alt="">
     </div>
 </div>
 
