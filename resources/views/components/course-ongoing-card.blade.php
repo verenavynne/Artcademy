@@ -34,7 +34,7 @@
     $menit = $course->courseDurationInMinutes % 60;
 @endphp
 
-<a href="{{ $enrollment->isLocked ? '#' : route('course.detail', $course->id) }}" 
+<a href="{{ $enrollment->isLocked ? route('membership') : route('course.detail', $course->id) }}" 
    class="text-decoration-none text-black">
     <div class="course-card card article-card" style="cursor: pointer; height: 100%;">
 

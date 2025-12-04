@@ -11,6 +11,7 @@ use App\Models\ProjectSubmission;
 use App\Models\ProjectTool;
 use App\Models\StudentMateriProgress;
 use App\Models\StudentWeekProgress;
+use App\Models\MembershipTransaction;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -37,6 +38,14 @@ class CourseController extends Controller
         $user = Auth::user();
         $type = $request->query('type');
         $search = strtolower($request->query('query'));
+
+        $membershipTransaction = MembershipTransaction::where('studentId', $user->id)
+            ->where('membershipStatus', 'active')
+            ->with('membership')
+            ->first();
+
+        $membershipStatus = $membershipTransaction?->membershipStatus ?? 'inactive';
+        $userMembershipLevel = $membershipTransaction?->membershipId ?? 0;
 
         $mappedLevel = null;
         if (str_contains($search, 'level dasar')) {
@@ -118,7 +127,15 @@ class CourseController extends Controller
             ];
 
             // hitung progress + locked
-            $enrollments = $enrollments->map(function ($enrollment) use ($courseLevelMap, $user) {
+            $enrollments = $enrollments->map(function ($enrollment) use ($courseLevelMap, $user, $userMembershipLevel) {
+
+                if ($enrollment->status === 'completed') {
+                    $enrollment->progress = 100;
+                    
+                    $enrollment->isLocked = false;
+
+                    return $enrollment;
+                }
 
                 $totalWeeks = $enrollment->course->weeks->count();
 
@@ -145,7 +162,7 @@ class CourseController extends Controller
                 $courseLevel = $courseLevelMap[$enrollment->course->courseLevel] ?? 0;
 
                 $enrollment->isLocked =
-                    $user->membershipId < $courseLevel &&
+                    $userMembershipLevel < $courseLevel &&
                     $enrollment->course->coursePaymentType === 'berbayar';
 
                 return $enrollment;
