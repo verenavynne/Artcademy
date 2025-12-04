@@ -82,7 +82,7 @@
                         <td class="text-truncate-ellipsis" title="{{ $event->eventName }}">{{ $event->eventName }}</td>
                         <td class="text-truncate-ellipsis" title="{{ $event->eventCategory }}">{{ $event->eventCategory }}</td>
                         <td>{{ \Carbon\Carbon::parse($event->eventDate.' '.$event->start_time)->format('d M Y H:i') }}</td>
-                        <td class="text-center">5</td>
+                        <td class="text-center">{{ $event->event_transaction_count }}</td>
                         <td>{{ $event->updated_at->format('d M Y H:i') }}</td>
                         <td>
                             @php

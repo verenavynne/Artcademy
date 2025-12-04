@@ -28,7 +28,8 @@ class AdminEventController extends Controller
 
         $perPage = $request->input('perPage', 5);
 
-        $events = $query->orderBy('created_at', 'desc')
+        $events = $query->withCount('eventTransaction')
+                        ->orderBy('created_at', 'desc')
                         ->paginate($perPage)
                         ->appends($request->query());
 
