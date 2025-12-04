@@ -115,7 +115,7 @@ class ProfileController extends Controller
 
             $courseLevel = $courseLevelMap[$enrollment->course->courseLevel] ?? 0;
 
-            $enrollment->isLocked = $userMembershipLevel < $courseLevel && $enrollment->course->coursePaymentType === 'berbayar';
+            $enrollment->isLocked = false;
         }
 
         return view('profile.my-courses', compact('ongoingCoursesEnrollment','finishedCoursesEnrollment', 'activeTab'));
