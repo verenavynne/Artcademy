@@ -54,13 +54,13 @@
 
     <div class="container-fluid pb-4">
         <p class="title-dasar text-start fw-bold mb-3">Level Dasar</p>
-        <p class="text-start" style="font-size: var(--font-size-normal)">Baru mulai? No worries! Di sini tempat paling pas buat kamu yang lagi cari pondasi kuat di dunia seni</p>
+        <p class="text-start" style="font-size: var(--font-size-primary)">Baru mulai? No worries! Di sini tempat paling pas buat kamu yang lagi cari pondasi kuat di dunia seni</p>
     </div>
 
 
     <div class="container-fluid d-flex flex-column align-items-center">
         @if ($dasarCourses->isEmpty())
-            <p class="text-center text-muted" style="font-size: var(--font-size-normal)">
+            <p class="text-center text-muted" style="font-size: var(--font-size-primary)">
                 Belum ada kursus untuk level dasar saat ini.
             </p>
         @else
@@ -83,12 +83,12 @@
 
     <div class="container-fluid pb-4" style="margin-top: 80px;">
         <p class="title-menengah text-start fw-bold mb-3">Level Menengah</p>
-        <p class="text-start" style="font-size: var(--font-size-normal)">Udah ngerti dasar-dasarnya? Saatnya upgrade skill, eksplor teknik baru, dan asah gaya unikmu</p>
+        <p class="text-start" style="font-size: var(--font-size-primary)">Udah ngerti dasar-dasarnya? Saatnya upgrade skill, eksplor teknik baru, dan asah gaya unikmu</p>
     </div>
 
     <div class="container-fluid d-flex flex-column align-items-center">
         @if ($menengahCourses->isEmpty())
-            <p class="text-center text-muted" style="font-size: var(--font-size-normal)">
+            <p class="text-center text-muted" style="font-size: var(--font-size-primary)">
                 Belum ada kursus untuk level menengah saat ini.
             </p>
         @else
@@ -111,12 +111,12 @@
 
     <div class="container-fluid pb-4" style="margin-top: 80px;">
         <p class="title-lanjutan text-start fw-bold mb-3">Level Lanjutan</p>
-        <p class="text-start" style="font-size: var(--font-size-normal)">Siap naik ke level pro? Tantang dirimu, perdalam skill, dan siapin karya buat dunia lihat</p>
+        <p class="text-start" style="font-size: var(--font-size-primary)">Siap naik ke level pro? Tantang dirimu, perdalam skill, dan siapin karya buat dunia lihat</p>
     </div>
 
     <div class="container-fluid d-flex flex-column  align-items-center">
         @if ($lanjutanCourses->isEmpty())
-            <p class="text-center text-muted" style="font-size: var(--font-size-normal)">
+            <p class="text-center text-muted" style="font-size: var(--font-size-primary)">
                 Belum ada kursus untuk level lanjutan saat ini.
             </p>
         @else
@@ -140,7 +140,7 @@
     @if(is_null($type))
     <div class="container-fluid pb-4" style="margin-top: 80px;">
         <p class="title-lanjutan text-start fw-bold mb-3">Semua Kursus</p>
-        <p class="text-start" style="font-size: var(--font-size-normal)">Asah skill mu dan jelajahi berbagai kursus yang sesuai dengan bidangmu</p>
+        <p class="text-start" style="font-size: var(--font-size-primary)">Asah skill mu dan jelajahi berbagai kursus yang sesuai dengan bidangmu</p>
     </div>
 
     <div class="container-fluid d-flex flex-column align-items-center">

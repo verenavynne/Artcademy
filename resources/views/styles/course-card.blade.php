@@ -85,7 +85,7 @@
         background-color: white;
         width: 80%;
         border-radius: 10px;
-        padding: 1rem;
+        padding: 2rem;
     }
 
     .icon-circle {

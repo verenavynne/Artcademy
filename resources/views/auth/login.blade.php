@@ -19,7 +19,7 @@
                 <img src="{{ asset('assets/logo.png') }}" alt="Artcademy Logo" class="mb-4" style="height: 30px;">
                 <h1 class="fw-bold text-pink-gradient" style="font-size: 58px;">Selamat Datang Kembali,</h1>
                 <h1 class="fw-bold text-dark mb-3" style="font-size: 58px;">Kreator Hebat!</h1>
-                <p class="text-secondary fs-5">
+                <p class="fs-5" style="var(--dark-gray-color);">
                     Skill keren, karya orisinal, dan komunitas seniman muda siap menyambutmu. Yuk lanjutkan perjalanan senimu bareng Artcademy!
                 </p>
 

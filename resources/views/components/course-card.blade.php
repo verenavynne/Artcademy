@@ -69,7 +69,7 @@
                         {{ $jam }} Jam {{ $menit }} Menit
                     </p>
                 </div>
-                <img src="{{ asset($course->coursePicture) }}" alt="Course Picture" width="110" height="80">
+                <img src="{{ asset($course->coursePicture) }}" alt="Course Picture" width="100" height="100" style="object-fit: scale-down";>
             </div>
         </div>
 
