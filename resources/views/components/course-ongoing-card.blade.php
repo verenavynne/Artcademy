@@ -40,7 +40,7 @@
 
         @if($enrollment->isLocked)
             <div class="overlay-arsip d-flex flex-column justify-content-center align-items-center">
-                <div class="overlay-content d-flex w-70 p-2 gap-3">
+                <div class="overlay-content d-flex w-70 p-3 gap-3">
                     <div class="icon-circle d-flex justify-content-center align-items-center">
                         <iconify-icon icon="ic:round-lock" style="color: #E92D62; font-size: 24px;"></iconify-icon>
                     </div>

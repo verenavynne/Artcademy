@@ -38,7 +38,7 @@
                 <span class="text-pink-gradient">Jelajahi Dunia Seni</span> <span class="text-dark">Tanpa Batas</span>
             </h1>
 
-            <p class="text-secondary fs-5 pt-1">
+            <p class="pt-1" style="color: var(--dark-gray-color); font-size: 18px;">
                 Saatnya upgrade skill dan tunjukin karya terbaikmu lewat portofolio yang kece. Terhubung bareng kreator sekreatif kamu, biar makin banyak inspirasi dan kolaborasi!
             </p>
             <div class="mt-4">
@@ -67,28 +67,28 @@
 <div class="why-artcademy">
     <div class="container text-center">
         <h2 class="fw-bold mb-2">Kenapa Artcademy?</h2>
-        <p class="mb-5">Karena belajar seni harusnya fleksibel, seru, dan nggak sendirian</p>
+        <p class="mb-5" style="font-size: 18px;">Karena belajar seni harusnya fleksibel, seru, dan nggak sendirian</p>
 
         <div class="row text-center">
             <div class="col-md-3 p-4">
                 <img src="{{ asset('assets/home/why-1.png') }}" class="mb-3" height="150px">
-                <h5 class="fw-bold">Belajar Fleksibel Bersertifikat</h5>
-                <p class="small">Akses berbagai kursus seni bersertifikat favorit kamu kapan aja dan di mana aja tanpa batas</p>
+                <h5 class="fw-bold" style="font-size: 18px;">Belajar Fleksibel Bersertifikat</h5>
+                <p class="small" style="font-size: 18px;">Akses berbagai kursus seni bersertifikat favorit kamu kapan aja dan di mana aja tanpa batas</p>
             </div>
             <div class="col-md-3 p-4 why-border-left why-border-right">
                 <img src="{{ asset('assets/home/why-2.png') }}" class="mb-3" height="150px">
-                <h5 class="fw-bold">Portofolio Keren</h5>
-                <p class="small">Tunjukan karyamu kepada dunia dengan tampilan 3D Mockup yang super keren!</p>
+                <h5 class="fw-bold" style="font-size: 18px;">Portofolio Keren</h5>
+                <p class="small" style="font-size: 18px;">Tunjukan karyamu kepada dunia dengan tampilan 3D Mockup yang super keren!</p>
             </div>
             <div class="col-md-3 p-4">
                 <img src="{{ asset('assets/home/why-3.png') }}" class="mb-3" height="150px">
-                <h5 class="fw-bold">Forum Kreatif</h5>
-                <p class="small">Gabung forum kreatif, diskusi, sharing, dan dapet insight dari seniman lainnya!</p>
+                <h5 class="fw-bold" style="font-size: 18px;">Forum Kreatif</h5>
+                <p class="small" style="font-size: 18px;">Gabung forum kreatif, diskusi, sharing, dan dapet insight dari seniman lainnya!</p>
             </div>
             <div class="col-md-3 p-4 why-border-left">
                 <img src="{{ asset('assets/home/why-4.png') }}" class="mb-3" height="150px">
-                <h5 class="fw-bold">Event Seru Tiap Saat</h5>
-                <p class="small">Dari webinar hingga workshop, buka peluang belajar dan kolaborasi baru.</p>
+                <h5 class="fw-bold" style="font-size: 18px;">Event Seru Tiap Saat</h5>
+                <p class="small" style="font-size: 18px;">Dari webinar hingga workshop, buka peluang belajar dan kolaborasi baru.</p>
             </div>
         </div>
     </div>
@@ -102,7 +102,7 @@
 <!-- categories -->
 <div class="container text-center" style="padding-bottom: 3rem">
     <h2 class="fw-bold"><span class="text-pink-gradient">Mau Belajar</span> yang Mana Dulu?</h2>
-    <p class="mb-5">Di Artcademy, kamu bebas memilih jalur senimu dan menjadikannya bagian dari perjalanan kreatifmu</p>
+    <p class="mb-5" style="font-size: 18px;">Di Artcademy, kamu bebas memilih jalur senimu dan menjadikannya bagian dari perjalanan kreatifmu</p>
 
     <div class="big-card d-flex justify-content-around align-items-center flex-wrap">
         <a href="/course" class="text-decoration-none text-dark">
@@ -110,7 +110,7 @@
                 <div class="img-wrapper">
                     <img src="{{ asset('assets/home/category-painting.png') }}" alt="Seni Lukis" height="100px">
                 </div>
-                <p class="fw-bold mt-3">Seni Lukis & Digital Art</p>
+                <p class="fw-bold mt-3" style="font-size: 18px;">Seni Lukis & Digital Art</p>
             </div>
         </a>
 
@@ -119,7 +119,7 @@
                 <div class="img-wrapper">
                     <img src="{{ asset('assets/home/category-music.png') }}" alt="Seni Musik" height="100px">
                 </div>
-                <p class="fw-bold mt-3">Seni Musik</p>
+                <p class="fw-bold mt-3" style="font-size: 18px;">Seni Musik</p>
             </div>
         </a>
 
@@ -128,7 +128,7 @@
                 <div class="img-wrapper">
                     <img src="{{ asset('assets/course-header-pic.png') }}" alt="Seni Fotografi" height="90px">
                 </div>
-                <p class="fw-bold mt-3">Seni Fotografi</p>
+                <p class="fw-bold mt-3" style="font-size: 18px;">Seni Fotografi</p>
             </div>
         </a>
 
@@ -137,7 +137,7 @@
                 <div class="img-wrapper">
                     <img src="{{ asset('assets/home/category-dance.png') }}" alt="Seni Tari" height="150px">
                 </div>
-                <p class="fw-bold mt-3">Seni Tari</p>
+                <p class="fw-bold mt-3" style="font-size: 18px;">Seni Tari</p>
             </div>
         </a>
     </div>
@@ -147,7 +147,7 @@
 <div class="container-fluid mb-4 mt-5 pb-5 pt-5" style="background: var(--cream2-color)">
     <div class="p-4">
         <h2 class="fw-bold mt-4 text-center"><span class="text-pink-gradient">Yang Lagi Hits </span>di Artcademy</h2>
-        <p class="mb-5 text-center">Rekomendasi kursus paling cocok buat mulai perjalanan kreatifmu</p>
+        <p class="mb-5 text-center" style="font-size: 18px;">Rekomendasi kursus paling cocok buat mulai perjalanan kreatifmu</p>
 
         <a href="{{ route('course') }}" class="text-decoration-none d-block pe-5 me-3 pb-4">
             <div class="d-flex flex-row justify-content-end gap-2">
@@ -172,7 +172,7 @@
 <div class="container-fluid mt-4 mb-5">
     <div class="p-4">
         <h2 class="fw-bold mt-4 text-center"><span class="text-pink-gradient">Tutor Keren, </span>Ilmu Nggak Kaleng-Kaleng!</h2>
-        <p class="mb-5 text-center">Para tutor berpengalaman siap berbagi ilmu dan insight kreatif buat kamu</p>
+        <p class="mb-5 text-center" style="font-size: 18px;">Para tutor berpengalaman siap berbagi ilmu dan insight kreatif buat kamu</p>
 
          <div class="d-flex justify-content-center flex-wrap" style="gap: 36px;">
             @forelse ($tutors as $tutor)
@@ -188,9 +188,9 @@
 <div class="container-fluid pink-gradient-background mt-4 pb-5">
   <div class="p-4">
         <h2 class="fw-bold mt-4 text-center pt-5"><span class="text-pink-gradient">Semua Bisa Jadi Karya, </span>Asal Punya Aksesnya</h2>
-        <p class="mb-5 text-center">Pilih paket membership sesuai levelmu dan mulai eksplorasi tanpa batas!</p>
+        <p class="mb-5 text-center" style="font-size: 18px;">Pilih paket membership sesuai levelmu dan mulai eksplorasi tanpa batas!</p>
 
-        <div class="d-flex gap-4 justify-content-center flex-wrap">
+        <div class="pricing-container">
             @foreach ($memberships as $membership)
                 @include('components.membership-card')
             @endforeach
@@ -202,7 +202,7 @@
 <div class="container-fluid mt-4 mb-5">
     <div class="p-4">
         <h2 class="fw-bold mt-4 text-center"><span class="text-pink-gradient">Ikuti Event Seru </span>Artcademy!</h2>
-        <p class="mb-5 text-center">Ikut event-nya, dapet ilmunya, dan bangun koneksi kreatif bareng!</p>
+        <p class="mb-5 text-center" style="font-size: 18px;">Ikut event-nya, dapet ilmunya, dan bangun koneksi kreatif bareng!</p>
 
          <div class="d-flex mb-5 gap-4 justify-content-center flex-wrap">
             @forelse($events as $event)
@@ -215,23 +215,22 @@
 </div>
 
 <!-- forum -->
-<div class="container-fluid pb-5 pt-4 mt-5 position-relative" style="background: var(--cream2-color); overflow: visible;">
+<div class="container-fluid pb-5 pt-4 mt-5 position-relative forum-section" style="background: var(--cream2-color); overflow: visible;">
     <div class="container p-4 position-relative" style="z-index: 1;">
         <div class="row align-items-center">
             <div class="col-md-6 col-sm-12">
-                <div style="position: relative; height: 100%; top: -305px">
+                <div class="forum-image-wrapper" style="position: relative; ">
                     
                     <img
                         src="{{ asset('assets/home/image forum.png') }}"
                         alt="Top Illustration"
-                        class="img-fluid"
-                        style="max-width: 490px; position: absolute;"
+                        class="img-fluid forum-image"
                     >
                 </div>
             </div>
             <div class="col-md-6 col-sm-12 pt-5 pb-4">
                 <h2 class="fw-bold" style="font-size: 3rem;">Diskusi di Forum Kreatif!</h2>
-                 <p class="mt-3 mb-4">
+                 <p class="mt-3 mb-4" style="font-size: 18px;">
                     Diskusikan karyamu dengan sesama kreator, dapatkan feedback mendalam dari mentor profesional,
                     dan temukan peluang kolaborasi seru bersama <strong>50.000++</strong> seniman yang siap berbagi inspirasi setiap hari!
                 </p>
@@ -248,40 +247,45 @@
 <div class="container-fluid mt-4 mb-5">
     <div class="p-4">
         <h2 class="fw-bold mt-4 text-center"><span class="text-pink-gradient">Apa kata mereka tentang Artcademy?</span></h2>
-        <p class="mb-5 text-center">Simak testimoni dari para alumni yang berhasil wujudin ide jadi karya nyata</p>
+        <p class="mb-5 text-center" style="font-size: 18px;">Simak testimoni dari para alumni yang berhasil wujudin ide jadi karya nyata</p>
 
          <div class="d-flex gap-4 justify-content-center flex-wrap">
            @foreach ($testimonis as $testimoni)
-                @include('components.testimoni-card')
+                @include('components.home-testimoni-card')
             @endforeach
         </div>
     </div>
 </div>
 
 <!-- question -->
-<div class="container-fluid mt-4 mb-5 text-center p-5" style="background: var(--orange-gradient-color); height: 350px; color: var(--brown-color);">
-    <h2 class="fw-bold" style="font-size: 3rem;  margin-top: 40px;">Masih Punya Pertanyaan?</h2>
-    <p class="mb-3 text-center">Yuk, ngobrol bareng tim Artcademy, kami siap bantuin kamu memulai perjalanan kreatifmu!</p>
+<div class="container-fluid mt-4 mb-5 text-center p-5 contact-us-section" style="background: var(--orange-gradient-color); height: 350px; color: var(--brown-color); **position: relative;** overflow: hidden;">
+    <h2 class="fw-bold" style="font-size: 3rem; margin-top: 40px;">Masih Punya Pertanyaan?</h2>
+    <p class="mb-3 text-center" style="font-size: 18px;">Yuk, ngobrol bareng tim Artcademy, kami siap bantuin kamu memulai perjalanan kreatifmu!</p>
     <button class="btn px-4 py-2 yellow-gradient-btn text-dark">Kontak Kami</button>
-    <div class="row align-items-center">
-        <div class="col-md-6 col-sm-12">
-            <div style="position: relative; height: 100%; top: -310px; left: 104%">
-                <img
-                    src="{{ asset('assets/home/contact-us.png') }}"
-                    alt="Top Illustration"
-                    class="img-fluid"
-                    style="max-height: 400px; position: absolute;"
-                >
-            </div>
-        </div>
+    
+    <div class="contact-us-image-wrapper">
+        <img
+            src="{{ asset('assets/home/contact-us.png') }}"
+            alt="Top Illustration"
+            class="img-fluid contact-us-image"
+        >
     </div>
 </div>
 
 <!-- Illustration -->
-<p class="mb-2 text-center">Mulai dari ide kecil, wujudkan jadi karya nyata, dari hobi yang kamu suka, jadi skill yang menginspirasi!</p>
-<p class="mb-5 text-center">—Artcademy</p>
+<p class="mb-2 text-center" style="font-size: 18px; font-weight: 500; color: var(--brown-color);">Mulai dari ide kecil, wujudkan jadi karya nyata, dari hobi yang kamu suka, jadi skill yang menginspirasi!</p>
+<p class="mb-5 text-center" style="font-size: 18px; color: var(--brown-color);">—Artcademy</p>
 
 <style>
+    .pricing-container {
+        display: flex;
+        justify-content: center;
+        gap: 48px;
+        padding: 40px 20px;
+        flex-wrap: wrap;
+    }
+
+
     .pink-blur-blob{
         width: 500px;
         height: 500px;
@@ -405,6 +409,62 @@
         align-items: center;
         justify-content: center;
         box-shadow: 0px 7.571px 15.143px 0px rgba(67, 39, 0, 0.20);
+    }
+
+    /* question */
+    .contact-us-section {
+    position: relative; /* Penting: Membuat container ini menjadi referensi untuk position: absolute *//* Mencegah gambar yang keluar batas mengganggu layout */
+    }
+
+    .contact-us-image-wrapper {
+        position: absolute; /* Posisikan gambar relatif terhadap container-fluid */
+        right: 0; /* Posisikan ke paling kanan */
+        top: 120px; /* Posisikan vertikal di tengah */
+        transform: translateY(-50%); /* Geser ke atas 50% dari tingginya sendiri agar benar-benar di tengah vertikal */
+        z-index: 1; /* Pastikan gambar berada di atas background */
+    }
+
+    .contact-us-image {
+        max-height: 400px; /* Batasi tinggi maksimum */
+        width: auto; /* Jaga aspek rasio */
+    }
+
+    /* Penyesuaian untuk layar kecil (Opsional: atur visibilitas/ukuran jika diperlukan) */
+    @media (max-width: 768px) {
+        .contact-us-image-wrapper {
+            right: 0px; /* Geser sedikit ke luar agar tidak terlalu menutupi konten utama */
+            max-height: 300px; /* Kecilkan sedikit gambarnya */
+        }
+    }
+
+
+    /* forum */
+    .forum-section {
+    position: relative; /* Penting: Membuat container ini menjadi referensi untuk position: absolute *//* Mencegah gambar yang keluar batas mengganggu layout */
+    }
+
+    .forum-image-wrapper {
+        position: absolute; /* Posisikan gambar relatif terhadap container-fluid */
+        right: 0; /* Posisikan ke paling kanan */
+        top: -283px; /* Posisikan vertikal di tengah */
+        transform: translateY(-50%); /* Geser ke atas 50% dari tingginya sendiri agar benar-benar di tengah vertikal */
+        z-index: 1; /* Pastikan gambar berada di atas background */
+        height: 100%
+        
+    }
+
+    .forum-image {
+        position: absolute;
+        max-height: 508px; /* Batasi tinggi maksimum */
+        width: auto; /* Jaga aspek rasio */
+    }
+
+    /* Penyesuaian untuk layar kecil (Opsional: atur visibilitas/ukuran jika diperlukan) */
+    @media (max-width: 768px) {
+        .forum-image-wrapper {
+            right: 0px; /* Geser sedikit ke luar agar tidak terlalu menutupi konten utama */
+            max-height: 300px; /* Kecilkan sedikit gambarnya */
+        }
     }
 </style>
 @endsection

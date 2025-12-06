@@ -79,11 +79,11 @@
             
                 <div class="pilih-device-section d-flex flex-column">
                     <p>Pilih device</p>
-                    <div class="pilih-device-buttons d-flex flex-row justify-content-around">
-                        <button type="button" class="btn device-btn active" data-type="mobile">
+                    <div class="pilih-device-buttons d-flex flex-row justify-content-center" style="gap: 24px;">
+                        <button type="button" class="btn device-btn active" data-type="mobile" style="width: 100%;">
                             Mobile
                         </button>
-                        <button type="button" class="btn device-btn" data-type="laptop">
+                        <button type="button" class="btn device-btn" data-type="laptop" style="width: 100%;">
                             Laptop
                         </button>
 
@@ -271,7 +271,7 @@
             border-radius: 20px;
             background: white;
             box-shadow: 0 4px 8px 0 var(--brown-shadow-color);
-            padding: 25px;
+            padding: 32px;
             gap: 22px;
         }
 
@@ -280,7 +280,13 @@
         background: white;
         box-shadow: 0 4px 8px 0 var(--brown-shadow-color);
         padding: 10px 30px;
-        border: none
+        border: none;
+        transition: all 0.3s ease; 
+    }
+
+    .device-btn:hover{
+        box-shadow: 0 4px 8px 0 var(--brown-shadow-color);
+        transform: scale(1.07);  
     }
 
     .device-btn.active{

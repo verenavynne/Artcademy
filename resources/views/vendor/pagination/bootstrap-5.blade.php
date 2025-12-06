@@ -83,7 +83,7 @@
                     {{-- Next Page Link --}}
                     @if ($paginator->hasMorePages())
                         <li class="page-item next">
-                            <a class="page-link " href="{{ $paginator->nextPageUrl() }}" rel="next" aria-label="@lang('pagination.next')">
+                            <a class="page-link " href="{{ $paginator->nextPageUrl() }}" rel="next" aria-label="@lang('pagination.next')" >
                                 {{-- SVG Kanan --}}
                                 <img src="{{ asset('assets/icons/icon_pagination_next.svg') }}" alt="">
                             </a>
