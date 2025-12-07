@@ -3,7 +3,7 @@
 @section('content')
 
 <div class="container-fluid d-flex flex-column justify-content-center px-5" style="margin-bottom: 80px;">
-    <div class="navigation-prev d-flex flex-start pb-4 sticky-top">
+    <div class="navigation-prev d-flex flex-start sticky-top">
         <a class="page-link" href="javascript:void(0);" onclick="window.history.back()">
             <img src="{{ asset('assets/icons/icon_pagination_before.svg') }}" alt="">
         </a>
@@ -18,6 +18,11 @@
             <p class="title text-start fw-bold">Lihat Riwayat Transaksimu!</p>
             
             <div class="transaction-history-section d-flex flex-column gap-2">
+                @if($transactions->count() === 0)
+                    <div class="d-flex flex-column align-items-center gap-3">
+                        <p class="text-muted text-center" style="font-size: 18px">Belum ada riwayat transaksi</p>
+                    </div>
+                @endif
                 @foreach ($transactions as $transaction)
                     <div class="transaction-history-card d-flex flex-row w-100 justify-content-between">
                         <div class="transaction-history-left d-flex flex-column gap-2">

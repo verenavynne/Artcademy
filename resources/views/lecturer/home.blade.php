@@ -79,11 +79,18 @@
             </a>
           </div>
 
-          @forelse($submissions as $submission)
-            @include('components.nilai-projek-card')
-              @empty
-                <div class="empty-nilai-siswa">belum ada projek siswa</div>
-          @endforelse
+          @if($submissions->isEmpty())
+              <div class="d-flex flex-column align-items-center gap-3">
+                  <p class="text-muted text-center" style="font-size: 18px">Belum ada projek siswa</p>
+              </div>
+          @else
+            <div class="nilai-projek-card-section">
+              @foreach($submissions as $submission)
+              @include('components.nilai-projek-card')
+              @endforeach
+              
+            </div>
+          @endif
 </div>
 
 </div>
@@ -131,6 +138,12 @@
   font-size: 18px;
   color: var(--dark-gray-color);
   text-align: center;
+}
+
+.nilai-projek-card-section{
+  display: grid;
+  gap: 10px;
+  grid-template-columns: repeat(4, 1fr);
 }
 
 /* Responsif */

@@ -84,6 +84,12 @@ class EventController extends Controller
     {
         $user = Auth::user();
         $event = Event::findOrFail($eventId);
+
+        $totalPeserta = EventTransaction::where('eventId', $eventId)->count();
+
+        if($totalPeserta >= $event->eventSlot){
+            return redirect()->back()->with('error', 'Slot event ini sudah penuh.');
+        }
         return view('event.event-checkout-info', compact('user', 'event'));
     }
 

@@ -19,7 +19,7 @@ class CommentController extends Controller
             'images.*' => 'image|mimes:jpg,jpeg,png|max:4096',
             'videos.*' => 'mimetypes:video/mp4|max:20000',
         ], [
-            'caption.required' => 'Isi konten wajib diisi',
+            'caption.required' => 'Konten wajib diisi',
             'images.*.mimes' => 'Foto hanya boleh berformat JPG, JPEG, PNG.',
             'videos.*.mimes' => 'Video hanya boleh berformat mp4.'
         ]);
@@ -72,7 +72,7 @@ class CommentController extends Controller
             'images.*' => 'image|mimes:jpg,jpeg,png|max:4096',
             'videos.*' => 'mimetypes:video/mp4|max:20000',
         ], [
-            'caption.required' => 'Isi konten wajib diisi',
+            'caption.required' => 'Konten wajib diisi',
             'images.*.mimes' => 'Foto hanya boleh berformat JPG, JPEG, PNG.',
             'videos.*.mimes' => 'Video hanya boleh berformat mp4.'
         ]);

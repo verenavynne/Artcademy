@@ -16,9 +16,25 @@ class NotificationController extends Controller
         $link = '#';
 
         if ($notification->referenceType === 'comment') {
-            $link = route('forum') . '#comment-' . $notification->referenceId;
+            $comment = \App\Models\Comment::find($notification->referenceId);
+
+            if ($comment) {
+                $link = route('forum') . '#comment-' . $notification->referenceId;
+            } else {
+                return redirect()->route('forum')
+                    ->with('warning', 'Komentar yang dimaksud sudah dihapus.');
+            }
+            
         }else if($notification->referenceType === 'post'){
-            $link = route('forum') . '#comment-' . $notification->referenceId;
+            $comment = \App\Models\Comment::find($notification->referenceId);
+
+            if ($comment) {
+                $link = route('forum') . '#comment-' . $notification->referenceId;
+            } else {
+                return redirect()->route('forum')
+                    ->with('warning', 'Komentar yang dimaksud sudah dihapus.');
+            }
+    
         }else if($notification->referenceType === 'membership'){
             $link = route('membership');
         }else if($notification->referenceType === 'project'){

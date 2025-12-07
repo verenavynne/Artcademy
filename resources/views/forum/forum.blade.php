@@ -14,6 +14,9 @@
     @if(session('success'))
         <div class="alert alert-success">{{ session('success') }}</div>
     @endif
+    @if (session('warning'))
+        <div class="alert alert-warning mt-3">{{ session('warning') }}</div>
+    @endif
     <div class="d-flex align-items-center gap-4 pt-1 w-100" style="margin-bottom: 18px">
         @if($user->role === 'lecturer')
             <div class="navigation-prev">
@@ -68,9 +71,21 @@
 
                     <!-- All post -->
                     <div class="post-content-container d-flex flex-column gap-2">
-                        @foreach($posts as $post)
-                            @include('forum.components.post-card',['post'=>$post])
-                        @endforeach
+                        @if($posts->isEmpty())
+                            @if($totalPost == 0)
+                                <div class="d-flex flex-column align-items-center gap-3 pt-3">
+                                    <p class="text-muted text-center" style="font-size: 18px">Belum ada postingan</p>
+                                </div>
+                            @elseif(request('query'))
+                                <div class="d-flex flex-column align-items-center gap-3 pt-3">
+                                    <p class="text-muted text-center" style="font-size: 18px">Tidak ada postingan dengan teks tersebut</p>
+                                </div>
+                            @endif
+                        @else
+                            @foreach($posts as $post)
+                                @include('forum.components.post-card',['post'=>$post])
+                            @endforeach
+                        @endif
                     </div>
                 </div>
 

@@ -17,6 +17,7 @@ use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Hash;
+use Validator;
 
 class ProfileController extends Controller
 {
@@ -25,7 +26,7 @@ class ProfileController extends Controller
         $user = Auth::user();
         $portfolios = Portfolio::where('userId', $user->id)->get();
         $posts = Post::where('userId', $user->id)->get();
-        $activeTab = request('tab', 'portfolio');
+        $activeTab = request('tab', 'portofolio');
 
         $membershipTransaction = MembershipTransaction::where('studentId', $user->id)
             ->where('membershipStatus', 'active')
@@ -195,20 +196,23 @@ class ProfileController extends Controller
             });
 
         $merge = $eventTransaction
-            ->merge($membershipTransaction)
+            ->concat($membershipTransaction)
             ->sortByDesc('created_at')
             ->values();
+
+        $mergedArray = $merge->toArray();
         
         $currentPage = LengthAwarePaginator::resolveCurrentPage();
         $perPage = 3;
 
         $transactions = new LengthAwarePaginator(
-            $merge->slice(($currentPage - 1) * $perPage, $perPage)->values(),
-            $merge->count(),
+            array_slice($mergedArray, ($currentPage - 1) * $perPage, $perPage),
+            count($mergedArray),
             $perPage,
             $currentPage,
             ['path' => Paginator::resolveCurrentPath()]
         );
+
 
         return view('profile.transaction-history', compact('transactions'));
         
@@ -272,7 +276,7 @@ class ProfileController extends Controller
     {
         $user = Auth::user();
 
-        $request->validate([
+        $validator = Validator::make($request->all(), [
             'currentPassword' => ['required'],
             'newPassword' => ['required', 'min:8'],
             'confirmNewPassword' => ['required', 'same:newPassword'],
@@ -284,10 +288,12 @@ class ProfileController extends Controller
             'confirmNewPassword.same' => 'Konfirmasi kata sandi tidak cocok.',
         ]);
 
+        $validator->validateWithBag('passwordErrors');
+
         if (!Hash::check($request->currentPassword, $user->password)) {
             return back()->withErrors([
                 'currentPassword' => 'Kata sandi saat ini tidak sesuai.',
-            ]);
+            ], 'passwordErrors');
         }
 
         $user->password = Hash::make($request->newPassword);

@@ -19,7 +19,7 @@ class ZoomSeeder extends Seeder
             'Seni Lukis & Digital Art' => [
                 [
                     'zoomName' => 'Live Demo: Membuat Karakter Game dari Nol dalam 90 Menit',
-                    'zoomDate' => '2025-06-01',
+                    'zoomDate' => '2025-12-25',
                     'zoomLink' => 'https://zoom.us/j/1234567890',
                     'zoomDesc' => 'Belajar cara mendesain karakter dari sketsa hingga final render menggunakan teknik digital painting.',
                     'zoomDuration' => 90,
@@ -29,7 +29,7 @@ class ZoomSeeder extends Seeder
                 ],
                 [
                     'zoomName' => 'Workshop: Digital Painting dengan Tablet Grafis',
-                    'zoomDate' => '2025-06-08',
+                    'zoomDate' => '2025-12-26',
                     'zoomLink' => 'https://zoom.us/j/9876543210',
                     'zoomDesc' => 'Pelajari dasar penggunaan tablet grafis dan teknik shading digital painting.',
                     'zoomDuration' => 120,
@@ -39,7 +39,7 @@ class ZoomSeeder extends Seeder
                 ],
                 [
                     'zoomName' => 'Workshop: Belajar Temporary Art Selama 2 Jam',
-                    'zoomDate' => '2025-06-10',
+                    'zoomDate' => '2025-12-27',
                     'zoomLink' => 'https://zoom.us/j/9876543210',
                     'zoomDesc' => 'Eksperimen dengan gaya seni sementara seperti sand art dan body painting.',
                     'zoomDuration' => 120,
@@ -51,7 +51,7 @@ class ZoomSeeder extends Seeder
             'Seni Musik' => [
                 [
                     'zoomName' => 'Live Jamming Session: Improvisasi Jazz',
-                    'zoomDate' => '2025-06-02',
+                    'zoomDate' => '2025-12-28',
                     'zoomLink' => 'https://zoom.us/j/5556667777',
                     'zoomDesc' => 'Latihan improvisasi jazz bersama tutor dan peserta lain secara live.',
                     'zoomDuration' => 60,
@@ -61,7 +61,7 @@ class ZoomSeeder extends Seeder
                 ],
                 [
                     'zoomName' => 'Workshop: Dasar Komposisi Musik Digital',
-                    'zoomDate' => '2025-06-09',
+                    'zoomDate' => '2025-12-26',
                     'zoomLink' => 'https://zoom.us/j/1122334455',
                     'zoomDesc' => 'Pengenalan software musik digital dan cara membuat komposisi sederhana.',
                     'zoomDuration' => 90,
@@ -71,7 +71,7 @@ class ZoomSeeder extends Seeder
                 ],
                 [
                     'zoomName' => 'Workshop: Belajar Gitar Pemula',
-                    'zoomDate' => '2025-06-10',
+                    'zoomDate' => '2025-12-26',
                     'zoomLink' => 'https://zoom.us/j/1122334455',
                     'zoomDesc' => 'Belajar chord dasar dan teknik petikan untuk pemula.',
                     'zoomDuration' => 60,
@@ -83,7 +83,7 @@ class ZoomSeeder extends Seeder
             'Seni Tari' => [
                 [
                     'zoomName' => 'Demo Tari Kontemporer: Gerak & Ekspresi',
-                    'zoomDate' => '2025-06-03',
+                    'zoomDate' => '2025-12-26',
                     'zoomLink' => 'https://zoom.us/j/9988776655',
                     'zoomDesc' => 'Demonstrasi gerak kontemporer untuk mengasah ekspresi tubuh.',
                     'zoomDuration' => 75,
@@ -93,7 +93,7 @@ class ZoomSeeder extends Seeder
                 ],
                 [
                     'zoomName' => 'Demo Tari Kpop',
-                    'zoomDate' => '2025-06-04',
+                    'zoomDate' => '2025-12-26',
                     'zoomLink' => 'https://zoom.us/j/9988776655',
                     'zoomDesc' => 'Belajar koreografi lagu K-pop populer bersama tutor berpengalaman.',
                     'zoomDuration' => 90,
@@ -103,7 +103,7 @@ class ZoomSeeder extends Seeder
                 ],
                 [
                     'zoomName' => 'Demo Tari Tradisional',
-                    'zoomDate' => '2025-07-03',
+                    'zoomDate' => '2026-01-25',
                     'zoomLink' => 'https://zoom.us/j/9988776655',
                     'zoomDesc' => 'Eksplorasi gerakan dan makna di balik tari tradisional Indonesia.',
                     'zoomDuration' => 90,
@@ -115,7 +115,7 @@ class ZoomSeeder extends Seeder
             'Seni Fotografi' => [
                 [
                     'zoomName' => 'Live Demo: Fotografi Potret dengan Cahaya Alami',
-                    'zoomDate' => '2025-06-04',
+                    'zoomDate' => '2026-02-25',
                     'zoomLink' => 'https://zoom.us/j/6677889900',
                     'zoomDesc' => 'Belajar mengatur pencahayaan alami untuk hasil foto potret profesional.',
                     'zoomDuration' => 90,
@@ -125,7 +125,7 @@ class ZoomSeeder extends Seeder
                 ],
                 [
                     'zoomName' => 'Workshop: Editing Foto Profesional dengan Lightroom',
-                    'zoomDate' => '2025-06-10',
+                    'zoomDate' => '2026-03-25',
                     'zoomLink' => 'https://zoom.us/j/4455667788',
                     'zoomDesc' => 'Panduan lengkap mengedit foto dengan Adobe Lightroom.',
                     'zoomDuration' => 120,
@@ -135,7 +135,7 @@ class ZoomSeeder extends Seeder
                 ],
                 [
                     'zoomName' => 'Workshop: Fotografi Perspektif',
-                    'zoomDate' => '2025-06-11',
+                    'zoomDate' => '2026-01-11',
                     'zoomLink' => 'https://zoom.us/j/4455667788',
                     'zoomDesc' => 'Belajar teknik perspektif untuk menciptakan foto yang lebih dinamis.',
                     'zoomDuration' => 120,
@@ -168,6 +168,7 @@ class ZoomSeeder extends Seeder
                         'zoomLink' => $zoom['zoomLink'],
                         'zoomDuration' => $zoom['zoomDuration'],
                         'zoomQuota' => $zoom['zoomQuota'],
+                        'zoomStatus' => 'publikasi',
                         'zoomDate' => Carbon::parse($zoom['zoomDate']),
                         'start_time' => $zoom['start_time'],
                         'end_time' => $zoom['end_time'],

@@ -47,7 +47,7 @@
 
 <div class="container-fluid d-flex flex-column justify-content-center px-5 {{ Auth::user()->role === 'student' ? '' : 'w-75' }}" style="margin-bottom: 75px;">
 
-    <div class="navigation-prev d-flex flex-start pb-4">
+    <div class="navigation-prev d-flex flex-start">
         <a class="page-link" href="javascript:void(0);" onclick="window.history.back()">
             <img src="{{ asset('assets/icons/icon_pagination_before.svg') }}" alt="">
         </a>
@@ -86,9 +86,6 @@
             <div class="d-flex flex-column" style="gap: 22px;">
                 <div class="d-flex flex-row justify-content-between">
                     <p style="margin:0; font-size: var(--font-size-big); font-weight: 700">{{ $course->courseName }}</p>
-                    <a href="#">
-                        <img src="{{ asset('assets/icons/icon_bookmark.svg') }}" alt="Bookmark" style="width: 24px; height: 24px;">
-                    </a>
                 </div>
                  <div class="course-level-text-container" style="background: {{ $backgroundCourseLevel }}">
                     <p class="course-level-text" style="background: {{ $backgroundCourseLevelText }}; margin: 0; background-clip: text; font-weight: 700; font-size:var(--font-size-small)">Level {{ ucfirst($course->courseLevel) }}</p>

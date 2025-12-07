@@ -25,7 +25,7 @@ class ZoomController extends Controller
         }
 
         if ($totalPeserta >= $zoom->zoomQuota) {
-            return redirect()->back()->with('error', 'Kuota kelas Zoom ini sudah penuh.');
+            return redirect()->back()->with('error', 'Kuota kelas zoom ini sudah penuh.');
         }
 
         ZoomRegistered::create([

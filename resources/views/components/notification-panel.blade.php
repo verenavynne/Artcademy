@@ -26,11 +26,11 @@
                    
                     if ($notification->referenceType === 'comment') {
                         $comments = \App\Models\Comment::find($notification->referenceId);
-                        $commentDetail = $comments->commentText;
+                        $commentDetail = $comments ? $comments->commentText : 'Komentar telah dihapus';
                     
                     }else if($notification->referenceType === 'post'){
                         $comments = \App\Models\Comment::find($notification->referenceId);
-                        $commentDetail = $comments->commentText;
+                        $commentDetail = $comments ? $comments->commentText : 'Komentar telah dihapus';
 
                     }else if($notification->referenceType === 'membership'){
                         $commentDetail = 'Yuk segera perpanjang membershipmu!';

@@ -35,7 +35,7 @@
         <div class="col d-flex flex-column align-items-center gap-2 w-100">
             <div class="feed-wrapper d-flex flex-column gap-2 w-100">
                 <div class="profile-banner-card d-flex flex-row gap-2">
-                     <div class="navigation-prev d-flex flex-start pb-4">
+                     <div class="navigation-prev d-flex flex-start">
                         <a class="page-link" href="javascript:void(0);" onclick="window.history.back()">
                             <img src="{{ asset('assets/icons/icon_pagination_before.svg') }}" alt="">
                         </a>
@@ -52,11 +52,14 @@
                             <p class="profile-detail-name">{{ $user->name }}</p>
                             <p style="margin: 0">{{ $user->profession }}</p>
                             <div class="profile-detail-membership-container">
-                                @if ($user->role === 'student')
-                                    {{ $membershipStatus === 'active' ? 'Membership ' . $membershipTransaction->membership->membershipName : 'Belum Berlangganan' }}
-                                @else
-                                    Tutor {{ $user->lecturer->specialization ?? '-' }}
-                                @endif
+                                <p class="profile-detail-membership">
+                                    @if ($user->role === 'student')
+                                        {{ $membershipStatus === 'active' ? 'Membership ' . $membershipTransaction->membership->membershipName : 'Belum Berlangganan' }}
+                                    @else
+                                        Tutor {{ $user->lecturer->specialization ?? '-' }}
+                                    @endif
+
+                                </p>
                             </div>
 
                         </div>
@@ -64,10 +67,10 @@
                     </div>
                 </div>
 
-                @include('profile.components.tab', ['firstTab' => 'portfolio', 'secondTab' => 'post', 'activeTab' => $activeTab])
+                @include('profile.components.tab', ['firstTab' => 'portofolio', 'secondTab' => 'post', 'activeTab' => $activeTab])
 
                 <div class="tab-content-container">
-                    <div class="tab-content {{ $activeTab == 'portfolio' ? 'active' : '' }}" data-tab-content="portfolio">
+                    <div class="tab-content {{ $activeTab == 'portofolio' ? 'active' : '' }}" data-tab-content="portofolio">
                         <div class="portfolio-section-container justify-content-center align-items-center gap-4">
                             @foreach($portfolios as $portfolio)
                                 <div class="portfolio-card d-flex flex-column justify-content-center align-items-center"

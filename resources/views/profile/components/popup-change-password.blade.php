@@ -23,7 +23,7 @@
               <iconify-icon id="eyeCurrent" icon="mingcute:eye-close-line"></iconify-icon>
             </span>
           </div>
-          @error('currentPassword')
+          @error('currentPassword', 'passwordErrors')
             <div class="text-danger mt-1" style="font-size: 0.875rem;">
               {{ $message }}
             </div>
@@ -42,7 +42,7 @@
               <iconify-icon id="eyeNew" icon="mingcute:eye-close-line"></iconify-icon>
             </span>
           </div>
-          @error('newPassword')
+          @error('newPassword', 'passwordErrors')
             <div class="text-danger mt-1" style="font-size: 0.875rem;">
               {{ $message }}
             </div>
@@ -61,7 +61,7 @@
               <iconify-icon id="eyeConfirm" icon="mingcute:eye-close-line"></iconify-icon>
             </span>
           </div>
-          @error('confirmNewPassword')
+          @error('confirmNewPassword', 'passwordErrors')
             <div class="text-danger mt-1" style="font-size: 0.875rem;">
               {{ $message }}
             </div>
@@ -80,7 +80,7 @@
   </div>
 </div>
 
-@if ($errors->any())
+@if ($errors->passwordErrors->any())
 <script>
     document.getElementById('passwordPopupOverlay').style.display = 'flex';
 </script>

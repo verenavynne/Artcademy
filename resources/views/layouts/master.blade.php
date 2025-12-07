@@ -46,7 +46,6 @@
 <script>
 document.addEventListener("DOMContentLoaded", () => {
 
-    // Auto scroll when click notif about comment
     function autoscrollToHash() {
         const hash = window.location.hash;
         if (!hash) return;
@@ -60,11 +59,17 @@ document.addEventListener("DOMContentLoaded", () => {
         const postId   = el.dataset.postId;
         const parentId = el.dataset.parentId;
 
-        // Buka comment parent
+        console.log('postId', postId);
+        console.log('parentId', parentId)
+
         const commentToggle = document.querySelector(
             `.comment-toggle[data-target="#comment-${postId}"]`
         );
-        if (commentToggle) commentToggle.click();
+
+
+        if (commentToggle) {
+            commentToggle.click();
+        }
 
         if (parentId) {
             const replyToggle = document.querySelector(

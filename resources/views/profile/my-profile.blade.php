@@ -7,7 +7,7 @@
 
 <div class="container-fluid d-flex flex-column justify-content-center px-5" style="margin-bottom: 75px; width: {{ $user->role == 'student' ? '100%' : 'calc(100% - 300px)' }}">
 
-    <div class="navigation-prev d-flex flex-start pb-4 sticky-top">
+    <div class="navigation-prev d-flex flex-start sticky-top">
         <a class="page-link" href="javascript:void(0);" onclick="window.history.back()">
             <img src="{{ asset('assets/icons/icon_pagination_before.svg') }}" alt="">
         </a>
@@ -68,9 +68,9 @@
 
             </div>
 
-            @include('profile.components.tab', ['firstTab' => 'portfolio', 'secondTab' => 'post','activeTab' => $activeTab])
+            @include('profile.components.tab', ['firstTab' => 'portofolio', 'secondTab' => 'post','activeTab' => $activeTab])
             <div class="tab-content-container">
-                <div class="tab-content {{ $activeTab == 'portfolio' ? 'active' : '' }}" data-tab-content="portfolio">
+                <div class="tab-content {{ $activeTab == 'portofolio' ? 'active' : '' }}" data-tab-content="portofolio">
                     <div class="portfolio-section-container justify-content-center align-items-center gap-4">
                         @foreach($portfolios as $portfolio)
                             <div class="portfolio-card d-flex flex-column justify-content-center align-items-center position-relative" 
@@ -84,7 +84,7 @@
                                     </button>
                                     <ul class="dropdown-menu" aria-labelledby="dropdownMenu{{ $portfolio->id }}">
                                         <li>
-                                            <a href="{{ route('portfolio.edit', $portfolio->id) }}">
+                                            <a style="text-decoration: none" href="{{ route('portfolio.edit', $portfolio->id) }}">
                                                 <button type="button" class="dropdown-item">Edit</button>
                                             </a>
                                         </li>

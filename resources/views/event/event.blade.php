@@ -1,6 +1,11 @@
 @extends('layouts.master')
 
 @section('content')
+@if (session('error'))
+    <div class="alert alert-danger mt-3">
+        {{ session('error') }}
+    </div>
+@endif
 
 <div class="container-fluid d-flex flex-column justify-content-center px-5" style="margin-bottom: 75px;">
     <div class="d-flex align-items-center gap-4 pt-1 w-100 pb-4">
@@ -36,9 +41,15 @@
         <p class="text-start" style="font-size: var(--font-size-normal)">Dengerin langsung cerita dan insight dari seniman & kreator keren. Siap-siap dapet insight baru di tiap sesi!</p>
 
         <div class="d-flex flex-wrap justify-content-center" style="gap: 36px">
-            @foreach ($webinars as $event )
-                @include('components.event-card' ,['event' => $event])
-            @endforeach
+            @if ($webinars->isEmpty())
+                <p class="text-center text-muted" style="font-size: var(--font-size-primary)">
+                    Belum ada event webinar saat ini.
+                </p>
+            @else
+                @foreach ($webinars as $event )
+                    @include('components.event-card' ,['event' => $event])
+                @endforeach
+            @endif
         </div>
 
         <div class="d-flex justify-content-center mt-4 ">
@@ -53,9 +64,15 @@
         <p class="text-start" style="font-size: var(--font-size-normal)">Workshop seru buat kamu yang siap eksplor, eksperimen, dan bikin karya nyata bareng tutor</p>
 
         <div class="d-flex flex-wrap justify-content-center" style="gap: 36px">
+            @if ($workshops->isEmpty())
+                <p class="text-center text-muted" style="font-size: var(--font-size-primary)">
+                    Belum ada event workshop saat ini.
+                </p>
+            @else
             @foreach ($workshops as $event )
                 @include('components.event-card' ,['event' => $event])
             @endforeach
+            @endif
         </div>
 
         <div class="d-flex justify-content-center mt-4 ">

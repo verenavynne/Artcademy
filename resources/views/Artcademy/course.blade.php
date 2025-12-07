@@ -144,6 +144,11 @@
     </div>
 
     <div class="container-fluid d-flex flex-column align-items-center">
+        @if ($courses->isEmpty())
+            <p class="text-center text-muted" style="font-size: var(--font-size-primary)">
+                Belum ada kursus saat ini.
+            </p>
+        @else
         <div class="d-flex flex-wrap justify-content-center" style="gap: 35px">
             @foreach ($courses as $course)
                 @if($course->isEnrolled)
@@ -156,6 +161,7 @@
                 @endif
             @endforeach
         </div>
+        @endif
     </div>
 
      <div class="d-flex justify-content-center mt-4 ">

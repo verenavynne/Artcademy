@@ -17,6 +17,7 @@ class ForumController extends Controller
     {
         $user = Auth::user();
         $query = $request->query('query');
+        $totalPost = Post::count();
         $posts = Post::with(['user', 'files', 'allComments.user', 'comments.files', 'comments.replies.user', 'comments.replies.files'])
         ->when($query, function($q) use ($query){
             $q->where(function($post) use ($query){
@@ -44,7 +45,7 @@ class ForumController extends Controller
 
         $membershipStatus = $membershipTransaction?->membershipStatus ?? 'belum berlangganan';
 
-        return view('forum.forum', compact('user', 'posts', 'otherProfile', 'membershipTransaction', 'membershipStatus'));
+        return view('forum.forum', compact('user', 'totalPost','posts', 'otherProfile', 'membershipTransaction', 'membershipStatus'));
     }
 
     public function showFriendProfile($id)
@@ -54,7 +55,7 @@ class ForumController extends Controller
         $portfolios = Portfolio::where('userId', $user->id)->get();
         $posts = Post::where('userId', $user->id)->get();
         $otherProfile = User::where('id', '!=', auth()->id())->where('role', '!=', 'admin')->get();
-        $activeTab = request('tab', 'portfolio');
+        $activeTab = request('tab', 'portofolio');
 
         $membershipTransaction = MembershipTransaction::where('studentId', $user->id)
             ->where('membershipStatus', 'active')

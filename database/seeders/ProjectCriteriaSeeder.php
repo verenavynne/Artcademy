@@ -17,6 +17,7 @@ class ProjectCriteriaSeeder extends Seeder
     {
         $projects = Project::all();
         $criterias = GradeCriteria::all();
+        $weights = [30, 50, 20];
 
         foreach ($projects as $project) {
             foreach ($criterias as $criteria) {
@@ -24,7 +25,7 @@ class ProjectCriteriaSeeder extends Seeder
                     'projectId'  => $project->id,
                     'criteriaId' => $criteria->id,
                 ], [
-                    'customWeight' => rand(50, 100), 
+                    'customWeight' => $weights[array_rand($weights)], 
                 ]);
             }
         }

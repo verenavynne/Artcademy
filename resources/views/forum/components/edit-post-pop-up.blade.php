@@ -79,7 +79,7 @@
                         </label>
                     </div>
 
-                    <button type="submit" class="btn py-2 px-4 text-dark yellow-gradient-btn d-flex flex-row gap-2">
+                    <button type="submit" class="btn text-dark yellow-gradient-btn d-flex flex-row gap-2">
                         Edit
                     </button>
                 </div>

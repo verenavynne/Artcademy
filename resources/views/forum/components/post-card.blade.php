@@ -100,6 +100,7 @@ $autoOpen = $post->comments->whereNotNull('chatbotId')->isNotEmpty();
 
     <div class="chat-icon d-flex flex-row gap-2 align-items-center comment-toggle"
         data-target="#comment-{{ $post->id }}"
+        data-post-id="{{ $post->id }}"
         data-default-icon="iconamoon:comment-dots"
         data-active-icon="{{ asset('assets/icons/icon_comment_gradient.svg') }}"
         data-open="{{ $autoOpen ? '1' : '0' }}"
@@ -117,7 +118,7 @@ $autoOpen = $post->comments->whereNotNull('chatbotId')->isNotEmpty();
     </div>
 
     <!-- Comment Section -->
-    <div id="comment-{{ $post->id }}" class="comment-section w-100" style="display: {{ $autoOpen ? 'block' : 'none' }};">
+    <div id="comment-{{ $post->id }}" class="comment-section w-100" data-post-id="{{ $post->id }}" style="display: {{ $autoOpen ? 'block' : 'none' }};">
         <hr class="divider w-100">
     
         <div class="balas-komen-section d-flex flex-row gap-2 w-100">
@@ -232,6 +233,8 @@ $autoOpen = $post->comments->whereNotNull('chatbotId')->isNotEmpty();
                         @endif
                             <div class="chat-icon d-flex flex-row gap-2 align-items-center reply-toggle"
                                 data-target="#reply-{{ $comment->id }}"
+                                data-post-id="{{ $post->id }}"
+                                data-parent-id="{{ $comment->id }}"
                                 data-default-icon="iconamoon:comment-dots"
                                 data-active-icon="/assets/icons/icon_comment_gradient.svg"
                                 style="cursor:pointer;">
@@ -244,7 +247,7 @@ $autoOpen = $post->comments->whereNotNull('chatbotId')->isNotEmpty();
                         
 
                             <!-- Replies section -->
-                            <div id="reply-{{ $comment->id }}" class="comment-section w-100 ps-4" style="display: none">
+                            <div id="reply-{{ $comment->id }}" class="comment-section w-100 ps-4"  data-post-id="{{ $comment->postId }}" data-parent-id="{{ $comment->id }}" style="display: none">
                                 <hr class="divider w-100">
                             
                                 <div class="balas-komen-section d-flex flex-row gap-2 w-100">

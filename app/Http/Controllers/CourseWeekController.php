@@ -149,7 +149,7 @@ class CourseWeekController extends Controller
         if ($isLastMateri && $currentWeekIndex < $totalWeeks) {
             $buttonText = 'Lanjutkan ke Minggu ' . ($currentWeekIndex + 1);
         } elseif ($isLastMateri && $currentWeekIndex === $totalWeeks) {
-            $buttonText = 'Lihat Proyek Akhir';
+            $buttonText = 'Lihat Projek Akhir';
         } else {
             $buttonText = 'Lanjutkan';
         }

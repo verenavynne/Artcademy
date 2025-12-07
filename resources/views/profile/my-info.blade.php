@@ -154,6 +154,7 @@
     @include('profile.components.popup-change-password')
 </div>
 
+
 <script>
     // edit profile picture
     const editBtn = document.getElementById('editProfileBtn');
