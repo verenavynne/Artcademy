@@ -295,45 +295,46 @@
 </style>
 
 <script>
-  document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", () => {
+    function autoscrollToHash() {
+        const hash = window.location.hash;
+        if (!hash) return;
 
-      // Auto scroll when click notif about comment
-      function autoscrollToHash() {
-          const hash = window.location.hash;
-          if (!hash) return;
+        const el = document.querySelector(hash);
+        if (!el) {
+            console.log("Not on forum page, skipping autoscroll.");
+            return;
+        }
 
-          const el = document.querySelector(hash);
-          if (!el) {
-              console.log("Not on forum page, skipping autoscroll.");
-              return;
-          }
+        const postId   = el.dataset.postId;
+        const parentId = el.dataset.parentId;
 
-          const postId   = el.dataset.postId;
-          const parentId = el.dataset.parentId;
+        const commentToggle = document.querySelector(
+            `.comment-toggle[data-target="#comment-box-${postId}"]`
+        );
 
-          // Buka comment parent
-          const commentToggle = document.querySelector(
-              `.comment-toggle[data-target="#comment-${postId}"]`
-          );
-          if (commentToggle) commentToggle.click();
 
-          if (parentId) {
-              const replyToggle = document.querySelector(
-                  `.reply-toggle[data-target="#reply-${parentId}"]`
-              );
-              if (replyToggle) replyToggle.click();
-          }
+        if (commentToggle) {
+            commentToggle.click();
+        }
 
-        
-          setTimeout(() => {
-              el.scrollIntoView({ behavior: "smooth", block: "center" });
-          }, 250);
-      }
+        if (parentId) {
+            const replyToggle = document.querySelector(
+                `.reply-toggle[data-target="#reply-content-${parentId}"]`
+            );
+            if (replyToggle) replyToggle.click();
+        }
 
-      autoscrollToHash();
-      
-      window.addEventListener("hashchange", autoscrollToHash);
-  });
+       
+        setTimeout(() => {
+            el.scrollIntoView({ behavior: "smooth", block: "center" });
+        }, 250);
+    }
+
+    autoscrollToHash();
+    
+    window.addEventListener("hashchange", autoscrollToHash);
+});
 </script>
 
 </html>

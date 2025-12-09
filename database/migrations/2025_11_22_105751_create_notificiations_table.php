@@ -17,7 +17,7 @@ return new class extends Migration
             $table->unsignedBigInteger('actorId')->nullable();
             $table->foreign('actorId')->references('id')->on('users')->onDelete('cascade');
             $table->string('notificationMessage');
-            $table->date('notificationDate');
+            $table->dateTime('notificationDate');
             $table->enum('referenceType',['event', 'membership', 'post', 'comment','project']);
             $table->unsignedBigInteger('referenceId')->nullable();
             $table->enum('status',['read','unread']);

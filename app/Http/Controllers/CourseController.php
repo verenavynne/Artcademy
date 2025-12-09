@@ -12,6 +12,7 @@ use App\Models\ProjectTool;
 use App\Models\StudentMateriProgress;
 use App\Models\StudentWeekProgress;
 use App\Models\MembershipTransaction;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -209,7 +210,7 @@ class CourseController extends Controller
             'courseLecturers.lecturer.user', 
             'weeks.materials', 
             'zooms' => function ($query) {
-                $query->where('zoomStatus', 'publikasi');
+                $this->filterUpcomingZoom($query);
             }
         ])->findOrFail($id);
 
@@ -263,6 +264,17 @@ class CourseController extends Controller
         ];
 
         return view('Artcademy.course-detail', $data);
+    }
+
+    private function filterUpcomingZoom($query){
+        $query->where('zoomStatus', 'publikasi')
+            ->where(function($q){
+                $q->where('zoomDate', '>', Carbon::today())
+                    ->orWhere(function ($q2){
+                        $q2->where('zoomDate', Carbon::today())
+                            ->where('start_time', '>', Carbon::now()->format('H:i:s'));
+                    });
+            });
     }
 
     private function getEnrollmentData($courseId, $userId)

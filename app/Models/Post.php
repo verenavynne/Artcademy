@@ -11,7 +11,7 @@ class Post extends Model
     protected $fillable=['userId','postText','postDate','triggerChatbot'];
 
     protected $casts = [
-        'postDate' => 'date',
+        'postDate' => 'datetime',
         'triggerChatbot' => 'boolean',
     ];
 
