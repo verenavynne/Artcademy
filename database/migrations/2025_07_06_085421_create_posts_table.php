@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('userId')->constrained('users')->onDelete('cascade');
             $table->text('postText');
-            $table->date('postDate');
+            $table->dateTime('postDate');
             $table->boolean('triggerChatbot');
             $table->timestamps();
         });

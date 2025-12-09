@@ -6,6 +6,7 @@ use App\Models\Comment;
 use App\Models\Post;
 use App\Models\PostFile;
 use App\Services\ChatbotService;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Storage;
 
@@ -28,7 +29,7 @@ class PostController extends Controller
         $post = Post::create([
             'userId' => auth()->id(),
             'postText' => $request->caption,
-            'postDate' => now(),
+            'postDate' => Carbon::now(),
             'triggerChatbot' => $trigger,
         ]);
 

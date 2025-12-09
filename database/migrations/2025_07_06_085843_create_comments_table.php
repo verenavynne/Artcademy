@@ -21,7 +21,7 @@ return new class extends Migration
             $table->unsignedBigInteger('parentId')->nullable();
             $table->foreign('parentId')->references('id')->on('comments')->onDelete('cascade');
             $table->text('commentText');
-            $table->date('commentDate');
+            $table->dateTime('commentDate');
             $table->enum('commentBy',['user','chatbot']);
             $table->timestamps();
         });

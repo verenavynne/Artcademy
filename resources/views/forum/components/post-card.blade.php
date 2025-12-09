@@ -43,7 +43,7 @@ $autoOpen = $post->comments->whereNotNull('chatbotId')->isNotEmpty();
             <div class="d-flex flex-column">
                 <div class="d-flex flex-row gap-2">
                     <p class="fw-bold" style="font-size: 16px; margin: 0">{{ $post->user->name }}</p>
-                    <p class="text-muted"> {{ \Carbon\Carbon::parse($post->postDate)->timezone('Asia/Jakarta')->diffForHumans() }}</p>
+                    <p class="text-muted"> {{ $post->postDate->diffForHumans() }}</p>
                 </div>
                 @if($post->triggerChatbot)
                     <div class="d-flex flex-row align-items-center  gap-2">
@@ -99,7 +99,7 @@ $autoOpen = $post->comments->whereNotNull('chatbotId')->isNotEmpty();
     @endif
 
     <div class="chat-icon d-flex flex-row gap-2 align-items-center comment-toggle"
-        data-target="#comment-{{ $post->id }}"
+        data-target="#comment-box-{{ $post->id }}"
         data-post-id="{{ $post->id }}"
         data-default-icon="iconamoon:comment-dots"
         data-active-icon="{{ asset('assets/icons/icon_comment_gradient.svg') }}"
@@ -118,7 +118,7 @@ $autoOpen = $post->comments->whereNotNull('chatbotId')->isNotEmpty();
     </div>
 
     <!-- Comment Section -->
-    <div id="comment-{{ $post->id }}" class="comment-section w-100" data-post-id="{{ $post->id }}" style="display: {{ $autoOpen ? 'block' : 'none' }};">
+    <div id="comment-box-{{ $post->id }}"data-post-id="{{ $post->id }}"  class="comment-section w-100" style="display: {{ $autoOpen ? 'block' : 'none' }};">
         <hr class="divider w-100">
     
         <div class="balas-komen-section d-flex flex-row gap-2 w-100">
@@ -232,9 +232,7 @@ $autoOpen = $post->comments->whereNotNull('chatbotId')->isNotEmpty();
                             </div>
                         @endif
                             <div class="chat-icon d-flex flex-row gap-2 align-items-center reply-toggle"
-                                data-target="#reply-{{ $comment->id }}"
-                                data-post-id="{{ $post->id }}"
-                                data-parent-id="{{ $comment->id }}"
+                                data-target="#reply-content-{{ $comment->id }}"
                                 data-default-icon="iconamoon:comment-dots"
                                 data-active-icon="/assets/icons/icon_comment_gradient.svg"
                                 style="cursor:pointer;">
@@ -247,7 +245,7 @@ $autoOpen = $post->comments->whereNotNull('chatbotId')->isNotEmpty();
                         
 
                             <!-- Replies section -->
-                            <div id="reply-{{ $comment->id }}" class="comment-section w-100 ps-4"  data-post-id="{{ $comment->postId }}" data-parent-id="{{ $comment->id }}" style="display: none">
+                            <div id="reply-content-{{ $comment->id }}" class="comment-section w-100 ps-4" style="display: none">
                                 <hr class="divider w-100">
                             
                                 <div class="balas-komen-section d-flex flex-row gap-2 w-100">
@@ -301,10 +299,10 @@ $autoOpen = $post->comments->whereNotNull('chatbotId')->isNotEmpty();
                                 </div>
                             
                                 @if($comment->replies->count())
-                                <div class="d-flex flex-column gap-2">
+                                <div class="d-flex flex-column gap-2 mt-3">
 
                                     @foreach ($comment->replies as $replies )
-                                        <div class="komen-container mb-3">
+                                        <div class="komen-container">
                                             <div class="d-flex flex-column gap-3">
                                                 <div class="komen-header">
                                                     <div class="d-flex flex-row gap-2">
@@ -462,6 +460,11 @@ $autoOpen = $post->comments->whereNotNull('chatbotId')->isNotEmpty();
         position: absolute;
         z-index: 5;
         padding: 10px;
+    }
+
+    .icon-holder{
+        display: flex;
+        justify-content: center;
     }
 
     

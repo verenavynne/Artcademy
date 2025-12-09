@@ -85,13 +85,22 @@
                 
                 <tbody>
                     @forelse ($users as $index => $user)
+                        @php
+                            $userRole = null;
+                            
+                            if($user->role === 'lecturer'){
+                                $userRole = 'Tutor';
+                            }else{
+                                $userRole =  ucfirst($user->role);
+                            }
+                        @endphp
                     
                         <tr>
                             <td class="text-center">{{ $loop->iteration + ($users->currentPage() - 1) * $users->perPage() }}</td>
                             <td>{{ $user->created_at->format('d M Y H:i') }}</td>
                             <td class="text-truncate-ellipsis" title="{{ $user->id }}">{{ $user->id }}</td>
                             <td class="text-truncate-ellipsis" title="{{ $user->name }}">{{ $user->name }}</td>
-                            <td>{{ ucfirst($user->role) }}</td>
+                            <td>{{ $userRole}}</td>
                             <td>
                                 @php
                                 if($user->userStatus === 'active'){

@@ -59,11 +59,8 @@ document.addEventListener("DOMContentLoaded", () => {
         const postId   = el.dataset.postId;
         const parentId = el.dataset.parentId;
 
-        console.log('postId', postId);
-        console.log('parentId', parentId)
-
         const commentToggle = document.querySelector(
-            `.comment-toggle[data-target="#comment-${postId}"]`
+            `.comment-toggle[data-target="#comment-box-${postId}"]`
         );
 
 
@@ -73,7 +70,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         if (parentId) {
             const replyToggle = document.querySelector(
-                `.reply-toggle[data-target="#reply-${parentId}"]`
+                `.reply-toggle[data-target="#reply-content-${parentId}"]`
             );
             if (replyToggle) replyToggle.click();
         }

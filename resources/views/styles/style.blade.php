@@ -609,5 +609,17 @@
     .icon-search{
         margin-inline-end: 30px;
     }
+
+    /* Switch button */
+    .form-check-input:checked{
+        background-color: var(--orange-color);
+        border-color: var(--orange-color)
+    }
+
+    .form-check-input:focus{
+        border-color: #FFEFDE;
+        box-shadow: 0 0 0 0.25rem rgba(255, 239, 222, 1);
+    }
+
     
 </style>
