@@ -91,10 +91,5 @@
         .text-custom {
         color: #D0C4AF !important;
     }
-
-    .admin-tutor-card-wrapper {
-      overflow-y: scroll;
-    }
-  
 </style>
 @endsection

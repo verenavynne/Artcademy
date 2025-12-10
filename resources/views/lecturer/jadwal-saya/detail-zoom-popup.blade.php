@@ -139,6 +139,14 @@
 </script>
 
 <style>
+    .modal-backdrop {
+        z-index: 2000  !important;
+    }
+
+    .modal.show {
+        z-index: 2100 !important;
+    }
+
     .zoom-popup-container {
         border-radius: 40px;
         overflow: hidden;

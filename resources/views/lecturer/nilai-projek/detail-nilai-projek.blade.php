@@ -87,7 +87,8 @@
                         </label>
 
                         <div class="select-box">
-                            <select name="scores[{{ $pc->id }}]">
+                            <select name="scores[{{ $pc->id }}]" class="score-select" required>
+                                <option value="" selected disabled>Pilih nilai</option>
                                 @for ($i = 0; $i <= 100; $i += 10)
                                     <option value="{{ $i }}">{{ $i }}</option>
                                 @endfor
@@ -116,12 +117,26 @@
 </div>
 
 <script>
-    const commentBox = document.getElementById('commentBox');
-    const submitBtn = document.getElementById('submitBtn');
+    document.addEventListener('DOMContentLoaded', () => {
+        const selects = document.querySelectorAll('.score-select');
+        const submitBtn = document.getElementById('submitBtn');
 
-    commentBox.addEventListener('input', () => {
-        submitBtn.disabled = commentBox.value.trim() === '';
-    });
+        function validateSelects() {
+            let allFilled = true;
+
+            selects.forEach(select => {
+                if (!select.value) {
+                    allFilled = false;
+                }
+            });
+
+            submitBtn.disabled = !allFilled;
+        }
+
+        selects.forEach(select => {
+            select.addEventListener('change', validateSelects);
+        });
+    }); 
 </script>
 
 <style>

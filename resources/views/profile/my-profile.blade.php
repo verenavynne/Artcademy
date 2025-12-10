@@ -41,17 +41,39 @@
                     <div class="profile-detail-info d-flex flex-column gap-2">
                         <p class="profile-detail-name">{{ $user->name }}</p>
                         <p style="margin: 0">{{ $user->profession }}</p>
-                        <div class="profile-detail-membership-container">
-                            <p class="profile-detail-membership">
+                        @php
+                            $membershipName = $membershipTransaction->membership->membershipName ?? null;
+                            $specialization = $user->lecturer->specialization ?? null;
+
+                            if( ($membershipStatus === 'active' && $membershipName === 'Basic Canvas') || 
+                                ($user->role === 'lecturer' && $specialization === 'Seni Lukis & Digital Art')) {
+                                $bgColor = '#FFF4E0';
+                                $textColor = 'var(--orange-gradient-color)';
+                            } elseif( ($membershipStatus === 'active' && $membershipName === 'Masterpiece Pro') || 
+                                ($user->role === 'lecturer' && $specialization === 'Seni Tari')) {
+                                $bgColor = '#FFEAF0';
+                                $textColor = 'var(--pink-gradient-color)';
+                            } elseif($user->role === 'lecturer' && $specialization === 'Seni Musik') {
+                                $bgColor = '#fffdeaff';
+                                $textColor = 'var(--yellow-gradient-color)';
+                            } elseif( ($membershipStatus === 'active'&& $membershipName === 'Creative Studio') || 
+                                ($user->role === 'lecturer' && $specialization === 'Seni Fotografi')) {
+                                $bgColor = '#E7F6FE';
+                                $textColor = 'var(--blue-gradient-color)';
+                            } else {
+                                $bgColor = '#D9D9D9';
+                                $textColor = '#6c757d';
+                            }
+                        @endphp
+                        <div class="profile-detail-membership-container" style="background: {{ $bgColor }};">
+                            <p class="profile-detail-membership" style="background: {{ $textColor }}; background-clip: text;">
                                 @if ($user->role === 'student')
                                     {{ $membershipStatus === 'active' ? 'Membership ' . $membershipTransaction->membership->membershipName : 'Belum Berlangganan' }}
                                 @else
                                     Tutor {{ $user->lecturer->specialization ?? '-' }}
                                 @endif
                             </p>
-
                         </div>
-
                     </div>
 
                 </div>
@@ -271,13 +293,10 @@
         justify-content: center;
         align-items: center;
         font-size: var(--font-size-primary);
-        background: #E7F6FE;
-
     }
 
     .profile-detail-membership{
         margin: 0;
-        background: var(--blue-gradient-color);
         background-clip: text;
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;

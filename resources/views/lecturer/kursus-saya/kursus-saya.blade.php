@@ -21,7 +21,7 @@
         </li>
     </ul>
 
-    <div class="zoom-card-wrapper d-flex flex-row flex-wrap gap-4 p-3">
+    <div class="d-flex flex-row flex-wrap gap-4 p-3">
         @forelse ($courses as $course)
             @include('components.course-card')
         @empty
@@ -58,10 +58,6 @@
 
     .text-custom {
         color: #D0C4AF !important;
-    }
-
-    .zoom-card-wrapper {
-      overflow-y: scroll;
     }
 </style>
 @endsection

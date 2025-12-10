@@ -14,7 +14,8 @@ class AdminUserController extends Controller
 {
     public function index(Request $request)
     {
-        $query = User::query();
+        $query = User::query()
+            ->where('id', '!=', auth()->id());
 
         if ($request->userStatus == 'active') {
             $query->where('userStatus', 'active');
