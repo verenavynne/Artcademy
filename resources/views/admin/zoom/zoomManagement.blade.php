@@ -2,6 +2,9 @@
 
 @section('content')
 <div class="container ps-4 container-content">
+    @if(session('success'))
+        <div class="alert alert-success">{{ session('success') }}</div>
+    @endif    
 
     <div class="d-flex justify-content-between align-items-center">
         <h4 class="fw-bold">Manajemen Zoom</h4>
@@ -123,17 +126,19 @@
                             <a href="{{ route('zoom.showDetail', $zoom->id) }}" class="btn btn-sm p-0 me-2 border-0 bg-transparent">
                                 <iconify-icon icon="fa6-solid:eye" width="20" height="20"></iconify-icon>
                             </a>
-                            <a href="{{ route('admin.zoom.edit', $zoom->id) }}" class="btn btn-sm text-warning p-0 me-2 border-0 bg-transparent">
-                                <iconify-icon icon="lets-icons:edit" width="20" height="20"></iconify-icon>
-                            </a>
-                            <form action="{{ route('admin.zoom.destroy', $zoom->id) }}" method="POST" class="d-inline">
-                                @csrf
-                                @method('DELETE')
-                                <button class="btn btn-sm text-danger p-0 border-0 bg-transparent" 
-                                        onclick="return confirm('Yakin ingin hapus Zoom ini?')">
-                                    <iconify-icon icon="fluent:delete-12-filled" width="20" height="20"></iconify-icon>
-                                </button>
-                            </form>
+                            @if($zoom->zoomStatus !== "dihapus")
+                                <a href="{{ route('admin.zoom.edit', $zoom->id) }}" class="btn btn-sm text-warning p-0 me-2 border-0 bg-transparent">
+                                    <iconify-icon icon="lets-icons:edit" width="20" height="20"></iconify-icon>
+                                </a>
+                                <form action="{{ route('admin.zoom.destroy', $zoom->id) }}" method="POST" class="d-inline">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button class="btn btn-sm text-danger p-0 border-0 bg-transparent" 
+                                            onclick="return confirm('Yakin ingin hapus Zoom ini?')">
+                                        <iconify-icon icon="fluent:delete-12-filled" width="20" height="20"></iconify-icon>
+                                    </button>
+                                </form>
+                            @endif
                         </td>
                     </tr>
                     @empty

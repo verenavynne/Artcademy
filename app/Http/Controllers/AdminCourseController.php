@@ -123,7 +123,7 @@ class AdminCourseController extends Controller
         }
 
         if ($redirect) {
-            return redirect()->route('admin.courses.index');
+            return redirect()->route('admin.courses.index')->with('success', 'Informasi kursus berhasil disimpan draft!');
         }
 
         return $course;
@@ -217,7 +217,7 @@ class AdminCourseController extends Controller
         ]);
 
         if ($redirect) {
-            return redirect()->route('admin.courses.index');
+            return redirect()->route('admin.courses.index')->with('success', 'Silabus berhasil disimpan draft!');
         }
 
         return $course;
@@ -316,7 +316,7 @@ class AdminCourseController extends Controller
             $course->update(['courseStatus' => 'publikasi']);
         }
 
-        return redirect()->route('admin.courses.index');
+        return redirect()->route('admin.courses.index')->with('success', 'Kursus berhasil disimpan!');
     }
 
 
@@ -384,7 +384,7 @@ class AdminCourseController extends Controller
         }
 
         if ($redirect) {
-            return redirect()->route('admin.courses.index');
+            return redirect()->route('admin.courses.index')->with('success', 'Informasi kursus berhasil diperbarui dan disimpan draft!');
         }
 
         return $course;
@@ -505,7 +505,7 @@ class AdminCourseController extends Controller
         ]);
 
         if ($redirect) {
-            return redirect()->route('admin.courses.index');
+            return redirect()->route('admin.courses.index')->with('success', 'Silabus berhasil diperbarui dan disimpan draft!');
         }
 
         return $course;
@@ -638,7 +638,7 @@ class AdminCourseController extends Controller
         }
 
         return redirect()->route('admin.courses.index')
-                        ->with('success', 'Course berhasil disimpan di draft.');
+                        ->with('success', 'Kursus berhasil diperbarui.');
     }
 
 

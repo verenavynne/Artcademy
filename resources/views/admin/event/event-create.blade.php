@@ -88,7 +88,7 @@
                         <div>
                             <label class="form-label fw-semibold">Deskripsi Event</label>
                             <div class="tinymce-wrapper">
-                                <textarea name="eventDesc" class="form-control rounded-4 custom-input tinymce-editor"
+                                <textarea  id="eventDesc" name="eventDesc" class="form-control rounded-4 custom-input tinymce-editor"
                                     placeholder="Event ini adalah..." required></textarea>
                             </div>
                         </div>
@@ -141,7 +141,7 @@
         </div>
 
         <div class="d-flex justify-content-end">
-            <button type="submit" name="action" value="publish" class="btn yellow-gradient-btn px-4">Publikasikan</button>
+            <button id="btnPublish" type="submit" name="action" value="publish" class="btn yellow-gradient-btn px-4" disabled>Publikasikan</button>
         </div>
     </form>
 </div>
@@ -158,6 +158,7 @@
         setup: function (editor) {
             editor.on('change', function () {
                 tinymce.triggerSave(); 
+                checkFormCompletion();
             });
         }
     });
@@ -175,6 +176,42 @@
             document.getElementById('bannerPreview').src = e.target.result;
         }
         reader.readAsDataURL(file);
+    });
+
+    function checkFormCompletion() {
+        const requiredSelectors = [
+            'select[name="eventCategory"]',
+            'select[name="eventSlot"]',
+            'input[name="eventName"]',
+            'input[name="eventBanner"]',
+            'input[name="eventPlace"]',
+            'input[name="eventPrice"]',
+            'input[name="eventDate"]',
+            'input[name="eventDuration"]',
+            'input[name="eventStartTime"]'
+        ];
+
+        let allFilled = true;
+
+        requiredSelectors.forEach(selector => {
+            const field = document.querySelector(selector);
+            if (!field || !field.value.trim()) {
+                allFilled = false;
+            }
+        });
+
+        const descValue = tinymce.get('eventDesc')?.getContent({ format: 'text' }).trim();
+        if (!descValue) {
+            allFilled = false;
+        }
+
+        document.getElementById('btnPublish').disabled = !allFilled;
+    }
+
+    // listen semua perubahan form biasa
+    document.querySelectorAll('input, select').forEach(el => {
+        el.addEventListener('change', checkFormCompletion);
+        el.addEventListener('input', checkFormCompletion);
     });
 </script>
 

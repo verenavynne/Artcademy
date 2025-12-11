@@ -98,8 +98,8 @@
 
                 <!-- Buttons -->
                 <div class="d-flex justify-content-end gap-3">
-                    <button type="submit" name="action" value="draft" class="btn pink-cream-btn px-4">Simpan Draft</button>
-                    <button type="submit" name="action" value="publish" class="btn yellow-gradient-btn px-4">Publikasikan</button>
+                    <button id="btnDraft" type="submit" name="action" value="draft" class="btn pink-cream-btn px-4" disabled>Simpan Draft</button>
+                    <button id="btnPublish" type="submit" name="action" value="publish" class="btn yellow-gradient-btn px-4" disabled>Publikasikan</button>
                 </div>
             </form>
         </div>
@@ -123,6 +123,35 @@
         });
 
         tutorSelect.disabled = false;
+    });
+
+    // cek input untuk disabled button
+    function checkRequiredFields() {
+        const requiredFields = [
+            'input[name="zoomTopic"]',
+            'select[name="zoomCourse"]',
+            'textarea[name="courseDesc"]',
+            'input[name="zoomLink"]',
+            'select[name="zoomTutor"]',
+            'input[name="zoomDate"]',
+            'select[name="zoomQuota"]',
+            'input[name="zoomDuration"]',
+            'input[name="zoomTime"]'
+        ];
+
+        const allFilled = requiredFields.every(selector => {
+            const field = document.querySelector(selector);
+            return field && field.value.trim() !== '' && field.disabled === false;
+        });
+
+        document.getElementById('btnDraft').disabled = !allFilled;
+        document.getElementById('btnPublish').disabled = !allFilled;
+    }
+
+    // listen semua perubahan input
+    document.querySelectorAll('input, select, textarea').forEach(input => {
+        input.addEventListener('input', checkRequiredFields);
+        input.addEventListener('change', checkRequiredFields);
     });
 </script>
 @endsection

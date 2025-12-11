@@ -88,7 +88,7 @@ class AdminZoomController extends Controller
             'zoomStatus' => $request->input('action') === 'publish' ? 'publikasi' : 'draft',
         ]);
 
-       return redirect()->route('admin.zoom.index');
+       return redirect()->route('admin.zoom.index')->with('success', 'Kelas zoom berhasil disimpan.');
     }
 
     // edit zoom
@@ -146,6 +146,6 @@ class AdminZoomController extends Controller
         $zoom->zoomStatus = 'dihapus';
         $zoom->save();
 
-        return redirect()->route('admin.zoom.index');
+        return redirect()->route('admin.zoom.index')->with('success', 'Kelas zoom berhasil dihapus.');
     }
 }

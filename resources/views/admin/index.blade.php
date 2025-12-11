@@ -2,6 +2,9 @@
 
 @section('content')
 <div class="container ps-4 container-content">
+    @if(session('success'))
+        <div class="alert alert-success">{{ session('success') }}</div>
+    @endif
 
     <div class="d-flex justify-content-between align-items-center">
         <h4 class="fw-bold">Manajemen Kursus</h4>

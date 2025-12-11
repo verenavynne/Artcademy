@@ -292,6 +292,13 @@
         transform: scale(1.07); 
     }
 
+    .pink-cream-btn:disabled,
+    .yellow-gradient-btn:disabled {
+        background: #D0D0D0;
+        cursor: not-allowed;
+        color: #8F8F8F;
+    }
+
     /* text */
     .text-pink-gradient {
         background: var(--pink-gradient-color);

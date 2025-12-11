@@ -80,7 +80,7 @@ class AdminEventController extends Controller
             'eventPrice' => $validated['eventPrice'],
         ]);
 
-       return redirect()->route('admin.event.index');
+       return redirect()->route('admin.event.index')->with('success', 'Event berhasil dipublikasikan.');;
     }
 
     public function edit($id)
@@ -133,7 +133,7 @@ class AdminEventController extends Controller
             'eventPrice' => $validated['eventPrice'],
         ]);
 
-       return redirect()->route('admin.event.index');
+       return redirect()->route('admin.event.index')->with('success', 'Event berhasil diperbarui.');;
     }
 
 
@@ -143,6 +143,6 @@ class AdminEventController extends Controller
         $event = Event::findOrFail($id);
         $event->delete();
 
-        return redirect()->route('admin.event.index');
+        return redirect()->route('admin.event.index')->with('success', 'Event berhasil dihapus.');;
     }
 }

@@ -96,7 +96,7 @@ class AdminUserController extends Controller
             ]);
         }
 
-        return redirect()->back()->with('success', 'Berhasil menambahkan tutor!');
+        return redirect()->back()->with('success', 'Berhasil menambahkan pengguna!');
     }
 
     public function detail($userId)

@@ -187,8 +187,52 @@ tinymce.init({
     setup: function (editor) {
         editor.on('change', function () {
             tinymce.triggerSave(); 
+            validateForm();
         });
     }
+});
+
+
+// cek input untuk disabled button
+document.addEventListener("DOMContentLoaded", function () {
+    const draftBtn = document.querySelector('button[value="draft"]');
+    const publishBtn = document.querySelector('button[value="publish"]');
+
+    const inputs = {
+        name: document.querySelector('input[name="projectName"]'),
+        tools: document.querySelector('select[name="projectTools[]"]'),
+        concept: document.querySelector('textarea[name="projectConcept"]'),
+        requirement: document.querySelector('textarea[name="projectRequirement"]'),
+        creativity: document.getElementById("creativity"),
+        readability: document.getElementById("readability"),
+        theme: document.getElementById("theme"),
+    };
+
+    window.validateForm = function validateForm() {
+        let isValid = true;
+
+        if (!inputs.name.value.trim()) isValid = false;
+        if (!inputs.tools.value) isValid = false;
+        if (!inputs.concept.value.trim()) isValid = false;
+        if (!inputs.requirement.value.trim()) isValid = false;
+
+        let c = parseInt(inputs.creativity.value ?? 0);
+        let r = parseInt(inputs.readability.value ?? 0);
+        let t = parseInt(inputs.theme.value ?? 0);
+
+        if (isNaN(c) || isNaN(r) || isNaN(t)) isValid = false;
+        if (c + r + t !== 100) isValid = false;
+
+        draftBtn.disabled = !isValid;
+        publishBtn.disabled = !isValid;
+    }
+
+    Object.values(inputs).forEach(input => {
+        input.addEventListener("change", validateForm);
+        input.addEventListener("input", validateForm);
+    });
+
+    validateForm();
 });
 </script>
 @endsection
