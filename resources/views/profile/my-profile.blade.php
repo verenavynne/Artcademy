@@ -1,12 +1,18 @@
 @extends($layout)
 
 @section('content')
-@if(session('success'))
-    <div class="alert alert-success">{{ session('success') }}</div>
+@if($layout === 'layouts.master')
+    @if(session('success'))
+        <div class="alert alert-success">{{ session('success') }}</div>
+    @endif
 @endif
 
 <div class="container-fluid d-flex flex-column justify-content-center px-5" style="margin-bottom: 75px; width: {{ $user->role == 'student' ? '100%' : 'calc(100% - 300px)' }}">
-
+    @if($layout === 'layouts.master-tutor')
+        @if(session('success'))
+            <div class="alert alert-success">{{ session('success') }}</div>
+        @endif
+    @endif
     <div class="navigation-prev d-flex flex-start sticky-top">
         <a class="page-link" href="javascript:void(0);" onclick="window.history.back()">
             <img src="{{ asset('assets/icons/icon_pagination_before.svg') }}" alt="">

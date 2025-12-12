@@ -55,7 +55,7 @@
 
 
     </div>
-    <div class="row">
+    <div class="row forum-row">
         <div class="col-3">
             @include('forum.components.sidebar-left-forum')
         </div>
@@ -113,6 +113,17 @@
 </div>
 
 <style>
+
+    #tutor-wrapper{
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+    }
+
+    .row {
+        --bs-gutter-x: 1.5rem !important;
+        gap: unset !important;
+        flex-wrap: wrap !important;
+    }
 
     .default-min-height{
         min-height: unset;

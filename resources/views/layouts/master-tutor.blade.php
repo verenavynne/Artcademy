@@ -75,19 +75,10 @@
   }
 
   .row {
-    --bs-gutter-x: 0 !important;
+    --bs-gutter-x: 0 ;
     gap: 24px;
-    flex-wrap: nowrap !important;
+    flex-wrap: nowrap;
   }
-
-  /* .container-content{
-  padding-right: 0px;
-  padding-left: 28px;
-  padding-top: 0;
-  height: 100%;
-  width:100%;
-  overflow: visible;
-  } */
 
   .icon-tambah-tutor{
     width: 24px;

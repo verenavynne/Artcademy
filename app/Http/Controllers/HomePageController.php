@@ -34,7 +34,7 @@ class HomePageController extends Controller
             ->where('role', 'lecturer')
             ->where('userStatus', 'active')
             ->inRandomOrder()
-            ->take(4)
+            ->take(7)
             ->get();
 
         // ambil semua data membership
@@ -49,13 +49,17 @@ class HomePageController extends Controller
                         ->where('start_time', '>', Carbon::now()->format('H:i:s'));
                 });
             })
-            ->take(4)
+            ->take(7)
             ->get();
 
         $testimonis = [
-            ['name' => 'Vynne', 'rating' => 5, 'time' => '2 days ago', 'review' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Odio aperiam magni illo corrupti autem. Laudantium iste fugit reiciendis'],
-            ['name' => 'Vynne', 'rating' => 5, 'time' => '2 days ago', 'review' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Odio aperiam magni illo corrupti autem. Laudantium iste fugit reiciendis'],
-            ['name' => 'Vynne', 'rating' => 5, 'time' => '2 days ago', 'review' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Odio aperiam magni illo corrupti autem. Laudantium iste fugit reiciendis'],
+            ['name' => 'Vynne', 'title' => 'Web Developer di Grab', 'rating' => 5, 'time' => '2 days ago', 'review' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Odio aperiam magni illo corrupti autem. Laudantium iste fugit reiciendis'],
+            ['name' => 'Farren', 'title' => 'Web Developer di Google', 'rating' => 5, 'time' => '2 days ago', 'review' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Odio aperiam magni illo corrupti autem. Laudantium iste fugit reiciendis'],
+            ['name' => 'Felicia', 'title' => 'Web Developer di Gojek', 'rating' => 5, 'time' => '2 days ago', 'review' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Odio aperiam magni illo corrupti autem. Laudantium iste fugit reiciendis'],
+            ['name' => 'Verena', 'title' => 'Web Developer di Polytron', 'rating' => 5, 'time' => '2 days ago', 'review' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Odio aperiam magni illo corrupti autem. Laudantium iste fugit reiciendis'],
+            ['name' => 'Nancy', 'title' => 'Web Developer di Meta', 'rating' => 5, 'time' => '2 days ago', 'review' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Odio aperiam magni illo corrupti autem. Laudantium iste fugit reiciendis'],
+            ['name' => 'Dustin', 'title' => 'Web Developer di Samsung', 'rating' => 5, 'time' => '2 days ago', 'review' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Odio aperiam magni illo corrupti autem. Laudantium iste fugit reiciendis'],
+            ['name' => 'Mike', 'title' => 'Web Developer di Adira', 'rating' => 5, 'time' => '2 days ago', 'review' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Odio aperiam magni illo corrupti autem. Laudantium iste fugit reiciendis'],
         ];    
 
         return view('Artcademy.home', compact('courses', 'tutors', 'memberships', 'events', 'testimonis'));

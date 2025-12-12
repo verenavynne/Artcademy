@@ -174,12 +174,26 @@
         <h2 class="fw-bold mt-4 text-center"><span class="text-pink-gradient">Tutor Keren, </span>Ilmu Nggak Kaleng-Kaleng!</h2>
         <p class="mb-5 text-center" style="font-size: 18px;">Para tutor berpengalaman siap berbagi ilmu dan insight kreatif buat kamu</p>
 
-         <div class="d-flex justify-content-center flex-wrap" style="gap: 36px;">
-            @forelse ($tutors as $tutor)
-                @include ('components.home-tutor-card')
-            @empty
+        <div class="d-flex justify-content-center flex-column p-5" style="gap: 36px;">
+            @if($tutors->isEmpty())
                 <p>Tidak ada tutor</p>
-            @endforelse
+            @endif
+            <div class="position-relative">
+                <button id="scrollLeft" class="carousel-btn left-btn">
+                    <img src="{{ asset('assets/icons/icon_pagination_before.svg') }}" alt="Left Arrow">
+                </button>
+                <div class="all-tutor d-flex overflow-auto pb-3" style="scroll-behavior: smooth; gap: 36px">
+                    @foreach ($tutors as $tutor)
+                        @include ('components.home-tutor-card')
+                    @endforeach
+                </div>
+
+                <button id="scrollRight" class="carousel-btn right-btn">
+                    <img src="{{ asset('assets/icons/icon_pagination_next.svg') }}" alt="Right Arrow">
+                </button>
+
+            </div>
+              
         </div>
     </div>
 </div>
@@ -204,12 +218,28 @@
         <h2 class="fw-bold mt-4 text-center"><span class="text-pink-gradient">Ikuti Event Seru </span>Artcademy!</h2>
         <p class="mb-5 text-center" style="font-size: 18px;">Ikut event-nya, dapet ilmunya, dan bangun koneksi kreatif bareng!</p>
 
-         <div class="d-flex mb-5 gap-4 justify-content-center flex-wrap">
-            @forelse($events as $event)
-                @include('components.event-card')
-            @empty
+         <div class="d-flex mb-5 gap-4 justify-content-center flex-column p-5">
+            @if($events->isEmpty())
                 <p>Tidak ada event</p>
-            @endforelse
+            @endif
+            <div class="position-relative">
+                <button id="scrollLeftEvent" class="carousel-btn left-btn">
+                    <img src="{{ asset('assets/icons/icon_pagination_before.svg') }}" alt="Left Arrow">
+                </button>
+                <div class="all-events-wrapper overflow-auto">
+                    <div class="all-events d-flex gap-4">
+                        @foreach ($events as $event)
+                            @include('components.event-card', ['event' => $event])
+                        @endforeach
+                    </div>
+                </div>
+
+                <button id="scrollRightEvent" class="carousel-btn right-btn">
+                    <img src="{{ asset('assets/icons/icon_pagination_next.svg') }}" alt="Right Arrow">
+                </button>
+
+            </div>
+           
         </div>
     </div>
 </div>
@@ -249,11 +279,29 @@
         <h2 class="fw-bold mt-4 text-center"><span class="text-pink-gradient">Apa kata mereka tentang Artcademy?</span></h2>
         <p class="mb-5 text-center" style="font-size: 18px;">Simak testimoni dari para alumni yang berhasil wujudin ide jadi karya nyata</p>
 
-         <div class="d-flex gap-4 justify-content-center flex-wrap">
-           @foreach ($testimonis as $testimoni)
-                @include('components.home-testimoni-card')
-            @endforeach
+        <div class="d-flex justify-content-center flex-column p-5" style="gap: 36px;">
+           
+            <div class="position-relative">
+                <button id="scrollLeftTestimoni" class="carousel-btn left-btn">
+                    <img src="{{ asset('assets/icons/icon_pagination_before.svg') }}" alt="Left Arrow">
+                </button>
+
+                <div class="all-testimoni-wrapper overflow-auto">
+                    <div class="all-testimoni d-flex gap-4">
+                        @foreach ($testimonis as $testimoni)
+                            @include('components.home-testimoni-card',['testimomi' => $testimoni])
+                        @endforeach
+                    </div>
+                </div>
+
+                <button id="scrollRightTestimoni" class="carousel-btn right-btn">
+                    <img src="{{ asset('assets/icons/icon_pagination_next.svg') }}" alt="Right Arrow">
+                </button>
+
+            </div>
+              
         </div>
+         
     </div>
 </div>
 
@@ -411,6 +459,56 @@
         box-shadow: 0px 7.571px 15.143px 0px rgba(67, 39, 0, 0.20);
     }
 
+    
+    .all-tutor::-webkit-scrollbar {
+        display: none;
+    }
+
+    .all-testimoni-wrapper,
+    .all-events-wrapper {
+        overflow-x: auto;
+        scroll-behavior: smooth;
+        padding-bottom: 10px;
+    }
+
+    .all-testimoni-wrapper::-webkit-scrollbar,
+    .all-events-wrapper::-webkit-scrollbar {
+        display: none;
+    }
+
+    .all-testimoni,
+    .all-events {
+        display: inline-flex;
+        width: max-content;
+    }
+
+    .carousel-btn {
+        background: var(--yellow-gradient-color);
+        border-radius: 50%;
+        color: black;
+        width: 48px;
+        height: 48px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0px 7.571px 15.143px 0px rgba(67, 39, 0, 0.20);
+        position: absolute;
+        top: 40%;
+        transform: translateY(-50%);
+        border: none;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        z-index: 5;
+    }
+
+    .left-btn {
+        left: -20px;
+    }
+
+    .right-btn {
+        right: -20px;
+    }
+
     /* question */
     .contact-us-section {
     position: relative; /* Penting: Membuat container ini menjadi referensi untuk position: absolute *//* Mencegah gambar yang keluar batas mengganggu layout */
@@ -468,3 +566,48 @@
     }
 </style>
 @endsection
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+
+    // Carousel Tutor
+    const scrollContainer = document.querySelector('.all-tutor');
+    const scrollLeftBtn = document.getElementById('scrollLeft');
+    const scrollRightBtn = document.getElementById('scrollRight');
+
+    scrollLeftBtn.addEventListener('click', () => {
+        scrollContainer.scrollBy({ left: -400, behavior: 'smooth' });
+    });
+
+    scrollRightBtn.addEventListener('click', () => {
+        scrollContainer.scrollBy({ left: 400, behavior: 'smooth' });
+    });
+
+    // Carousel Event
+    const scrollEventContainer = document.querySelector('.all-events-wrapper');
+    const scrollLeftBtnEvent = document.getElementById('scrollLeftEvent');
+    const scrollRightBtnEvent = document.getElementById('scrollRightEvent');
+
+    scrollLeftBtnEvent.addEventListener('click', () => {
+        scrollEventContainer.scrollBy({ left: -400, behavior: 'smooth' });
+    });
+
+    scrollRightBtnEvent.addEventListener('click', () => {
+        scrollEventContainer.scrollBy({ left: 400, behavior: 'smooth' });
+    });
+
+     // Carousel Testimoni
+    const scrollTestimoniContainer = document.querySelector('.all-testimoni-wrapper');
+    const scrollLeftBtnTestimoni = document.getElementById('scrollLeftTestimoni');
+    const scrollRightBtnTestimoni = document.getElementById('scrollRightTestimoni');
+
+    scrollLeftBtnTestimoni.addEventListener('click', () => {
+        scrollTestimoniContainer.scrollBy({ left: -400, behavior: 'smooth' });
+    });
+
+    scrollRightBtnTestimoni.addEventListener('click', () => {
+        scrollTestimoniContainer.scrollBy({ left: 400, behavior: 'smooth' });
+    });
+
+});
+</script>

@@ -13,7 +13,7 @@
     <div class="alert alert-success">{{ session('success') }}</div>
 @endif
 
-<div class="container-fluid d-flex flex-column justify-content-center px-4" style="margin-bottom: 75px;">
+<div class="container-fluid d-flex flex-column justify-content-center px-5" style="width: 100%; margin-bottom: 75px;">
     <div class="d-flex justify-content-center align-items-center px-5 gap-5 w-100 pt-1" style="margin-bottom: 18px">
         <div class="position-relative flex-grow-1">
             <input type="text" class="custom-input-2 form-control rounded-pill" placeholder="Mau belajar apa hari ini?">
@@ -32,7 +32,7 @@
         </div>
 
         <!-- Form Side -->
-        <div class="col d-flex flex-column align-items-center gap-2 w-100">
+        <div class="col-6 d-flex flex-column align-items-center gap-2">
             <div class="feed-wrapper d-flex flex-column gap-2 w-100">
                 <div class="profile-banner-card d-flex flex-row gap-2">
                      <div class="navigation-prev d-flex flex-start">
@@ -155,6 +155,17 @@
 </div>
 
 <style>
+
+    #tutor-wrapper{
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+    }
+
+    .row {
+        --bs-gutter-x: 1.5rem !important;
+        gap: unset !important;
+        flex-wrap: wrap !important;
+    }
     .profile-banner-card{
         height: max-content;
         width: 100%;
