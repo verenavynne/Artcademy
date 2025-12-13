@@ -49,7 +49,7 @@
         background: var(--pink-gradient-color);
         border-radius: 2px;
         transition: all 0.3s ease;
-}
+    }
 </style>
 
 <script>

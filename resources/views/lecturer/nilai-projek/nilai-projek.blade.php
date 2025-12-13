@@ -6,34 +6,35 @@
     <h4 class="fw-semibold" style="font-size: 32px">Nilai Projek</h4>
   </div>
 
-  <ul class="nav mb-4 mt-4 w-100 statusTabs">
-    <li class="nav-item flex-fill text-center">
-        <a class="nav-link fs-5 {{ $status !== 'selesai' ? 'active' : 'text-custom' }}" 
-           href="{{ route('lecturer.nilai-projek', ['status' => 'menunggu']) }}">
-           Menunggu Dinilai
-        </a>
-    </li>
-    <li class="nav-item flex-fill text-center">
-        <a class="nav-link fs-5 {{ $status === 'selesai' ? 'active' : 'text-custom' }}" 
-           href="{{ route('lecturer.nilai-projek', ['status' => 'selesai']) }}">
-           Selesai
-        </a>
-    </li>
-  </ul>
+  @include('profile.components.tab', ['firstTab' => 'menunggu-dinilai', 'secondTab' => 'selesai', 'activeTab' => 'menunggu-dinilai'])
 
-  <div class="admin-tutor-card-wrapper d-flex flex-row flex-wrap">
-    @forelse($submissions as $submission)
+  <div class="tab-content-container">
+        <div class="tab-content active" data-tab-content="menunggu-dinilai">
+            <div class="d-flex flex-row flex-wrap gap-4 p-3">
+                @forelse ($menungguSubmissions as $submission)
+                    @include('components.nilai-projek-card')
+                @empty
+                    <div class="d-flex justify-content-center align-items-center w-100" style="height: 200px;">
+                        <p class="text-center m-0">Tidak ada projek yang perlu dinilai</p>
+                    </div>
+                @endforelse
+            </div>
+        </div>
 
-      @if(!$submission->isGraded)
-          @include('components.nilai-projek-card')
-      @else
-          @include('components.selesai-nilai-projek-card')
-      @endif
+        <div class="tab-content" data-tab-content="selesai">
+            <div class="d-flex flex-row flex-wrap gap-4 p-3">
+                @forelse ($selesaiSubmissions as $submission)
+                    @include('components.selesai-nilai-projek-card')
+                @empty
+                    <div class="d-flex justify-content-center align-items-center w-100" style="height: 200px;">
+                        <p class="text-center m-0">Tidak ada projek yang sudah selesai dinilai.</p>
+                    </div>
+                @endforelse
+            </div>
+        </div>
+    </div>
 
-    @empty
-      <p class="text-center w-100">Tidak ada projek yang {{ $status === 'selesai' ? 'sudah selesai' : 'perlu' }} dinilai.</p>
-    @endforelse
-  </div>
+
 </div>
 
 <script>
@@ -61,34 +62,33 @@
       }
     });
   });
+
+
+  const tabLinks = document.querySelectorAll(".tab-link");
+    const tabContents = document.querySelectorAll(".tab-content");
+
+    tabLinks.forEach(btn => {
+        btn.addEventListener("click", () => {
+            const target = btn.getAttribute("data-tab");
+
+            tabLinks.forEach(b => b.classList.remove("active"));
+            btn.classList.add("active");
+
+            tabContents.forEach(content => {
+                if (content.getAttribute("data-tab-content") === target) {
+                    content.classList.add("active");
+                } else {
+                    content.classList.remove("active");
+                }
+            });
+        });
+    });
 </script>
 
 
 
 <style>    
-    .nav-link{
-        width: 100%;
-    }
-    .statusTabs {
-        border-bottom: 4px solid #F9EEDB;
-        position: relative;
-    }
-
-    .statusTabs .nav-link:hover,
-    .statusTabs .nav-link.active {
-        background: var(--pink-gradient-color);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-    }
-
-    .statusTabs .nav-link:hover::after,
-    .statusTabs .nav-link.active::after {
-        position: absolute;
-        bottom: -4px;
-        border-radius: 10px;
-        height: 4px;
-    }
-        .text-custom {
+    .text-custom {
         color: #D0C4AF !important;
     }
 </style>

@@ -15,24 +15,23 @@ class TutorJadwalController extends Controller
         $lecturerId = Auth::id();
         $now = now();
 
-        if ($status === 'selesai') {
-            $zooms = Zoom::with(['tutor.lecturer.user'])
-                ->whereHas('tutor', function ($query) use ($lecturerId) {
-                    $query->where('lecturerId', $lecturerId);
-                })
-                ->where('zoomDate', '<', $now)
-                ->where('zoomStatus', 'publikasi')
-                ->get();
-        } else {
-            $zooms = Zoom::with(['tutor.lecturer.user'])
+        $zoomMendatang = Zoom::with(['tutor.lecturer.user'])
                 ->whereHas('tutor', function ($query) use ($lecturerId) {
                     $query->where('lecturerId', $lecturerId);
                 })
                 ->where('zoomDate', '>=', $now)
                 ->where('zoomStatus', 'publikasi')
                 ->get();
-        }
 
-        return view('lecturer.jadwal-saya.jadwal-saya', compact('zooms', 'status'));
+        $zoomSelesai = Zoom::with(['tutor.lecturer.user'])
+                ->whereHas('tutor', function ($query) use ($lecturerId) {
+                    $query->where('lecturerId', $lecturerId);
+                })
+                ->where('zoomDate', '<', $now)
+                ->where('zoomStatus', 'publikasi')
+                ->get();
+
+
+        return view('lecturer.jadwal-saya.jadwal-saya', compact('zoomMendatang', 'zoomSelesai','status'));
     }
 }

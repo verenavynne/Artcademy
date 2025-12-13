@@ -17,11 +17,11 @@
         </div>
     </div>
     <p class="testimoni-review">{{ $testimoni['review'] }}</p>
-    <div class="testimoni-footer d-flex flex-row justify-content-between">
+    <!-- <div class="testimoni-footer d-flex flex-row justify-content-between">
         <div class="d-flex flex-row">
             <img src="{{ asset('assets/icons/icon_likes.svg') }}" alt="Like" height="16" width="16">
             <p class="membantu-text">Membantu</p>
         </div>
         <p class="lihat-testimoni-text">Lihat selengkapnya</p>
-    </div>
+    </div> -->
 </div>

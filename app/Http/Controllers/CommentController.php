@@ -110,8 +110,17 @@ class CommentController extends Controller
             }
         }
 
-        $commentOwnerId = Comment::find($request->parentId)->userId;
-        $this->createNotification($commentOwnerId, auth()->id(), 'comment', $reply->id);
+        $parentComment = Comment::find($request->parentId);
+        $commentOwnerId = $parentComment?->userId;
+
+        if ($commentOwnerId && $commentOwnerId !== auth()->id()) {
+            $this->createNotification(
+                $commentOwnerId,
+                auth()->id(),
+                'comment',
+                $reply->id
+            );
+        }
 
         return back()->with('success', 'Komentar berhasil ditambahkan!');
     }

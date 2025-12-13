@@ -32,9 +32,6 @@
     </div>
 
     <div class="d-flex flex-row justify-content-center align-items-center category-btn-group gap-4">
-        <a href="#" >
-            <button class="category-btn filter-icon"><img src="{{ asset('assets/icons/icon_filter.svg') }}" alt="Filter"></button>
-        </a>
         <a href="{{ route('course', ['type' => null]) }}">
             <button class="category-btn {{ request('type') === null ? 'active' : '' }}">Semua</button>
         </a>

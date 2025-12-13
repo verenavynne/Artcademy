@@ -13,13 +13,13 @@
             <div class="alert alert-success">{{ session('success') }}</div>
         @endif
     @endif
-    <div class="navigation-prev d-flex flex-start sticky-top">
+    <div class="navigation-prev d-flex flex-start">
         <a class="page-link" href="javascript:void(0);" onclick="window.history.back()">
             <img src="{{ asset('assets/icons/icon_pagination_before.svg') }}" alt="">
         </a>
     </div>
 
-    <div class="d-flex flex-row justify-content-evenly" style="width: 100%; gap: 24px; ">
+    <div class="d-flex flex-row justify-content-evenly pt-2" style="width: 100%; gap: 24px; ">
         @if($user->role === 'student')
             <!-- <div style="width: 20%"> -->
                 @include('profile.components.sidebar-profile')
@@ -209,12 +209,11 @@
         position: static !important;
     }
 
-    .navigation-prev {
+    /* .navigation-prev.nav-sticky {
         position: sticky;
-        top: 94px;
-        z-index: 1020;
-        padding-left: 8px;
-    }
+        top: 90px;
+        z-index: 1200;
+    } */
 
     .portfolio-card .dropdown button {
         color: var(--black-color);

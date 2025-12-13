@@ -133,52 +133,10 @@
                         <p style="margin: 0">4.6 / 5.0</p>
                     </div>
 
-                    <div class="d-flex flex-row review-btn-group gap-4">
-                        <a href="#">
-                            <button class="review-btn active">Semua</button>
-                        </a>
-                        <a href="#">
-                            <button class="review-btn d-flex flex-row align-items-center justify-content-center">
-                            <img src="{{ asset('assets/icons/icon_star.svg') }}" alt="Star" height="16" width="16">
-                                5(60)
-                            </button>
-                        </a>
-                        <a href="#">
-                            <button class="review-btn d-flex flex-row align-items-center justify-content-center">
-                                <img src="{{ asset('assets/icons/icon_star.svg') }}" alt="Star" height="16" width="16">
-                                4(41)
-                            </button>
-                        </a>
-                        <a href="#">
-                            <button class="review-btn d-flex flex-row align-items-center justify-content-center">
-                                <img src="{{ asset('assets/icons/icon_star.svg') }}" alt="Star" height="16" width="16">
-                                3(15)</button>
-                        </a>
-                        <a href="#">
-                            <button class="review-btn d-flex flex-row align-items-center justify-content-center">
-                                <img src="{{ asset('assets/icons/icon_star.svg') }}" alt="Star" height="16" width="16">
-                                2(1)
-                            </button>
-                        </a>
-                        <a href="#">
-                            <button class="review-btn d-flex flex-row align-items-center justify-content-center">
-                                <img src="{{ asset('assets/icons/icon_star.svg') }}" alt="Star" height="16" width="16">
-                                1(0)
-                            </button>
-                        </a>
-                    </div>
-
                     <div class="testimoni-card-container flex-wrap gap-4">
                         @foreach ($testimonis as $testimoni)
                             @include('components.testimoni-card',['testimoni'=>$testimoni])
                         @endforeach
-                    </div>
-
-
-                    <div class="testimoni-button d-flex justify-content-center align-items-center">
-                        <a href="#">
-                            <button class="testimoni-btn"><p>Lihat selengkapnya</p></button>
-                        </a>
                     </div>
 
                 </div>

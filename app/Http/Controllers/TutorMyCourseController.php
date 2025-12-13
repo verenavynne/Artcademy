@@ -13,22 +13,20 @@ class TutorMyCourseController extends Controller
         $status = $request->get('status', 'dipublikasikan');
         $lecturerId = Auth::id();
 
-        if ($status === 'dipublikasikan') {
-            $courses = Course::with(['courseLecturers.lecturer.user'])
+        $publikasiCourses = Course::with(['courseLecturers.lecturer.user'])
                 ->where('courseStatus', 'publikasi')
                 ->whereHas('courseLecturers', function ($query) use ($lecturerId) {
                     $query->where('lecturerId', $lecturerId);
                 })
                 ->get();
-        } else {
-            $courses = Course::with(['courseLecturers.lecturer.user'])
+
+        $diarsipkanCourses =  Course::with(['courseLecturers.lecturer.user'])
                 ->where('courseStatus', 'arsip')
                 ->whereHas('courseLecturers', function ($query) use ($lecturerId) {
                     $query->where('lecturerId', $lecturerId);
                 })
                 ->get();
-        }
 
-        return view('lecturer.kursus-saya.kursus-saya', compact('courses', 'status'));
+        return view('lecturer.kursus-saya.kursus-saya', compact('publikasiCourses', 'diarsipkanCourses','status'));
     }
 }

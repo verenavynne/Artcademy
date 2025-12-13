@@ -5,7 +5,7 @@
     <!-- search bar -->
     <div class="d-flex align-items-center pt-1 gap-4 w-100">
         <div class="position-relative flex-grow-1">
-           <form class="d-flex w-100" method="GET" action="{{route('course')}}">
+           <form class="d-flex w-100 mb-0" method="GET" action="{{route('course')}}">
                 <input 
                     type="text" 
                     class="custom-input-2 form-control rounded-pill" 
@@ -346,13 +346,6 @@
         right: 0%;
         top: 100%;
         transform: translateY(-50%);
-    }
-
-    .search-icon {
-        right: 30px;
-        top: 50%;
-        transform: translateY(-50%);
-        cursor: pointer;
     }
 
     .why-artcademy {

@@ -42,14 +42,12 @@ class TutorNilaiProjectController extends Controller
             $submission->isGraded = $submission->lecturerGrades->isNotEmpty();
 
             return $submission;
-        })
-        ->filter(function ($submission) use ($status) {
-            return $status === 'selesai'
-                ? $submission->isGraded
-                : !$submission->isGraded;
         });
 
-        return view('lecturer.nilai-projek.nilai-projek', compact('submissions', 'status'));
+        $menungguSubmissions = $submissions->filter(fn ($s) => !$s->isGraded);
+        $selesaiSubmissions  = $submissions->filter(fn ($s) => $s->isGraded);
+
+        return view('lecturer.nilai-projek.nilai-projek', compact('menungguSubmissions','selesaiSubmissions', 'status'));
     }
 
     public function detail($id)
