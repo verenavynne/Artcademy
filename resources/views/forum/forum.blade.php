@@ -125,6 +125,10 @@
         flex-wrap: wrap !important;
     }
 
+    .navigation-prev{
+        margin-block-end: 0;
+    }
+
     .default-min-height{
         min-height: unset;
     }

@@ -120,6 +120,7 @@
         justify-content: center;
         box-shadow: 0px 7.571px 15.143px 0px rgba(67, 39, 0, 0.20);
         transition: all 0.3s ease;
+        margin-block-end: 20px;
     }
 
     .navigation-prev:hover{
