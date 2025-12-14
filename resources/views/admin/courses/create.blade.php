@@ -194,13 +194,10 @@
     // cek input untuk disabled button
     const lecturerCheckboxes = document.querySelectorAll('.lecturer-checkbox');
     const nextButton = document.getElementById('nextBtn');
-    const draftButton = document.getElementById('draftBtn');
     
     nextButton.disabled = true;
-    draftButton.disabled = true;
 
     nextButton.classList.add('disabled-btn');
-    draftButton.classList.add('disabled-btn');
 
     function checkSelectedLecturers() {
         const selectedCount = document.querySelectorAll('.lecturer-checkbox:checked').length;
@@ -208,15 +205,9 @@
         if (selectedCount === 3) {
             nextButton.disabled = false;
             nextButton.classList.remove('disabled-btn');
-
-            draftButton.disabled = false;
-            draftButton.classList.remove('disabled-btn');
         } else {
             nextButton.disabled = true;
             nextButton.classList.add('disabled-btn');
-
-            draftButton.disabled = true;
-            draftButton.classList.add('disabled-btn');
         }
     }
 
