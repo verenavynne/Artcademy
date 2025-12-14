@@ -8,7 +8,7 @@ class CourseMateri extends Model
 {
     protected $table='course_materis';
 
-    protected $fillable=['weekId', 'articleName','articleText','vblName','vblDesc','vblUrl','duration'];
+    protected $fillable=['weekId', 'tblName','tblText','vblName','vblDesc','vblUrl','duration'];
 
     public function week(){
         return $this->belongsTo(CourseWeek::class,'weekId');

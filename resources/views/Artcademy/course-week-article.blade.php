@@ -11,9 +11,8 @@
     <div class="d-flex flex-row justify-content-center gap-5">
         <div class="d-flex flex-column" style="width: 60%;">
             <div class="article-content-container d-flex flex-column">
-                <p class="article-name">{{ $materi->articleName }}</p>
-                <p class="article-text">{!! $materi->articleText !!}</p>
-                <!-- TODO ambil articleText pake cara !!$article->articleText !! -->
+                <p class="article-name">{{ $materi->tblName }}</p>
+                <p class="article-text">{!! $materi->tblText !!}</p>
         
                 <div class="tandai-baca-article-btn d-flex justify-content-end">
                     <button 

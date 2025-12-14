@@ -8,7 +8,7 @@
         </div>
         <div class="list-benefit d-flex flex-row">
             <img src="{{ asset('assets/icons/icon_article_gradient.svg') }}" alt="Like" height="24" width="24">
-            <p>12 Artikel Pendukung Eksklusif</p>
+            <p>12 Materi Bacaan Pendukung Eksklusif</p>
         </div>
         <div class="list-benefit d-flex flex-row">
             <img src="{{ asset('assets/icons/icon_sertifikat_gradient.svg') }}" alt="Like" height="24" width="24">

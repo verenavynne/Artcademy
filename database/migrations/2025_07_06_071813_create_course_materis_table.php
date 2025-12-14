@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('course_materis', function (Blueprint $table) {
             $table->id();
             $table->foreignId('weekId')->constrained('course_weeks')->onDelete('cascade');
-            $table->string('articleName')->nullable();
-            $table->text('articleText')->nullable();
+            $table->string('tblName')->nullable();
+            $table->text('tblText')->nullable();
             $table->string('vblName')->nullable();
             $table->text('vblDesc')->nullable();
             $table->string('vblUrl')->nullable();

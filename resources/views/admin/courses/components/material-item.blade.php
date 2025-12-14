@@ -32,7 +32,7 @@
                     <input type="radio" 
                         name="weeks[__WEEK_INDEX__][materials][__MATERIAL_INDEX__][type]" 
                         value="article" class="materi-type-radio" required>
-                    <span>Artikel</span>
+                    <span>Materi Bacaan</span>
                 </label>
             </div>
 
@@ -56,8 +56,8 @@
             let html = '';
             if (type === 'article') {
                 html = `
-                    <input type="text" name="${baseName}[articleName]" placeholder="Masukkan Judul Artikel" class="form-control mb-2 rounded-pill custom-input">
-                    <textarea name="${baseName}[articleText]" placeholder="Masukkan Isi Artikel" class="form-control article-textarea"></textarea>
+                    <input type="text" name="${baseName}[tblName]" placeholder="Masukkan Judul Materi Bacaan" class="form-control mb-2 rounded-pill custom-input">
+                    <textarea name="${baseName}[tblText]" placeholder="Masukkan Isi Materi Bacaan" class="form-control article-textarea"></textarea>
                 `;
                 materiContent.innerHTML = html;
 

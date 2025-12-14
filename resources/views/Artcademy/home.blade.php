@@ -149,16 +149,22 @@
         <h2 class="fw-bold mt-4 text-center"><span class="text-pink-gradient">Yang Lagi Hits </span>di Artcademy</h2>
         <p class="mb-5 text-center" style="font-size: 18px;">Rekomendasi kursus paling cocok buat mulai perjalanan kreatifmu</p>
 
-        <a href="{{ route('course') }}" class="text-decoration-none d-block pe-5 me-3 pb-4">
-            <div class="d-flex flex-row justify-content-end gap-2">
-                <p class="fw-bold" style="margin:0; font-size: var(--font-size-primary); color:var(--dark-gray-color)">Lihat semua</p>
-                <div class="navigation-next d-flex flex-start" >
-                    <img src="{{ asset('assets/icons/icon_pagination_next.svg') }}" alt="" height="8" width="8">
+        @if(!$courses->isEmpty())
+            <a href="{{ route('course') }}" class="text-decoration-none d-block pe-5 me-3 pb-4">
+                <div class="d-flex flex-row justify-content-end gap-2">
+                    <p class="fw-bold" style="margin:0; font-size: var(--font-size-primary); color:var(--dark-gray-color)">Lihat semua</p>
+                    <div class="navigation-next d-flex flex-start" >
+                        <img src="{{ asset('assets/icons/icon_pagination_next.svg') }}" alt="" height="8" width="8">
+                    </div>
                 </div>
-            </div>
-        </a>
+            </a>
+        @endif
       
-
+        @if($courses->isEmpty())
+            <div class="d-flex flex-column align-items-center gap-3">
+                <p class="text-muted text-center" style="font-size: 18px">Belum ada kursus</p>
+            </div>
+        @endif
         <div class="d-flex flex-wrap justify-content-center" style="gap: 36px">
             @foreach ($courses as $course)
                 @include('components.course-card', ['course' => $course])
@@ -176,7 +182,9 @@
 
         <div class="d-flex justify-content-center flex-column p-5" style="gap: 36px;">
             @if($tutors->isEmpty())
-                <p>Tidak ada tutor</p>
+                <div class="d-flex flex-column align-items-center gap-3">
+                    <p class="text-muted text-center" style="font-size: 18px">Belum ada tutor</p>
+                </div>
             @endif
             <div class="position-relative">
                 @if($tutors->count() > 4)
@@ -223,7 +231,9 @@
 
          <div class="d-flex mb-5 gap-4 justify-content-center flex-column p-5">
             @if($events->isEmpty())
-                <p>Tidak ada event</p>
+                <div class="d-flex flex-column align-items-center gap-3">
+                    <p class="text-muted text-center" style="font-size: 18px">Belum ada event</p>
+                </div>
             @endif
             <div class="position-relative">
                 @if($events->count() > 4)

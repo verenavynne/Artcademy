@@ -134,14 +134,14 @@
                                             <input type="radio" 
                                                 name="weeks[{{ $loop->parent->index }}][materials][{{ $loop->index }}][type]" 
                                                 value="article" 
-                                                {{ $materi->articleName ? 'checked' : '' }} 
+                                                {{ $materi->tblName ? 'checked' : '' }} 
                                                 class="materi-type-radio" required>
-                                            <span>Artikel</span>
+                                            <span>Materi Bacaan</span>
                                         </label>
                                     </div>
 
-                                    <input type="hidden" name="weeks[{{ $loop->parent->index }}][materials][{{ $loop->index }}][articleName]" value="{{ $materi->articleName ?? '' }}">
-                                    <input type="hidden" name="weeks[{{ $loop->parent->index }}][materials][{{ $loop->index }}][articleText]" value="{{ $materi->articleText ?? '' }}">
+                                    <input type="hidden" name="weeks[{{ $loop->parent->index }}][materials][{{ $loop->index }}][tblName]" value="{{ $materi->tblName ?? '' }}">
+                                    <input type="hidden" name="weeks[{{ $loop->parent->index }}][materials][{{ $loop->index }}][tblText]" value="{{ $materi->tblText ?? '' }}">
                                     <input type="hidden" name="weeks[{{ $loop->parent->index }}][materials][{{ $loop->index }}][vblName]" value="{{ $materi->vblName ?? '' }}">
                                     <input type="hidden" name="weeks[{{ $loop->parent->index }}][materials][{{ $loop->index }}][vblDesc]" value="{{ $materi->vblDesc ?? '' }}">
                                     <input type="hidden" name="weeks[{{ $loop->parent->index }}][materials][{{ $loop->index }}][vblUrl]" value="{{ $materi->vblUrl ?? '' }}">
@@ -254,25 +254,25 @@
         const baseName = radioArticle ? radioArticle.name.replace('[type]', '') :
                         radioVideo ? radioVideo.name.replace('[type]', '') : '';
 
-        const articleName = materiGroup.querySelector('input[name*="[articleName]"]')?.value;
-        const articleText = materiGroup.querySelector('input[name*="[articleText]"]')?.value;
+        const tblName = materiGroup.querySelector('input[name*="[tblName]"]')?.value;
+        const tblText = materiGroup.querySelector('input[name*="[tblText]"]')?.value;
         const vblName = materiGroup.querySelector('input[name*="[vblName]"]')?.value;
         const vblDesc = materiGroup.querySelector('input[name*="[vblDesc]"]')?.value;
         const vblUrl = materiGroup.querySelector('input[name*="[vblUrl]"]')?.value;
 
-        if ((articleName || articleText) || radioArticle.checked) {
+        if ((tblName || tblText) || radioArticle.checked) {
             radioArticle.checked = true;
             materiContent.innerHTML = `
-                <input type="text" name="${baseName}[articleName]" value="${articleName ?? ''}" placeholder="Masukkan Judul Artikel" class="form-control mb-2 rounded-pill custom-input">
-                <textarea name="${baseName}[articleText]" class="form-control article-textarea">${articleText ?? ''}</textarea>
+                <input type="text" name="${baseName}[tblName]" value="${tblName ?? ''}" placeholder="Masukkan Judul Materi Bacaan" class="form-control mb-2 rounded-pill custom-input">
+                <textarea name="${baseName}[tblText]" class="form-control article-textarea">${tblText ?? ''}</textarea>
             `;
 
-            if (tinymce.get(`${baseName}[articleText]`)) {
-                tinymce.get(`${baseName}[articleText]`).remove();
+            if (tinymce.get(`${baseName}[tblText]`)) {
+                tinymce.get(`${baseName}[tblText]`).remove();
             }
 
             tinymce.init({
-                selector: `textarea[name="${baseName}[articleText]"]`,
+                selector: `textarea[name="${baseName}[tblText]"]`,
                 menubar: false,
                 plugins: 'lists link code font fontsize textcolor',
                 toolbar: 'undo redo | bold italic underline | bullist numlist | forecolor | code',

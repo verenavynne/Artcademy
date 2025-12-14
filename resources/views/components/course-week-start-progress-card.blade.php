@@ -35,12 +35,12 @@
             @endphp
             <div class="materi-lists d-flex flex-row">
                 <div class="materi-list-title d-flex flex-row">
-                    @if ($materi->articleName === null && $materi->vblName !== null)
+                    @if ($materi->tblName === null && $materi->vblName !== null)
                         <iconify-icon icon="mingcute:video-line"></iconify-icon>
                         <p>{{ $materi->vblName }}</p>
-                    @elseif ($materi->vblName === null && $materi->articleName !== null)
+                    @elseif ($materi->vblName === null && $materi->tblName !== null)
                         <iconify-icon icon="heroicons-outline:newspaper"></iconify-icon>
-                        <p>{{ $materi->articleName }}</p>
+                        <p>{{ $materi->tblName }}</p>
                     @endif
                 </div>
                 <p class="materi-list-duration">{{ $materi->duration }} menit</p>
