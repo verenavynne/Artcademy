@@ -18,6 +18,8 @@ class TutorMyCourseController extends Controller
                 ->whereHas('courseLecturers', function ($query) use ($lecturerId) {
                     $query->where('lecturerId', $lecturerId);
                 })
+                ->withAvg('testimonis', 'rating')
+                ->withCount('testimonis')
                 ->get();
 
         $diarsipkanCourses =  Course::with(['courseLecturers.lecturer.user'])
@@ -25,6 +27,8 @@ class TutorMyCourseController extends Controller
                 ->whereHas('courseLecturers', function ($query) use ($lecturerId) {
                     $query->where('lecturerId', $lecturerId);
                 })
+                ->withAvg('testimonis', 'rating')
+                ->withCount('testimonis')
                 ->get();
 
         return view('lecturer.kursus-saya.kursus-saya', compact('publikasiCourses', 'diarsipkanCourses','status'));

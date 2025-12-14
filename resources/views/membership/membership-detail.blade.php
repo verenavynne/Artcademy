@@ -37,13 +37,6 @@
         'Creative Studio' => 'var(--blue-color)',         
         'Masterpiece Pro' => 'var(--pink-color)', 
     };
-
-    $testimonis = [
-        ['name' => 'Vynne', 'rating' => 5, 'time' => '2 days ago', 'review' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Odio aperiam magni illo corrupti autem. Laudantium iste fugit reiciendis'],
-        ['name' => 'Vynne', 'rating' => 5, 'time' => '2 days ago', 'review' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Odio aperiam magni illo corrupti autem. Laudantium iste fugit reiciendis'],
-        ['name' => 'Vynne', 'rating' => 5, 'time' => '2 days ago', 'review' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Odio aperiam magni illo corrupti autem. Laudantium iste fugit reiciendis'],
-        ['name' => 'Vynne', 'rating' => 5, 'time' => '2 days ago', 'review' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Odio aperiam magni illo corrupti autem. Laudantium iste fugit reiciendis'],
-    ];
 @endphp
 
 <div class="container-fluid d-flex flex-column justify-content-center px-5" style="margin-bottom: 75px;">
@@ -120,26 +113,6 @@
 
                 </ul>
 
-            </div>
-
-            <hr class="divider">
-
-            <!-- Testimoni Section -->
-            <div id="testimoni-section" class="testimoni-section d-flex flex-column">
-                <p class="title text-start fw-bold">Testimoni</p>
-                <div class="testimoni-wrapper d-flex flex-column" style="gap: 28px">
-                    <div class="testimoni-recap d-flex flex-row gap-2">
-                        <img src="{{ asset('assets/icons/icon_star.svg') }}" alt="Star" height="22" width="22">
-                        <p style="margin: 0">4.6 / 5.0</p>
-                    </div>
-
-                    <div class="testimoni-card-container flex-wrap gap-4">
-                        @foreach ($testimonis as $testimoni)
-                            @include('components.testimoni-card',['testimoni'=>$testimoni])
-                        @endforeach
-                    </div>
-
-                </div>
             </div>
         </div>
 

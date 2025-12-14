@@ -31,6 +31,8 @@ class CourseController extends Controller
                         ->orWhere('courseLevel', 'like', "%$search%");
                     });
                 })
+                ->withAvg('testimonis', 'rating')
+                ->withCount('testimonis')
                 ->get();
     }
 
@@ -50,7 +52,9 @@ class CourseController extends Controller
         }
 
         $baseQuery = Course::query()
-            ->where('courseStatus', 'publikasi');
+            ->where('courseStatus', 'publikasi')
+            ->withAvg('testimonis', 'rating')
+            ->withCount('testimonis');
 
         if ($type) {
             $baseQuery->where('courseType', $type);
@@ -207,16 +211,22 @@ class CourseController extends Controller
         }
         
         $course = Course::with([
-            'courseLecturers.lecturer.user', 
-            'weeks.materials', 
-            'zooms' => function ($query) {
-                $this->filterUpcomingZoom($query);
-            }
-        ])->findOrFail($id);
+                'courseLecturers.lecturer.user', 
+                'weeks.materials', 
+                'testimonis.student.user',
+                'zooms' => function ($query) {
+                    $this->filterUpcomingZoom($query);
+                }
+            ])
+            ->withAvg('testimonis', 'rating')
+            ->withCount('testimonis')
+            ->findOrFail($id);
 
         $otherCourses = Course::where('id', '!=', $id)
         ->inRandomOrder()
         ->take(6)
+        ->withAvg('testimonis', 'rating')
+        ->withCount('testimonis')
         ->with(['courseLecturers.lecturer.user'])
         ->get();
 
@@ -247,6 +257,7 @@ class CourseController extends Controller
 
         $data = [
             'course' => $course,
+            'testimonis' => $course->testimonis,
             'otherCourses' => $otherCourses, 
             'isEnrolled' => $isEnrolled, 
             'weekProgress' => $weekProgress, 
