@@ -21,7 +21,7 @@
                 <img src="{{ asset('assets/logo.png') }}" alt="Artcademy Logo" class="mb-4" style="height: 30px;">
                 <h1 class="fw-bold mb-2 text-pink-gradient" style="font-size: 58px;">Langkah - Langkah Kecil,</h1>
                 <h1 class="fw-bold text-dark mb-3" style="font-size: 58px;">Awal Karya Besar</h1>
-                <p class="text-secondary mb-4 fs-5">
+                <p class="mb-4 fs-5" style="font-size: 18px; color: var(--dark-gray-color)";>
                     Saatnya eksplorasi beragam bidang seni yang kamu suka. Yuk, daftar dan wujudkan ide jadi karya nyata!
                 </p>
 
