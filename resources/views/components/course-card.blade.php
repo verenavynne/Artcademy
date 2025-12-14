@@ -95,16 +95,18 @@
             </div>
 
             <div class="d-flex flex-row align-items-center" style="gap:5px">
-                <p style="margin:0; font-size: var(--font-size-tiny); font-weight: 700; color: var(--dark-gray-color)">
-                    {{ $course->courseReview }}
-                </p>
+                @if (!is_null($course->testimonis_avg_rating))
+                    <p style="margin:0; font-size: var(--font-size-tiny); font-weight: 700; color: var(--dark-gray-color)">
+                        {{ round($course->testimonis_avg_rating, 1) }}
+                    </p>
+                @endif
                 <div class="d-flex flex-row" style="gap: 5px">
-                    @for ($i = 0; $i < 5; $i++)
+                    @for ($i = 0; $i < round($course->testimonis_avg_rating ?? 0); $i++)
                         <img src="{{ asset('assets/icons/icon_star.svg') }}" alt="Star" height="22" width="22">
                     @endfor
                 </div>
                 <p style="margin:0; font-size: var(--font-size-mini); color: var(--dark-gray-color)">
-                    (300+ reviews)
+                    ({{ $course->testimonis_count ?? 0 }} penilaian)
                 </p>
             </div>
 

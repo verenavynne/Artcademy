@@ -7,7 +7,7 @@
     }
 
     .testimoni-card{
-        max-width: 368px;
+        width: 368px;
         max-height: 245px;
         border-radius: 45px;
         background: white;

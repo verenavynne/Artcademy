@@ -36,13 +36,6 @@
 
     $jam = floor($course->courseDurationInMinutes / 60);
     $menit = $course->courseDurationInMinutes % 60;
-
-    $testimonis = [
-        ['name' => 'Vynne', 'rating' => 5, 'time' => '2 days ago', 'review' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Odio aperiam magni illo corrupti autem. Laudantium iste fugit reiciendis'],
-        ['name' => 'Vynne', 'rating' => 5, 'time' => '2 days ago', 'review' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Odio aperiam magni illo corrupti autem. Laudantium iste fugit reiciendis'],
-        ['name' => 'Vynne', 'rating' => 5, 'time' => '2 days ago', 'review' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Odio aperiam magni illo corrupti autem. Laudantium iste fugit reiciendis'],
-        ['name' => 'Vynne', 'rating' => 5, 'time' => '2 days ago', 'review' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Odio aperiam magni illo corrupti autem. Laudantium iste fugit reiciendis'],
-    ];
 @endphp
 
 <div class="container-fluid d-flex flex-column justify-content-center px-5 {{ Auth::user()->role === 'student' ? '' : 'w-75' }}" style="margin-bottom: 75px;">
@@ -92,13 +85,16 @@
                 </div>
 
                 <div class="d-flex flex-row align-items-center" style="gap:5px">
-                    <p style="margin:0; font-size: var(--font-size-tiny); font-weight: 700; color: var(--dark-gray-color) ">{{ $course->courseReview }}</p>
+                    @if (!is_null($course->testimonis_avg_rating))
+                        <p style="margin:0; font-size: var(--font-size-tiny); font-weight: 700; color: var(--dark-gray-color) ">{{ round($course->testimonis_avg_rating ?? 0, 1) }}</p>
+                    @endif
+                    
                     <div class="d-flex flex-row" style="gap: 5px">
-                        @for ($i = 0; $i < 5; $i++)
+                        @for ($i = 0; $i < round($course->testimonis_avg_rating ?? 0); $i++)
                             <img src="{{ asset('assets/icons/icon_star.svg') }}" alt="Star" height="22" width="22">
                         @endfor
                     </div>
-                    <p style="margin:0; font-size: var(--font-size-mini); color: var(--dark-gray-color)">(300+ reviews)</p>
+                    <p style="margin:0; font-size: var(--font-size-mini); color: var(--dark-gray-color)">({{ $course->testimonis_count ?? 0 }} penilaian)</p>
                 </div>
             </div>
 
@@ -213,7 +209,7 @@
                 <div class="testimoni-wrapper d-flex flex-column" style="gap: 28px">
                     <div class="testimoni-recap d-flex flex-row gap-2">
                         <img src="{{ asset('assets/icons/icon_star.svg') }}" alt="Star" height="22" width="22">
-                        <p style="margin: 0">4.6 / 5.0</p>
+                        <p style="margin: 0">{{ round($course->testimonis_avg_rating ?? 0, 1) }} / 5.0</p>
                     </div>
 
                     <div class="testimoni-card-container flex-wrap gap-4">

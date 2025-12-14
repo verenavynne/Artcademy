@@ -21,6 +21,7 @@ class DatabaseSeeder extends Seeder
         // ]);
 
          $this->call([
+            UserSeeder::class,
             CourseSeeder::class,
             CourseLecturerSeeder::class,
             CourseWeekSeeder::class,
@@ -35,8 +36,8 @@ class DatabaseSeeder extends Seeder
             LecturerProjectGradeandCommentSeeder::class,
             MembershipSeeder::class,
             ChatbotSeeder::class,
-            EventSeeder::class
-
+            EventSeeder::class,
+            TestimoniSeeder::class
         ]);
     }
 }

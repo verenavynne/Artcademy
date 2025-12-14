@@ -16,7 +16,7 @@
                 ? $tutor->profilePicture 
                 : ($tutor->profilePicture 
                     ? asset('storage/' . $tutor->profilePicture) 
-                    : asset('assets/home/linkedin-logo.png')) }}"                     
+                    : asset('assets/course/default_tutor_profile_zoom.png')) }}"                     
         alt="">
     </div>
 </div>
