@@ -27,7 +27,7 @@
         @endif
 
         <div class="d-flex flex-column" style="width: {{ $user->role == 'student' ? '75%' : '100%' }}">
-            <div class="info-profile-card d-flex flex-column" style="{{ $user->role !== 'student' ? 'max-height: 68vh; overflow-y: auto;' : '' }}">
+            <div class="info-profile-card d-flex flex-column" style="{{ $user->role !== 'student' ? 'max-height: 68vh;' : '' }}">
                 @if ($user->role === 'student')
                     <p class="title text-start fw-bold">Info Pribadi</p>
                     <hr class="divider">
@@ -139,7 +139,7 @@
                     </div>
                     @endif
 
-                    <div class="col d-flex justify-content-end mt-2 gap-2">
+                    <div class="col d-flex justify-content-end mt-2 gap-3">
                         <button type="button" class="btn py-2 px-4 pink-cream-btn" id="openPasswordPopupBtn">
                             <p class="text-pink-gradient" style="margin: 0">Ubah kata sandi</p>
                         </button>
@@ -196,7 +196,6 @@
         position: sticky;
         top: 94px;
         z-index: 1020;
-        padding-left: 8px;
     }
 
     .title{

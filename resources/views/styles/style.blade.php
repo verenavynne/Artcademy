@@ -328,7 +328,7 @@
     }
 
     .custom-input-2 {
-        padding: 10px 30px 10px 30px;
+        padding: 10px 20px 10px 20px;
         box-shadow: 0px 4px 10px var(--brown-shadow-color);
         font-size: 18px;
     }
