@@ -179,18 +179,21 @@
                 <p>Tidak ada tutor</p>
             @endif
             <div class="position-relative">
-                <button id="scrollLeft" class="carousel-btn left-btn">
-                    <img src="{{ asset('assets/icons/icon_pagination_before.svg') }}" alt="Left Arrow">
-                </button>
+                @if($tutors->count() > 4)
+                    <button id="scrollLeft" class="carousel-btn left-btn">
+                        <img src="{{ asset('assets/icons/icon_pagination_before.svg') }}" alt="Left Arrow">
+                    </button>
+                @endif
                 <div class="all-tutor d-flex overflow-auto pb-3" style="scroll-behavior: smooth; gap: 36px">
                     @foreach ($tutors as $tutor)
                         @include ('components.home-tutor-card')
                     @endforeach
                 </div>
-
-                <button id="scrollRight" class="carousel-btn right-btn">
-                    <img src="{{ asset('assets/icons/icon_pagination_next.svg') }}" alt="Right Arrow">
-                </button>
+                @if($tutors->count() > 4)
+                    <button id="scrollRight" class="carousel-btn right-btn">
+                        <img src="{{ asset('assets/icons/icon_pagination_next.svg') }}" alt="Right Arrow">
+                    </button>
+                @endif
 
             </div>
               
@@ -223,9 +226,11 @@
                 <p>Tidak ada event</p>
             @endif
             <div class="position-relative">
-                <button id="scrollLeftEvent" class="carousel-btn left-btn">
-                    <img src="{{ asset('assets/icons/icon_pagination_before.svg') }}" alt="Left Arrow">
-                </button>
+                @if($events->count() > 4)
+                    <button id="scrollLeftEvent" class="carousel-btn left-btn">
+                        <img src="{{ asset('assets/icons/icon_pagination_before.svg') }}" alt="Left Arrow">
+                    </button>
+                @endif
                 <div class="all-events-wrapper overflow-auto">
                     <div class="all-events d-flex gap-4">
                         @foreach ($events as $event)
@@ -233,10 +238,11 @@
                         @endforeach
                     </div>
                 </div>
-
-                <button id="scrollRightEvent" class="carousel-btn right-btn">
-                    <img src="{{ asset('assets/icons/icon_pagination_next.svg') }}" alt="Right Arrow">
-                </button>
+                @if($events->count() > 4)
+                    <button id="scrollRightEvent" class="carousel-btn right-btn">
+                        <img src="{{ asset('assets/icons/icon_pagination_next.svg') }}" alt="Right Arrow">
+                    </button>
+                @endif
 
             </div>
            
@@ -462,6 +468,8 @@
         overflow-x: auto;
         scroll-behavior: smooth;
         padding-bottom: 10px;
+        justify-content: center;
+        display: flex;
     }
 
     .all-testimoni-wrapper::-webkit-scrollbar,
@@ -504,7 +512,7 @@
 
     /* question */
     .contact-us-section {
-    position: relative; /* Penting: Membuat container ini menjadi referensi untuk position: absolute *//* Mencegah gambar yang keluar batas mengganggu layout */
+        position: relative; /* Penting: Membuat container ini menjadi referensi untuk position: absolute *//* Mencegah gambar yang keluar batas mengganggu layout */
     }
 
     .contact-us-image-wrapper {

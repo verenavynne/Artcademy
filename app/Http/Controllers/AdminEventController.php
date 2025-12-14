@@ -33,7 +33,9 @@ class AdminEventController extends Controller
                         ->paginate($perPage)
                         ->appends($request->query());
 
-        return view('admin.event.eventManagement', compact('events'));
+        $activeTab = $request->eventStatus ?? 'Semua';
+
+        return view('admin.event.eventManagement', compact('events','activeTab'));
     }
     
     // create new event

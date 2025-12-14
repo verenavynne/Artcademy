@@ -1,20 +1,21 @@
 <div class="related-courses-section d-flex flex-column">
     <p class="title text-start fw-bold">Lihat Juga Kelas Lainnya</p>
     <div class="position-relative">
-
-        <button id="scrollLeft" class="carousel-btn left-btn">
-            <img src="{{ asset('assets/icons/icon_pagination_before.svg') }}" alt="Left Arrow">
-        </button>
-
+        @if($otherCourses->count() > 2)
+            <button id="scrollLeft" class="carousel-btn left-btn">
+                <img src="{{ asset('assets/icons/icon_pagination_before.svg') }}" alt="Left Arrow">
+            </button>
+        @endif
         <div class="related-courses d-flex overflow-auto gap-4 pb-3" style="scroll-behavior: smooth;">
             @foreach ($otherCourses as $otherCourse)
                 @include('components.course-card', ['course' => $otherCourse])
             @endforeach
         </div>
-
-        <button id="scrollRight" class="carousel-btn right-btn">
-            <img src="{{ asset('assets/icons/icon_pagination_next.svg') }}" alt="Right Arrow">
-        </button>
+        @if($otherCourses->count() > 2)
+            <button id="scrollRight" class="carousel-btn right-btn">
+                <img src="{{ asset('assets/icons/icon_pagination_next.svg') }}" alt="Right Arrow">
+            </button>
+        @endif
 
     </div>
 </div>

@@ -53,7 +53,14 @@
 @endforeach
 
 <style>
-    
+    .modal-backdrop {
+        z-index: 2000  !important;
+    }
+
+    .modal.show {
+        z-index: 2100 !important;
+    }
+
     .form-control:disabled{
         background-color: #FAFAFA;
     }

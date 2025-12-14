@@ -1,10 +1,11 @@
 <div class="related-events-section d-flex flex-column">
     <p class="title text-start fw-bold">Ikuti Event lainnya</p>
     <div class="position-relative">
-
-        <button id="scrollLeft" class="carousel-btn left-btn">
-            <img src="{{ asset('assets/icons/icon_pagination_before.svg') }}" alt="Left Arrow">
-        </button>
+        @if($otherEvents->count() > 3)
+            <button id="scrollLeft" class="carousel-btn left-btn">
+                <img src="{{ asset('assets/icons/icon_pagination_before.svg') }}" alt="Left Arrow">
+            </button>
+        @endif
 
         <div class="related-events-wrapper overflow-auto">
             <div class="related-events d-flex gap-4">
@@ -13,10 +14,11 @@
                 @endforeach
             </div>
         </div>
-
-        <button id="scrollRight" class="carousel-btn right-btn">
-            <img src="{{ asset('assets/icons/icon_pagination_next.svg') }}" alt="Right Arrow">
-        </button>
+        @if($otherEvents->count() > 3)
+            <button id="scrollRight" class="carousel-btn right-btn">
+                <img src="{{ asset('assets/icons/icon_pagination_next.svg') }}" alt="Right Arrow">
+            </button>
+        @endif
 
     </div>
 </div>

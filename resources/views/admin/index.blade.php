@@ -13,32 +13,23 @@
         </a>
     </div>
 
-    <ul class="nav mb-4 mt-4 w-100 statusTabs">
-        <li class="nav-item flex-fill text-center">
-            <a class="nav-link fs-5 {{ request('courseStatus') == 'draft' ? 'active' : 'text-custom' }}" 
-            href="{{ route('admin.courses.index', ['courseStatus' => 'draft']) }}">
-            Draft
-            </a>
-        </li>
-        <li class="nav-item flex-fill text-center">
-            <a class="nav-link fs-5 {{ request('courseStatus') == 'publikasi' ? 'active' : 'text-custom' }}" 
-            href="{{ route('admin.courses.index', ['courseStatus' => 'publikasi']) }}">
-            Dipublikasikan
-            </a>
-        </li>
-        <li class="nav-item flex-fill text-center">
-            <a class="nav-link fs-5 {{ request('courseStatus') == 'arsip' ? 'active' : 'text-custom' }}" 
-            href="{{ route('admin.courses.index', ['courseStatus' => 'arsip']) }}">
-            Diarsipkan
-            </a>
-        </li>
-        <li class="nav-item flex-fill text-center">
-            <a class="nav-link fs-5 {{ !request('courseStatus') ? 'active' : 'text-custom' }}" 
-            href="{{ route('admin.courses.index') }}">
-            Semua
-            </a>
-        </li>
-    </ul>
+    <div class="status-tab-container mb-4 mt-4">
+        <div class="tab-header">
+            <button class="tab-link {{ $activeTab === 'draft' ? 'active' : '' }}" data-status="draft">
+                Draft
+            </button>
+            <button class="tab-link {{ $activeTab === 'publikasi' ? 'active' : '' }}" data-status="publikasi">
+                Dipublikasikan
+            </button>
+            <button class="tab-link {{ $activeTab === 'arsip' ? 'active' : '' }}" data-status="arsip">
+                Diarsipkan
+            </button>
+            <button class="tab-link {{ $activeTab === 'all' ? 'active' : '' }}" data-status="all">
+                Semua
+            </button>
+            <div class="tab-underline"></div>
+        </div>
+    </div>
 
     <div class="d-flex align-items-center justify-content-between mb-3">
         <!-- Dropdown Pagination -->
@@ -209,27 +200,6 @@
         text-overflow: ellipsis;
     }
 
-    .statusTabs {
-        border-bottom: 4px solid #F9EEDB;
-        position: relative;
-    }
-
-    .statusTabs .nav-link:hover,
-    .statusTabs .nav-link.active {
-        background: var(--pink-gradient-color);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        width: 100%;
-    }
-
-    .statusTabs .nav-link:hover::after,
-    .statusTabs .nav-link.active::after {
-        position: absolute;
-        bottom: -4px;
-        border-radius: 10px;
-        height: 4px;
-    }
-
     .pagination {
         margin-top: 0px !important; 
     }
@@ -237,5 +207,88 @@
     .text-custom {
         color: #D0C4AF !important;
     }
+
+    .status-tab-container {
+        width: 100%;
+        border-bottom: 4px solid #F9EEDB;
+    }
+
+    .tab-header {
+        position: relative; 
+        display: flex;
+    }
+
+    .tab-link {
+        flex: 1;
+        background: none;
+        border: none;
+        padding: 12px 0;
+        font-size: 18px;
+        color: #D0C4AF;
+        cursor: pointer;
+    }
+
+    .tab-link.active {
+        background: var(--pink-gradient-color);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        font-weight: 600;
+    }
+
+    .tab-underline {
+        position: absolute;
+        bottom: -4px;
+        height: 4px;
+        background: var(--pink-gradient-color);
+        border-radius: 10px;
+        transition: none; 
+        visibility: hidden;
+        left: 0;
+    }
+
+    .tab-underline.animate {
+        visibility: visible;
+        transition: transform 0.3s ease, width 0.3s ease;
+    }
 </style>
+
+<script>
+    const tabs = document.querySelectorAll(".tab-link");
+    const underline = document.querySelector(".tab-underline");
+
+    function moveUnderline(el) {
+        underline.style.width = el.offsetWidth + "px";
+        underline.style.transform = `translateX(${el.offsetLeft}px)`;
+    }
+
+    const active = document.querySelector(".tab-link.active");
+    if (active) moveUnderline(active);
+
+    requestAnimationFrame(() => {
+        underline.classList.add("animate");
+    });
+
+    tabs.forEach(tab => {
+        tab.addEventListener("click", () => {
+            tabs.forEach(t => t.classList.remove("active"));
+            tab.classList.add("active");
+            moveUnderline(tab);
+
+            const status = tab.dataset.status;
+            const url = new URL(window.location);
+
+            if (status === 'all') url.searchParams.delete('courseStatus');
+            else url.searchParams.set('courseStatus', status);
+
+            url.searchParams.delete('page');
+            window.location.href = url.toString();
+        });
+    });
+
+    new ResizeObserver(() => {
+        const current = document.querySelector(".tab-link.active");
+        if (current) moveUnderline(current);
+    }).observe(document.querySelector(".tab-header"));
+</script>
+
 @endsection

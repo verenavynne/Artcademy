@@ -17,7 +17,7 @@ class HomePageController extends Controller
     {
         $user = Auth::user();
 
-        // ambil 4 kursus yg statusnya publikasi dan belum dienroll jika sudah login
+        // ambil 7 kursus yg statusnya publikasi dan belum dienroll jika sudah login
         $courses = Course::with('courseLecturers.lecturer.user')
             ->where('courseStatus', 'publikasi')
             ->when($user, function($query) use ($user) {
@@ -29,7 +29,7 @@ class HomePageController extends Controller
             ->take(4)
             ->get();
 
-        // ambil 4 tutor yg statusnya active
+        // ambil 7 tutor yg statusnya active
         $tutors = User::with('lecturer')
             ->where('role', 'lecturer')
             ->where('userStatus', 'active')
@@ -40,7 +40,7 @@ class HomePageController extends Controller
         // ambil semua data membership
         $memberships = Membership::all();
 
-        // ambil 4 event
+        // ambil 7 event
         $events = Event::inRandomOrder()
             ->where(function ($q) {
                 $q->where('eventDate', '>', Carbon::today())

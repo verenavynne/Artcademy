@@ -1,6 +1,7 @@
 @extends('layouts.master-admin')
 
 @section('content')
+
 <div class="container ps-4 container-content">
     @if(session('success'))
         <div class="alert alert-success">{{ session('success') }}</div>
@@ -14,26 +15,20 @@
         </button>
     </div>
 
-    <ul class="nav mb-4 mt-4 w-100 statusTabs">
-        <li class="nav-item flex-fill text-center">
-            <a class="nav-link fs-5 {{ request('userStatus') == 'active' ? 'active' : 'text-custom' }}" 
-            href="{{ route('admin.user.list', ['userStatus' => 'active']) }}">
-            Aktif
-            </a>
-        </li>
-        <li class="nav-item flex-fill text-center">
-            <a class="nav-link fs-5 {{ request('userStatus') == 'inactive' ? 'active' : 'text-custom' }}" 
-            href="{{ route('admin.user.list', ['userStatus' => 'inactive']) }}">
-            Nonaktif
-            </a>
-        </li>
-        <li class="nav-item flex-fill text-center">
-            <a class="nav-link fs-5 {{ !request('userStatus') ? 'active' : 'text-custom' }}" 
-            href="{{ route('admin.user.list') }}">
-            Semua
-            </a>
-        </li>
-    </ul>
+    <div class="status-tab-container mb-4 mt-4">
+        <div class="tab-header">
+            <button class="tab-link {{ $activeTab === 'active' ? 'active' : '' }}" data-status="active">
+                Aktif
+            </button>
+            <button class="tab-link {{ $activeTab === 'inactive' ? 'active' : '' }}" data-status="inactive">
+                Nonaktif
+            </button>
+            <button class="tab-link {{ $activeTab === 'all' ? 'active' : '' }}" data-status="all">
+                Semua
+            </button>
+            <div class="tab-underline"></div>
+        </div>
+    </div>
 
     <div class="d-flex align-items-center justify-content-between mb-3">
         <!-- Dropdown Pagination -->
@@ -171,27 +166,6 @@
         text-overflow: ellipsis;
     }
 
-    .statusTabs {
-        border-bottom: 4px solid #F9EEDB;
-        position: relative;
-    }
-
-    .statusTabs .nav-link:hover,
-    .statusTabs .nav-link.active {
-        background: var(--pink-gradient-color);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        width: 100%;
-    }
-
-    .statusTabs .nav-link:hover::after,
-    .statusTabs .nav-link.active::after {
-        position: absolute;
-        bottom: -4px;
-        border-radius: 10px;
-        height: 4px;
-    }
-
     .pagination {
         margin-top: 0px !important; 
     }
@@ -199,36 +173,117 @@
     .text-custom {
         color: #D0C4AF !important;
     }
+
+    .status-tab-container {
+        width: 100%;
+        border-bottom: 4px solid #F9EEDB;
+    }
+
+    .tab-header {
+        position: relative; 
+        display: flex;
+    }
+
+    .tab-link {
+        flex: 1;
+        background: none;
+        border: none;
+        padding: 12px 0;
+        font-size: 18px;
+        color: #D0C4AF;
+        cursor: pointer;
+    }
+
+    .tab-link.active {
+        background: var(--pink-gradient-color);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        font-weight: 600;
+    }
+
+    .tab-underline {
+        position: absolute;
+        bottom: -4px;
+        height: 4px;
+        background: var(--pink-gradient-color);
+        border-radius: 10px;
+        transition: none; 
+        visibility: hidden;
+        left: 0;
+    }
+
+    .tab-underline.animate {
+        visibility: visible;
+        transition: transform 0.3s ease, width 0.3s ease;
+    }
+
 </style>
 
 <script>
-  const popupOverlay = document.getElementById("popupOverlay");
-  const openPopupBtn = document.getElementById("openPopupBtn");
-  const closePopupBtn = document.getElementById("closePopupBtn");
-  const formTambahUser = document.getElementById("formTambahUser");
+    const popupOverlay = document.getElementById("popupOverlay");
+    const openPopupBtn = document.getElementById("openPopupBtn");
+    const closePopupBtn = document.getElementById("closePopupBtn");
+    const formTambahUser = document.getElementById("formTambahUser");
 
-  openPopupBtn.addEventListener("click", () => {
-    popupOverlay.style.display = "flex";
-  });
+    openPopupBtn.addEventListener("click", () => {
+        popupOverlay.style.display = "flex";
+    });
 
-  closePopupBtn.addEventListener("click", () => {
-    formTambahUser.reset();
-    popupOverlay.style.display = "none";
-  });
-
-  window.addEventListener("click", (e) => {
-    if (e.target === popupOverlay) {
+    closePopupBtn.addEventListener("click", () => {
         formTambahUser.reset();
-        popupOverlay.style.display = "none"
-    };
-  });
+        popupOverlay.style.display = "none";
+    });
 
-  @if ($errors->any())
+    window.addEventListener("click", (e) => {
+        if (e.target === popupOverlay) {
+            formTambahUser.reset();
+            popupOverlay.style.display = "none"
+        };
+    });
+
+    @if ($errors->any())
         document.addEventListener("DOMContentLoaded", function () {
             const popupOverlay = document.getElementById("popupOverlay");
             popupOverlay.style.display = "flex";
         });
     @endif
+
+    const tabs = document.querySelectorAll(".tab-link");
+    const underline = document.querySelector(".tab-underline");
+
+    function moveUnderline(el) {
+        underline.style.width = el.offsetWidth + "px";
+        underline.style.transform = `translateX(${el.offsetLeft}px)`;
+    }
+
+    const active = document.querySelector(".tab-link.active");
+    if (active) moveUnderline(active);
+
+    requestAnimationFrame(() => {
+        underline.classList.add("animate");
+    });
+
+    tabs.forEach(tab => {
+        tab.addEventListener("click", () => {
+            tabs.forEach(t => t.classList.remove("active"));
+            tab.classList.add("active");
+            moveUnderline(tab);
+
+            const status = tab.dataset.status;
+            const url = new URL(window.location);
+
+            if (status === 'all') url.searchParams.delete('userStatus');
+            else url.searchParams.set('userStatus', status);
+
+            url.searchParams.delete('page');
+            window.location.href = url.toString();
+        });
+    });
+
+    new ResizeObserver(() => {
+        const current = document.querySelector(".tab-link.active");
+        if (current) moveUnderline(current);
+    }).observe(document.querySelector(".tab-header"));
 </script>
 
 @endsection

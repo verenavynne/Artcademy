@@ -37,7 +37,9 @@ class AdminCourseController extends Controller
                         ->orderBy('created_at', 'desc')
                         ->paginate($perPage)
                         ->appends($request->query());
-        return view('admin.index', compact('courses'));
+
+        $activeTab = $request->courseStatus ?? 'all';
+        return view('admin.index', compact('courses','activeTab'));
     }
 
     public function home(Request $request)

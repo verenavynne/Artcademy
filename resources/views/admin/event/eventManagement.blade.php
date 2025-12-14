@@ -13,20 +13,20 @@
         </a>
     </div>
 
-    <ul class="nav mb-4 mt-4 w-100 statusTabs">
-        @php
-            $statuses = ['Akan Datang', 'Selesai', 'Semua'];
-            $currentStatus = request('eventStatus') ?? 'Semua';
-        @endphp
-        @foreach($statuses as $status)
-        <li class="nav-item flex-fill text-center">
-            <a class="nav-link fs-5 {{ $currentStatus === $status ? 'active' : 'text-custom' }}" 
-            href="{{ route('admin.event.index', ['eventStatus' => $status]) }}">
-                {{ $status }}
-            </a>
-        </li>
-        @endforeach
-    </ul>
+    <div class="status-tab-container mb-4 mt-4">
+        <div class="tab-header">
+            <button class="tab-link {{ $activeTab === 'Akan Datang' ? 'active' : '' }}" data-status="Akan Datang">
+                Akan Datang
+            </button>
+            <button class="tab-link {{ $activeTab === 'Selesai' ? 'active' : '' }}" data-status="Selesai">
+                Selesai
+            </button>
+            <button class="tab-link {{ $activeTab === 'Semua' ? 'active' : '' }}" data-status="Semua">
+                Semua
+            </button>
+            <div class="tab-underline"></div>
+        </div>
+    </div>
 
     <div class="d-flex align-items-center justify-content-between mb-3">
         <form action="{{ route('admin.event.index') }}" method="GET" class="d-flex align-items-center">
@@ -170,27 +170,6 @@
         text-overflow: ellipsis;
     }
 
-    .statusTabs {
-        border-bottom: 4px solid #F9EEDB;
-        position: relative;
-    }
-
-    .statusTabs .nav-link:hover,
-    .statusTabs .nav-link.active {
-        background: var(--pink-gradient-color);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        width: 100%;
-    }
-
-    .statusTabs .nav-link:hover::after,
-    .statusTabs .nav-link.active::after {
-        position: absolute;
-        bottom: -4px;
-        border-radius: 10px;
-        height: 4px;
-    }
-
     .pagination {
         margin-top: 0px !important; 
     }
@@ -198,5 +177,87 @@
     .text-custom {
         color: #D0C4AF !important;
     }
+
+    .status-tab-container {
+        width: 100%;
+        border-bottom: 4px solid #F9EEDB;
+    }
+
+    .tab-header {
+        position: relative; 
+        display: flex;
+    }
+
+    .tab-link {
+        flex: 1;
+        background: none;
+        border: none;
+        padding: 12px 0;
+        font-size: 18px;
+        color: #D0C4AF;
+        cursor: pointer;
+    }
+
+    .tab-link.active {
+        background: var(--pink-gradient-color);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        font-weight: 600;
+    }
+
+    .tab-underline {
+        position: absolute;
+        bottom: -4px;
+        height: 4px;
+        background: var(--pink-gradient-color);
+        border-radius: 10px;
+        transition: none; 
+        visibility: hidden;
+        left: 0;
+    }
+
+    .tab-underline.animate {
+        visibility: visible;
+        transition: transform 0.3s ease, width 0.3s ease;
+    }
 </style>
+
+<script>
+    const tabs = document.querySelectorAll(".tab-link");
+    const underline = document.querySelector(".tab-underline");
+
+    function moveUnderline(el) {
+        underline.style.width = el.offsetWidth + "px";
+        underline.style.transform = `translateX(${el.offsetLeft}px)`;
+    }
+
+    const active = document.querySelector(".tab-link.active");
+    if (active) moveUnderline(active);
+
+    requestAnimationFrame(() => {
+        underline.classList.add("animate");
+    });
+
+    tabs.forEach(tab => {
+        tab.addEventListener("click", () => {
+            tabs.forEach(t => t.classList.remove("active"));
+            tab.classList.add("active");
+            moveUnderline(tab);
+
+            const status = tab.dataset.status;
+            const url = new URL(window.location);
+
+            if (status === 'all') url.searchParams.delete('eventStatus');
+            else url.searchParams.set('eventStatus', status);
+
+            url.searchParams.delete('page');
+            window.location.href = url.toString();
+        });
+    });
+
+    new ResizeObserver(() => {
+        const current = document.querySelector(".tab-link.active");
+        if (current) moveUnderline(current);
+    }).observe(document.querySelector(".tab-header"));
+</script>
 @endsection

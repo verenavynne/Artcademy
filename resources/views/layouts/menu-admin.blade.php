@@ -103,7 +103,15 @@
   box-shadow: 0 4px 8px rgba(67, 39, 0, 0.20);
   border-radius: 20px;
   overflow: visible; /* biar burger tetap kelihatan */
-  transition: width 0.4s ease, padding 0.4s ease, border-radius 0.4s ease, box-shadow 0.4s ease;
+  
+}
+
+.sidebar-admin.with-transition {
+  transition:
+    width 0.4s ease,
+    padding 0.4s ease,
+    border-radius 0.4s ease,
+    box-shadow 0.4s ease;
 }
 
 /* Tombol Burger */
@@ -112,7 +120,7 @@
   top: 20px;
   right: 20px;
   z-index: 10;
-  transition: all 0.3s ease-in-out;
+  
 }
 
 /* Sidebar Close Mode */
@@ -230,6 +238,10 @@ document.addEventListener("DOMContentLoaded", function() {
   if(sidebarState === "true") {
     sidebarAdmin.classList.add("closed");
   }
+
+  requestAnimationFrame(() => {
+    sidebarAdmin.classList.add("with-transition");
+  });
 
   burgerMenu.addEventListener("click", () => {
     sidebarAdmin.classList.toggle("closed");

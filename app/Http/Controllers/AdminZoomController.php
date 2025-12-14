@@ -40,7 +40,9 @@ class AdminZoomController extends Controller
                         ->paginate($perPage)
                         ->appends($request->query());
 
-        return view('admin.zoom.zoomManagement', compact('zooms'));
+        $activeTab = $request->zoomStatus ?? 'Semua';
+
+        return view('admin.zoom.zoomManagement', compact('zooms','activeTab'));
     }
 
     // create new zoom

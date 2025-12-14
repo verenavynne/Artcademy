@@ -32,7 +32,9 @@ class AdminUserController extends Controller
         $users = $query->orderBy('created_at', 'desc')
                         ->paginate($perPage)
                         ->appends($request->query());
-        return view('admin.user.userList', compact('users'));
+
+        $activeTab = $request->userStatus ?? 'all';
+        return view('admin.user.userList', compact('users','activeTab'));
     }
 
     public function userStore(Request $request)
