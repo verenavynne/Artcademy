@@ -75,7 +75,8 @@ class AdminCourseController extends Controller
 
     public function tempStore(Request $request)
     {
-        $validated = $request->validate([
+        $validated = $request->validate(
+        [
             'courseName' => 'required|string|max:255',
             'courseSummary' => 'required|string|max:255',
             'courseText' => 'required',
@@ -84,7 +85,34 @@ class AdminCourseController extends Controller
             'coursePaymentType' => 'required|in:gratis,berbayar',
             'lecturers' => 'required|array|size:3',
             'lecturers.*' => 'exists:lecturers,id',
-        ]);
+        ],
+        [
+            'courseName.required' => 'Nama course wajib diisi.',
+            'courseName.string' => 'Nama course harus berupa teks.',
+            'courseName.max' => 'Nama course maksimal 255 karakter.',
+
+            'courseSummary.required' => 'Ringkasan course wajib diisi.',
+            'courseSummary.string' => 'Ringkasan course harus berupa teks.',
+            'courseSummary.max' => 'Ringkasan course maksimal 255 karakter.',
+
+            'courseText.required' => 'Deskripsi course wajib diisi.',
+
+            'courseLevel.required' => 'Level course wajib dipilih.',
+            'courseLevel.in' => 'Level course harus berupa dasar, menengah, atau lanjutan.',
+
+            'courseType.required' => 'Tipe course wajib dipilih.',
+            'courseType.in' => 'Tipe course yang dipilih tidak valid.',
+
+            'coursePaymentType.required' => 'Tipe pembayaran course wajib dipilih.',
+            'coursePaymentType.in' => 'Tipe pembayaran harus gratis atau berbayar.',
+
+            'lecturers.required' => 'Pengajar wajib dipilih.',
+            'lecturers.array' => 'Data pengajar tidak valid.',
+            'lecturers.size' => 'Pengajar harus berjumlah tepat 3 orang.',
+
+            'lecturers.*.exists' => 'Pengajar yang dipilih tidak ditemukan.',
+        ]
+    );
 
         session(['temp_course' => $validated]);
 
@@ -94,7 +122,8 @@ class AdminCourseController extends Controller
 
     public function draftCourseInformation(Request $request, $redirect = true)
     {
-        $validated = $request->validate([
+        $validated = $request->validate(
+        [
             'courseName' => 'required|string|max:255',
             'courseSummary' => 'required|string|max:255',
             'courseText' => 'required',
@@ -103,7 +132,34 @@ class AdminCourseController extends Controller
             'coursePaymentType' => 'required|in:gratis,berbayar',
             'lecturers' => 'required|array|size:3',
             'lecturers.*' => 'exists:lecturers,id',
-        ]);
+        ],
+        [
+            'courseName.required' => 'Nama kursus wajib diisi.',
+            'courseName.string' => 'Nama kursus harus berupa teks.',
+            'courseName.max' => 'Nama kursus maksimal 255 karakter.',
+
+            'courseSummary.required' => 'Ringkasan kursus wajib diisi.',
+            'courseSummary.string' => 'Ringkasan kursus harus berupa teks.',
+            'courseSummary.max' => 'Ringkasan kursus maksimal 255 karakter.',
+
+            'courseText.required' => 'Deskripsi kursus wajib diisi.',
+
+            'courseLevel.required' => 'Level kursus wajib dipilih.',
+            'courseLevel.in' => 'Level kursus harus berupa dasar, menengah, atau lanjutan.',
+
+            'courseType.required' => 'Kategori kursus wajib dipilih.',
+            'courseType.in' => 'Kategori kursus yang dipilih tidak valid.',
+
+            'coursePaymentType.required' => 'Tipe pembayaran kursus wajib dipilih.',
+            'coursePaymentType.in' => 'Tipe pembayaran harus gratis atau berbayar.',
+
+            'lecturers.required' => 'Pengajar wajib dipilih.',
+            'lecturers.array' => 'Data pengajar tidak valid.',
+            'lecturers.size' => 'Pengajar harus berjumlah tepat 3 orang.',
+
+            'lecturers.*.exists' => 'Pengajar yang dipilih tidak ditemukan.',
+        ]
+    );
 
         $course = Course::create([
             'courseName' => $validated['courseName'],
@@ -173,6 +229,34 @@ class AdminCourseController extends Controller
             'weeks.*.materials.*.vblDesc' => 'nullable|string',
             'weeks.*.materials.*.vblUrl' => 'nullable|string|max:255',
             'weeks.*.materials.*.tools' => 'nullable',
+        ],
+        [
+            'weeks.array' => 'Data minggu kursus tidak valid.',
+
+            'weeks.*.weekName.required' => 'Judul wajib diisi.',
+            'weeks.*.weekName.string' => 'Judul harus berupa teks.',
+            'weeks.*.weekName.max' => 'Judul maksimal 255 karakter.',
+
+            'weeks.*.tutorId.required' => 'Tutor untuk minggu ini wajib dipilih.',
+            'weeks.*.tutorId.exists' => 'Tutor yang dipilih tidak ditemukan.',
+
+            'weeks.*.materials.array' => 'Data materi pada minggu ini tidak valid.',
+
+            'weeks.*.materials.*.duration.required' => 'Durasi materi wajib diisi.',
+            'weeks.*.materials.*.duration.integer' => 'Durasi materi harus berupa angka.',
+
+            'weeks.*.materials.*.articleName.string' => 'Judul artikel harus berupa teks.',
+            'weeks.*.materials.*.articleName.max' => 'Judul artikel maksimal 255 karakter.',
+
+            'weeks.*.materials.*.articleText.string' => 'Isi artikel harus berupa teks.',
+
+            'weeks.*.materials.*.vblName.string' => 'Judul video harus berupa teks.',
+            'weeks.*.materials.*.vblName.max' => 'Judul video maksimal 255 karakter.',
+
+            'weeks.*.materials.*.vblDesc.string' => 'Deskripsi video harus berupa teks.',
+
+            'weeks.*.materials.*.vblUrl.string' => 'URL video harus berupa teks.',
+            'weeks.*.materials.*.vblUrl.max' => 'URL video maksimal 255 karakter.',
         ]);
 
         $course->weeks()->delete();
@@ -227,19 +311,49 @@ class AdminCourseController extends Controller
 
     public function tempSyllabus(Request $request)
     {
-        $validated = $request->validate([
-            'weeks' => 'array',
-            'weeks.*.weekName' => 'required|string|max:255',
-            'weeks.*.tutorId' => 'required|exists:lecturers,id',
-            'weeks.*.materials' => 'array',
-            'weeks.*.materials.*.duration' => 'required|integer',
-            'weeks.*.materials.*.articleName' => 'nullable|string|max:255',
-            'weeks.*.materials.*.articleText' => 'nullable|string',
-            'weeks.*.materials.*.vblName' => 'nullable|string|max:255',
-            'weeks.*.materials.*.vblDesc' => 'nullable|string',
-            'weeks.*.materials.*.vblUrl' => 'nullable|string|max:255',
-            'weeks.*.materials.*.tools' => 'nullable'
-        ]);
+        $validated = $request->validate(
+            [
+                'weeks' => 'array',
+                'weeks.*.weekName' => 'required|string|max:255',
+                'weeks.*.tutorId' => 'required|exists:lecturers,id',
+                'weeks.*.materials' => 'array',
+                'weeks.*.materials.*.duration' => 'required|integer',
+                'weeks.*.materials.*.articleName' => 'nullable|string|max:255',
+                'weeks.*.materials.*.articleText' => 'nullable|string',
+                'weeks.*.materials.*.vblName' => 'nullable|string|max:255',
+                'weeks.*.materials.*.vblDesc' => 'nullable|string',
+                'weeks.*.materials.*.vblUrl' => 'nullable|string|max:255',
+                'weeks.*.materials.*.tools' => 'nullable'
+            ],
+            [
+                'weeks.array' => 'Data minggu kursus tidak valid.',
+
+                'weeks.*.weekName.required' => 'Judul wajib diisi.',
+                'weeks.*.weekName.string' => 'Judul harus berupa teks.',
+                'weeks.*.weekName.max' => 'Judul maksimal 255 karakter.',
+
+                'weeks.*.tutorId.required' => 'Tutor untuk minggu ini wajib dipilih.',
+                'weeks.*.tutorId.exists' => 'Tutor yang dipilih tidak ditemukan.',
+
+                'weeks.*.materials.array' => 'Data materi pada minggu ini tidak valid.',
+
+                'weeks.*.materials.*.duration.required' => 'Durasi materi wajib diisi.',
+                'weeks.*.materials.*.duration.integer' => 'Durasi materi harus berupa angka.',
+
+                'weeks.*.materials.*.articleName.string' => 'Judul artikel harus berupa teks.',
+                'weeks.*.materials.*.articleName.max' => 'Judul artikel maksimal 255 karakter.',
+
+                'weeks.*.materials.*.articleText.string' => 'Isi artikel harus berupa teks.',
+
+                'weeks.*.materials.*.vblName.string' => 'Judul video harus berupa teks.',
+                'weeks.*.materials.*.vblName.max' => 'Judul video maksimal 255 karakter.',
+
+                'weeks.*.materials.*.vblDesc.string' => 'Deskripsi video harus berupa teks.',
+
+                'weeks.*.materials.*.vblUrl.string' => 'URL video harus berupa teks.',
+                'weeks.*.materials.*.vblUrl.max' => 'URL video maksimal 255 karakter.',
+            ]
+        );
 
         session(['temp_syllabus' => $validated]);
 
@@ -258,16 +372,48 @@ class AdminCourseController extends Controller
         $course = $this->draftSyllabus($request_syllabus, $course, false);
 
 
-        $validated = $request->validate([
-            'projectName' => 'required|string|max:255',
-            'projectConcept' => 'required|string',
-            'projectRequirement' => 'nullable|string',
-            'projectTools' => 'required|array|min:1',
-            'projectTools.*' => 'exists:tools,id',
-            'criteriaCreativity' => 'required|integer|min:0|max:100',
-            'criteriaReadability' => 'required|integer|min:0|max:100',
-            'criteriaTheme' => 'required|integer|min:0|max:100',
-        ]);
+        $validated = $request->validate(
+            [
+                'projectName' => 'required|string|max:255',
+                'projectConcept' => 'required|string',
+                'projectRequirement' => 'nullable|string',
+                'projectTools' => 'required|array|min:1',
+                'projectTools.*' => 'exists:tools,id',
+                'criteriaCreativity' => 'required|integer|min:0|max:100',
+                'criteriaReadability' => 'required|integer|min:0|max:100',
+                'criteriaTheme' => 'required|integer|min:0|max:100',
+            ],
+            [
+                'projectName.required' => 'Judul projek wajib diisi.',
+                'projectName.string' => 'Judul projek harus berupa teks.',
+                'projectName.max' => 'Judul projek maksimal 255 karakter.',
+
+                'projectConcept.required' => 'Konsep projek wajib diisi.',
+                'projectConcept.string' => 'Konsep projek harus berupa teks.',
+
+                'projectRequirement.string' => 'Persyaratan projek harus berupa teks.',
+
+                'projectTools.required' => 'Minimal satu tools wajib dipilih.',
+                'projectTools.array' => 'Data tools tidak valid.',
+                'projectTools.min' => 'Minimal satu tools wajib dipilih.',
+                'projectTools.*.exists' => 'Tools yang dipilih tidak ditemukan.',
+
+                'criteriaCreativity.required' => 'Nilai kreativitas wajib diisi.',
+                'criteriaCreativity.integer' => 'Nilai kreativitas harus berupa angka.',
+                'criteriaCreativity.min' => 'Nilai kreativitas minimal 0.',
+                'criteriaCreativity.max' => 'Nilai kreativitas maksimal 100.',
+
+                'criteriaReadability.required' => 'Nilai keterbacaan wajib diisi.',
+                'criteriaReadability.integer' => 'Nilai keterbacaan harus berupa angka.',
+                'criteriaReadability.min' => 'Nilai keterbacaan minimal 0.',
+                'criteriaReadability.max' => 'Nilai keterbacaan maksimal 100.',
+
+                'criteriaTheme.required' => 'Nilai kesesuaian tema wajib diisi.',
+                'criteriaTheme.integer' => 'Nilai kesesuaian tema harus berupa angka.',
+                'criteriaTheme.min' => 'Nilai kesesuaian tema minimal 0.',
+                'criteriaTheme.max' => 'Nilai kesesuaian tema maksimal 100.',
+            ]
+        );
 
         $totalCriteria = $validated['criteriaCreativity'] + $validated['criteriaReadability'] + $validated['criteriaTheme'];
         if ($totalCriteria !== 100) {
@@ -336,16 +482,44 @@ class AdminCourseController extends Controller
     {
         $course = Course::findOrFail($courseId);
 
-        $validated = $request->validate([
-            'courseName'        => 'required|string|max:255',
-            'courseSummary'     => 'required|string|max:255',
-            'courseText'        => 'required',
-            'courseLevel'       => 'required|in:dasar,menengah,lanjutan',
-            'courseType'        => 'required|in:Seni Tari,Seni Musik,Seni Fotografi,Seni Lukis & Digital Art',
-            'coursePaymentType' => 'required|in:gratis,berbayar',
-            'lecturers'         => 'required|array|size:3',
-            'lecturers.*'       => 'exists:lecturers,id',
-        ]);
+        $validated = $request->validate(
+            [
+                'courseName'        => 'required|string|max:255',
+                'courseSummary'     => 'required|string|max:255',
+                'courseText'        => 'required',
+                'courseLevel'       => 'required|in:dasar,menengah,lanjutan',
+                'courseType'        => 'required|in:Seni Tari,Seni Musik,Seni Fotografi,Seni Lukis & Digital Art',
+                'coursePaymentType' => 'required|in:gratis,berbayar',
+                'lecturers'         => 'required|array|size:3',
+                'lecturers.*'       => 'exists:lecturers,id',
+            ],
+            [
+                'courseName.required' => 'Nama kursus wajib diisi.',
+                'courseName.string' => 'Nama kursus harus berupa teks.',
+                'courseName.max' => 'Nama kursus maksimal 255 karakter.',
+
+                'courseSummary.required' => 'Ringkasan kursus wajib diisi.',
+                'courseSummary.string' => 'Ringkasan kursus harus berupa teks.',
+                'courseSummary.max' => 'Ringkasan kursus maksimal 255 karakter.',
+
+                'courseText.required' => 'Deskripsi kursus wajib diisi.',
+
+                'courseLevel.required' => 'Level kursus wajib dipilih.',
+                'courseLevel.in' => 'Level kursus harus berupa dasar, menengah, atau lanjutan.',
+
+                'courseType.required' => 'Kategori kursus wajib dipilih.',
+                'courseType.in' => 'Kategori kursus yang dipilih tidak valid.',
+
+                'coursePaymentType.required' => 'Tipe pembayaran kursus wajib dipilih.',
+                'coursePaymentType.in' => 'Tipe pembayaran harus gratis atau berbayar.',
+
+                'lecturers.required' => 'Pengajar wajib dipilih.',
+                'lecturers.array' => 'Data pengajar tidak valid.',
+                'lecturers.size' => 'Pengajar harus berjumlah tepat 3 orang.',
+
+                'lecturers.*.exists' => 'Pengajar yang dipilih tidak ditemukan.',
+            ]
+        );
 
         session(['temp_update_course' => $validated]);
 
@@ -356,16 +530,44 @@ class AdminCourseController extends Controller
     {
         $course = Course::findOrFail($courseId);
 
-        $validated = $request->validate([
-            'courseName' => 'required|string|max:255',
-            'courseSummary' => 'required|string|max:255',
-            'courseText' => 'required',
-            'courseLevel' => 'required|in:dasar,menengah,lanjutan',
-            'courseType' => 'required|in:Seni Tari,Seni Musik,Seni Fotografi,Seni Lukis & Digital Art',
-            'coursePaymentType' => 'required|in:gratis,berbayar',
-            'lecturers' => 'required|array|size:3',
-            'lecturers.*' => 'exists:lecturers,id',
-        ]);
+        $validated = $request->validate(
+            [
+                'courseName' => 'required|string|max:255',
+                'courseSummary' => 'required|string|max:255',
+                'courseText' => 'required',
+                'courseLevel' => 'required|in:dasar,menengah,lanjutan',
+                'courseType' => 'required|in:Seni Tari,Seni Musik,Seni Fotografi,Seni Lukis & Digital Art',
+                'coursePaymentType' => 'required|in:gratis,berbayar',
+                'lecturers' => 'required|array|size:3',
+                'lecturers.*' => 'exists:lecturers,id',
+            ],
+            [
+                'courseName.required' => 'Nama kursus wajib diisi.',
+                'courseName.string' => 'Nama kursus harus berupa teks.',
+                'courseName.max' => 'Nama kursus maksimal 255 karakter.',
+
+                'courseSummary.required' => 'Ringkasan kursus wajib diisi.',
+                'courseSummary.string' => 'Ringkasan kursus harus berupa teks.',
+                'courseSummary.max' => 'Ringkasan kursus maksimal 255 karakter.',
+
+                'courseText.required' => 'Deskripsi kursus wajib diisi.',
+
+                'courseLevel.required' => 'Level kursus wajib dipilih.',
+                'courseLevel.in' => 'Level kursus harus berupa dasar, menengah, atau lanjutan.',
+
+                'courseType.required' => 'Kategori kursus wajib dipilih.',
+                'courseType.in' => 'Kategori kursus yang dipilih tidak valid.',
+
+                'coursePaymentType.required' => 'Tipe pembayaran kursus wajib dipilih.',
+                'coursePaymentType.in' => 'Tipe pembayaran harus gratis atau berbayar.',
+
+                'lecturers.required' => 'Pengajar wajib dipilih.',
+                'lecturers.array' => 'Data pengajar tidak valid.',
+                'lecturers.size' => 'Pengajar harus berjumlah tepat 3 orang.',
+
+                'lecturers.*.exists' => 'Pengajar yang dipilih tidak ditemukan.',
+            ]
+        );
 
         $course->update([
             'courseName' => $validated['courseName'],
@@ -447,19 +649,49 @@ class AdminCourseController extends Controller
             ]);
         }
 
-        $validated = $request->validate([
-            'weeks' => 'array',
-            'weeks.*.weekName' => 'required|string|max:255',
-            'weeks.*.tutorId' => 'required|exists:lecturers,id',
-            'weeks.*.materials' => 'array',
-            'weeks.*.materials.*.duration' => 'required|integer',
-            'weeks.*.materials.*.articleName' => 'nullable|string|max:255',
-            'weeks.*.materials.*.articleText' => 'nullable|string',
-            'weeks.*.materials.*.vblName' => 'nullable|string|max:255',
-            'weeks.*.materials.*.vblDesc' => 'nullable|string',
-            'weeks.*.materials.*.vblUrl' => 'nullable|string|max:255',
-            'weeks.*.materials.*.tools' => 'nullable'
-        ]);
+        $validated = $request->validate(
+            [
+                'weeks' => 'array',
+                'weeks.*.weekName' => 'required|string|max:255',
+                'weeks.*.tutorId' => 'required|exists:lecturers,id',
+                'weeks.*.materials' => 'array',
+                'weeks.*.materials.*.duration' => 'required|integer',
+                'weeks.*.materials.*.articleName' => 'nullable|string|max:255',
+                'weeks.*.materials.*.articleText' => 'nullable|string',
+                'weeks.*.materials.*.vblName' => 'nullable|string|max:255',
+                'weeks.*.materials.*.vblDesc' => 'nullable|string',
+                'weeks.*.materials.*.vblUrl' => 'nullable|string|max:255',
+                'weeks.*.materials.*.tools' => 'nullable'
+            ],
+            [
+                'weeks.array' => 'Data minggu kursus tidak valid.',
+
+                'weeks.*.weekName.required' => 'Judul wajib diisi.',
+                'weeks.*.weekName.string' => 'Judul harus berupa teks.',
+                'weeks.*.weekName.max' => 'Judul maksimal 255 karakter.',
+
+                'weeks.*.tutorId.required' => 'Tutor untuk minggu ini wajib dipilih.',
+                'weeks.*.tutorId.exists' => 'Tutor yang dipilih tidak ditemukan.',
+
+                'weeks.*.materials.array' => 'Data materi pada minggu ini tidak valid.',
+
+                'weeks.*.materials.*.duration.required' => 'Durasi materi wajib diisi.',
+                'weeks.*.materials.*.duration.integer' => 'Durasi materi harus berupa angka.',
+
+                'weeks.*.materials.*.articleName.string' => 'Judul artikel harus berupa teks.',
+                'weeks.*.materials.*.articleName.max' => 'Judul artikel maksimal 255 karakter.',
+
+                'weeks.*.materials.*.articleText.string' => 'Isi artikel harus berupa teks.',
+
+                'weeks.*.materials.*.vblName.string' => 'Judul video harus berupa teks.',
+                'weeks.*.materials.*.vblName.max' => 'Judul video maksimal 255 karakter.',
+
+                'weeks.*.materials.*.vblDesc.string' => 'Deskripsi video harus berupa teks.',
+
+                'weeks.*.materials.*.vblUrl.string' => 'URL video harus berupa teks.',
+                'weeks.*.materials.*.vblUrl.max' => 'URL video maksimal 255 karakter.',
+            ]
+        );
 
         $course->weeks()->each(function($week){
             $week->materials()->delete();
@@ -517,19 +749,49 @@ class AdminCourseController extends Controller
     {
         $course = Course::findOrFail($courseId);
 
-        $validated = $request->validate([
-            'weeks' => 'array',
-            'weeks.*.weekName' => 'required|string|max:255',
-            'weeks.*.tutorId' => 'required|exists:lecturers,id',
-            'weeks.*.materials' => 'array',
-            'weeks.*.materials.*.duration' => 'required|integer',
-            'weeks.*.materials.*.articleName' => 'nullable|string|max:255',
-            'weeks.*.materials.*.articleText' => 'nullable|string',
-            'weeks.*.materials.*.vblName' => 'nullable|string|max:255',
-            'weeks.*.materials.*.vblDesc' => 'nullable|string',
-            'weeks.*.materials.*.vblUrl' => 'nullable|string|max:255',
-            'weeks.*.materials.*.tools' => 'nullable'
-        ]);
+        $validated = $request->validate(
+            [
+                'weeks' => 'array',
+                'weeks.*.weekName' => 'required|string|max:255',
+                'weeks.*.tutorId' => 'required|exists:lecturers,id',
+                'weeks.*.materials' => 'array',
+                'weeks.*.materials.*.duration' => 'required|integer',
+                'weeks.*.materials.*.articleName' => 'nullable|string|max:255',
+                'weeks.*.materials.*.articleText' => 'nullable|string',
+                'weeks.*.materials.*.vblName' => 'nullable|string|max:255',
+                'weeks.*.materials.*.vblDesc' => 'nullable|string',
+                'weeks.*.materials.*.vblUrl' => 'nullable|string|max:255',
+                'weeks.*.materials.*.tools' => 'nullable'
+            ],
+            [
+                'weeks.array' => 'Data minggu kursus tidak valid.',
+
+                'weeks.*.weekName.required' => 'Judul wajib diisi.',
+                'weeks.*.weekName.string' => 'Judul harus berupa teks.',
+                'weeks.*.weekName.max' => 'Judul maksimal 255 karakter.',
+
+                'weeks.*.tutorId.required' => 'Tutor untuk minggu ini wajib dipilih.',
+                'weeks.*.tutorId.exists' => 'Tutor yang dipilih tidak ditemukan.',
+
+                'weeks.*.materials.array' => 'Data materi pada minggu ini tidak valid.',
+
+                'weeks.*.materials.*.duration.required' => 'Durasi materi wajib diisi.',
+                'weeks.*.materials.*.duration.integer' => 'Durasi materi harus berupa angka.',
+
+                'weeks.*.materials.*.articleName.string' => 'Judul artikel harus berupa teks.',
+                'weeks.*.materials.*.articleName.max' => 'Judul artikel maksimal 255 karakter.',
+
+                'weeks.*.materials.*.articleText.string' => 'Isi artikel harus berupa teks.',
+
+                'weeks.*.materials.*.vblName.string' => 'Judul video harus berupa teks.',
+                'weeks.*.materials.*.vblName.max' => 'Judul video maksimal 255 karakter.',
+
+                'weeks.*.materials.*.vblDesc.string' => 'Deskripsi video harus berupa teks.',
+
+                'weeks.*.materials.*.vblUrl.string' => 'URL video harus berupa teks.',
+                'weeks.*.materials.*.vblUrl.max' => 'URL video maksimal 255 karakter.',
+            ]
+        );
 
         session(['temp_update_syllabus' => $validated]);
 
@@ -575,16 +837,48 @@ class AdminCourseController extends Controller
         $course = $this->updateDraftSyllabus($request_syllabus, $courseId, false);
         $project = $course->project;
 
-        $validated = $request->validate([
-            'projectName' => 'required|string|max:255',
-            'projectConcept' => 'required|string',
-            'projectRequirement' => 'nullable|string',
-            'projectTools' => 'required|array|min:1',
-            'projectTools.*' => 'exists:tools,id',
-            'criteriaCreativity' => 'required|integer|min:0|max:100',
-            'criteriaReadability' => 'required|integer|min:0|max:100',
-            'criteriaTheme' => 'required|integer|min:0|max:100',
-        ]);
+        $validated = $request->validate(
+            [
+                'projectName' => 'required|string|max:255',
+                'projectConcept' => 'required|string',
+                'projectRequirement' => 'nullable|string',
+                'projectTools' => 'required|array|min:1',
+                'projectTools.*' => 'exists:tools,id',
+                'criteriaCreativity' => 'required|integer|min:0|max:100',
+                'criteriaReadability' => 'required|integer|min:0|max:100',
+                'criteriaTheme' => 'required|integer|min:0|max:100',
+            ],
+            [
+                'projectName.required' => 'Nama projek wajib diisi.',
+                'projectName.string' => 'Nama projek harus berupa teks.',
+                'projectName.max' => 'Nama projek maksimal 255 karakter.',
+
+                'projectConcept.required' => 'Konsep projek wajib diisi.',
+                'projectConcept.string' => 'Konsep projek harus berupa teks.',
+
+                'projectRequirement.string' => 'Persyaratan projek harus berupa teks.',
+
+                'projectTools.required' => 'Minimal satu tools wajib dipilih.',
+                'projectTools.array' => 'Data tools tidak valid.',
+                'projectTools.min' => 'Minimal satu tools wajib dipilih.',
+                'projectTools.*.exists' => 'Tools yang dipilih tidak ditemukan.',
+
+                'criteriaCreativity.required' => 'Nilai kreativitas wajib diisi.',
+                'criteriaCreativity.integer' => 'Nilai kreativitas harus berupa angka.',
+                'criteriaCreativity.min' => 'Nilai kreativitas minimal 0.',
+                'criteriaCreativity.max' => 'Nilai kreativitas maksimal 100.',
+
+                'criteriaReadability.required' => 'Nilai keterbacaan wajib diisi.',
+                'criteriaReadability.integer' => 'Nilai keterbacaan harus berupa angka.',
+                'criteriaReadability.min' => 'Nilai keterbacaan minimal 0.',
+                'criteriaReadability.max' => 'Nilai keterbacaan maksimal 100.',
+
+                'criteriaTheme.required' => 'Nilai kesesuaian tema wajib diisi.',
+                'criteriaTheme.integer' => 'Nilai kesesuaian tema harus berupa angka.',
+                'criteriaTheme.min' => 'Nilai kesesuaian tema minimal 0.',
+                'criteriaTheme.max' => 'Nilai kesesuaian tema maksimal 100.',
+            ]
+        );
 
         $totalCriteria = $validated['criteriaCreativity'] + $validated['criteriaReadability'] + $validated['criteriaTheme'];
         if ($totalCriteria !== 100) {

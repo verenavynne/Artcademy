@@ -12,7 +12,7 @@
 
         <div class="d-flex flex-column">
             <h3 class="fw-bold">Edit Kursus</h3>
-            <p class="text-muted">Lengkapi formulir berikut untuk menambahkan proyek akhir kursus</p>
+            <p class="text-muted">Lengkapi formulir berikut untuk menambahkan projek akhir kursus</p>
         </div>
     </div>
     
@@ -48,7 +48,7 @@
     <!-- Form Card -->
     <div class="form-container border-0 shadow-sm rounded-4">
         <div class="card-body">
-            <h5 class="fw-bold mb-3">Proyek Akhir</h5>
+            <h5 class="fw-bold mb-3">Projek Akhir</h5>
 
             @if ($errors->any())
                 <div class="alert alert-danger">
@@ -66,10 +66,10 @@
                 <!-- Judul & Tools -->
                 <div class="row mb-3">
                     <div class="col-md mb-3">
-                        <label class="form-label fw-semibold">Judul Proyek</label>
+                        <label class="form-label fw-semibold">Judul Projek</label>
                         <input type="text" name="projectName" 
                             value="{{ old('projectName', $project->projectName ?? '') }}" 
-                            class="form-control rounded-pill custom-input" placeholder="Masukkan Judul Proyek">
+                            class="form-control rounded-pill custom-input" placeholder="Masukkan Judul Projek">
                     </div>
                     <div class="col-md mb-3">
                         <label class="form-label fw-semibold">Tools yang digunakan</label>
@@ -87,9 +87,9 @@
                 <!-- Konsep & Requirement -->
                 <div class="row mb-3">
                     <div class="col-md mb-3">
-                        <label class="form-label fw-semibold">Konsep Proyek</label>
+                        <label class="form-label fw-semibold">Konsep Projek</label>
                         <textarea name="projectConcept" class="form-control tinymce-editor"
-                        placeholder="Bagaimana konsep untuk proyek ini?">
+                        placeholder="Bagaimana konsep untuk projek ini?">
                         {{ old('projectConcept', $project->projectConcept ?? '') }}</textarea>
                     </div>
                     <div class="col-md mb-3">
