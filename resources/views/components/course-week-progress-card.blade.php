@@ -72,6 +72,14 @@
 
 
 <style>
+    .materi-checkbox:checked{
+        border: none !important;
+    }
+
+    .materi-checkbox{
+        border: 2.5px solid var(--dark-gray-color);
+    }
+
     .course-week-progress-card{
         display: flex;
         width: 439px;
@@ -111,8 +119,8 @@
         align-items: center; 
         justify-content: center;
         border-radius: 50%;
-        width: 32px;
-        height: 32px;
+        min-width: 32px;
+        min-height: 32px;
         background: var(--yellow-gradient-color);
         box-shadow: 0 4px 8px 0 var(--brown-shadow-color);
         font-weight: 700;
