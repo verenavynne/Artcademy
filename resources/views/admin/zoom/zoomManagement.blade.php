@@ -34,23 +34,26 @@
         </div>
     </div>
 
-    <div class="d-flex align-items-center justify-content-between mb-3">
+    <div class="d-flex align-items-center justify-content-between mb-4">
         <form action="{{ route('admin.zoom.index') }}" method="GET" class="d-flex align-items-center">
-            <select name="perPage" 
-                    class="form-select form-select-sm rounded-pill shadow-sm border-0 me-2 p-3" 
-                    onchange="this.form.submit()" 
-                    style="width: 65px;">
-                <option value="5" {{ request('perPage') == 5 ? 'selected' : '' }}>5</option>
-                <option value="10" {{ request('perPage') == 10 ? 'selected' : '' }}>10</option>
-                <option value="25" {{ request('perPage') == 25 ? 'selected' : '' }}>25</option>
-                <option value="50" {{ request('perPage') == 50 ? 'selected' : '' }}>50</option>
-            </select>
+            <div class="custom-select-wrapper me-3" style="width: 80px; height: 48px;" onclick="closeOnIconClick(this)">
+                <select name="perPage"
+                    class="form-select form-select-sm rounded-pill shadow-sm border-0 select-custom-dynamic" style="min-height: 0; font-size: 18px; padding-left: 24px; padding-right: 24px;"
+                    onchange="this.form.submit()"
+                    onblur="toggleChevron(this, false)"
+                    style="height: 48px; font-size: 18px;">
+                    <option value="5" {{ request('perPage') == 5 ? 'selected' : '' }}>5</option>
+                    <option value="10" {{ request('perPage') == 10 ? 'selected' : '' }}>10</option>
+                    <option value="25" {{ request('perPage') == 25 ? 'selected' : '' }}>25</option>
+                    <option value="50" {{ request('perPage') == 50 ? 'selected' : '' }}>50</option>
+                </select>
+            </div>
             <span style="font-size:18px">Data Zoom</span>
         </form>
 
         <form action="{{ route('admin.zoom.index') }}" method="GET" class="d-flex align-items-center">
             <div class="d-flex align-items-center rounded-pill px-3 shadow-sm custom-input-2"
-                style="width: 250px; background-color: #fff;">
+                style="width: 250px; height: 48px; background-color: #fff; justify-content: space-between;">
                 
                 <input type="text" 
                     name="search"
@@ -242,6 +245,36 @@
         visibility: visible;
         transition: transform 0.3s ease, width 0.3s ease;
     }
+
+    /* Chevron sort data pengguna */
+.custom-select-wrapper {
+    position: relative;
+}
+.select-custom-dynamic {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background: white !important;
+    background-image: none !important;
+    padding-right: 2rem !important;
+}
+.custom-select-wrapper::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    right: 1.25rem;
+    transform: translateY(-50%) rotate(0deg);
+    pointer-events: none;
+    transition: transform 0.2s;
+    width: 12px;
+    height: 12px;
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23343a40' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: center;
+}
+.custom-select-wrapper.open::after {
+    transform: translateY(-50%) rotate(180deg);
+}
 </style>
 
 <script>
@@ -281,5 +314,33 @@
         const current = document.querySelector(".tab-link.active");
         if (current) moveUnderline(current);
     }).observe(document.querySelector(".tab-header"));
+
+       // Fungsi ini sama seperti sebelumnya, hanya untuk menangani ONBLUR
+function toggleChevron(selectElement, isOpen) {
+    var wrapper = selectElement.closest('.custom-select-wrapper');
+
+    if (wrapper) {
+        if (isOpen) {
+            wrapper.classList.add('open');
+        } else {
+            setTimeout(function() {
+                if (document.activeElement !== selectElement) {
+                    wrapper.classList.remove('open');
+                }
+            }, 150);
+        }
+    }
+}
+
+function closeOnIconClick(wrapper) {
+    var selectElement = wrapper.querySelector('select');
+    if (wrapper.classList.contains('open')) {
+        selectElement.blur();
+
+    } else {
+        selectElement.focus();
+        toggleChevron(selectElement, true);
+    }
+}
 </script>
 @endsection

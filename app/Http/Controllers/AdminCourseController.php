@@ -588,6 +588,7 @@ class AdminCourseController extends Controller
         }
 
         if ($redirect) {
+            $course->update(['courseStatus' => 'draft']);
             return redirect()->route('admin.courses.index')->with('success', 'Informasi kursus berhasil diperbarui dan disimpan draft!');
         }
 
@@ -739,6 +740,7 @@ class AdminCourseController extends Controller
         ]);
 
         if ($redirect) {
+            $course->update(['courseStatus' => 'draft']);
             return redirect()->route('admin.courses.index')->with('success', 'Silabus berhasil diperbarui dan disimpan draft!');
         }
 

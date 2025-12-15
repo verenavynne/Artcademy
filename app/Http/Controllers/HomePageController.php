@@ -7,6 +7,7 @@ use App\Models\Notification;
 use App\Models\User;
 use App\Models\Membership;
 use App\Models\Event;
+use App\Models\Testimoni;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -27,6 +28,8 @@ class HomePageController extends Controller
             })
             ->inRandomOrder()
             ->take(4)
+            ->withAvg('testimonis', 'rating')
+            ->withCount('testimonis')
             ->get();
 
         // ambil 7 tutor yg statusnya active
@@ -52,15 +55,8 @@ class HomePageController extends Controller
             ->take(7)
             ->get();
 
-        $testimonis = [
-            ['name' => 'Vynne', 'title' => 'Web Developer di Grab', 'rating' => 5, 'time' => '2 days ago', 'review' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Odio aperiam magni illo corrupti autem. Laudantium iste fugit reiciendis'],
-            ['name' => 'Farren', 'title' => 'Web Developer di Google', 'rating' => 5, 'time' => '2 days ago', 'review' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Odio aperiam magni illo corrupti autem. Laudantium iste fugit reiciendis'],
-            ['name' => 'Felicia', 'title' => 'Web Developer di Gojek', 'rating' => 5, 'time' => '2 days ago', 'review' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Odio aperiam magni illo corrupti autem. Laudantium iste fugit reiciendis'],
-            ['name' => 'Verena', 'title' => 'Web Developer di Polytron', 'rating' => 5, 'time' => '2 days ago', 'review' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Odio aperiam magni illo corrupti autem. Laudantium iste fugit reiciendis'],
-            ['name' => 'Nancy', 'title' => 'Web Developer di Meta', 'rating' => 5, 'time' => '2 days ago', 'review' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Odio aperiam magni illo corrupti autem. Laudantium iste fugit reiciendis'],
-            ['name' => 'Dustin', 'title' => 'Web Developer di Samsung', 'rating' => 5, 'time' => '2 days ago', 'review' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Odio aperiam magni illo corrupti autem. Laudantium iste fugit reiciendis'],
-            ['name' => 'Mike', 'title' => 'Web Developer di Adira', 'rating' => 5, 'time' => '2 days ago', 'review' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Odio aperiam magni illo corrupti autem. Laudantium iste fugit reiciendis'],
-        ];    
+        $testimonis = Testimoni::with('student.user')->get();
+  
 
         return view('Artcademy.home', compact('courses', 'tutors', 'memberships', 'events', 'testimonis'));
     }

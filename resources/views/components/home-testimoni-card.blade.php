@@ -6,8 +6,8 @@
     <div class="header-testimoni">
         <img src="{{asset('assets/default-profile.jpg')}}" alt="Profile Picture" class="profile-testimoni-img">
         <div class="info-testimoni">
-            <p class="name-testimoni">{{ $testimoni['name']}}</p>
-            <p class="title-testimoni">{{ $testimoni['title'] }}</p>
+            <p class="name-testimoni">{{ $testimoni->student->user->name }}</p>
+            <p class="title-testimoni">{{ optional($testimoni->student->user)->profession ?? '' }}</p>
         </div>
     </div>
 
@@ -15,7 +15,7 @@
 
     <div class="body-testimoni">
         <span class="quote-icon">“</span>
-        <p class="quote-text">{{ $testimoni['review'] }}</p>
+        <p class="quote-text">{{ $testimoni->testimoniContent }}</p>
     </div>
 </div>
 

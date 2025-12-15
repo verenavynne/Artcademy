@@ -34,4 +34,8 @@ class Course extends Model
         return $this->hasMany(StudentsCertificate::class,'courseId');
     }
 
+    public function testimonis()
+    {
+        return $this->hasMany(Testimoni::class, 'courseId');
+    }
 }

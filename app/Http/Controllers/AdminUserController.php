@@ -49,12 +49,33 @@ class AdminUserController extends Controller
             'profilePicture'          => ['nullable', 'image', 'mimes:jpg,jpeg,png', 'max:2048','required_if:role,lecturer'],
         ], [
             'role.required' => 'Role wajib dipilih.',
+            'role.in' => 'Role tidak valid.',
+
             'name.required' => 'Nama wajib diisi.',
+            'name.string' => 'Nama harus berupa teks.',
+            'name.min' => 'Nama minimal 5 karakter.',
+            'name.max' => 'Nama maksimal 20 karakter.',
+
+            'email.required' => 'Email wajib diisi.',
+            'email.email' => 'Format email tidak valid.',
+            'email.max' => 'Email maksimal 255 karakter.',
             'email.unique' => 'Email sudah terdaftar.',
+
+            'phoneNumber.required' => 'Nomor telepon wajib diisi.',
             'phoneNumber.regex' => 'Nomor telepon harus diawali + dan berisi 13–16 karakter angka.',
+
+            'password.required' => 'Kata sandi wajib diisi.',
+            'password.string' => 'Kata sandi harus berupa teks.',
+            'password.min' => 'Kata sandi minimal 8 karakter.',
             'password.confirmed' => 'Konfirmasi kata sandi tidak cocok.',
-            'specialization.required' => 'Keahlian wajib diisi.',
-            'profilePicture.image' => 'File harus berupa gambar (jpg/jpeg/png).',
+
+            'specialization.required_if' => 'Keahlian wajib diisi untuk role tutor.',
+            'specialization.string' => 'Keahlian harus berupa teks.',
+
+            'profilePicture.required_if' => 'Foto profil wajib diunggah untuk role tutor.',
+            'profilePicture.image' => 'File harus berupa gambar.',
+            'profilePicture.mimes' => 'Format gambar harus jpg, jpeg, atau png.',
+            'profilePicture.max' => 'Ukuran gambar maksimal 2 MB.',
         ]);
 
         if ($validator->fails()) {
