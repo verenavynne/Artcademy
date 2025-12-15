@@ -194,6 +194,7 @@
     // cek input untuk disabled button
     const lecturerCheckboxes = document.querySelectorAll('.lecturer-checkbox');
     const nextButton = document.getElementById('nextBtn');
+    const draftButton = document.getElementById('draftBtn');
     
     nextButton.disabled = true;
     draftButton.disabled = true;
