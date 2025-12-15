@@ -72,6 +72,17 @@
 
 
 <style>
+    .materi-checkbox:checked {
+    border: none !important;
+    background-position: center !important; /* Memastikan gambar background berada di tengah */
+    background-size: 65% !important;
+    
+    }
+
+    .materi-checkbox{
+        border: 2px solid var(--dark-gray-color) !important;
+    }
+
     .course-week-progress-card{
         display: flex;
         width: 439px;
