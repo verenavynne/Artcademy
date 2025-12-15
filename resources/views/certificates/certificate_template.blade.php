@@ -5,20 +5,6 @@
     <title>Certificate Preview</title>
     
     <style>
-        @font-face{
-            font-family: 'BeautySalonScript';
-            src: url('{{ public_path("assets/font/BeautySalonScriptRegular.ttf") }}') format('truetype');
-            font-weight: bold;
-            font-style: normal;
-        }
-
-        @font-face{
-            font-family: 'Poppins';
-            src: url('{{ public_path("assets/font/Poppins-Regular.ttf") }}') format('truetype');
-            font-weight: normal;
-            font-style: normal;
-        }
-
         html, body {
             margin: 0;
             padding: 0;
@@ -27,7 +13,6 @@
         }
         
         body {
-            font-family: 'Poppins', sans-serif;
             text-align: center;
             background-image: url('{{ public_path("assets/certificate/certificate_template.png") }}');
             background-repeat: no-repeat;
@@ -51,7 +36,6 @@
             top: 410px; 
             left: 50%;
             transform: translateX(-50%);
-            font-family: 'BeautySalonScript', cursive;
             font-size: 100px;
             color: #1b1b1b;
             justify-content: center;

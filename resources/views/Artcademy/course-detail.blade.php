@@ -274,9 +274,9 @@
             </p>
 
             <div class="d-flex justify-content-center gap-3">
-                <a href="{{ route('course.startWeek', $course->id) }}" class="btn w-100 text-dark yellow-gradient-btn">
-                    Yuk, Belajar
-                </a>
+                <button type="button" class="btn w-100 text-dark yellow-gradient-btn" data-bs-dismiss="modal">
+                    Tutup                
+                </button>
             </div>
             </div>
         </div>

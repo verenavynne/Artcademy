@@ -66,6 +66,16 @@
     .tutor-image{
         border-radius: 37px;
         box-shadow: 0px 4px 8px 0px rgba(67, 39, 0, 0.20);
+        object-fit: cover;
+    }
+
+    .tutor-avatars{
+        display: flex;
+        align-items: center;
+    }
+
+    .tutor-avatars .tutor-image:not(:first-child) {
+        margin-left: -12px; 
     }
 
     .overlay-arsip {

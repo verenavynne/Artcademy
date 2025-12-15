@@ -22,23 +22,27 @@ class CourseLecturerSeeder extends Seeder
             'Seni Lukis & Digital Art' => 'Seni Lukis & Digital Art',
         ];
 
-        $lecturers = Lecturer::all();
+        foreach ($mapping as $specialization => $courseType) {
 
-        foreach ($lecturers as $lecturer) {
-            $specialization = trim($lecturer->specialization);
-            $courseType = $mapping[$specialization] ?? null;
+            $lecturers = Lecturer::where('specialization', $specialization)
+                ->inRandomOrder()
+                ->get();
 
-            if (!$courseType) continue;
+            if ($lecturers->count() < 3) continue;
 
             $courses = Course::where('courseType', $courseType)->get();
 
             foreach ($courses as $course) {
-                $created = CourseLecturer::firstOrCreate([
-                    'lecturerId' => $lecturer->id,
-                    'courseId' => $course->id,
-                ]);
+
+                $selectedLecturers = $lecturers->random(3);
+
+                foreach ($selectedLecturers as $lecturer) {
+                    CourseLecturer::firstOrCreate([
+                        'lecturerId' => $lecturer->id,
+                        'courseId' => $course->id,
+                    ]);
+                }
             }
         }
-
     }
 }

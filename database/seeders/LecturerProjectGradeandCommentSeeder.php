@@ -69,7 +69,7 @@ class LecturerProjectGradeandCommentSeeder extends Seeder
                             'projectCriteriaId' => $criterion->id,
                         ],
                         [
-                            'score' => \fake()->numberBetween(60, 100),
+                            'score' => \fake()->numberBetween(80, 100),
                         ]
                     );
                 }

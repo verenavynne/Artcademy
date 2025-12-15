@@ -192,7 +192,7 @@
                         <img src="{{ asset('assets/icons/icon_pagination_before.svg') }}" alt="Left Arrow">
                     </button>
                 @endif
-                <div class="all-tutor d-flex overflow-auto pb-3" style="scroll-behavior: smooth; gap: 36px">
+                <div class="all-tutor d-flex overflow-auto pb-3" style="scroll-behavior: smooth; gap: 36px; {{ $tutors->count() > 4 ? '' : 'justify-content:center'}}">
                     @foreach ($tutors as $tutor)
                         @include ('components.home-tutor-card')
                     @endforeach
@@ -241,7 +241,7 @@
                         <img src="{{ asset('assets/icons/icon_pagination_before.svg') }}" alt="Left Arrow">
                     </button>
                 @endif
-                <div class="all-events-wrapper overflow-auto">
+                <div class="all-events-wrapper overflow-auto" style="{{ $events->count() > 4 ? '' : 'justify-content:center'}}">
                     <div class="all-events d-flex gap-4">
                         @foreach ($events as $event)
                             @include('components.event-card', ['event' => $event])
@@ -478,7 +478,6 @@
         overflow-x: auto;
         scroll-behavior: smooth;
         padding-bottom: 10px;
-        justify-content: center;
         display: flex;
     }
 
