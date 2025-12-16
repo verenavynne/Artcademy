@@ -255,6 +255,19 @@ class CourseController extends Controller
             return $weekProg && $weekProg->progress == 100;
         });        
 
+        $vblCount = 0;
+        $tblCount = 0;
+
+        foreach ($course->weeks as $week) {
+            foreach ($week->materials as $material) {
+                if ($material->vblName) {
+                    $vblCount++;
+                } elseif ($material->tblName) {
+                    $tblCount++;
+                }
+            }
+        }
+
         $data = [
             'course' => $course,
             'testimonis' => $course->testimonis,
@@ -271,7 +284,9 @@ class CourseController extends Controller
             'submission' => $submission,
             'latestUnlockedWeek' => $latestUnlockedWeek,
             'allWeeksCompleted' => $allWeeksCompleted,
-            'layout' => $layout
+            'layout' => $layout,
+            'vblCount' => $vblCount,
+            'tblCount' => $tblCount,
         ];
 
         return view('Artcademy.course-detail', $data);

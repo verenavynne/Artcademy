@@ -98,7 +98,8 @@
                         <!-- Container Materi -->
                         <div class="materi-container">
                             @foreach($week->materials as $materi)
-                            <div class="materi-group shadow-sm rounded-4 p-3 mt-3 bg-white position-relative">
+                            <div class="materi-group shadow-sm rounded-4 p-3 mt-3 bg-white position-relative"
+                                data-tools='@json($materi->materiTools->pluck("toolId")->values())'>
                                 <div class="d-flex justify-content-between align-items-center mb-3">
                                     <div class="material-header d-flex justify-content-between align-items-center cursor-pointer">
                                         <h6 class="fw-bold mb-0">Materi {{ $loop->index + 1 }}</h6>
@@ -134,14 +135,14 @@
                                             <input type="radio" 
                                                 name="weeks[{{ $loop->parent->index }}][materials][{{ $loop->index }}][type]" 
                                                 value="article" 
-                                                {{ $materi->articleName ? 'checked' : '' }} 
+                                                {{ $materi->tblName ? 'checked' : '' }} 
                                                 class="materi-type-radio" required>
-                                            <span>Artikel</span>
+                                            <span>Materi Bacaan</span>
                                         </label>
                                     </div>
 
-                                    <input type="hidden" name="weeks[{{ $loop->parent->index }}][materials][{{ $loop->index }}][articleName]" value="{{ $materi->articleName ?? '' }}">
-                                    <input type="hidden" name="weeks[{{ $loop->parent->index }}][materials][{{ $loop->index }}][articleText]" value="{{ $materi->articleText ?? '' }}">
+                                    <input type="hidden" name="weeks[{{ $loop->parent->index }}][materials][{{ $loop->index }}][tblName]" value="{{ $materi->tblName ?? '' }}">
+                                    <input type="hidden" name="weeks[{{ $loop->parent->index }}][materials][{{ $loop->index }}][tblText]" value="{{ $materi->tblText ?? '' }}">
                                     <input type="hidden" name="weeks[{{ $loop->parent->index }}][materials][{{ $loop->index }}][vblName]" value="{{ $materi->vblName ?? '' }}">
                                     <input type="hidden" name="weeks[{{ $loop->parent->index }}][materials][{{ $loop->index }}][vblDesc]" value="{{ $materi->vblDesc ?? '' }}">
                                     <input type="hidden" name="weeks[{{ $loop->parent->index }}][materials][{{ $loop->index }}][vblUrl]" value="{{ $materi->vblUrl ?? '' }}">
@@ -254,25 +255,25 @@
         const baseName = radioArticle ? radioArticle.name.replace('[type]', '') :
                         radioVideo ? radioVideo.name.replace('[type]', '') : '';
 
-        const articleName = materiGroup.querySelector('input[name*="[articleName]"]')?.value;
-        const articleText = materiGroup.querySelector('input[name*="[articleText]"]')?.value;
+        const tblName = materiGroup.querySelector('input[name*="[tblName]"]')?.value;
+        const tblText = materiGroup.querySelector('input[name*="[tblText]"]')?.value;
         const vblName = materiGroup.querySelector('input[name*="[vblName]"]')?.value;
         const vblDesc = materiGroup.querySelector('input[name*="[vblDesc]"]')?.value;
         const vblUrl = materiGroup.querySelector('input[name*="[vblUrl]"]')?.value;
 
-        if ((articleName || articleText) || radioArticle.checked) {
+        if ((tblName || tblText) || radioArticle.checked) {
             radioArticle.checked = true;
             materiContent.innerHTML = `
-                <input type="text" name="${baseName}[articleName]" value="${articleName ?? ''}" placeholder="Masukkan Judul Artikel" class="form-control mb-2 rounded-pill custom-input">
-                <textarea name="${baseName}[articleText]" class="form-control article-textarea">${articleText ?? ''}</textarea>
+                <input type="text" name="${baseName}[tblName]" value="${tblName ?? ''}" placeholder="Masukkan Judul Materi Bacaan" class="form-control mb-2 rounded-pill custom-input">
+                <textarea name="${baseName}[tblText]" class="form-control article-textarea">${tblText ?? ''}</textarea>
             `;
 
-            if (tinymce.get(`${baseName}[articleText]`)) {
-                tinymce.get(`${baseName}[articleText]`).remove();
+            if (tinymce.get(`${baseName}[tblText]`)) {
+                tinymce.get(`${baseName}[tblText]`).remove();
             }
 
             tinymce.init({
-                selector: `textarea[name="${baseName}[articleText]"]`,
+                selector: `textarea[name="${baseName}[tblText]"]`,
                 menubar: false,
                 plugins: 'lists link code font fontsize textcolor',
                 toolbar: 'undo redo | bold italic underline | bullist numlist | forecolor | code',
@@ -310,30 +311,13 @@
                             name="${baseName}[vblDesc]" value="${vblDesc ?? ''}"
                             placeholder="Masukkan deskripsi video..." 
                             rows="3"
-                            class="form-control mb-2 rounded-pill custom-input">${vblDesc ?? ''}</textarea>
+                            class="form-control rounded-4 custom-input">${vblDesc ?? ''}</textarea>
                     </div>
 
                     <div class="mb-3">
                         <label class="form-label fw-semibold">Tools yang digunakan</label>
-                        <div id="tools-container" class="border rounded-4 p-3 custom-input">
-                            @foreach($tools as $tool)
-                                @php
-                                    // Cek apakah materi ini sudah punya tool tersebut
-                                    $isChecked = isset($materi) && $materi->materiTools->pluck('toolId')->contains($tool->id);
-                                @endphp
-                                <div class="form-check mb-2">
-                                    <input 
-                                        type="checkbox" 
-                                        name="${baseName}[tools][]" 
-                                        value="{{ $tool->id }}" 
-                                        class="form-check-input tool-checkbox"
-                                        id="tool-{{ $tool->id }}"
-                                        {{ $isChecked ? 'checked' : '' }}>
-                                    <label class="form-check-label" for="tool-{{ $tool->id }}">
-                                        {{ $tool->toolsName }}
-                                    </label>
-                                </div>
-                            @endforeach
+                        <div class="border rounded-4 p-3 custom-input">
+                            ${renderTools(materiGroup, baseName)}
                         </div>
                     </div>
             `;
@@ -369,6 +353,30 @@
             });
         });
     }   
+
+    // vbl tools
+    const allTools = @json($tools);
+    function renderTools(materiGroup, baseName) {
+        const selectedTools = JSON.parse(materiGroup.dataset.tools || '[]');
+
+        return allTools.map(tool => {
+            const checked = selectedTools.includes(tool.id) ? 'checked' : '';
+
+            return `
+                <div class="form-check mb-2">
+                    <input
+                        type="checkbox"
+                        name="${baseName}[tools][]"
+                        value="${tool.id}"
+                        class="form-check-input"
+                        ${checked}>
+                    <label class="form-check-label">
+                        ${tool.toolsName}
+                    </label>
+                </div>
+            `;
+        }).join('');
+    }
 
     // draft / next button
     document.addEventListener('DOMContentLoaded', () => {

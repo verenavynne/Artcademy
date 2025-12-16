@@ -66,13 +66,9 @@
                         <div class="mb-3">
                             <label class="projek-form-label">Foto Thumbnail Projek</label>
                             <div class="form-upload-file d-flex align-items-center rounded-pill gap-3">
-                                <label for="projectThumbnail" 
-                                    style="padding-inline: 30px"
-                                    class="btn pink-cream-btn text-pink-gradient rounded-pill @error('thumbnail') is-invalid @enderror">
-                                    Pilih File
-                                </label>
-                                <input type="file" id="projectThumbnail" name="thumbnail" class="d-none" onchange="updateFileName(this)" value="{{ old('thumbnail') }}">
+                                <button type="button" id="projectThumbnail" class="btn pink-cream-btn px-4 @error('thumbnail') is-invalid @enderror">Pilih File</button>
                                 <span id="file-name" class="placeholder-file">Tidak ada file yang dipilih</span>
+                                <input type="file" id="thumbnail" name="thumbnail" class="d-none" onchange="updateFileName(this)" value="{{ old('thumbnail') }}">
                             </div>
                             @error('thumbnail')
                                 <div class="invalid-feedback d-block">{{ $message }}</div>
@@ -235,12 +231,16 @@
     document.addEventListener('DOMContentLoaded', function() {
         const titleInput = document.getElementById('projectTitle');
         const linkInput = document.getElementById('projectLink');
-        const thumbnailInput = document.getElementById('projectThumbnail');
+        const thumbnailInput = document.getElementById('thumbnail');
         const descInput = document.getElementById('projectDesc');
         const kumpulBtn = document.getElementById('kumpulBtn');
         const projekCheckbox = document.getElementById('projekCheckbox');
         const progressBar = document.querySelector('.progress-bar');
         const progressPercentage = document.querySelector('.progress-percentage');
+
+        document.getElementById('projectThumbnail').addEventListener('click', function() {
+            document.getElementById('thumbnail').click();
+        });
 
         function checkFormFilled() {
             const isFilled =

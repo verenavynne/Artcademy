@@ -73,14 +73,24 @@
                     </div>
                     <div class="col-md mb-3">
                         <label class="form-label fw-semibold">Tools yang digunakan</label>
-                        <select name="projectTools[]" multiple class="form-select rounded-pill custom-input">
+
+                        <div class="border rounded-4 p-3 custom-input tools-scroll-box">
                             @foreach ($tools as $tool)
-                                <option value="{{ $tool->id }}" 
-                                    {{ in_array($tool->id, $selectedTools) ? 'selected' : '' }}>
-                                    {{ $tool->toolsName }}
-                                </option>
+                                <div class="form-check mb-2">
+                                    <input
+                                        type="checkbox"
+                                        name="projectTools[]"
+                                        value="{{ $tool->id }}"
+                                        class="form-check-input"
+                                        id="project-tool-{{ $tool->id }}"
+                                        {{ in_array($tool->id, $selectedTools ?? []) ? 'checked' : '' }}
+                                    >
+                                    <label class="form-check-label" for="project-tool-{{ $tool->id }}">
+                                        {{ $tool->toolsName }}
+                                    </label>
+                                </div>
                             @endforeach
-                        </select>
+                        </div>
                     </div>
                 </div>
 
@@ -204,4 +214,12 @@ tinymce.init({
     }
 });
 </script>
+
+<style>
+    .tools-scroll-box {
+        max-height: 150px;
+        overflow-y: auto;
+        scrollbar-width: thin;
+    }
+</style>
 @endsection

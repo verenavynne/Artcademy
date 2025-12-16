@@ -134,8 +134,8 @@
                                             <div class="materi-number"><p>{{ $index + 1 }}</p></div>
                                             @if ($material->vblName !== null)
                                                 <p>{{ $material->vblName }}</p>
-                                            @elseif ($material->articleName !== null)
-                                                <p>{{ $material->articleName}}</p>
+                                            @elseif ($material->tblName !== null)
+                                                <p>{{ $material->tblName}}</p>
                                             @endif
                                         </div>
             
@@ -143,9 +143,9 @@
                                             @if ($material->vblName !== null)
                                                 <img src="{{ asset('assets/icons/icon_video.svg') }}" width="24" height="24">
                                                 <p>Video</p>
-                                            @elseif ($material->articleName !== null)
+                                            @elseif ($material->tblName !== null)
                                                 <img src="{{ asset('assets/icons/icon_article.svg') }}" width="24" height="24">
-                                                <p>Artikel</p>
+                                                <p>Materi Bacaan</p>
                                             @endif
                                         </div>
             
@@ -274,9 +274,9 @@
             </p>
 
             <div class="d-flex justify-content-center gap-3">
-                <a href="{{ route('course.startWeek', $course->id) }}" class="btn w-100 text-dark yellow-gradient-btn">
-                    Yuk, Belajar
-                </a>
+                <button type="button" class="btn w-100 text-dark yellow-gradient-btn" data-bs-dismiss="modal">
+                    Tutup                
+                </button>
             </div>
             </div>
         </div>
@@ -428,6 +428,7 @@
     }
 
     .materi-icon{
+        min-width: 126px;
         gap: 8px;
     }
 

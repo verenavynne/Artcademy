@@ -223,8 +223,9 @@ class AdminCourseController extends Controller
             'weeks.*.tutorId' => 'required|exists:lecturers,id',
             'weeks.*.materials' => 'array',
             'weeks.*.materials.*.duration' => 'required|integer',
-            'weeks.*.materials.*.articleName' => 'nullable|string|max:255',
-            'weeks.*.materials.*.articleText' => 'nullable|string',
+            'weeks.*.materials.*.type' => 'required|in:video,article',
+            'weeks.*.materials.*.tblName' => 'nullable|string|max:255',
+            'weeks.*.materials.*.tblText' => 'nullable|string',
             'weeks.*.materials.*.vblName' => 'nullable|string|max:255',
             'weeks.*.materials.*.vblDesc' => 'nullable|string',
             'weeks.*.materials.*.vblUrl' => 'nullable|string|max:255',
@@ -245,10 +246,12 @@ class AdminCourseController extends Controller
             'weeks.*.materials.*.duration.required' => 'Durasi materi wajib diisi.',
             'weeks.*.materials.*.duration.integer' => 'Durasi materi harus berupa angka.',
 
-            'weeks.*.materials.*.articleName.string' => 'Judul artikel harus berupa teks.',
-            'weeks.*.materials.*.articleName.max' => 'Judul artikel maksimal 255 karakter.',
+            'weeks.*.materials.*.type.required' => 'Tipe materi wajib diisi.',
 
-            'weeks.*.materials.*.articleText.string' => 'Isi artikel harus berupa teks.',
+            'weeks.*.materials.*.tblName.string' => 'Judul materi bacaan harus berupa teks.',
+            'weeks.*.materials.*.tblName.max' => 'Judul materi bacaan maksimal 255 karakter.',
+
+            'weeks.*.materials.*.tblText.string' => 'Isi materi bacaan harus berupa teks.',
 
             'weeks.*.materials.*.vblName.string' => 'Judul video harus berupa teks.',
             'weeks.*.materials.*.vblName.max' => 'Judul video maksimal 255 karakter.',
@@ -278,8 +281,8 @@ class AdminCourseController extends Controller
                 foreach ($weekData['materials'] as $materiData) {
                     $materi = $week->materials()->create([
                         'duration' => $materiData['duration'],
-                        'articleName' => $materiData['articleName'] ?? null,
-                        'articleText' => $materiData['articleText'] ?? null,
+                        'tblName' => $materiData['tblName'] ?? null,
+                        'tblText' => $materiData['tblText'] ?? null,
                         'vblName' => $materiData['vblName'] ?? null,
                         'vblDesc' => $materiData['vblDesc'] ?? null,
                         'vblUrl' => $materiData['vblUrl'] ?? null,
@@ -317,9 +320,10 @@ class AdminCourseController extends Controller
                 'weeks.*.weekName' => 'required|string|max:255',
                 'weeks.*.tutorId' => 'required|exists:lecturers,id',
                 'weeks.*.materials' => 'array',
+                'weeks.*.materials.*.type' => 'required|in:video,article',
                 'weeks.*.materials.*.duration' => 'required|integer',
-                'weeks.*.materials.*.articleName' => 'nullable|string|max:255',
-                'weeks.*.materials.*.articleText' => 'nullable|string',
+                'weeks.*.materials.*.tblName' => 'nullable|string|max:255',
+                'weeks.*.materials.*.tblText' => 'nullable|string',
                 'weeks.*.materials.*.vblName' => 'nullable|string|max:255',
                 'weeks.*.materials.*.vblDesc' => 'nullable|string',
                 'weeks.*.materials.*.vblUrl' => 'nullable|string|max:255',
@@ -340,10 +344,12 @@ class AdminCourseController extends Controller
                 'weeks.*.materials.*.duration.required' => 'Durasi materi wajib diisi.',
                 'weeks.*.materials.*.duration.integer' => 'Durasi materi harus berupa angka.',
 
-                'weeks.*.materials.*.articleName.string' => 'Judul artikel harus berupa teks.',
-                'weeks.*.materials.*.articleName.max' => 'Judul artikel maksimal 255 karakter.',
+                'weeks.*.materials.*.type.required' => 'Tipe materi wajib diisi.',
 
-                'weeks.*.materials.*.articleText.string' => 'Isi artikel harus berupa teks.',
+                'weeks.*.materials.*.tblName.string' => 'Judul materi bacaan harus berupa teks.',
+                'weeks.*.materials.*.tblName.max' => 'Judul materi bacaan maksimal 255 karakter.',
+
+                'weeks.*.materials.*.tblText.string' => 'Isi materi bacaan harus berupa teks.',
 
                 'weeks.*.materials.*.vblName.string' => 'Judul video harus berupa teks.',
                 'weeks.*.materials.*.vblName.max' => 'Judul video maksimal 255 karakter.',
@@ -657,8 +663,9 @@ class AdminCourseController extends Controller
                 'weeks.*.tutorId' => 'required|exists:lecturers,id',
                 'weeks.*.materials' => 'array',
                 'weeks.*.materials.*.duration' => 'required|integer',
-                'weeks.*.materials.*.articleName' => 'nullable|string|max:255',
-                'weeks.*.materials.*.articleText' => 'nullable|string',
+                'weeks.*.materials.*.type' => 'required|in:video,article',
+                'weeks.*.materials.*.tblName' => 'nullable|string|max:255',
+                'weeks.*.materials.*.tblText' => 'nullable|string',
                 'weeks.*.materials.*.vblName' => 'nullable|string|max:255',
                 'weeks.*.materials.*.vblDesc' => 'nullable|string',
                 'weeks.*.materials.*.vblUrl' => 'nullable|string|max:255',
@@ -679,10 +686,12 @@ class AdminCourseController extends Controller
                 'weeks.*.materials.*.duration.required' => 'Durasi materi wajib diisi.',
                 'weeks.*.materials.*.duration.integer' => 'Durasi materi harus berupa angka.',
 
-                'weeks.*.materials.*.articleName.string' => 'Judul artikel harus berupa teks.',
-                'weeks.*.materials.*.articleName.max' => 'Judul artikel maksimal 255 karakter.',
+                'weeks.*.materials.*.type.required' => 'Tipe materi wajib diisi.',
 
-                'weeks.*.materials.*.articleText.string' => 'Isi artikel harus berupa teks.',
+                'weeks.*.materials.*.tblName.string' => 'Judul materi bacaan harus berupa teks.',
+                'weeks.*.materials.*.tblName.max' => 'Judul materi bacaan maksimal 255 karakter.',
+
+                'weeks.*.materials.*.tblText.string' => 'Isi materi bacaan harus berupa teks.',
 
                 'weeks.*.materials.*.vblName.string' => 'Judul video harus berupa teks.',
                 'weeks.*.materials.*.vblName.max' => 'Judul video maksimal 255 karakter.',
@@ -713,13 +722,15 @@ class AdminCourseController extends Controller
 
             if (!empty($weekData['materials'])) {
                 foreach ($weekData['materials'] as $materiData) {
+                    $type = $materiData['type'];
+
                     $materi = $week->materials()->create([
                         'duration' => $materiData['duration'],
-                        'articleName' => $materiData['articleName'] ?? null,
-                        'articleText' => $materiData['articleText'] ?? null,
-                        'vblName' => $materiData['vblName'] ?? null,
-                        'vblDesc' => $materiData['vblDesc'] ?? null,
-                        'vblUrl' => $materiData['vblUrl'] ?? null,
+                        'tblName' => $type === 'article' ? ($materiData['tblName'] ?? null) : null,
+                        'tblText' => $type === 'article' ? ($materiData['tblText'] ?? null) : null,
+                        'vblName' => $type === 'video' ? ($materiData['vblName'] ?? null) : null,
+                        'vblDesc' => $type === 'video' ? ($materiData['vblDesc'] ?? null) : null,
+                        'vblUrl'  => $type === 'video' ? ($materiData['vblUrl'] ?? null) : null,
                     ]);
 
                     $totalDuration += $materiData['duration'];
@@ -758,8 +769,9 @@ class AdminCourseController extends Controller
                 'weeks.*.tutorId' => 'required|exists:lecturers,id',
                 'weeks.*.materials' => 'array',
                 'weeks.*.materials.*.duration' => 'required|integer',
-                'weeks.*.materials.*.articleName' => 'nullable|string|max:255',
-                'weeks.*.materials.*.articleText' => 'nullable|string',
+                'weeks.*.materials.*.type' => 'required|in:video,article',
+                'weeks.*.materials.*.tblName' => 'nullable|string|max:255',
+                'weeks.*.materials.*.tblText' => 'nullable|string',
                 'weeks.*.materials.*.vblName' => 'nullable|string|max:255',
                 'weeks.*.materials.*.vblDesc' => 'nullable|string',
                 'weeks.*.materials.*.vblUrl' => 'nullable|string|max:255',
@@ -780,10 +792,12 @@ class AdminCourseController extends Controller
                 'weeks.*.materials.*.duration.required' => 'Durasi materi wajib diisi.',
                 'weeks.*.materials.*.duration.integer' => 'Durasi materi harus berupa angka.',
 
-                'weeks.*.materials.*.articleName.string' => 'Judul artikel harus berupa teks.',
-                'weeks.*.materials.*.articleName.max' => 'Judul artikel maksimal 255 karakter.',
+                'weeks.*.materials.*.type.required' => 'Tipe materi wajib diisi.',
 
-                'weeks.*.materials.*.articleText.string' => 'Isi artikel harus berupa teks.',
+                'weeks.*.materials.*.tblName.string' => 'Judul materi bacaan harus berupa teks.',
+                'weeks.*.materials.*.tblName.max' => 'Judul materi bacaan maksimal 255 karakter.',
+
+                'weeks.*.materials.*.tblText.string' => 'Isi materi bacaan harus berupa teks.',
 
                 'weeks.*.materials.*.vblName.string' => 'Judul video harus berupa teks.',
                 'weeks.*.materials.*.vblName.max' => 'Judul video maksimal 255 karakter.',

@@ -197,10 +197,7 @@
     const draftButton = document.getElementById('draftBtn');
     
     nextButton.disabled = true;
-    draftButton.disabled = true;
-
     nextButton.classList.add('disabled-btn');
-    draftButton.classList.add('disabled-btn');
 
     function checkSelectedLecturers() {
         const selectedCount = document.querySelectorAll('.lecturer-checkbox:checked').length;

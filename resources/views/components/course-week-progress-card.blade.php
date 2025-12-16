@@ -38,7 +38,7 @@
                     </div>
 
                     <div class="progress-materi-name-duration d-flex flex-column">
-                        <p class="progress-materi-name">{{ $materiItem->vblName ?? $materiItem->articleName }}</p>
+                        <p class="progress-materi-name">{{ $materiItem->vblName ?? $materiItem->tblName }}</p>
                         <div class="d-flex flex-row align-items-center" style="gap: 4px">
                             <iconify-icon class="vbl-article-icon" icon="{{ $materiItem->vblName ? 'mingcute:video-line' : 'heroicons-outline:newspaper' }}"></iconify-icon>
                             <p class="progress-duration">{{ $materiItem->duration ?? '—' }} menit</p>

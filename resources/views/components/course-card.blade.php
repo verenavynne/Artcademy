@@ -81,12 +81,11 @@
             </div>
 
             <div class="d-flex flex-row align-items-center gap-2">
-                <div class="position-relative" style="width: 90px; height: 37px;">
+                <div class="tutor-avatars">
                     @foreach ($course->courseLecturers->take(3) as $loopIndex => $courseLecturer)
                         <img src="{{ asset($courseLecturer->lecturer->user->profilePicture ? asset('storage/'.$courseLecturer->lecturer->user->profilePicture ) : 'assets/default-profile.jpg') }}" 
-                             class="rounded-circle position-absolute tutor-image" 
-                             width="37" height="37"
-                             style="left: {{ 25 * $loopIndex }}px; z-index: {{ $loopIndex + 1 }};">
+                             class="rounded-circle tutor-image" 
+                             width="37" height="37">
                     @endforeach
                 </div>
                 <p style="margin: 0; font-size: var(--font-size-mini); color: var(--dark-gray-color)">
