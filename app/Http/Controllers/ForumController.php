@@ -51,19 +51,26 @@ class ForumController extends Controller
     public function showFriendProfile($id)
     {
         $authUser = Auth::user();
-        $user = User::with('lecturer')->where('id', $id)->firstOrFail();
-        $portfolios = Portfolio::where('userId', $user->id)->get();
-        $posts = Post::where('userId', $user->id)->get();
+        $selectedUser = User::with('lecturer')->where('id', $id)->firstOrFail();
+        $portfolios = Portfolio::where('userId', $selectedUser->id)->get();
+        $posts = Post::where('userId', $selectedUser->id)->get();
         $otherProfile = User::where('id', '!=', auth()->id())->where('role', '!=', 'admin')->get();
         $activeTab = request('tab', 'portofolio');
 
-        $membershipTransaction = MembershipTransaction::where('studentId', $user->id)
+        $selectedUserMembershipTransaction = MembershipTransaction::where('studentId', $selectedUser->id)
             ->where('membershipStatus', 'active')
             ->with('membership')
             ->first();
 
+        $membershipTransaction = MembershipTransaction::where('studentId', $authUser->id)
+            ->where('membershipStatus', 'active')
+            ->with('membership')
+            ->first();
+
+        $selectedUserMembershipStatus = $selectedUserMembershipTransaction?->membershipStatus ?? 'belum berlangganan';
+
         $membershipStatus = $membershipTransaction?->membershipStatus ?? 'belum berlangganan';
 
-        return view('forum.kunjungi-profile', compact('user', 'authUser', 'portfolios','posts', 'otherProfile', 'activeTab', 'membershipTransaction', 'membershipStatus'));
+        return view('forum.kunjungi-profile', compact('selectedUser', 'authUser', 'portfolios','posts', 'otherProfile', 'activeTab', 'selectedUserMembershipTransaction', 'selectedUserMembershipStatus', 'membershipStatus', 'membershipTransaction'));
     }
 }

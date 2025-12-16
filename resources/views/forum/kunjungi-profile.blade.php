@@ -14,11 +14,29 @@
 @endif
 
 <div class="container-fluid d-flex flex-column justify-content-center px-5" style="width: 100%; margin-bottom: 75px;">
-    <div class="d-flex justify-content-center align-items-center px-5 gap-5 w-100 pt-1" style="margin-bottom: 18px">
+    <div class="d-flex justify-content-center align-items-center gap-4 w-100 pt-1" style="margin-bottom: 18px">
         <div class="position-relative flex-grow-1">
-            <input type="text" class="custom-input-2 form-control rounded-pill" placeholder="Mau belajar apa hari ini?">
-            <iconify-icon icon="icon-park-outline:search" class="search-icon position-absolute">
-            </iconify-icon>
+            <form class="d-flex w-100" method="GET" action="{{ route('forum') }}" style="margin-block-end: 0">
+                <input 
+                    type="text" 
+                    class="custom-input-2 form-control rounded-pill" 
+                    placeholder="Cari post apa hari ini?"
+                    name="query"
+                    value="{{ request('query') }}"
+                >
+    
+                <button 
+                    type="submit"
+                    class="btn position-absolute end-0 top-50 p-0 pe-4 border-0 bg-transparent"
+                    style="z-index: 5;"
+                >
+                    <iconify-icon 
+                        icon="icon-park-outline:search" 
+                        class="search-icon"
+                        style="font-size: 22px;"
+                    ></iconify-icon>
+                </button>
+            </form>
         </div>
 
         @if($authUser->role === 'student')
@@ -28,7 +46,7 @@
     </div>
     <div class="row">
         <div class="col-3">
-            @include('forum.components.sidebar-left-forum')
+            @include('forum.components.sidebar-left-forum' ,['user' => $authUser])
         </div>
 
         <!-- Form Side -->
@@ -43,31 +61,31 @@
                    
                     <div class="profile-banner-info justify-content-center align-items-center d-flex flex-row gap-4">
                         <div class="profile-image">
-                            <img src="{{ $user->profilePicture ? asset('storage/' . $user->profilePicture) : asset('assets/default-profile.jpg') }}"
+                            <img src="{{ $selectedUser->profilePicture ? asset('storage/' . $selectedUser->profilePicture) : asset('assets/default-profile.jpg') }}"
                             class="profile-picture rounded-circle object-fit"
                             alt="" width="120" height="120">
 
                         </div>
                         <div class="profile-detail-info d-flex flex-column gap-2">
-                            <p class="profile-detail-name">{{ $user->name }}</p>
-                            <p style="margin: 0">{{ $user->profession }}</p>
+                            <p class="profile-detail-name">{{ $selectedUser->name }}</p>
+                            <p style="margin: 0">{{ $selectedUser->profession }}</p>
                             @php
-                                $membershipName = $membershipTransaction->membership->membershipName ?? null;
-                                $specialization = $user->lecturer->specialization ?? null;
+                                $membershipName = $selectedUserMembershipTransaction->membership->membershipName ?? null;
+                                $specialization = $selectedUser->lecturer->specialization ?? null;
 
-                                if( ($membershipStatus === 'active' && $membershipName === 'Basic Canvas') || 
-                                    ($user->role === 'lecturer' && $specialization === 'Seni Lukis & Digital Art')) {
+                                if( ($selectedUserMembershipStatus === 'active' && $membershipName === 'Basic Canvas') || 
+                                    ($selectedUser->role === 'lecturer' && $specialization === 'Seni Lukis & Digital Art')) {
                                     $bgColor = '#FFF4E0';
                                     $textColor = 'var(--orange-gradient-color)';
-                                } elseif( ($membershipStatus === 'active' && $membershipName === 'Masterpiece Pro') || 
-                                    ($user->role === 'lecturer' && $specialization === 'Seni Tari')) {
+                                } elseif( ($selectedUserMembershipStatus === 'active' && $membershipName === 'Masterpiece Pro') || 
+                                    ($selectedUser->role === 'lecturer' && $specialization === 'Seni Tari')) {
                                     $bgColor = '#FFEAF0';
                                     $textColor = 'var(--pink-gradient-color)';
-                                } elseif($user->role === 'lecturer' && $specialization === 'Seni Musik') {
+                                } elseif($selectedUser->role === 'lecturer' && $specialization === 'Seni Musik') {
                                     $bgColor = '#fffdeaff';
                                     $textColor = 'var(--yellow-gradient-color)';
-                                } elseif( ($membershipStatus === 'active'&& $membershipName === 'Creative Studio') || 
-                                    ($user->role === 'lecturer' && $specialization === 'Seni Fotografi')) {
+                                } elseif( ($selectedUserMembershipStatus === 'active'&& $membershipName === 'Creative Studio') || 
+                                    ($selectedUser->role === 'lecturer' && $specialization === 'Seni Fotografi')) {
                                     $bgColor = '#E7F6FE';
                                     $textColor = 'var(--blue-gradient-color)';
                                 } else {
@@ -75,12 +93,12 @@
                                     $textColor = '#6c757d';
                                 }
                             @endphp
-                            <div class="profile-detail-membership-container" style="background: {{ $bgColor }};">
+                            <div class="profile-detail-membership-container" style="background: {{ $bgColor }}; padding: 4px 20px">
                                 <p class="profile-detail-membership" style="background: {{ $textColor }}; background-clip: text;">
-                                    @if ($user->role === 'student')
-                                        {{ $membershipStatus === 'active' ? 'Membership ' . $membershipTransaction->membership->membershipName : 'Belum Berlangganan' }}
+                                    @if ($selectedUser->role === 'student')
+                                        {{ $selectedUserMembershipStatus === 'active' ? 'Membership ' . $selectedUserMembershipTransaction->membership->membershipName : 'Belum Berlangganan' }}
                                     @else
-                                        Tutor {{ $user->lecturer->specialization ?? '-' }}
+                                        Tutor {{ $selectedUser->lecturer->specialization ?? '-' }}
                                     @endif
                                 </p>
                             </div>
@@ -201,7 +219,7 @@
     .profile-detail-membership-container{
         border-radius: 10px;
         display: flex;
-        padding: 4px 20px;
+        padding: 4px 10px;
         justify-content: center;
         align-items: center;
         font-size: var(--font-size-primary);
@@ -209,6 +227,7 @@
     }
 
     .profile-detail-membership{
+        font-size: 14px;
         margin: 0;
         background-clip: text;
         -webkit-background-clip: text;

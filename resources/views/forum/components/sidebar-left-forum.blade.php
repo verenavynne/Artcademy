@@ -80,10 +80,11 @@
         </ul>
     </div>
 
-    <button data-target="buat-post" class="btn py-3 px-4 w-100 text-dark yellow-gradient-btn d-flex flex-row justify-content-center align-items-center gap-2">
+    <a href="{{ route('forum') }}" data-target="buat-post" class="btn py-3 px-4 w-100 text-dark yellow-gradient-btn
+            d-flex flex-row justify-content-center align-items-center gap-2">
         <iconify-icon icon="ic:round-plus"></iconify-icon>
         <p style="margin: 0; font-size: var(--font-size-primary)">Buat Post</p>
-    </button>
+    </a>
     
 </div>
 
@@ -128,6 +129,7 @@
         background-clip: text;
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
+        font-weight: 700;
         
     }
 
@@ -212,6 +214,7 @@
                 }
             });
         }
+
     });
 
 
