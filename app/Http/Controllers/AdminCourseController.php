@@ -246,6 +246,8 @@ class AdminCourseController extends Controller
             'weeks.*.materials.*.duration.required' => 'Durasi materi wajib diisi.',
             'weeks.*.materials.*.duration.integer' => 'Durasi materi harus berupa angka.',
 
+            'weeks.*.materials.*.type.required' => 'Tipe materi wajib diisi.',
+
             'weeks.*.materials.*.tblName.string' => 'Judul materi bacaan harus berupa teks.',
             'weeks.*.materials.*.tblName.max' => 'Judul materi bacaan maksimal 255 karakter.',
 
@@ -341,6 +343,8 @@ class AdminCourseController extends Controller
 
                 'weeks.*.materials.*.duration.required' => 'Durasi materi wajib diisi.',
                 'weeks.*.materials.*.duration.integer' => 'Durasi materi harus berupa angka.',
+
+                'weeks.*.materials.*.type.required' => 'Tipe materi wajib diisi.',
 
                 'weeks.*.materials.*.tblName.string' => 'Judul materi bacaan harus berupa teks.',
                 'weeks.*.materials.*.tblName.max' => 'Judul materi bacaan maksimal 255 karakter.',
@@ -682,6 +686,8 @@ class AdminCourseController extends Controller
                 'weeks.*.materials.*.duration.required' => 'Durasi materi wajib diisi.',
                 'weeks.*.materials.*.duration.integer' => 'Durasi materi harus berupa angka.',
 
+                'weeks.*.materials.*.type.required' => 'Tipe materi wajib diisi.',
+
                 'weeks.*.materials.*.tblName.string' => 'Judul materi bacaan harus berupa teks.',
                 'weeks.*.materials.*.tblName.max' => 'Judul materi bacaan maksimal 255 karakter.',
 
@@ -785,6 +791,8 @@ class AdminCourseController extends Controller
 
                 'weeks.*.materials.*.duration.required' => 'Durasi materi wajib diisi.',
                 'weeks.*.materials.*.duration.integer' => 'Durasi materi harus berupa angka.',
+
+                'weeks.*.materials.*.type.required' => 'Tipe materi wajib diisi.',
 
                 'weeks.*.materials.*.tblName.string' => 'Judul materi bacaan harus berupa teks.',
                 'weeks.*.materials.*.tblName.max' => 'Judul materi bacaan maksimal 255 karakter.',

@@ -71,11 +71,24 @@
                     </div>
                     <div class="col-md mb-3">
                         <label class="form-label fw-semibold">Tools yang digunakan</label>
-                        <select name="projectTools[]" class="form-select rounded-pill custom-input" multiple>
+
+                        <div class="border rounded-4 p-3 custom-input tools-scroll-box">
                             @foreach ($tools as $tool)
-                                <option value="{{ $tool->id }}">{{ $tool->toolsName }}</option>
+                                <div class="form-check mb-2">
+                                    <input
+                                        type="checkbox"
+                                        name="projectTools[]"
+                                        value="{{ $tool->id }}"
+                                        class="form-check-input"
+                                        id="tool-{{ $tool->id }}"
+                                        {{ in_array($tool->id, old('projectTools', $selectedTools ?? [])) ? 'checked' : '' }}
+                                    >
+                                    <label class="form-check-label" for="tool-{{ $tool->id }}">
+                                        {{ $tool->toolsName }}
+                                    </label>
+                                </div>
                             @endforeach
-                        </select>
+                        </div>
                     </div>
                 </div>
 
@@ -233,4 +246,12 @@ document.addEventListener("DOMContentLoaded", function () {
     validateForm();
 });
 </script>
+
+<style>
+    .tools-scroll-box {
+        max-height: 150px;
+        overflow-y: auto;
+        scrollbar-width: thin;
+    }
+</style>
 @endsection

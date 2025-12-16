@@ -99,7 +99,7 @@
                             name="${baseName}[vblDesc]" 
                             placeholder="Masukkan deskripsi video..." 
                             rows="3"
-                            class="form-control mb-2 rounded-pill custom-input"></textarea>
+                            class="form-control rounded-4 custom-input"></textarea>
                     </div>
 
                     <div class="mb-3">
