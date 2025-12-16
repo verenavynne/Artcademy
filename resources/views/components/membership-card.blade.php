@@ -14,7 +14,7 @@
     $subtileText = match($membership->membershipName){
         'Basic Canvas' => 'Langkah awal untuk mulai berkarya',    
         'Creative Studio' => 'Naikin level, biar skill makin kece',         
-        'Masterpiece Pro' => 'All out jadi seniman, tanpa batasn', 
+        'Masterpiece Pro' => 'All out jadi seniman, tanpa batasan', 
     };
 @endphp
 

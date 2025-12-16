@@ -160,10 +160,7 @@ Route::middleware(['auth', 'checkRole:admin'])->prefix('/admin')->group(function
 
 Route::middleware(['auth'])->group(function(){
     Route::get('/profile', [ProfileController::class, 'show'])->name('my-profile');
-    
-    Route::get('/add-portfolio', function(){
-        return view('profile.add-portfolio');
-    })->name('add-portfolio');
+    Route::get('/add-portfolio', [PortfolioController::class, 'addPortfolioBtn'])->name('add-portfolio');
 
     Route::get('/course/{id}', [CourseController::class, 'showCourseDetail'])
     ->name('course.detail');

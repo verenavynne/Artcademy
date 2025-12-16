@@ -202,9 +202,8 @@
         @include('forum.components.edit-post-pop-up', ['post' => $post])
     @endforeach
 
-
-
-    
+    <!-- Pop up limit membership -->
+    @include('components.membership-popup')  
     
 </div>
 
@@ -616,5 +615,11 @@ document.addEventListener("DOMContentLoaded", function() {
 
 @endsection
 
-
-
+@if (session('show_membership_modal'))
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const modal = new bootstrap.Modal(document.getElementById('membershipModal'));
+        modal.show();
+    });
+</script>
+@endif
