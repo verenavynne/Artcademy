@@ -209,12 +209,6 @@
         position: static !important;
     }
 
-    /* .navigation-prev.nav-sticky {
-        position: sticky;
-        top: 90px;
-        z-index: 1200;
-    } */
-
     .portfolio-card .dropdown button {
         color: var(--black-color);
         border: none;

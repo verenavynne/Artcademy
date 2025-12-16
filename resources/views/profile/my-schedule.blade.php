@@ -62,13 +62,6 @@
 
 <style>
 
-    .navigation-prev {
-        position: sticky;
-        top: 94px;
-        z-index: 1020;
-        padding-left: 8px;
-    }
-
     .title{
         margin-block-end: 0
     }

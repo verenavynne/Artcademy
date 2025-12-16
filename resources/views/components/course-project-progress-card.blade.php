@@ -19,7 +19,11 @@
                 <p class="projek-name">Kumpul Projek Akhir</p>
                 <div class="d-flex flex-row align-items-center" style="gap: 4px">
                     <iconify-icon class="projek-calender-icon" icon="tabler:calendar-week-filled"></iconify-icon>
-                    <p class="projek-date">{{ \Carbon\Carbon::now()->addWeek()->translatedFormat('d F Y') }}</p>
+                    @if($submission->deadlineSubmission)
+                        <p class="projek-date">
+                            {{ $submission->deadlineSubmission->translatedFormat('d F Y') }}
+                        </p>
+                    @endif
                 </div>
             </div>
 
@@ -51,6 +55,10 @@
 </div>
 
 <style>
+
+    .projek-checkbox:checked{
+        border: none !important;
+    }
 
     .projek-progress-card{
         display: flex;
@@ -141,7 +149,7 @@
     .form-check-input:checked::after {
         content: "";
         position: absolute;
-        top: 3px;
+        top: 5px;
         left: 9px;
         width: 5px;
         height: 10px;

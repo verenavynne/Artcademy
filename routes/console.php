@@ -12,3 +12,6 @@ Schedule::command('membership:check-membership-expiry')
 
 Schedule::command('grade:check-tutor-grade-deadline')
 ->dailyAt('00:00');
+
+Schedule::command('grade:check-student-project-submission-deadline')
+->dailyAt('00:00');

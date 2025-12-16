@@ -243,7 +243,7 @@ class CourseController extends Controller
         [$project, $projectTools, $projectCriterias, $submission] = 
             $this->getProjectData($id, Auth::id());
 
-        $isSubmitted = $submission !== null;
+        $isSubmitted = $submission !== null && $submission->projectSubmissionDate !== null;
         $isDisabled = !$isSubmitted;
 
         // get data for next week/materi

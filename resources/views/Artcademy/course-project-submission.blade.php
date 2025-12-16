@@ -6,6 +6,10 @@
     <div class="alert alert-warning mt-3">{{ session('info') }}</div>
 @endif
 
+@if (session('error'))
+    <div class="alert alert-danger mt-3">{{ session('error') }}</div>
+@endif
+
 <div class="container-fluid d-flex flex-column justify-content-center px-5" style="margin-bottom: 75px;">
 
     <div class="d-flex flex-row align-items-center gap-4">
@@ -88,7 +92,7 @@
             </div>
 
             <div class="d-flex justify-content-center" style="width: 40%;">
-                @include('components.course-project-progress-card',['isSubmitted' => $isSubmitted, 'isDisabled' => $isDisabled])
+                @include('components.course-project-progress-card',['isSubmitted' => $isSubmitted, 'isDisabled' => $isDisabled, 'submission' => $submission])
             </div>
         </form>
     </div>
@@ -111,7 +115,7 @@
                     <p class="text-pink-gradient" style="margin: 0">Lihat Kursus Lain</p>
                 </a>
 
-                @if ($submission)
+                @if ($submission->projectSubmissionDate && $isSubmitted)
                     <a href="{{ route('projectSubmission.hasil', ['id'=> $submission->id]) }}"
                         class="btn text-dark yellow-gradient-btn" style="width: 50%">
                         Lihat Penilaian
