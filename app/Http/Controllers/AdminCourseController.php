@@ -223,6 +223,7 @@ class AdminCourseController extends Controller
             'weeks.*.tutorId' => 'required|exists:lecturers,id',
             'weeks.*.materials' => 'array',
             'weeks.*.materials.*.duration' => 'required|integer',
+            'weeks.*.materials.*.type' => 'required|in:video,article',
             'weeks.*.materials.*.tblName' => 'nullable|string|max:255',
             'weeks.*.materials.*.tblText' => 'nullable|string',
             'weeks.*.materials.*.vblName' => 'nullable|string|max:255',
@@ -317,6 +318,7 @@ class AdminCourseController extends Controller
                 'weeks.*.weekName' => 'required|string|max:255',
                 'weeks.*.tutorId' => 'required|exists:lecturers,id',
                 'weeks.*.materials' => 'array',
+                'weeks.*.materials.*.type' => 'required|in:video,article',
                 'weeks.*.materials.*.duration' => 'required|integer',
                 'weeks.*.materials.*.tblName' => 'nullable|string|max:255',
                 'weeks.*.materials.*.tblText' => 'nullable|string',
@@ -657,6 +659,7 @@ class AdminCourseController extends Controller
                 'weeks.*.tutorId' => 'required|exists:lecturers,id',
                 'weeks.*.materials' => 'array',
                 'weeks.*.materials.*.duration' => 'required|integer',
+                'weeks.*.materials.*.type' => 'required|in:video,article',
                 'weeks.*.materials.*.tblName' => 'nullable|string|max:255',
                 'weeks.*.materials.*.tblText' => 'nullable|string',
                 'weeks.*.materials.*.vblName' => 'nullable|string|max:255',
@@ -713,13 +716,15 @@ class AdminCourseController extends Controller
 
             if (!empty($weekData['materials'])) {
                 foreach ($weekData['materials'] as $materiData) {
+                    $type = $materiData['type'];
+
                     $materi = $week->materials()->create([
                         'duration' => $materiData['duration'],
-                        'tblName' => $materiData['tblName'] ?? null,
-                        'tblText' => $materiData['tblText'] ?? null,
-                        'vblName' => $materiData['vblName'] ?? null,
-                        'vblDesc' => $materiData['vblDesc'] ?? null,
-                        'vblUrl' => $materiData['vblUrl'] ?? null,
+                        'tblName' => $type === 'article' ? ($materiData['tblName'] ?? null) : null,
+                        'tblText' => $type === 'article' ? ($materiData['tblText'] ?? null) : null,
+                        'vblName' => $type === 'video' ? ($materiData['vblName'] ?? null) : null,
+                        'vblDesc' => $type === 'video' ? ($materiData['vblDesc'] ?? null) : null,
+                        'vblUrl'  => $type === 'video' ? ($materiData['vblUrl'] ?? null) : null,
                     ]);
 
                     $totalDuration += $materiData['duration'];
@@ -758,6 +763,7 @@ class AdminCourseController extends Controller
                 'weeks.*.tutorId' => 'required|exists:lecturers,id',
                 'weeks.*.materials' => 'array',
                 'weeks.*.materials.*.duration' => 'required|integer',
+                'weeks.*.materials.*.type' => 'required|in:video,article',
                 'weeks.*.materials.*.tblName' => 'nullable|string|max:255',
                 'weeks.*.materials.*.tblText' => 'nullable|string',
                 'weeks.*.materials.*.vblName' => 'nullable|string|max:255',

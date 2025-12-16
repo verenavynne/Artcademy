@@ -98,7 +98,8 @@
                         <!-- Container Materi -->
                         <div class="materi-container">
                             @foreach($week->materials as $materi)
-                            <div class="materi-group shadow-sm rounded-4 p-3 mt-3 bg-white position-relative">
+                            <div class="materi-group shadow-sm rounded-4 p-3 mt-3 bg-white position-relative"
+                                data-tools='@json($materi->materiTools->pluck("toolId")->values())'>
                                 <div class="d-flex justify-content-between align-items-center mb-3">
                                     <div class="material-header d-flex justify-content-between align-items-center cursor-pointer">
                                         <h6 class="fw-bold mb-0">Materi {{ $loop->index + 1 }}</h6>
@@ -315,25 +316,8 @@
 
                     <div class="mb-3">
                         <label class="form-label fw-semibold">Tools yang digunakan</label>
-                        <div id="tools-container" class="border rounded-4 p-3 custom-input">
-                            @foreach($tools as $tool)
-                                @php
-                                    // Cek apakah materi ini sudah punya tool tersebut
-                                    $isChecked = isset($materi) && $materi->materiTools->pluck('toolId')->contains($tool->id);
-                                @endphp
-                                <div class="form-check mb-2">
-                                    <input 
-                                        type="checkbox" 
-                                        name="${baseName}[tools][]" 
-                                        value="{{ $tool->id }}" 
-                                        class="form-check-input tool-checkbox"
-                                        id="tool-{{ $tool->id }}"
-                                        {{ $isChecked ? 'checked' : '' }}>
-                                    <label class="form-check-label" for="tool-{{ $tool->id }}">
-                                        {{ $tool->toolsName }}
-                                    </label>
-                                </div>
-                            @endforeach
+                        <div class="border rounded-4 p-3 custom-input">
+                            ${renderTools(materiGroup, baseName)}
                         </div>
                     </div>
             `;
@@ -369,6 +353,30 @@
             });
         });
     }   
+
+    // vbl tools
+    const allTools = @json($tools);
+    function renderTools(materiGroup, baseName) {
+        const selectedTools = JSON.parse(materiGroup.dataset.tools || '[]');
+
+        return allTools.map(tool => {
+            const checked = selectedTools.includes(tool.id) ? 'checked' : '';
+
+            return `
+                <div class="form-check mb-2">
+                    <input
+                        type="checkbox"
+                        name="${baseName}[tools][]"
+                        value="${tool.id}"
+                        class="form-check-input"
+                        ${checked}>
+                    <label class="form-check-label">
+                        ${tool.toolsName}
+                    </label>
+                </div>
+            `;
+        }).join('');
+    }
 
     // draft / next button
     document.addEventListener('DOMContentLoaded', () => {
