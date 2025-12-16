@@ -15,12 +15,13 @@ return new class extends Migration
             $table->id();
             $table->foreignId('projectId')->constrained('projects')->onDelete('cascade');
             $table->foreignId('studentId')->constrained('students')->onDelete('cascade');
-            $table->string('projectSubmissionName');
-            $table->string('projectSubmissionLink');
+            $table->string('projectSubmissionName')->nullable();
+            $table->string('projectSubmissionLink')->nullable();
             $table->string('projectSubmissionThumbnail')->nullable();
             $table->text('projectSubmissionDesc')->nullable();
-            $table->date('projectSubmissionDate')->nullable();
-            $table->date('deadlineSubmission')->nullable();
+            $table->dateTime('projectSubmissionDate')->nullable();
+            $table->dateTime('deadlineSubmission')->nullable();
+            $table->dateTime('gradingDeadline')->nullable();
             $table->enum('status',['graded','not_graded']);
             $table->float('grade')->nullable();
             $table->timestamps();

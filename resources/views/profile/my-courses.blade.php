@@ -3,7 +3,7 @@
 @section('content')
 
 <div class="container-fluid d-flex flex-column justify-content-center px-5" style="margin-bottom: 75px;">
-    <div class="navigation-prev d-flex flex-start sticky-top">
+    <div class="navigation-prev d-flex flex-start">
         <a class="page-link" href="javascript:void(0);" onclick="window.history.back()">
             <img src="{{ asset('assets/icons/icon_pagination_before.svg') }}" alt="">
         </a>
@@ -65,13 +65,6 @@
 <style>
     .no-sticky {
         position: static !important;
-    }
-
-    .navigation-prev {
-        position: sticky;
-        top: 94px;
-        z-index: 1020;
-        padding-left: 8px;
     }
 
     .title{

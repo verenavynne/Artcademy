@@ -173,7 +173,7 @@
     .form-check-input:checked::after {
         content: "";
         position: absolute;
-        top: 3px;
+        top: 5px;
         left: 9px;
         width: 5px;
         height: 10px;

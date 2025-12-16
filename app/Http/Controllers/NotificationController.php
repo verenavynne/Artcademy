@@ -37,8 +37,11 @@ class NotificationController extends Controller
     
         }else if($notification->referenceType === 'membership'){
             $link = route('membership');
-        }else if($notification->referenceType === 'project'){
+        }else if($notification->referenceType === 'grading'){
             $link = route('lecturer.nilai-projek');
+        }else if($notification->referenceType === 'project'){
+            $course = \App\Models\Course::find($notification->referenceId);
+            $link = route('course.project',$course->id);
         }
 
         return redirect()->away($link);

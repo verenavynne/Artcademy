@@ -32,7 +32,7 @@ class CheckTutorGradeDeadline extends Command
     {
         $tomorrow = Carbon::tomorrow()->format('Y-m-d');
 
-        $submissions = ProjectSubmission::whereDate('deadlineSubmission', $tomorrow)
+        $submissions = ProjectSubmission::whereDate('gradingDeadline', $tomorrow)
             ->get();
 
         foreach($submissions as $submission){
@@ -46,7 +46,7 @@ class CheckTutorGradeDeadline extends Command
 
                 if(!$exists){
                     Notification::create([
-                        'referenceType' => 'project',
+                        'referenceType' => 'grading',
                         'referenceId' => $submission->id,
                         'userId' => $tutorId->lecturer->user->id,
                         'actorId' => null, 

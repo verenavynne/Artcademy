@@ -34,25 +34,36 @@ class ProjectSubmissionController extends Controller
             ->where('studentId', $studentId)
             ->first();
 
-        if ($existingSubmission) {
+        // Udah Submit
+        if ($existingSubmission->projectSubmissionDate !== null) {
             return redirect()->back()->with('info', 'Kamu sudah mengumpulkan projek ini sebelumnya.');
+        }
+
+        // Lewat Deadline
+        if (now()->gt($existingSubmission->deadlineSubmission)) {
+            return back()->with('error', 'Deadline pengumpulan telah berakhir.');
         }
 
         $originalName = $request->file('thumbnail')->getClientOriginalName();
         $thumbnailPath = $request->file('thumbnail')->storeAs('project_thumbnails', $originalName, 'public');
 
-        ProjectSubmission::create([
-            'projectId' => $request->input('projectId'), 
-            'studentId' => Auth::id(), 
-            'projectSubmissionName' => $request->input('title'),
-            'projectSubmissionLink' => $request->input('link'),
-            'projectSubmissionThumbnail' => $thumbnailPath,
-            'projectSubmissionDesc' => $request->input('description'),
-            'projectSubmissionDate' => Carbon::now(),
-            'deadlineSubmission' => Carbon::now()->addWeek(),
-            'status' => 'not_graded',
-            'grade' => null,
-        ]);
+        ProjectSubmission::updateOrCreate(
+            [
+                'projectId' => $projectId, 
+                'studentId' => $studentId, 
+            ],
+            [
+                'projectSubmissionName' => $request->input('title'),
+                'projectSubmissionLink' => $request->input('link'),
+                'projectSubmissionThumbnail' => $thumbnailPath,
+                'projectSubmissionDesc' => $request->input('description'),
+                'projectSubmissionDate' => Carbon::now(),
+                'gradingDeadline'=> Carbon::now()->addWeek(),
+                'status' => 'not_graded',
+                'grade' => null,
+            ]
+        );
+        
 
         return redirect()->back()->with('success', 'Projek berhasil dikumpulkan!');
     }

@@ -24,7 +24,7 @@
     <div class="project-deadline">
       <p class="deadline-label">Nilai Sebelum :</p>
       <span class= "deadline-date">
-          <p class= "deadline-date-text">{{ $submission->project->created_at->addDays(7)->format('d M Y') }}</p>
+          <p class= "deadline-date-text">{{ $submission->gradingDeadline->format('d M Y') }}</p>
       </span>
     </div>
 

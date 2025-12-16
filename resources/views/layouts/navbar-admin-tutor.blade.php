@@ -30,7 +30,7 @@
 
                         }else if($notification->referenceType === 'membership'){
                             $commentDetail = 'Yuk segera perpanjang membershipmu!';
-                        }else if($notification->referenceType === 'project'){
+                        }else if($notification->referenceType === 'grading'){
                             $submission = \App\Models\ProjectSubmission::find($notification->referenceId);
                             $commentDetail = $submission->project->projectName;
                         }
@@ -85,7 +85,7 @@
                     alt="Profile Icon" width="54" height="54">
 
                 <div class="d-flex flex-column text-start">
-                    <span class="fw-medium" style= "font-size: 18px">{{ Auth::user()->name }}</span>
+                    <span class="fw-medium" style= "font-size: 18px; white-space: nowrap">{{ Auth::user()->name }}</span>
                     <small class="text-muted" style="font-size: 14px;">
                         {{ Auth::user()->role === 'lecturer' ? 'Tutor' : ucfirst(Auth::user()->role) }}
                     </small>

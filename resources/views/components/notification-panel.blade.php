@@ -34,6 +34,8 @@
 
                     }else if($notification->referenceType === 'membership'){
                         $commentDetail = 'Yuk segera perpanjang membershipmu!';
+                    }else if($notification->referenceType === 'project'){
+                        $commentDetail = 'Jangan lupa submit yaa!';
                     }
                 @endphp
                 
