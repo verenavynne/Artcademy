@@ -41,6 +41,8 @@
 
         <!-- Konten utama (Dashboard, Cards, Table, dsb) -->
         @yield('content')
+
+        @include('profile.components.popup-logout')
       </div>
 
       

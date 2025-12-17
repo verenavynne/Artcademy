@@ -4,7 +4,7 @@
 @section('content')
 <div class="container-content" style="gap : 24px;">
     <div class="nilai-projek-title d-flex justify-content-start align-items-center">
-        <div class="navigation-prev d-flex flex-start">
+        <div class="navigation-prev d-flex flex-start mt-1">
             <a class="page-link" href="#" onclick="window.history.back()">
                 <img src="{{ asset('assets/icons/icon_pagination_before.svg') }}" alt="">
             </a>

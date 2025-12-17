@@ -11,7 +11,7 @@
 
 <div class="container-fluid d-flex flex-column justify-content-center px-5" style="margin-bottom: 75px;">
     
-    <div class="navigation-prev d-flex flex-start">
+    <div class="navigation-prev d-flex flex-start mt-1">
         <a class="page-link" href="javascript:void(0);" onclick="window.history.back()">
             <img src="{{ asset('assets/icons/icon_pagination_before.svg') }}" alt="">
         </a>
@@ -190,7 +190,9 @@
     .tutor-picture{
         border-radius: 50%;
         box-shadow: 0 4px 8px 0 var(--brown-shadow-color);
+        object-fit: cover;
     }
+    
     .penilaian-tutor-card{
         border-radius: 40px;
         background: var(--cream2-color);

@@ -26,6 +26,8 @@
     <div class="content" style="min-height: 100vh">
         @yield('content')
 
+        @include('profile.components.popup-logout')
+
     </div>
     <footer>
         @unless (View::hasSection('hide_footer'))

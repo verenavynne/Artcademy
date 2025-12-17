@@ -1,3 +1,6 @@
+@php
+$isRegistered = \App\Models\ZoomRegistered::where('zoomId', $zoom->id)->where('studentId', auth()->id())->exists();
+@endphp
 <div class="zoom-card card article-card" height="100%" 
     @if(Auth::check() && Auth::user()->role === 'student')
          onclick="window.location.href='{{ route('zoom.showDetail', $zoom->id) }}'"
@@ -73,9 +76,15 @@
                 </button>
 
             @else
-                <a href="{{ route('zoom.showDetail', $zoom->id) }}" class="btn w-100 text-dark yellow-gradient-btn">
-                    Daftar Sekarang
-                </a>
+                @if($isRegistered)
+                    <a href="{{ route('zoom.showDetail', $zoom->id) }}" class="btn w-100 text-dark yellow-gradient-btn">
+                        Join Sekarang
+                    </a>
+                @else
+                    <a href="{{ route('zoom.showDetail', $zoom->id) }}" class="btn w-100 text-dark yellow-gradient-btn">
+                        Daftar Sekarang
+                    </a>
+                @endif
             @endif
         @else
             <a href="{{ route('login') }}" class="btn w-100 text-dark yellow-gradient-btn">

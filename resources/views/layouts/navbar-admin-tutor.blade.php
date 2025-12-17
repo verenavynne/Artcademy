@@ -95,14 +95,9 @@
             <ul class="dropdown-menu dropdown-menu-end" style="z-index: 9999;">
                 <li><a class="dropdown-item" href="{{ Auth::user()->role === 'admin' ? route('profile.info') : route('my-profile') }}">Profil</a></li>
                 <li>
-                    <a href="#" class="dropdown-item text-danger"
-                        onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                    <a href="#" class="dropdown-item text-danger" data-bs-toggle="modal" data-bs-target="#logoutConfirmationModal">
                         Keluar
                     </a>
-
-                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                        @csrf
-                    </form>
                 </li>
             </ul>
         </div>

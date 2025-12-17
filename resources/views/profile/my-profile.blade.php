@@ -13,7 +13,7 @@
             <div class="alert alert-success">{{ session('success') }}</div>
         @endif
     @endif
-    <div class="navigation-prev d-flex flex-start">
+    <div class="navigation-prev d-flex flex-start mt-1">
         <a class="page-link" href="javascript:void(0);" onclick="window.history.back()">
             <img src="{{ asset('assets/icons/icon_pagination_before.svg') }}" alt="">
         </a>
@@ -85,12 +85,11 @@
                 </div>
                 <div class="profile-logout d-flex flex-row gap-2 align-items-start justify-content-center">
                     <img src="{{ asset('assets/icons/icon_logout.svg') }}" alt="">
-                    <form action="{{ route('logout') }}" method="POST" style="display:inline;">
-                        @csrf
-                        <button type="submit" class="logout-text" style="">
-                            Logout
-                        </button>
-                    </form>
+                   
+                    <button type="submit" class="logout-text" data-bs-toggle="modal" data-bs-target="#logoutConfirmationModal">
+                        Keluar
+                    </button>
+                    
 
                 </div>
 
@@ -184,6 +183,9 @@
 
     <!-- Pop up each porto -->
     @include('profile.components.portfolio-popup')  
+
+        <!-- Pop up konfirmasi logout akun -->
+    @include('profile.components.popup-logout')
     
     <!-- Pop up konfirmasi delete -->
     @foreach ($portfolios as $portfolio)
@@ -199,6 +201,8 @@
     @foreach ($posts as $post)
         @include('forum.components.edit-post-pop-up', ['post' => $post])
     @endforeach
+
+
 
     
     

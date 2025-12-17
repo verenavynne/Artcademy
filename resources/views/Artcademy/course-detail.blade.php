@@ -40,7 +40,7 @@
 
 <div class="container-fluid d-flex flex-column justify-content-center px-5 {{ Auth::user()->role === 'student' ? '' : 'w-75' }}" style="margin-bottom: 75px;">
 
-    <div class="navigation-prev d-flex flex-start">
+    <div class="navigation-prev d-flex flex-start mt-1">
         <a class="page-link" href="javascript:void(0);" onclick="window.history.back()">
             <img src="{{ asset('assets/icons/icon_pagination_before.svg') }}" alt="">
         </a>
@@ -129,7 +129,7 @@
                             </div>
                             <div class="minggu-materi-container flex-column" >
                                 @foreach ($week->materials as $index => $material)
-                                    <div class="materi-line d-flex flex-row">
+                                    <div class="materi-line d-flex w-100">
                                         <div class="materi-title d-flex flex-row align-items-center">
                                             <div class="materi-number"><p>{{ $index + 1 }}</p></div>
                                             @if ($material->vblName !== null)
@@ -138,21 +138,24 @@
                                                 <p>{{ $material->tblName}}</p>
                                             @endif
                                         </div>
-            
-                                        <div class="materi-icon d-flex flex-row">
-                                            @if ($material->vblName !== null)
-                                                <img src="{{ asset('assets/icons/icon_video.svg') }}" width="24" height="24">
-                                                <p>Video</p>
-                                            @elseif ($material->tblName !== null)
-                                                <img src="{{ asset('assets/icons/icon_article.svg') }}" width="24" height="24">
-                                                <p>Materi Bacaan</p>
-                                            @endif
+
+                                        <div class="d-flex flex-row justify-content-between w-100 gap-1">
+                                            <div class="materi-icon d-flex flex-row">
+                                                @if ($material->vblName !== null)
+                                                    <img src="{{ asset('assets/icons/icon_video.svg') }}" width="24" height="24">
+                                                    <p>Video</p>
+                                                @elseif ($material->tblName !== null)
+                                                    <img src="{{ asset('assets/icons/icon_article.svg') }}" width="24" height="24">
+                                                    <p>Materi Bacaan</p>
+                                                @endif
+                                            </div>
+                
+                                            <div class="materi-icon d-flex flex-row">
+                                                <img src="{{ asset('assets/icons/icon_time.svg') }}" alt="Time Icon" width="24" height="24" style="">
+                                                <p>{{ $material->duration }} menit</p>
+                                            </div>
                                         </div>
             
-                                        <div class="materi-icon d-flex flex-row">
-                                            <img src="{{ asset('assets/icons/icon_time.svg') }}" alt="Time Icon" width="24" height="24" style="">
-                                            <p>{{ $material->duration }} menit</p>
-                                        </div>
                                     </div>
                                 @endforeach
         
@@ -421,6 +424,7 @@
         justify-content: space-between;
         align-items: center;
         gap: 100px;
+        flex-direction: row;
     }
 
     .materi-line p {
@@ -447,7 +451,7 @@
     }
 
     .materi-title{
-        min-width: 365px;
+        min-width: 330px;
         gap: 11px;
     }
 
@@ -464,6 +468,22 @@
 
     .review-btn-group a{
         text-decoration: none;
+    }
+
+    @media (max-width: 1300px){
+        .materi-title{
+            min-width: 270px;
+            gap: 11px;
+        }
+    }
+
+    @media(max-width: 1146px){
+        .materi-line{
+            flex-direction: column;
+            justify-content: start;
+            align-items: start;
+            gap: 20px;
+        }
     }
 
     

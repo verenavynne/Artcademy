@@ -215,6 +215,11 @@
         left: 0;
     }
 
+    .tab-underline.animate {
+        visibility: visible;
+        transition: transform 0.3s ease, width 0.3s ease;
+    }
+
     .pagination {
         margin-top: 0px !important; 
     }
@@ -223,39 +228,39 @@
         color: #D0C4AF !important;
     }
 
-.custom-select-wrapper {
-    position: relative; 
-}
+    .custom-select-wrapper {
+        position: relative; 
+    }
 
-.select-custom-dynamic {
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-    background: white !important; 
-    background-image: none !important; 
-    padding-right: 2rem !important; 
-}
+    .select-custom-dynamic {
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+        background: white !important; 
+        background-image: none !important; 
+        padding-right: 2rem !important; 
+    }
 
-/* ICON STANDAR (Panah Bawah) */
-.custom-select-wrapper::after {
-    content: "";
-    position: absolute;
-    top: calc(50% + 4px);
-    right: 1rem;
-    transform-origin: center;
-    transform: translateY(-50%) rotate(0deg); 
-    pointer-events: none; 
-    transition: transform 0.2s cubic-bezier(0.25, 0.8, 0.5, 1);
-    width: 14px;
-    height: 14px;
-    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23343a40' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/%3e%3c/svg%3e");
-    background-repeat: no-repeat;
-    background-position: center;
-}
+    /* ICON STANDAR (Panah Bawah) */
+    .custom-select-wrapper::after {
+        content: "";
+        position: absolute;
+        top: calc(50% + 4px);
+        right: 1rem;
+        transform-origin: center;
+        transform: translateY(-50%) rotate(0deg); 
+        pointer-events: none; 
+        transition: transform 0.2s cubic-bezier(0.25, 0.8, 0.5, 1);
+        width: 14px;
+        height: 14px;
+        background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23343a40' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/%3e%3c/svg%3e");
+        background-repeat: no-repeat;
+        background-position: center;
+    }
 
-.custom-select-wrapper.open::after {
-    transform: translateY(-50%) rotate(180deg); 
-}
+    .custom-select-wrapper.open::after {
+        transform: translateY(-50%) rotate(180deg); 
+    }
 
 </style>
 

@@ -53,7 +53,7 @@
         <div class="col-6 d-flex flex-column align-items-center gap-2">
             <div class="feed-wrapper d-flex flex-column gap-2 w-100">
                 <div class="profile-banner-card d-flex flex-row gap-2">
-                     <div class="navigation-prev d-flex flex-start">
+                     <div class="navigation-prev d-flex flex-start mt-1">
                         <a class="page-link" href="javascript:void(0);" onclick="window.history.back()">
                             <img src="{{ asset('assets/icons/icon_pagination_before.svg') }}" alt="">
                         </a>

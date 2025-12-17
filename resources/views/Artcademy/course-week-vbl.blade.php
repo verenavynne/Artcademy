@@ -12,7 +12,7 @@
 
 
 <div class="container-fluid d-flex flex-column justify-content-center px-5" style="margin-bottom: 75px;">
-    <div class="navigation-prev d-flex flex-start">
+    <div class="navigation-prev d-flex flex-start mt-1">
         <a class="page-link" href="javascript:void(0);" onclick="window.history.back()">
             <img src="{{ asset('assets/icons/icon_pagination_before.svg') }}" alt="">
         </a>
