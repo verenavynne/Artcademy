@@ -6,11 +6,11 @@
         <div class="alert alert-success">{{ session('success') }}</div>
     @endif
     <div class="page-header align-items-center d-flex gap-3 mb-3">
-        <div class="navigation-prev">
-            <a class="page-link" href="javascript:void(0);" onclick="window.history.back()">
+        <a class="page-link" href="{{ route('home') }}" onclick="window.history.back()">
+            <div class="navigation-prev">
                 <img src="{{ asset('assets/icons/icon_pagination_before.svg') }}" alt="">
-            </a>
-        </div>
+            </div>
+        </a>
 
         @if ($user->role !== 'student')
             <div class="d-flex flex-column">

@@ -5,11 +5,11 @@
 
     <!-- Header -->
     <div class="page-header align-items-center d-flex gap-3 mb-3">
-        <div class="">
-            <a class="page-link" href="javascript:void(0);" onclick="window.history.back()">
+        <a class="page-link" href="{{ route('admin.user.list') }}" onclick="window.history.back()">
+            <div class="">
                 <img src="{{ asset('assets/icons/icon_pagination_before.svg') }}" alt="">
-            </a>
-        </div>
+            </div>
+        </a>
 
         <div class="d-flex flex-column">
             <h3 class="fw-bold">Pengguna {{ ucwords($user->name) }}</h3>
@@ -69,7 +69,7 @@
                             <p class="status-text" style="background: {{ $textColor }}; margin:0; background-clip: text; font-weight:700; font-size:var(--font-size-small)">
                                 @if($user->role === 'student')
                                     {{ ($membershipName && $membershipStatus === 'active')
-                                        ? Member . $membershipName
+                                        ? 'Member '. $membershipName
                                         : 'Belum Berlangganan' }}
                                 @elseif($user->role === 'lecturer')
                                     {{ $specialization }}

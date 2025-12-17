@@ -3,11 +3,11 @@
 @section('content')
 <div class="container ps-4 container-content-admin">
     <div class="page-header d-flex gap-3">
-        <div class="navigation-prev">
-            <a class="page-link" href="javascript:void(0);" onclick="window.history.back()">
+        <a class="page-link" href="{{ route('admin.event.index') }}" onclick="window.history.back()">
+            <div class="navigation-prev">
                 <img src="{{ asset('assets/icons/icon_pagination_before.svg') }}" alt="">
-            </a>
-        </div>
+            </div>
+        </a>
 
         <div class="d-flex flex-column">
             <h3 class="fw-bold">Edit Event</h3>
@@ -73,7 +73,13 @@
                                 <img 
                                     id="bannerPreview" 
                                     class="preview-image"
-                                    src="{{ $event->eventBanner ? asset('storage/' . $event->eventBanner) : '' }}"
+                                    src="{{
+                                            Str::startsWith($event->eventBanner, ['http://', 'https://'])
+                                                ? $event->eventBanner
+                                                : (Str::startsWith($event->eventBanner, 'assets/')
+                                                    ? asset($event->eventBanner)
+                                                    : asset('storage/' . $event->eventBanner))
+                                        }}"
                                 >
                             </div>
                         </div>

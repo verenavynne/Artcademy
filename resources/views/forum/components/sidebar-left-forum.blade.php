@@ -45,7 +45,7 @@
         <hr class="divider w-100">
         <ul class="nav flex-column sidebar-content w-100">
             <li class="nav-item">
-                <a href="#" class="nav-link-profile active" style="gap: 12px">
+                <a href="{{ route('forum') }}" class="nav-link-profile active" style="gap: 12px">
                 <iconify-icon 
                     icon="streamline-flex:home-2-remix" 
                     data-regular="streamline-flex:home-2-remix" 
