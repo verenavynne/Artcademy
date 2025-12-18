@@ -82,7 +82,7 @@
 
                         <div class="col-md">
                             <label class="form-label fw-semibold">Link Video</label>
-                            <div class="d-flex align-items-center px-3 py-2 rounded-pill shadow-sm bg-light-subtle custom-input">
+                            <div class="link-input-container">
                                 <iconify-icon icon="material-symbols:link-rounded" class="me-2"></iconify-icon>                    
                                 <input type="text" 
                                     name="${baseName}[vblUrl]" 

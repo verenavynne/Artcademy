@@ -333,6 +333,16 @@
         font-size: 18px;
     }
 
+    .link-input-container {
+        display: flex;
+        align-items: center;
+        padding-left: 1rem;
+        padding-right: 1rem;
+        border-radius: 50rem;
+        background-color: var(--very-light-grey-color);
+        box-shadow: 0px 4px 8px var(--brown-shadow-color);
+    }
+
     .container-content-admin {
         display: flex;
         flex-direction: column;

@@ -1,6 +1,6 @@
  <nav class="navbar navbar-expand-lg bg-body-tertiary py-0 sticky-top" id="mainNavbar" >
     <div class="container-fluid px-5 py-4" style="background-color:var(--cream-color);">
-        <a href="">
+        <a href="{{ route('home') }}">
             <img src="{{ asset('assets/logo.png') }}" alt="Logo" width="153px" height="38px">
         </a>
         <button class="navbar-toggler ms-auto" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasMenu" aria-controls="offcanvasMenu" aria-expanded="false" aria-label="Toggle navigation">

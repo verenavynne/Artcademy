@@ -65,7 +65,7 @@ class RegisterController extends Controller
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'phoneNumber' => [
                 'required',
-                'regex:/^\+[0-9]{12,16}$/'
+                'regex:/^\+[0-9]{12,15}$/'
             ],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
           
@@ -79,7 +79,7 @@ class RegisterController extends Controller
             'email.unique' => 'Email sudah terdaftar.',
 
             'phoneNumber.required' => 'Nomor Telepon wajib diisi.',
-            'phoneNumber.regex' => 'Nomor Telepon harus diawali + dan sisanya angka, total minimal 13 karakter dan maksimal 16 karakter.',
+            'phoneNumber.regex' => 'Nomor Telepon harus diawali + dan sisanya angka, total minimal 13 karakter dan maksimal 15 karakter.',
 
             'password.required' => 'Kata sandi wajib diisi.',
             'password.min' => 'Kata sandi minimal 8 karakter.',
