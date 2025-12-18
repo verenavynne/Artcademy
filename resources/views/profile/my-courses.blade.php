@@ -31,8 +31,12 @@
 
                    </div>
                     @if($ongoingCoursesEnrollment->isEmpty())
-                        <div class="d-flex flex-column align-items-center gap-3">
-                            <p class="text-muted text-center">Belum ada kursus yang sudah dimulai</p>
+                        <div class="d-flex flex-column align-items-center gap-4" style="margin-top: 70px;">
+                            <img src="{{ asset('assets/course/empty.svg') }}" alt="" style="width: 120px">
+                            <div>
+                                <h3 class="text-center fw-semibold" style="font-size: 20px; color: var(--black-color)">Oops, Kursus kamu masih kosong!</h3>
+                                <p class="text-center" style="font-size: 18px; color: var(--dark-gray-color)">Yuk, cari kursus yang kamu suka dan mulai petualangan belajarmu hari ini!</p>
+                            </div>
                         </div>
                     @endif
 
@@ -49,8 +53,12 @@
                     </div>
                     
                     @if($finishedCoursesEnrollment->isEmpty())
-                        <div class="d-flex flex-column align-items-center gap-3">
-                            <p class="text-muted text-center" style="font-size: 18px">Belum ada kursus yang sudah selesai</p>
+                        <div class="d-flex flex-column align-items-center gap-4" style="margin-top: 70px;">
+                            <img src="{{ asset('assets/course/empty.svg') }}" alt="" style="width: 120px">
+                            <div>
+                                <h3 class="text-center fw-semibold" style="font-size: 20px; color: var(--black-color)">Oops, belum ada kelas yang selesai!</h3>
+                                <p class="text-center" style="font-size: 18px; color: var(--dark-gray-color)">Terus belajar ya! Kelas yang kamu ikuti akan muncul di sini setelah selesai</p>
+                            </div>
                         </div>
                     @endif
     

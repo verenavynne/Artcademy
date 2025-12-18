@@ -131,8 +131,12 @@
                         
                         </div>
                         @if($portfolios->isEmpty())
-                            <div class="d-flex flex-column align-items-center gap-3" >
-                                <p class="text-muted text-center">Belum ada portofolio</p>
+                            <div class="d-flex flex-column align-items-center gap-4" style="margin-top: 70px;">
+                                <img src="{{ asset('assets/course/empty.svg') }}" alt="" style="width: 120px">
+                                <div>
+                                    <h3 class="text-center fw-semibold" style="font-size: 20px; color: var(--black-color)">Portofolio masih kosong!</h3>
+                                    <p class="text-center" style="font-size: 18px; color: var(--dark-gray-color)">Pengguna ini sedang menyiapkan karya terbaiknya</p>
+                                </div>
                             </div>
                         @endif
 
@@ -146,11 +150,13 @@
                         </div>
 
                         @if ($posts->isEmpty())
-                        <div class="d-flex flex-column align-items-center gap-3">
-                            
-                            <p class="text-muted text-center">Belum ada postingan.</p>
-                        </div>
-                        
+                            <div class="d-flex flex-column align-items-center gap-4" style="margin-top: 70px;">
+                                <img src="{{ asset('assets/course/empty.svg') }}" alt="" style="width: 120px">
+                                <div>
+                                    <h3 class="text-center fw-semibold" style="font-size: 20px; color: var(--black-color)">Masih sepi di sini</h3>
+                                    <p class="text-center" style="font-size: 18px; color: var(--dark-gray-color)">Belum ada postingan dari pengguna ini</p>
+                                </div>
+                            </div>
                         @endif
                     </div>
                 </div>
