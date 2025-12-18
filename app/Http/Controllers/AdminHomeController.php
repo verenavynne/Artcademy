@@ -17,7 +17,9 @@ class AdminHomeController extends Controller
         $totalUsers = User::count();
         $totalEvents = Event::count();
 
-        $courses = Course::all();
+        $courses = Course::withCount('courseEnrollments')
+            ->orderBy('created_at', 'desc')
+            ->get();
 
         $hour = now()->timezone('Asia/Jakarta')->hour;
         if ($hour >= 5 && $hour < 12) {

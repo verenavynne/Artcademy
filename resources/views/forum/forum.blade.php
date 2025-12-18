@@ -73,12 +73,20 @@
                     <div class="post-content-container d-flex flex-column gap-2">
                         @if($posts->isEmpty())
                             @if($totalPost == 0)
-                                <div class="d-flex flex-column align-items-center gap-3 pt-3">
-                                    <p class="text-muted text-center" style="font-size: 18px">Belum ada postingan</p>
+                                <div class="d-flex flex-column align-items-center gap-4" style="margin-top: 70px;">
+                                    <img src="{{ asset('assets/course/empty.svg') }}" alt="" style="width: 120px">
+                                    <div>
+                                        <h3 class="text-center fw-semibold" style="font-size: 20px; color: var(--black-color)">Belum ada diskusi di forum</h3>
+                                        <p class="text-center" style="font-size: 18px; color: var(--dark-gray-color)">Jadilah yang pertama memulai diskusi dan berbagi ide!</p>
+                                    </div>
                                 </div>
                             @elseif(request('query'))
-                                <div class="d-flex flex-column align-items-center gap-3 pt-3">
-                                    <p class="text-muted text-center" style="font-size: 18px">Tidak ada postingan dengan teks tersebut</p>
+                                <div class="d-flex flex-column align-items-center gap-4" style="margin-top: 70px;">
+                                    <img src="{{ asset('assets/course/empty.svg') }}" alt="" style="width: 120px">
+                                    <div>
+                                        <h3 class="text-center fw-semibold" style="font-size: 20px; color: var(--black-color)">Yah, belum ketemu</h3>
+                                        <p class="text-center" style="font-size: 18px; color: var(--dark-gray-color)">Belum ada postingan yang sesuai dengan pencarian ini</p>
+                                    </div>
                                 </div>
                             @endif
                         @else

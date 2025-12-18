@@ -118,14 +118,22 @@
                             <a href="{{ route('admin.event.edit', $event->id) }}" class="btn btn-sm text-warning p-0 me-2 border-0 bg-transparent">
                                 <iconify-icon icon="lets-icons:edit" width="20" height="20"></iconify-icon>
                             </a>
-                            <form action="{{ route('admin.event.destroy', $event->id) }}" method="POST" class="d-inline">
-                                @csrf
-                                @method('DELETE')
-                                <button class="btn btn-sm text-danger p-0 border-0 bg-transparent" 
-                                        onclick="return confirm('Yakin ingin hapus event ini?')">
-                                    <iconify-icon icon="fluent:delete-12-filled" width="20" height="20"></iconify-icon>
-                                </button>
-                            </form>
+                            <button
+                                type="button"
+                                class="btn btn-sm text-danger p-0 border-0 bg-transparent"
+                                data-bs-toggle="modal"
+                                data-bs-target="#confirmActionModal"
+
+                                data-action="{{ route('admin.event.destroy', $event->id) }}"
+                                data-title="Hapus Event ini?"
+                                data-message="Setelah dihapus, kamu tidak bisa memulihkannya lagi"
+                                data-button="Hapus"
+                                data-icon="{{ asset('assets/portfolio/portfolio_hapus.png') }}"
+                            >
+                                <iconify-icon icon="fluent:delete-12-filled"
+                                            width="20" height="20">
+                                </iconify-icon>
+                            </button>
                         </td>
                     </tr>
                     @empty
@@ -147,6 +155,9 @@
             {{ $events->links('pagination::bootstrap-5') }}
         </div>
     </div>
+
+    <!-- confirmation popup -->
+    @include('components.confirmation-popup')
 </div>
 
 <style>

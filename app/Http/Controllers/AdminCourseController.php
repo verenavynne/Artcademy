@@ -962,7 +962,7 @@ class AdminCourseController extends Controller
         $course->courseStatus = 'arsip';
         $course->save();
 
-        return redirect()->route('admin.courses.index')
+        return redirect()->back()
                         ->with('success', 'Kursus berhasil diarsipkan.');
     }
 
@@ -971,7 +971,7 @@ class AdminCourseController extends Controller
         $course = Course::findOrFail($id);
         $course->delete();
 
-        return redirect()->route('admin.courses.index')
+        return redirect()->back()
                         ->with('success', 'Kursus berhasil dihapus.');
     }
 }

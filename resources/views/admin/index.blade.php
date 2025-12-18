@@ -137,24 +137,42 @@
                                     </a>
                                 @endif
                                 @if($course->courseStatus === 'publikasi')
-                                    <form action="{{ route('admin.courses.archive', $course->id) }}" method="POST" class="d-inline">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button class="btn btn-sm p-0 border-0 bg-transparent" 
-                                                onclick="return confirm('Yakin ingin arsipkan kursus ini?')">
-                                            <iconify-icon icon="material-symbols:archive-rounded" width="20" height="20" style="color: var(--pink-medium-color)"></iconify-icon>
-                                        </button>
-                                    </form>
+                                    <button
+                                        type="button"
+                                        class="btn btn-sm p-0 border-0 bg-transparent"
+                                        data-bs-toggle="modal"
+                                        data-bs-target="#confirmActionModal"
+
+                                        data-action="{{ route('admin.courses.archive', $course->id) }}"
+                                        data-title="Arsipkan Kursus ini?"
+                                        data-message="Semua progres tetap disimpan kok dan kamu bisa publikasikan lagi kapanpun kamu mau"
+                                        data-button="Arsipkan"
+                                        data-icon="{{ asset('assets/course/archive.svg') }}"
+                                    >
+                                        <iconify-icon icon="material-symbols:archive-rounded"
+                                                    width="20" height="20"
+                                                    style="color: var(--pink-medium-color)">
+                                        </iconify-icon>
+                                    </button>
                                 @endif
                                 @if($course->courseStatus !== 'publikasi')
-                                    <form action="{{ route('admin.courses.destroy', $course->id) }}" method="POST" class="d-inline">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button class="btn btn-sm text-danger p-0 border-0 bg-transparent" 
-                                                onclick="return confirm('Yakin ingin hapus kursus ini?')">
-                                            <iconify-icon icon="fluent:delete-12-filled" width="20" height="20"></iconify-icon>
-                                        </button>
-                                    </form>
+                                    <button
+                                        type="button"
+                                        class="btn btn-sm p-0 border-0 bg-transparent"
+                                        data-bs-toggle="modal"
+                                        data-bs-target="#confirmActionModal"
+
+                                        data-action="{{ route('admin.courses.destroy', $course->id) }}"
+                                        data-title="Hapus Kursus ini?"
+                                        data-message="Setelah dihapus, kamu tidak bisa memulihkannya lagi"
+                                        data-button="Hapus"
+                                        data-icon="{{ asset('assets/portfolio/portfolio_hapus.png') }}"
+                                    >
+                                        <iconify-icon icon="fluent:delete-12-filled"
+                                                    width="20" height="20"
+                                                    class="text-danger">
+                                        </iconify-icon>
+                                    </button>
                                 @endif
                             </td>
                         </tr>
@@ -177,6 +195,9 @@
             {{ $courses->links('pagination::bootstrap-5') }}
         </div>
     </div>
+
+    <!-- confirmation popup -->
+    @include('components.confirmation-popup')
 </div>
 
 <style>
@@ -325,33 +346,33 @@
     }).observe(document.querySelector(".tab-header"));
 
 
-      // Fungsi ini sama seperti sebelumnya, hanya untuk menangani ONBLUR
-function toggleChevron(selectElement, isOpen) {
-    var wrapper = selectElement.closest('.custom-select-wrapper');
+    // Fungsi ini sama seperti sebelumnya, hanya untuk menangani ONBLUR
+    function toggleChevron(selectElement, isOpen) {
+        var wrapper = selectElement.closest('.custom-select-wrapper');
 
-    if (wrapper) {
-        if (isOpen) {
-            wrapper.classList.add('open');
-        } else {
-            setTimeout(function() {
-                if (document.activeElement !== selectElement) {
-                    wrapper.classList.remove('open');
-                }
-            }, 150);
+        if (wrapper) {
+            if (isOpen) {
+                wrapper.classList.add('open');
+            } else {
+                setTimeout(function() {
+                    if (document.activeElement !== selectElement) {
+                        wrapper.classList.remove('open');
+                    }
+                }, 150);
+            }
         }
     }
-}
 
-function closeOnIconClick(wrapper) {
-    var selectElement = wrapper.querySelector('select');
-    if (wrapper.classList.contains('open')) {
-        selectElement.blur();
+    function closeOnIconClick(wrapper) {
+        var selectElement = wrapper.querySelector('select');
+        if (wrapper.classList.contains('open')) {
+            selectElement.blur();
 
-    } else {
-        selectElement.focus();
-        toggleChevron(selectElement, true);
+        } else {
+            selectElement.focus();
+            toggleChevron(selectElement, true);
+        }
     }
-}
 </script>
 
 @endsection

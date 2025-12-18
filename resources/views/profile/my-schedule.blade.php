@@ -29,8 +29,12 @@
 
                    </div>
                    @if($zooms->isEmpty())
-                        <div class="d-flex flex-column align-items-center gap-3">
-                            <p class="text-muted text-center" style="font-size: 18px">Belum ada zoom yang terdaftar</p>
+                        <div class="d-flex flex-column align-items-center gap-4" style="margin-top: 70px;">
+                            <img src="{{ asset('assets/course/empty.svg') }}" alt="" style="width: 120px">
+                            <div>
+                                <h3 class="text-center fw-semibold" style="font-size: 20px; color: var(--black-color)">Oops, belum ada Zoom yang kamu ikuti</h3>
+                                <p class="text-center" style="font-size: 18px; color: var(--dark-gray-color)">Yuk, cari dan ikuti Zoom yang menarik!</p>
+                            </div>
                         </div>
                    @endif
 
@@ -48,8 +52,12 @@
                     </div>
 
                     @if($events->isEmpty())
-                        <div class="d-flex flex-column align-items-center gap-3">
-                            <p class="text-muted text-center" style="font-size: 18px">Belum ada event yang terdaftar</p>
+                        <div class="d-flex flex-column align-items-center gap-4" style="margin-top: 70px;">
+                            <img src="{{ asset('assets/course/empty.svg') }}" alt="" style="width: 120px">
+                            <div>
+                                <h3 class="text-center fw-semibold" style="font-size: 20px; color: var(--black-color)">Oops, belum ada event yang kamu ikuti</h3>
+                                <p class="text-center" style="font-size: 18px; color: var(--dark-gray-color)">Event seru menantimu. Daftar sekarang dan jangan sampai ketinggalan!</p>
+                            </div>
                         </div>
                     @endif
     

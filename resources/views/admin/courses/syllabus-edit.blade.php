@@ -284,7 +284,7 @@
             radioVideo.checked = true;
             materiContent.innerHTML = `
                 <div class="row mb-3">
-                        <div class="col-md-6 mb-3 mb-md-0">
+                        <div class="col-md mb-3 mb-md-0">
                             <label class="form-label fw-semibold">Judul Video</label>
                             <input type="text" 
                                 name="${baseName}[vblName]" value="${vblName ?? ''}" 
@@ -292,9 +292,9 @@
                                 class="form-control rounded-pill custom-input">
                         </div>
 
-                        <div class="col-md-6">
+                        <div class="col-md">
                             <label class="form-label fw-semibold">Link Video</label>
-                            <div class="d-flex align-items-center px-3 py-2 rounded-pill shadow-sm bg-light-subtle custom-input">
+                            <div class="link-input-container">
                                 <iconify-icon icon="material-symbols:link-rounded" class="me-2"></iconify-icon>                    
                                 <input type="text" 
                                     name="${baseName}[vblUrl]" value="${vblUrl ?? ''}"
