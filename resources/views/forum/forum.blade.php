@@ -10,7 +10,7 @@
 
 @section('content')
 
-<div class="container-fluid d-flex flex-column justify-content-center px-5">
+<div class="container-fluid d-flex flex-column justify-content-center px-5" style="margin-bottom: 75px;">
     @if(session('success'))
         <div class="alert alert-success">{{ session('success') }}</div>
     @endif

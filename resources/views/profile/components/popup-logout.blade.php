@@ -8,7 +8,7 @@
         
             <h5 class="fw-bold mb-2" style="font-size: var(--font-size-title)">Keluar dari Akun?</h5>
             <p class="mb-4" style="margin: 0; font-size: var(--font-size-primary); color: var(--dark-gray-color)">
-                Keluar sekarang? Kamu bisa masuk kembali kapan saja dengan akun yang sama?
+                Keluar sekarang? Kamu bisa masuk kembali kapan saja dengan akun yang sama
             </p>
 
             <div class="d-flex justify-content-center gap-3" style="width: 100%">
@@ -16,7 +16,7 @@
                     <p class="text-pink-gradient" style="margin: 0">Kembali</p>
                 </button>
                 
-                <form action="{{ route('logout') }}" method="POST" style="width: 50%; display:inline;">
+                <form action="{{ route('logout') }}" class="d-flex justify-content-center align-items-center" method="POST" style="width: 50%; display:inline;">
                     @csrf
                     <button type="submit" class="btn w-100 text-white red-btn px-4" style=>Keluar</button>
                 </form>
