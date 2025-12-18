@@ -352,6 +352,19 @@
         padding: 22px 40px 32px 40px;
     }
 
+    .form-select.select-with-icon {
+        appearance: none;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+
+        background-image: url('{{ asset('assets/icons/icon_arrow_down.svg') }}');
+        
+        background-repeat: no-repeat;
+        background-position: right 18px center;
+        background-size: 18px;
+        padding-right: 45px;
+    }
+
     /* icons */
     iconify-icon {
         font-size: 24px;

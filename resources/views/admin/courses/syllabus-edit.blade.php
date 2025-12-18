@@ -4,11 +4,11 @@
 <div class="container ps-4 container-content-admin">
     <!-- Header -->
     <div class="page-header d-flex gap-3">
-        <div class="navigation-prev">
-            <a class="page-link" href="javascript:void(0);" onclick="window.history.back()">
+        <a class="page-link" href="javascript:void(0);" onclick="window.history.back()">
+            <div class="navigation-prev">
                 <img src="{{ asset('assets/icons/icon_pagination_before.svg') }}" alt="">
-            </a>
-        </div>
+            </div>
+        </a>
 
         <div class="d-flex flex-column">
             <h3 class="fw-bold">Edit Kursus</h3>
@@ -84,7 +84,7 @@
                             <div class="col-md">
                                 <label class="fw-semibold">Tutor</label>
                                 <select name="weeks[{{ $loop->index }}][tutorId]" 
-                                    class="form-select border-0 rounded-pill shadow-sm px-3 py-2 bg-light-subtle custom-input" required>
+                                    class="form-select border-0 rounded-pill shadow-sm px-3 py-2 bg-light-subtle custom-input select-with-icon" required>
                                     <option value="" disabled {{ $week->selectedLecturerId ? '' : 'selected' }}>Pilih tutor minggu ini</option>
                                     @foreach($tutors as $tutor)
                                         <option value="{{ $tutor->id }}" {{ $week->selectedLecturerId == $tutor->id ? 'selected' : '' }}>

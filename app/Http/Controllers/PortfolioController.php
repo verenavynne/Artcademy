@@ -4,12 +4,50 @@ namespace App\Http\Controllers;
 
 use App\Models\Portfolio;
 use App\Models\ProjectSubmission;
+use App\Models\MembershipTransaction;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
 class PortfolioController extends Controller
 {
+    public function addPortfolioBtn(Request $request)
+    {
+        $user = Auth::user();
+
+        if ($user->role === 'lecturer') {
+            return view('profile.add-portfolio');
+        }
+
+        $portfolioCount = Portfolio::where('userId', $user->id)->count();
+
+        $membershipTransaction = MembershipTransaction::where('studentId', $user->id)
+            ->where('membershipStatus', 'active')
+            ->with('membership')
+            ->first();
+
+        if (!$membershipTransaction || !$membershipTransaction->membership) {
+            return redirect()->back()
+                ->with('show_membership_modal', true)
+                ->with('modal_message', 'Kamu belum memiliki membership aktif. Silakan berlangganan untuk menambahkan portofolio.');
+        }
+
+        $allowedPortfolios = match ($membershipTransaction->membership->membershipName) {
+            'Basic Canvas' => 5,
+            'Creative Studio' => 10,
+            'Masterpiece Pro' => PHP_INT_MAX,
+            default => 0,
+        };
+
+        if ($portfolioCount >= $allowedPortfolios) {
+            return redirect()->back()
+                ->with('show_membership_modal', true)
+                ->with('modal_message', 'Batas unggah portofolio kamu sudah mencapai maksimum untuk membership ini. Silakan upgrade membership');
+        }
+
+        return view('profile.add-portfolio');
+    }
+
     public function addPortfolio(Request $request)
     {
 
@@ -30,7 +68,7 @@ class PortfolioController extends Controller
         ]);
 
         $studentId = Auth::id();
-
+        
         $originalName = $request->file('file')->getClientOriginalName();
         $filePath = $request->file('file')->storeAs('portfolio_mediaPath', $originalName, 'public');
 

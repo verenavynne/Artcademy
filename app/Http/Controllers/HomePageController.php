@@ -18,6 +18,14 @@ class HomePageController extends Controller
     {
         $user = Auth::user();
 
+        if ($user) {
+            if ($user->role === 'admin') {
+                return redirect('/admin/home');
+            } elseif ($user->role === 'lecturer') {
+                return redirect('/lecturer/home');
+            }
+        }
+
         // ambil 7 kursus yg statusnya publikasi dan belum dienroll jika sudah login
         $courses = Course::with('courseLecturers.lecturer.user')
             ->where('courseStatus', 'publikasi')

@@ -13,12 +13,12 @@
             <div class="alert alert-success">{{ session('success') }}</div>
         @endif
     @endif
-    <div class="navigation-prev d-flex flex-start mt-1">
-        <a class="page-link" href="javascript:void(0);" onclick="window.history.back()">
+    <a class="page-link" href="{{ route('home') }}" onclick="window.history.back()">
+        <div class="navigation-prev d-flex flex-start">
             <img src="{{ asset('assets/icons/icon_pagination_before.svg') }}" alt="">
-        </a>
-    </div>
-
+        </div>
+    </a>
+    
     <div class="d-flex flex-row justify-content-evenly pt-2" style="width: 100%; gap: 24px; ">
         @if($user->role === 'student')
             <!-- <div style="width: 20%"> -->
@@ -202,9 +202,8 @@
         @include('forum.components.edit-post-pop-up', ['post' => $post])
     @endforeach
 
-
-
-    
+    <!-- Pop up limit membership -->
+    @include('components.membership-popup')  
     
 </div>
 
@@ -616,5 +615,11 @@ document.addEventListener("DOMContentLoaded", function() {
 
 @endsection
 
-
-
+@if (session('show_membership_modal'))
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const modal = new bootstrap.Modal(document.getElementById('membershipModal'));
+        modal.show();
+    });
+</script>
+@endif

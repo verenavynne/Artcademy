@@ -2,11 +2,11 @@
 
 @section('content')
 <div class="container-fluid d-flex flex-column justify-content-center px-5" style="margin-bottom: 75px;">
-    <div class="navigation-prev d-flex flex-start mt-1">
-        <a class="page-link" href="javascript:void(0);" onclick="window.history.back()">
+    <a class="page-link" href="javascript:void(0);" onclick="window.history.back()">
+        <div class="navigation-prev d-flex flex-start">
             <img src="{{ asset('assets/icons/icon_pagination_before.svg') }}" alt="">
-        </a>
-    </div>
+        </div>
+    </a>
 
     <div class="d-flex flex-row justify-content-center gap-5">
         <div class="d-flex flex-column" style="width: 60%;">

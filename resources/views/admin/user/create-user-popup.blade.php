@@ -11,7 +11,7 @@
       <div class="form-row">
         <div class="form-group">
           <label class="form-label fw-semibold">Pilih Role</label>
-          <select id="selectedRole" name="role" class="form-select rounded-pill px-4 py-2 custom-input">
+          <select id="selectedRole" name="role" class="form-select rounded-pill px-4 py-2 custom-input select-with-icon">
             <option selected disabled>Pilih role</option>
             <option value="admin">Admin</option>
             <option value="lecturer">Tutor</option>
@@ -36,7 +36,7 @@
         </div>
         <div class="form-group" id="specialization-group" style="display: none;">
           <label>Keahlian</label>
-          <select name="specialization" class="form-select rounded-pill px-4 py-2 custom-input">
+          <select name="specialization" class="form-select rounded-pill px-4 py-2 custom-input select-with-icon">
             <option selected disabled>Pilih keahlian</option>
             <option value="Seni Lukis & Digital Art">Seni Lukis & Digital Art</option>
             <option value="Seni Musik">Seni Musik</option>

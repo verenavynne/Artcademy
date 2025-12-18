@@ -3,11 +3,11 @@
 @section('content')
 <div class="container ps-4 container-content-admin">
     <div class="page-header d-flex gap-3">
-        <div class="navigation-prev">
-            <a class="page-link" href="javascript:void(0);" onclick="window.history.back()">
+        <a class="page-link" href="{{ route('admin.event.index') }}" onclick="window.history.back()">
+            <div class="navigation-prev">
                 <img src="{{ asset('assets/icons/icon_pagination_before.svg') }}" alt="">
-            </a>
-        </div>
+            </div>
+        </a>
 
         <div class="d-flex flex-column">
             <h3 class="fw-bold">Edit Event</h3>
@@ -36,7 +36,7 @@
                     <!-- Kategori -->
                     <div class="col-md">
                         <label class="form-label fw-semibold">Kategori</label>
-                        <select name="eventCategory" class="form-select rounded-pill custom-input">
+                        <select name="eventCategory" class="form-select rounded-pill custom-input select-with-icon">
                             <option selected disabled>Pilih kategori</option>
                             <option value="Webinar" {{ $event->eventCategory == 'Webinar' ? 'selected' : '' }}>Webinar</option>
                             <option value="Workshop" {{ $event->eventCategory == 'Workshop' ? 'selected' : '' }}>Workshop</option>
@@ -46,7 +46,7 @@
                     <!-- Maksimal peserta -->
                     <div class="col-md">
                         <label class="form-label fw-semibold">Maksimal Peserta</label>
-                        <select name="eventSlot" class="form-select rounded-pill custom-input" required>
+                        <select name="eventSlot" class="form-select rounded-pill custom-input select-with-icon" required>
                             <option selected disabled>Pilih Jumlah Maksimal Peserta</option>
                             @for ($i = 10; $i <= 100; $i += 10)
                                 <option value="{{ $i }}" {{ $i == $event->eventSlot ? 'selected' : '' }}>{{ $i }}</option>
@@ -73,7 +73,13 @@
                                 <img 
                                     id="bannerPreview" 
                                     class="preview-image"
-                                    src="{{ $event->eventBanner ? asset('storage/' . $event->eventBanner) : '' }}"
+                                    src="{{
+                                            Str::startsWith($event->eventBanner, ['http://', 'https://'])
+                                                ? $event->eventBanner
+                                                : (Str::startsWith($event->eventBanner, 'assets/')
+                                                    ? asset($event->eventBanner)
+                                                    : asset('storage/' . $event->eventBanner))
+                                        }}"
                                 >
                             </div>
                         </div>

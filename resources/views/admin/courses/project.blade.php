@@ -4,11 +4,11 @@
 <div class="container ps-4 container-content-admin">
     <!-- Header -->
     <div class="page-header d-flex gap-3">
-        <div class="navigation-prev">
-            <a class="page-link" href="javascript:void(0);" onclick="window.history.back()">
+        <a class="page-link" href="javascript:void(0);" onclick="window.history.back()">
+            <div class="navigation-prev">
                 <img src="{{ asset('assets/icons/icon_pagination_before.svg') }}" alt="">
-            </a>
-        </div>
+            </div>
+        </a>
 
         <div class="d-flex flex-column">
             <h3 class="fw-bold">Tambah Kursus</h3>
@@ -112,19 +112,19 @@
                     <div class="row g-3">
                         <div class="col-md">
                             <label class="form-label">Kreativitas</label>
-                            <select id="creativity" name="criteriaCreativity" class="form-select rounded-pill custom-input" >
+                            <select id="creativity" name="criteriaCreativity" class="form-select rounded-pill custom-input select-with-icon" >
                                 <option selected disabled>Pilih Persentase</option>
                             </select>
                         </div>
                         <div class="col-md">
                             <label class="form-label">Keterbacaan</label>
-                            <select id="readability" name="criteriaReadability" class="form-select rounded-pill custom-input"  disabled>
+                            <select id="readability" name="criteriaReadability" class="form-select rounded-pill custom-input select-with-icon"  disabled>
                                 <option selected disabled>Pilih Persentase</option>
                             </select>
                         </div>
                         <div class="col-md">
                             <label class="form-label">Kesesuaian Tema</label>
-                            <select id="theme" name="criteriaTheme" class="form-select rounded-pill custom-input"  disabled>
+                            <select id="theme" name="criteriaTheme" class="form-select rounded-pill custom-input select-with-icon"  disabled>
                                 <option selected disabled>Pilih Persentase</option>
                             </select>
                         </div>

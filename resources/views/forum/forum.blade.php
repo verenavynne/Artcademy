@@ -19,11 +19,11 @@
     @endif
     <div class="d-flex align-items-center gap-4 pt-1 w-100" style="margin-bottom: 18px">
         @if($user->role === 'lecturer')
-            <div class="navigation-prev">
-                <a class="page-link" href="javascript:void(0);" onclick="window.history.back()">
+            <a class="page-link" href="{{ route('home') }}" onclick="window.history.back()">
+                <div class="navigation-prev">
                     <img src="{{ asset('assets/icons/icon_pagination_before.svg') }}" alt="">
-                </a>
-            </div>
+                </div>
+            </a>
         @endif
         <div class="position-relative flex-grow-1">
             <form class="d-flex w-100" method="GET" action="{{ route('forum') }}">

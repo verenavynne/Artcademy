@@ -4,12 +4,11 @@
 @section('content')
 <div class="container-content" style="gap : 24px;">
     <div class="nilai-projek-title d-flex justify-content-start align-items-center">
-        <div class="navigation-prev d-flex flex-start mt-1">
-            <a class="page-link" href="#" onclick="window.history.back()">
+        <a class="page-link" href="{{ route('lecturer.nilai-projek') }}" onclick="window.history.back()">
+            <div class="navigation-prev d-flex flex-start">
                 <img src="{{ asset('assets/icons/icon_pagination_before.svg') }}" alt="">
-            </a>
-        </div>
-
+            </div>
+        </a>
         <h4 class="fw-semibold" style="font-size: 32px; margin: 0; color: var(--black-color);">Nilai Projek</h4>
     </div>
 
@@ -87,7 +86,7 @@
                         </label>
 
                         <div class="select-box">
-                            <select name="scores[{{ $pc->id }}]" class="score-select" required>
+                            <select name="scores[{{ $pc->id }}]" class="score-select select-with-icon" required>
                                 <option value="" selected disabled>Pilih nilai</option>
                                 @for ($i = 0; $i <= 100; $i += 10)
                                     <option value="{{ $i }}">{{ $i }}</option>

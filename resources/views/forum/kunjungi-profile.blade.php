@@ -53,12 +53,11 @@
         <div class="col-6 d-flex flex-column align-items-center gap-2">
             <div class="feed-wrapper d-flex flex-column gap-2 w-100">
                 <div class="profile-banner-card d-flex flex-row gap-2">
-                     <div class="navigation-prev d-flex flex-start mt-1">
-                        <a class="page-link" href="javascript:void(0);" onclick="window.history.back()">
+                    <a class="page-link" href="javascript:void(0);" onclick="window.history.back()">
+                        <div class="navigation-prev d-flex flex-start">
                             <img src="{{ asset('assets/icons/icon_pagination_before.svg') }}" alt="">
-                        </a>
-                    </div>
-                   
+                        </div>
+                    </a>
                     <div class="profile-banner-info justify-content-center align-items-center d-flex flex-row gap-4">
                         <div class="profile-image">
                             <img src="{{ $selectedUser->profilePicture ? asset('storage/' . $selectedUser->profilePicture) : asset('assets/default-profile.jpg') }}"

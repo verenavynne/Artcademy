@@ -3,11 +3,11 @@
 @section('content')
 <div class="container ps-4 container-content-admin">
     <div class="page-header d-flex gap-3">
-        <div class="navigation-prev">
-            <a class="page-link" href="javascript:void(0);" onclick="window.history.back()">
+        <a class="page-link" href="{{ route('admin.zoom.index') }}" onclick="window.history.back()">
+            <div class="navigation-prev">
                 <img src="{{ asset('assets/icons/icon_pagination_before.svg') }}" alt="">
-            </a>
-        </div>
+            </div>
+        </a>
 
         <div class="d-flex flex-column">
             <h3 class="fw-bold">Tambah Kelas Zoom</h3>
@@ -32,7 +32,7 @@
                     <!-- Pilihan Kursus -->
                     <div class="col-md">
                         <label class="form-label fw-semibold">Pilih Kursus</label>
-                        <select name="zoomCourse" class="form-select rounded-pill custom-input" required>
+                        <select name="zoomCourse" class="form-select rounded-pill custom-input select-with-icon" required>
                             <option selected disabled>Zoom ini berkaitan dengan kursus apa?</option>
                             @foreach($courses as $course)
                                 <option value="{{ $course->id }}">{{ $course->courseName }}</option>
@@ -57,7 +57,7 @@
                     <!-- Tutor -->
                     <div class="col-md">
                         <label class="form-label fw-semibold">Tutor</label>
-                        <select name="zoomTutor" class="form-select rounded-pill custom-input" disabled required>
+                        <select name="zoomTutor" class="form-select rounded-pill custom-input select-with-icon" disabled required>
                             <option selected disabled>Pilih Tutor</option>
                         </select>
                     </div>
@@ -73,7 +73,7 @@
                     <!-- Kuota -->
                     <div class="col-md">
                         <label class="form-label fw-semibold">Maksimal Peserta</label>
-                        <select name="zoomQuota" class="form-select rounded-pill custom-input" required>
+                        <select name="zoomQuota" class="form-select rounded-pill custom-input select-with-icon" required>
                             <option selected disabled>Pilih Jumlah Maksimal Peserta</option>
                             @for ($i = 10; $i <= 100; $i += 10)
                                 <option value="{{ $i }}">{{ $i }}</option>
