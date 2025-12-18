@@ -112,19 +112,19 @@
                     <div class="row g-3">
                         <div class="col-md">
                             <label class="form-label">Kreativitas</label>
-                            <select id="creativity" name="criteriaCreativity" class="form-select rounded-pill custom-input" >
+                            <select id="creativity" name="criteriaCreativity" class="form-select rounded-pill custom-input select-with-icon" >
                                 <option selected disabled>Pilih Persentase</option>
                             </select>
                         </div>
                         <div class="col-md">
                             <label class="form-label">Keterbacaan</label>
-                            <select id="readability" name="criteriaReadability" class="form-select rounded-pill custom-input"  disabled>
+                            <select id="readability" name="criteriaReadability" class="form-select rounded-pill custom-input select-with-icon"  disabled>
                                 <option selected disabled>Pilih Persentase</option>
                             </select>
                         </div>
                         <div class="col-md">
                             <label class="form-label">Kesesuaian Tema</label>
-                            <select id="theme" name="criteriaTheme" class="form-select rounded-pill custom-input"  disabled>
+                            <select id="theme" name="criteriaTheme" class="form-select rounded-pill custom-input select-with-icon"  disabled>
                                 <option selected disabled>Pilih Persentase</option>
                             </select>
                         </div>

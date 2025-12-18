@@ -36,7 +36,7 @@
                     <!-- Kategori -->
                     <div class="col-md">
                         <label class="form-label fw-semibold">Kategori</label>
-                        <select name="eventCategory" class="form-select rounded-pill custom-input">
+                        <select name="eventCategory" class="form-select rounded-pill custom-input select-with-icon">
                             <option selected disabled>Pilih kategori</option>
                             <option value="Webinar" {{ $event->eventCategory == 'Webinar' ? 'selected' : '' }}>Webinar</option>
                             <option value="Workshop" {{ $event->eventCategory == 'Workshop' ? 'selected' : '' }}>Workshop</option>
@@ -46,7 +46,7 @@
                     <!-- Maksimal peserta -->
                     <div class="col-md">
                         <label class="form-label fw-semibold">Maksimal Peserta</label>
-                        <select name="eventSlot" class="form-select rounded-pill custom-input" required>
+                        <select name="eventSlot" class="form-select rounded-pill custom-input select-with-icon" required>
                             <option selected disabled>Pilih Jumlah Maksimal Peserta</option>
                             @for ($i = 10; $i <= 100; $i += 10)
                                 <option value="{{ $i }}" {{ $i == $event->eventSlot ? 'selected' : '' }}>{{ $i }}</option>

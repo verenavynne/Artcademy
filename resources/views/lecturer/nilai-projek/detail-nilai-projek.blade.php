@@ -86,7 +86,7 @@
                         </label>
 
                         <div class="select-box">
-                            <select name="scores[{{ $pc->id }}]" class="score-select" required>
+                            <select name="scores[{{ $pc->id }}]" class="score-select select-with-icon" required>
                                 <option value="" selected disabled>Pilih nilai</option>
                                 @for ($i = 0; $i <= 100; $i += 10)
                                     <option value="{{ $i }}">{{ $i }}</option>

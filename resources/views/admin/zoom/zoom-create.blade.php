@@ -32,7 +32,7 @@
                     <!-- Pilihan Kursus -->
                     <div class="col-md">
                         <label class="form-label fw-semibold">Pilih Kursus</label>
-                        <select name="zoomCourse" class="form-select rounded-pill custom-input" required>
+                        <select name="zoomCourse" class="form-select rounded-pill custom-input select-with-icon" required>
                             <option selected disabled>Zoom ini berkaitan dengan kursus apa?</option>
                             @foreach($courses as $course)
                                 <option value="{{ $course->id }}">{{ $course->courseName }}</option>
@@ -57,7 +57,7 @@
                     <!-- Tutor -->
                     <div class="col-md">
                         <label class="form-label fw-semibold">Tutor</label>
-                        <select name="zoomTutor" class="form-select rounded-pill custom-input" disabled required>
+                        <select name="zoomTutor" class="form-select rounded-pill custom-input select-with-icon" disabled required>
                             <option selected disabled>Pilih Tutor</option>
                         </select>
                     </div>
@@ -73,7 +73,7 @@
                     <!-- Kuota -->
                     <div class="col-md">
                         <label class="form-label fw-semibold">Maksimal Peserta</label>
-                        <select name="zoomQuota" class="form-select rounded-pill custom-input" required>
+                        <select name="zoomQuota" class="form-select rounded-pill custom-input select-with-icon" required>
                             <option selected disabled>Pilih Jumlah Maksimal Peserta</option>
                             @for ($i = 10; $i <= 100; $i += 10)
                                 <option value="{{ $i }}">{{ $i }}</option>

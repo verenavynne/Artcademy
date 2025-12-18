@@ -84,7 +84,7 @@
                             <div class="col-md">
                                 <label class="fw-semibold">Tutor</label>
                                 <select name="weeks[{{ $loop->index }}][tutorId]" 
-                                    class="form-select border-0 rounded-pill shadow-sm px-3 py-2 bg-light-subtle custom-input" required>
+                                    class="form-select border-0 rounded-pill shadow-sm px-3 py-2 bg-light-subtle custom-input select-with-icon" required>
                                     <option value="" disabled {{ $week->selectedLecturerId ? '' : 'selected' }}>Pilih tutor minggu ini</option>
                                     @foreach($tutors as $tutor)
                                         <option value="{{ $tutor->id }}" {{ $week->selectedLecturerId == $tutor->id ? 'selected' : '' }}>

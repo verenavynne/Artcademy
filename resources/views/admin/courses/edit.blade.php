@@ -63,7 +63,7 @@
                 <div class="row mb-3">
                     <div class="col-md mb-3">
                         <label class="form-label fw-semibold">Kategori Kursus</label>
-                        <select name="courseType" class="form-select rounded-pill custom-input" required>
+                        <select name="courseType" class="form-select rounded-pill custom-input select-with-icon" required>
                             <option disabled {{ !$course ? 'selected' : '' }}>Pilih Kategori Kursus</option>
                             <option value="Seni Tari" {{ old('courseType', $course->courseType ?? '') == 'Seni Tari' ? 'selected' : '' }}>Seni Tari</option>
                             <option value="Seni Musik" {{ old('courseType', $course->courseType ?? '') == 'Seni Musik' ? 'selected' : '' }}>Seni Musik</option>
@@ -75,7 +75,7 @@
                     <!-- Level -->
                     <div class="col-md mb-3">
                         <label class="form-label fw-semibold">Level Kursus</label>
-                        <select name="courseLevel" class="form-select rounded-pill custom-input" required>
+                        <select name="courseLevel" class="form-select rounded-pill custom-input select-with-icon" required>
                             <option disabled {{ !$course ? 'selected' : '' }}>Pilih Level</option>
                             <option value="dasar" {{ old('courseLevel', $course->courseLevel ?? '') == 'dasar' ? 'selected' : '' }}>Level Dasar</option>
                             <option value="menengah" {{ old('courseLevel', $course->courseLevel ?? '') == 'menengah' ? 'selected' : '' }}>Level Menengah</option>
@@ -106,7 +106,7 @@
                     <!-- Tipe Pembayaran -->
                     <div class="col-md mb-3">
                         <label class="form-label fw-semibold">Tipe Pembayaran</label>
-                        <select name="coursePaymentType" class="form-select rounded-pill custom-input" required>
+                        <select name="coursePaymentType" class="form-select rounded-pill custom-input select-with-icon" required>
                             <option disabled {{ !$course ? 'selected' : '' }}>Pilih Tipe Pembayaran</option>
                             <option value="gratis" {{ old('coursePaymentType', $course->coursePaymentType ?? '') == 'gratis' ? 'selected' : '' }}>Gratis</option>
                             <option value="berbayar" {{ old('coursePaymentType', $course->coursePaymentType ?? '') == 'berbayar' ? 'selected' : '' }}>Berbayar</option>

@@ -26,7 +26,7 @@
                 <div class="col-md-6">
                     <label class="fw-semibold">Tutor</label>
                     <select name="weeks[__WEEK_INDEX__][tutorId]" 
-                        class="form-select rounded-pill px-3 py-2 custom-input" required>
+                        class="form-select rounded-pill px-3 py-2 custom-input select-with-icon" required>
                         <option value="" disabled selected>Pilih tutor minggu ini</option>
                         @foreach($tutors as $tutor)
                             <option value="{{ $tutor->id }}">{{ $tutor->user->name }}</option>

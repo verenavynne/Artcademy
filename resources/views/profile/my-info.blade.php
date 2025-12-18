@@ -100,7 +100,7 @@
                                 <label for="gender" class="form-label">Jenis Kelamin</label>
                                 <select id="gender" 
                                         name="gender" 
-                                        class="form-select rounded-pill @error('gender') is-invalid @enderror">
+                                        class="form-select rounded-pill select-with-icon @error('gender') is-invalid @enderror">
                                     <option value="" disabled {{ $user->gender == null ? 'selected' : '' }}>
                                         Pilih jenis kelamin
                                     </option>

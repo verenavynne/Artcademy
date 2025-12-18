@@ -116,7 +116,7 @@
                     <div class="row g-3">
                         <div class="col-md">
                             <label class="form-label">Kreativitas</label>
-                            <select id="creativity" name="criteriaCreativity" class="form-select rounded-pill custom-input">
+                            <select id="creativity" name="criteriaCreativity" class="form-select rounded-pill custom-input select-with-icon">
                                 <option value="{{ $criteriaWeights['Kreativitas'] ?? 0 }}" disabled selected>
                                     {{ $criteriaWeights['Kreativitas'] ?? 0 }}%
                                 </option>
@@ -124,7 +124,7 @@
                         </div>
                         <div class="col-md">
                             <label class="form-label">Keterbacaan</label>
-                            <select id="readability" name="criteriaReadability" class="form-select rounded-pill custom-input"  disabled>
+                            <select id="readability" name="criteriaReadability" class="form-select rounded-pill custom-input select-with-icon"  disabled>
                                 <option value="{{ $criteriaWeights['Keterbacaan'] ?? 0 }}" disabled selected>
                                     {{ $criteriaWeights['Keterbacaan'] ?? 0 }}%
                                 </option>
@@ -132,7 +132,7 @@
                         </div>
                         <div class="col-md">
                             <label class="form-label">Kesesuaian Tema</label>
-                            <select id="theme" name="criteriaTheme" class="form-select rounded-pill custom-input" disabled>
+                            <select id="theme" name="criteriaTheme" class="form-select rounded-pill custom-input select-with-icon" disabled>
                                 <option value="{{ $criteriaWeights['Kesesuaian Tema'] ?? 0 }}" disabled selected>
                                     {{ $criteriaWeights['Kesesuaian Tema'] ?? 0 }}%
                                 </option>
