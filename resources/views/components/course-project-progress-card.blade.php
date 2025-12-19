@@ -70,6 +70,12 @@
         background: white;
         box-shadow: 0 4px 8px 0 var(--brown-shadow-color);
         gap: 28px;
+
+        position: sticky !important;
+        top: 108px !important;
+        z-index: 10 !important;   
+        align-self: flex-start;
+        height: auto !important;
     }
 
     .projek-title{

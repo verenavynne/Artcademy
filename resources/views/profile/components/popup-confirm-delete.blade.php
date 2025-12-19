@@ -19,7 +19,7 @@
                 <form action="{{ route('portfolio.destroy', $portfolio->id) }}" method="POST" style="width: 50%">
                     @csrf
                     @method('DELETE')
-                    <button type="submit" class="btn w-100 text-white red-btn px-4">Hapus</button>
+                    <button type="submit" class="btn w-100 rounded-pill text-white red-btn px-4">Hapus</button>
                 </form>
             </div>
         </div>

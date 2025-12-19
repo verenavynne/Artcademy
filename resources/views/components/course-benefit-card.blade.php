@@ -52,6 +52,12 @@
         border-radius: 44px;
         background: white;
         box-shadow: 0 4px 8px 0 rgba(67, 39, 0, 0.20);
+
+        position: sticky !important;
+        top: 108px !important;
+        z-index: 10 !important;   
+        align-self: flex-start;
+        height: auto !important;
     }
 
     .benefit-list{

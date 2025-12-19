@@ -250,6 +250,12 @@
         border-radius: 44px;
         width: 439px;
         height: max-content;
+
+        position: sticky !important;
+        top: 108px !important;
+        z-index: 10 !important;   
+        align-self: flex-start;
+        height: auto !important;
     }
 
     .nilai-name,

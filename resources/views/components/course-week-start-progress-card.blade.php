@@ -76,6 +76,10 @@
         background: white;
         box-shadow: 0 4px 8px 0 rgba(67, 39, 0, 0.20);
         gap: 28px;
+
+        position: sticky;
+        top: 108px;
+        z-index: 10;
     }
 
     .course-week-title{

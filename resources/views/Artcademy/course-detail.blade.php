@@ -18,7 +18,7 @@
     $backgroundCourseTypeText = match($course->courseType){
         'Seni Lukis & Digital Art' => '#D99F18',    
         'Seni Tari' => '#E24D77',         
-        'Seni Fotografi' => '#4296CC',     
+        'Seni Fotografi' => '#2e78beff',     
         'Seni Musik' => '#D5B91B', 
     };
 
@@ -69,7 +69,7 @@
 
                     </div>
                     <div class="d-flex flex-start pe-5">
-                        <img src="{{ asset($course->coursePicture) }}" alt="Course Picture" width="176" height="126" style="">
+                        <img src="{{ asset($course->coursePicture) }}" alt="Course Picture" width="150" height="150" style="object-fit: contain;">
 
                     </div>
                 </div>
