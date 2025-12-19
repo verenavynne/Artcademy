@@ -106,7 +106,7 @@
 
     .subtitle {
         color: var(--dark-gray-color);
-        font-size: 12px;
+        font-size: 14px;
         margin-bottom: 20px;
     }
 
@@ -134,7 +134,7 @@
         align-items: center;
         gap: 9px;
         padding: 6px 0;
-        font-size: 12px;
+        font-size: 14px;
         color: var(--dark-gray-color);
     }
 

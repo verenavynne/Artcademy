@@ -18,7 +18,7 @@
                 
                 <form action="{{ route('logout') }}" class="d-flex justify-content-center align-items-center" method="POST" style="width: 50%; display:inline;">
                     @csrf
-                    <button type="submit" class="btn w-100 text-white red-btn px-4" style=>Keluar</button>
+                    <button type="submit" class="btn w-100 rounded-pill text-white red-btn px-4" style=>Keluar</button>
                 </form>
             </div>
         </div>

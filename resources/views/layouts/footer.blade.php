@@ -2,7 +2,7 @@
     <div class="container mt-5">
         <div class="content-footer row justify-content-between">
             <div class="col-md-3 mb-3">
-                <a href="" >
+                <a href="{{ route('home')}}" >
                     <img src="{{ asset('assets/logo.png') }}" class="mb-3" alt="Logo" width="153px" height="38px">
                 </a>
                 <p class="footer-logo-text"><i class="fa-regular fa-copyright" style="color: var(--brown-color);"></i> Artcademy 2025.</p>
@@ -11,26 +11,26 @@
                 <h5 class="fw-bold">Artcademy</h5>
                 <ul class="list-unstyled d-flex flex-column gap-2">
                     <li><a href="#"  >Tentang Kami</a></li>
-                    <li><a href="#" >Kursus</a></li>
-                    <li><a href="#" >Membership</a></li>
-                    <li><a href="#" >Komunitas</a></li>
+                    <li><a href="{{ route('course')}}" >Kursus</a></li>
+                    <li><a href="{{ route('membership')}}" >Membership</a></li>
+                    <li><a href="{{ route('forum')}}" >Forum</a></li>
                 </ul>
             </div>
             <div class="col-md-2 mb-3 d-flex flex-column gap-2">
                 <h5 class="fw-bold">Pusat Bantuan</h5>
                 <ul class="list-unstyled d-flex flex-column gap-2" >
-                    <li><a href="#">Kebijakan Privasi</a></li>
-                    <li><a href="#">Kontak Kami</a></li>
-                    <li><a href="#">FAQs</a></li>
+                    <li><a href="#" class="disable-link">Kebijakan Privasi</a></li>
+                    <li><a href="#" class="disable-link">Kontak Kami</a></li>
+                    <li><a href="#" class="disable-link">FAQs</a></li>
                 </ul>
             </div>
             <div class="col-md-2 mb-3 d-flex flex-column gap-2">
                 <h5 class="fw-bold">Ikuti kami</h5>
                 <ul class="icon-group list-unstyled d-flex flex-row gap-4" >
-                    <li><a href="#"><i class="fa-brands fa-instagram icon"></i></a></li>
-                    <li><a href="#"><i class="fa-brands fa-facebook icon"></i> </a></li>
-                    <li><a href="#"><i class="fa-brands fa-youtube icon"></i> </a></li>
-                    <li><a href="#"><i class="fa-brands fa-tiktok icon"></i> </a></li>
+                    <li><a href="https://www.instagram.com/"><i class="fa-brands fa-instagram icon"></i></a></li>
+                    <li><a href="https://www.facebook.com/"><i class="fa-brands fa-facebook icon"></i> </a></li>
+                    <li><a href="https://www.youtube.com/"><i class="fa-brands fa-youtube icon"></i> </a></li>
+                    <li><a href="https://www.tiktok.com/"><i class="fa-brands fa-tiktok icon"></i> </a></li>
                 </ul>
             </div>
         </div>
@@ -39,6 +39,12 @@
 </footer>
 
 <style>
+    .disable-link {
+    cursor: default;       
+    pointer-events: none;  
+    text-decoration: none; 
+    color: inherit;         
+    }
 
     footer {
         overflow: visible;

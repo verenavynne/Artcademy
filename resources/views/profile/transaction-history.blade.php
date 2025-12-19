@@ -17,7 +17,7 @@
         <div class="d-flex flex-column" style="width: 75%; ">
             <p class="title text-start fw-bold">Lihat Riwayat Transaksimu!</p>
             
-            <div class="transaction-history-section d-flex flex-column gap-2">
+            <div class="transaction-history-section d-flex flex-column gap-4">
                 @if($transactions->count() === 0)
                     <div class="d-flex flex-column align-items-center gap-4" style="margin-top: 70px;">
                         <img src="{{ asset('assets/course/empty.svg') }}" alt="" style="width: 100px">
@@ -71,7 +71,13 @@
         height: max-content;
         background: white;
         border-radius: 24px;
-        box-shadow: 0 4px 8px 0  var(--brown-shadow-color)
+        box-shadow: 0 4px 8px 0  var(--brown-shadow-color);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .transaction-history-card:hover{
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08) !important;
     }
 
     .transaction-details p{

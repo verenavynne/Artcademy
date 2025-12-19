@@ -14,6 +14,12 @@
         box-shadow: 0 4px 8px 0 rgba(67, 39, 0, 0.20);
         padding-inline: 29px;
         padding-block: 36px;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .testimoni-card:hover{
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08) !important;
     }
 
     .testimoni-header{

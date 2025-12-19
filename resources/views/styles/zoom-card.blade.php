@@ -14,13 +14,21 @@
         box-shadow: 0px 4px 8px 0px rgba(67, 39, 0, 0.20);
         border: none;
         padding:8px;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .zoom-card:hover{
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08) !important;
     }
 
     .zoom-card-header{
         border-radius: 40px; 
         height: 55%;
         padding: 19px 14px;
-        padding-block-end: 0px;
+        padding-block-end: 0;
+        position: relative; 
+        overflow: hidden;
     }
 
     .zoom-text-container{

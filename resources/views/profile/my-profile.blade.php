@@ -359,7 +359,7 @@
         justify-content: center;
         align-items:center;
         padding: 10px 20px;
-        width: 238px;
+        width: auto;
         height: 56px;
         
     }
