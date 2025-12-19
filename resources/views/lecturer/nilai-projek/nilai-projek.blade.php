@@ -14,8 +14,12 @@
                 @forelse ($menungguSubmissions as $submission)
                     @include('components.nilai-projek-card')
                 @empty
-                    <div class="d-flex justify-content-center align-items-center w-100" style="height: 200px;">
-                        <p class="text-center m-0">Tidak ada projek yang perlu dinilai</p>
+                    <div class="d-flex flex-column align-items-center w-100 gap-4" style="margin-top: 70px;">
+                        <img src="{{ asset('assets/course/empty.svg') }}" alt="" style="width: 100px">
+                        <div>
+                            <h3 class="text-center fw-semibold" style="font-size: 20px; color: var(--black-color)">Belum ada projek siswa</h3>
+                            <p class="text-center" style="font-size: 18px; color: var(--dark-gray-color)">Saat ini belum ada projek siswa yang perlu dinilai</p>
+                        </div>
                     </div>
                 @endforelse
             </div>
@@ -26,8 +30,12 @@
                 @forelse ($selesaiSubmissions as $submission)
                     @include('components.selesai-nilai-projek-card')
                 @empty
-                    <div class="d-flex justify-content-center align-items-center w-100" style="height: 200px;">
-                        <p class="text-center m-0">Tidak ada projek yang sudah selesai dinilai.</p>
+                    <div class="d-flex flex-column align-items-center w-100 gap-4" style="margin-top: 70px;">
+                        <img src="{{ asset('assets/course/empty.svg') }}" alt="" style="width: 100px">
+                        <div>
+                            <h3 class="text-center fw-semibold" style="font-size: 20px; color: var(--black-color)">Belum ada projek siswa</h3>
+                            <p class="text-center" style="font-size: 18px; color: var(--dark-gray-color)">Saat ini belum ada projek siswa yang selesai dinilai</p>
+                        </div>
                     </div>
                 @endforelse
             </div>
