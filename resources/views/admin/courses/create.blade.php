@@ -117,25 +117,38 @@
                     <div class="col-md mb-4">
                         <label class="form-label fw-semibold">Pilih 3 Tutor</label>
 
-                        <div id="lecturers-container" class="border rounded-4 p-3 custom-input">
-                            @foreach($lecturers as $lecturer)
-                                <div class="form-check mb-2">
-                                    <input 
-                                        type="checkbox" 
-                                        name="lecturers[]" 
-                                        value="{{ $lecturer->id }}" 
-                                        class="form-check-input lecturer-checkbox"
-                                        data-category="{{ $lecturer->specialization }}"
-                                        id="lecturer-{{ $lecturer->id }}">
-                                    <label class="form-check-label" for="lecturer-{{ $lecturer->id }}">
-                                        {{ $lecturer->user->name }} 
-                                    </label>
-                                </div>
-                            @endforeach
+                        <div class="dropdown">
+                            <button 
+                                class="form-control rounded-pill text-start dropdown-checkbox-with-icon"
+                                type="button"
+                                id="tutorDropdown"
+                                data-bs-toggle="dropdown"
+                                aria-expanded="false"
+                                disabled
+                            >
+                                Pilih Tutor
+                            </button>
+
+                            <ul class="dropdown-menu dropdown-checkbox-menu w-100 p-3" aria-labelledby="tutorDropdown" id="lecturers-container">
+                                @foreach($lecturers as $lecturer)
+                                    <li class="form-check dropdown-checkbox-item" data-category="{{ $lecturer->specialization }}">
+                                        <input
+                                            class="form-check-input lecturer-checkbox"
+                                            type="checkbox"
+                                            name="lecturers[]"
+                                            value="{{ $lecturer->id }}"
+                                            id="lecturer-{{ $lecturer->id }}"
+                                        >
+                                        <label class="form-check-label ms-2" for="lecturer-{{ $lecturer->id }}">
+                                            {{ $lecturer->user->name }}
+                                        </label>
+                                    </li>
+                                @endforeach
+                            </ul>
                         </div>
 
                         <small class="text-muted d-block mt-2">
-                            Pilih <strong>3 tutor</strong> yang sesuai dengan kategori kursus.<br>
+                            Pilih maksimal <strong>3 tutor</strong> sesuai kategori kursus
                         </small>
                     </div>
                 </div>            
@@ -156,25 +169,63 @@
 
 <script>
     const courseTypeSelect = document.querySelector('select[name="courseType"]');
-    const lecturersContainer = document.getElementById('lecturers-container');
+    const dropdownBtn = document.getElementById('tutorDropdown');
+    const lecturers = document.querySelectorAll('.dropdown-checkbox-item');
+    const checkboxes = document.querySelectorAll('.lecturer-checkbox');
 
-    lecturersContainer.querySelectorAll('.form-check').forEach(fc => {
-        fc.style.display = 'none';
-    });
+    // DEFAULT: dropdown disable
+    dropdownBtn.disabled = true;
 
     courseTypeSelect.addEventListener('change', () => {
         const selectedCategory = courseTypeSelect.value;
 
-        lecturersContainer.querySelectorAll('.lecturer-checkbox').forEach(cb => {
-            if (cb.dataset.category === selectedCategory) {
-                cb.closest('.form-check').style.display = '';
+        if (selectedCategory) {
+            dropdownBtn.disabled = false;
+            dropdownBtn.textContent = 'Pilih Tutor';
+        } else {
+            dropdownBtn.disabled = true;
+            dropdownBtn.textContent = 'Pilih Tutor';
+        }
+
+        // filter tutor + reset checkbox
+        lecturers.forEach(item => {
+            const checkbox = item.querySelector('.lecturer-checkbox');
+
+            if (item.dataset.category === selectedCategory) {
+                item.style.display = '';
             } else {
-                cb.closest('.form-check').style.display = 'none';
-                cb.checked = false;
+                item.style.display = 'none';
+                checkbox.checked = false;
             }
         });
+
+        updateDropdownText();
     });
 
+    function updateDropdownText() {
+        const checked = document.querySelectorAll('.lecturer-checkbox:checked');
+        const names = Array.from(checked).map(cb =>
+            cb.nextElementSibling.textContent.trim()
+        );
+
+        dropdownBtn.textContent = names.length
+            ? names.join(', ')
+            : 'Pilih Tutor';
+    }
+
+    // limit max 3 tutor
+    checkboxes.forEach(cb => {
+        cb.addEventListener('change', () => {
+            const checkedCount = document.querySelectorAll('.lecturer-checkbox:checked').length;
+
+            if (checkedCount > 3) {
+                cb.checked = false;
+                return;
+            }
+
+            updateDropdownText();
+        });
+    });
 
     const form = document.getElementById('courseForm');
     const saveDraftBtn = document.getElementById('saveDraftBtn');

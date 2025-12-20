@@ -316,11 +316,25 @@
 
                     <div class="mb-3">
                         <label class="form-label fw-semibold">Tools yang digunakan</label>
-                        <div class="border rounded-4 p-3 custom-input">
-                            ${renderTools(materiGroup, baseName)}
+                        <div class="dropdown">
+                            <button
+                                class="form-control rounded-pill text-start dropdown-checkbox-with-icon tools-dropdown-btn"
+                                type="button"
+                                data-bs-toggle="dropdown"
+                                aria-expanded="false"
+                            >
+                                Pilih Tools
+                            </button>
+
+                            <ul class="dropdown-menu dropdown-checkbox-menu w-100 p-3 tools-container">
+                                ${renderTools(materiGroup, baseName)}
+                            </ul>
                         </div>
                     </div>
             `;
+
+            const dropdown = materiContent.querySelector('.dropdown');
+            updateToolsDropdownText(dropdown)
         } else {
             materiContent.innerHTML = '';
         }
@@ -363,20 +377,55 @@
             const checked = selectedTools.includes(tool.id) ? 'checked' : '';
 
             return `
-                <div class="form-check mb-2">
+                <li class="form-check dropdown-checkbox-item">
                     <input
                         type="checkbox"
                         name="${baseName}[tools][]"
                         value="${tool.id}"
-                        class="form-check-input"
-                        ${checked}>
-                    <label class="form-check-label">
+                        class="form-check-input tool-checkbox"
+                        id="${baseName}-tool-${tool.id}"
+                        ${checked}
+                    >
+                    <label class="form-check-label ms-2"
+                        for="${baseName}-tool-${tool.id}">
                         ${tool.toolsName}
                     </label>
-                </div>
+                </li>
             `;
         }).join('');
     }
+
+    function updateToolsDropdownText(dropdown) {
+        if (!dropdown) return;
+
+        const button = dropdown.querySelector('.tools-dropdown-btn');
+        const checked = dropdown.querySelectorAll('.tool-checkbox:checked');
+
+        if (!button) return;
+
+        const names = Array.from(checked).map(cb =>
+            cb.nextElementSibling.textContent.trim()
+        );
+
+        button.textContent = names.length
+            ? names.join(', ')
+            : 'Pilih Tools';
+    }
+
+    document.addEventListener('change', function (e) {
+        if (!e.target.classList.contains('tool-checkbox')) return;
+
+        const dropdown = e.target.closest('.dropdown');
+        updateToolsDropdownText(dropdown);
+    });
+
+
+    // supaya dropdown tidak nutup saat klik checkbox
+    document.addEventListener('click', function (e) {
+        if (e.target.closest('.dropdown-checkbox-menu')) {
+            e.stopPropagation();
+        }
+    });
 
     // draft / next button
     document.addEventListener('DOMContentLoaded', () => {

@@ -104,20 +104,32 @@
 
                     <div class="mb-3">
                         <label class="form-label fw-semibold">Tools yang digunakan</label>
-                        <div class="border rounded-4 p-3 custom-input">
-                            ${tools.map(tool => `
-                                <div class="form-check mb-2">
-                                    <input 
-                                        type="checkbox"
-                                        name="${baseName}[tools][]"
-                                        value="${tool.id}"
-                                        class="form-check-input tool-checkbox"
-                                        id="tool-${tool.id}">
-                                    <label class="form-check-label" for="tool-${tool.id}">
-                                        ${tool.toolsName}
-                                    </label>
-                                </div>
-                            `).join('')}
+
+                        <div class="dropdown">
+                            <button
+                                class="form-control rounded-pill text-start dropdown-checkbox-with-icon tools-dropdown-btn"
+                                type="button"
+                                data-bs-toggle="dropdown"
+                                aria-expanded="false"
+                            >
+                                Pilih Tools
+                            </button>
+
+                            <ul class="dropdown-menu dropdown-checkbox-menu w-100 p-3 tools-container">
+                                ${tools.map(tool => `
+                                    <li class="form-check dropdown-checkbox-item">
+                                        <input 
+                                            type="checkbox"
+                                            name="${baseName}[tools][]"
+                                            value="${tool.id}"
+                                            class="form-check-input tool-checkbox"
+                                            id="tool-${tool.id}">
+                                        <label class="form-check-label ms-2" for="tool-${tool.id}">
+                                            ${tool.toolsName}
+                                        </label>
+                                    </li>
+                                `).join('')}
+                            </ul>
                         </div>
                     </div>
                 `;
@@ -170,4 +182,21 @@
             });
         }
     });
+
+    document.addEventListener('change', function (e) {
+        if (!e.target.classList.contains('tool-checkbox')) return;
+
+        const dropdown = e.target.closest('.dropdown');
+        const button = dropdown.querySelector('.tools-dropdown-btn');
+        const checked = dropdown.querySelectorAll('.tool-checkbox:checked');
+
+        const names = Array.from(checked).map(cb =>
+            cb.nextElementSibling.textContent.trim()
+        );
+
+        button.textContent = names.length
+            ? names.join(', ')
+            : 'Pilih Tools';
+    });
+
 </script>

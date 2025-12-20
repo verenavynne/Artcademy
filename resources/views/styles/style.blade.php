@@ -375,6 +375,38 @@
         padding-right: 45px;
     }
 
+    .form-control.dropdown-checkbox-with-icon {
+        position: relative;
+        padding-right: 45px;
+    }
+
+    .form-control.dropdown-checkbox-with-icon::after {
+        content: '';
+        position: absolute;
+        right: 18px;
+        top: 50%;
+        width: 18px;
+        height: 18px;
+        background: url('{{ asset('assets/icons/icon_arrow_down.svg') }}') no-repeat center;
+        background-size: contain;
+        transform: translateY(-50%);
+        pointer-events: none;
+    }
+
+    .dropdown-checkbox-menu {
+        max-height: 150px;
+        overflow-y: auto;
+        border-radius: 16px;
+    }
+
+    .dropdown-checkbox-item {
+        padding: 6px 0;
+    }
+
+    .dropdown-checkbox-menu .form-check-input {
+        margin-left: 0;
+    }
+
     /* icons */
     iconify-icon {
         font-size: 24px;
