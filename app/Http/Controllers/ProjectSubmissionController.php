@@ -9,6 +9,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
+use App\Models\Portfolio;
+
 
 class ProjectSubmissionController extends Controller
 {
@@ -76,6 +78,10 @@ class ProjectSubmissionController extends Controller
             ->where('studentId', auth()->id())
             ->firstOrFail();
 
+        $isInPortfolio = Portfolio::where('userId', auth()->id())
+            ->where('portfolioLink', $submission->projectSubmissionLink)
+            ->exists();
+
         $courseId = $submission->project->course->id;
         
         $lecturers = CourseLecturer::with([
@@ -133,7 +139,8 @@ class ProjectSubmissionController extends Controller
             'criteriaScores' => $scores['criteriaScores'],
             'totalScore' => $scores['totalScore'],
             'allTutorsGraded' => $allTutorsGraded,
-            'courseId' => $courseId
+            'courseId' => $courseId,
+            'isInPortfolio' => $isInPortfolio
         ]);
     }
 

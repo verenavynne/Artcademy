@@ -54,13 +54,36 @@
                     </div>
 
                     @if($allTutorsGraded)
-                        <form action="{{ route('add.to.portfolio', $submission->id) }}" method="POST">
-                            @csrf
-                            <button type="submit" class="btn w-100 px-4 py-2 text-white pink-cream-btn">
-                                <p class="text-pink-gradient" style="margin: 0">Masukkan ke Portofolio</p>
-                            </button>
-                        </form>
-                    @endif
+
+    @if($isInPortfolio)
+        <!-- SUDAH ADA DI PORTOFOLIO -->
+        <button type="button"
+            class="btn w-100 px-4 py-2 d-flex align-items-center justify-content-center gap-2 pink-cream-btn"
+            style="opacity:50%; cursor: default; pointer-events: none;"
+            
+        >
+            <iconify-icon icon="mingcute:check-fill" class="checklist-icon"></iconify-icon>
+            <span class="text-pink-gradient m-0">
+                Projek ini sudah ditambahkan ke portofoliomu
+            </span>
+        </button>
+
+    @else
+        <!-- BELUM ADA -->
+        <form action="{{ route('add.to.portfolio', $submission->id) }}" method="POST">
+            @csrf
+            <button type="submit"
+                class="btn w-100 px-4 py-2 d-flex align-items-center justify-content-center gap-2 pink-cream-btn"
+            >
+                <p class="text-pink-gradient m-0">
+                    Masukkan ke Portofolio
+                </p>
+            </button>
+        </form>
+    @endif
+
+@endif
+
                 </div>
 
             </div>
