@@ -2,6 +2,10 @@
 
 @section('content')
 <div class="container-content">
+    @if(session('success'))
+        <div class="alert alert-success">{{ session('success') }}</div>
+    @endif
+
   <div class="d-flex justify-content-between align-items-center">
     <h4 class="fw-semibold" style="font-size: 32px">Nilai Projek</h4>
   </div>

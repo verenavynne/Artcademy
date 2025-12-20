@@ -70,7 +70,15 @@
                     <div class="row">
                         <div class="mb-3">
                             <label class="form-label fw-semibold">Nomor Telepon</label>
-                            <input type="text" name="phoneNumber" value="{{ old('phoneNumber') }}" class="form-control rounded-pill px-4 py-2 custom-input" placeholder="Cth: +6281234567890">
+                            
+                            <input
+                                type="text"
+                                name="phoneNumber"
+                                id="phoneNumber"
+                                value="{{ old('phoneNumber', '+62') }}"
+                                class="form-control rounded-pill px-4 py-2 custom-input @error('phoneNumber') is-invalid @enderror"
+                                placeholder="+6281234567890"
+                            >
 
                             @error('phoneNumber')
                                 <div class="text-danger mt-1" style="font-size: 0.875rem;">
@@ -153,6 +161,35 @@
         eyeIcon.setAttribute('icon', isHidden ? 'mingcute:eye-line' : 'mingcute:eye-close-line');
     }
 
+    document.addEventListener('DOMContentLoaded', () => {
+        const input = document.getElementById('phoneNumber');
+
+        if (!input.value.startsWith('+62')) {
+            input.value = '+62';
+        }
+
+        input.addEventListener('input', () => {
+            // Cegah hapus +62
+            if (!input.value.startsWith('+62')) {
+                input.value = '+62';
+            }
+
+            // Hanya angka setelah +62
+            const numbersOnly = input.value
+                .replace('+62', '')
+                .replace(/\D/g, '');
+
+            input.value = '+62' + numbersOnly;
+        });
+
+        // Cegah cursor ke depan +62
+        input.addEventListener('keydown', (e) => {
+            if (input.selectionStart < 3) {
+                e.preventDefault();
+                input.setSelectionRange(3, 3);
+            }
+        });
+    });
 </script>
 
 <style>

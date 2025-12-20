@@ -3,7 +3,7 @@
 
 @section('content')
 <div class="container-content" style="gap : 24px;">
-    <div class="nilai-projek-title d-flex justify-content-start align-items-center">
+    <div class="nilai-projek-title d-flex justify-content-start">
         <a class="page-link" href="{{ route('lecturer.nilai-projek') }}" onclick="window.history.back()">
             <div class="navigation-prev d-flex flex-start">
                 <img src="{{ asset('assets/icons/icon_pagination_before.svg') }}" alt="">
@@ -81,18 +81,24 @@
                 @foreach ($projectCriterias as $pc)
                     <div class="nilai-item">
                         <label>
-                            {{ $pc->criteria->criteriaName }} 
+                            {{ $pc->criteria->criteriaName }}
                             <span style="color: #939393;">({{ $pc->customWeight }}%)</span>
                         </label>
 
-                        <div class="select-box">
-                            <select name="scores[{{ $pc->id }}]" class="score-select select-with-icon" required>
-                                <option value="" selected disabled>Pilih nilai</option>
-                                @for ($i = 0; $i <= 100; $i += 10)
-                                    <option value="{{ $i }}">{{ $i }}</option>
-                                @endfor
-                            </select>
-                        </div>
+                        <input
+                            type="number"
+                            name="scores[{{ $pc->id }}]"
+                            class="score-input form-control rounded-pill custom-input
+                                @error('scores.' . $pc->id) is-invalid @enderror"
+                            placeholder="1 - 100"
+                            value="{{ old('scores.' . $pc->id) }}"
+                        >
+
+                        @error('scores.' . $pc->id)
+                            <div class="invalid-feedback d-block">
+                                {{ $message }}
+                            </div>
+                        @enderror
                     </div>
                 @endforeach
 
@@ -117,7 +123,7 @@
 
 <script>
     document.addEventListener('DOMContentLoaded', () => {
-        const selects = document.querySelectorAll('.score-select');
+        const selects = document.querySelectorAll('.score-input');
         const submitBtn = document.getElementById('submitBtn');
 
         function validateSelects() {
@@ -189,7 +195,7 @@
 
 .nilai-item{
     display: flex;
-    height: 90px;
+    min-height: 90px;
     flex-direction: column;
     align-items: flex-start;
     gap: 10px;

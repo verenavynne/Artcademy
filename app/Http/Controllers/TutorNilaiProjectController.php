@@ -65,6 +65,14 @@ class TutorNilaiProjectController extends Controller
 
     public function send(Request $request, $submissionId)
     {
+        $request->validate([
+            'scores'   => 'required|array',
+            'scores.*' => 'required|integer|between:1,100',
+        ], [
+            'scores.*.integer'  => 'Nilai harus berupa angka',
+            'scores.*.between'  => 'Nilai harus antara 1 sampai 100',
+        ]);
+
         $submission = ProjectSubmission::findOrFail($submissionId);
 
         $authLecturerId = auth()->user()->lecturer->id;
@@ -95,7 +103,7 @@ class TutorNilaiProjectController extends Controller
             );
         }
 
-        return redirect()->route('lecturer.nilai-projek', ['status' => 'selesai'])
-                 ->with('success', 'Penilaian berhasil disimpan!');
+        return redirect()->route('lecturer.nilai-projek')
+                 ->with('success', 'Penilaian berhasil dikirim!');
     }
 }

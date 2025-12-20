@@ -72,22 +72,38 @@
                     <div class="col-md mb-3">
                         <label class="form-label fw-semibold">Tools yang digunakan</label>
 
-                        <div class="border rounded-4 p-3 custom-input tools-scroll-box">
-                            @foreach ($tools as $tool)
-                                <div class="form-check mb-2">
-                                    <input
-                                        type="checkbox"
-                                        name="projectTools[]"
-                                        value="{{ $tool->id }}"
-                                        class="form-check-input"
-                                        id="tool-{{ $tool->id }}"
-                                        {{ in_array($tool->id, old('projectTools', $selectedTools ?? [])) ? 'checked' : '' }}
-                                    >
-                                    <label class="form-check-label" for="tool-{{ $tool->id }}">
-                                        {{ $tool->toolsName }}
-                                    </label>
-                                </div>
-                            @endforeach
+                        <div class="dropdown">
+                            <button
+                                class="form-control rounded-pill text-start dropdown-checkbox-with-icon"
+                                type="button"
+                                id="toolsDropdown"
+                                data-bs-toggle="dropdown"
+                                aria-expanded="false"
+                            >
+                                Pilih Tools
+                            </button>
+
+                            <ul class="dropdown-menu dropdown-checkbox-menu w-100 p-3"
+                                aria-labelledby="toolsDropdown"
+                                id="tools-container">
+
+                                @foreach ($tools as $tool)
+                                    <li class="form-check dropdown-checkbox-item">
+                                        <input
+                                            type="checkbox"
+                                            name="projectTools[]"
+                                            value="{{ $tool->id }}"
+                                            class="form-check-input tool-checkbox"
+                                            id="tool-{{ $tool->id }}"
+                                            {{ in_array($tool->id, old('projectTools', $selectedTools ?? [])) ? 'checked' : '' }}
+                                        >
+                                        <label class="form-check-label ms-2" for="tool-{{ $tool->id }}">
+                                            {{ $tool->toolsName }}
+                                        </label>
+                                    </li>
+                                @endforeach
+
+                            </ul>
                         </div>
                     </div>
                 </div>
@@ -205,6 +221,32 @@ tinymce.init({
     }
 });
 
+// dropdown checkbox tools
+const toolsDropdownBtn = document.getElementById('toolsDropdown');
+const toolCheckboxes = document.querySelectorAll('.tool-checkbox');
+
+function updateToolsDropdownText() {
+    const checked = document.querySelectorAll('.tool-checkbox:checked');
+    const names = Array.from(checked).map(cb =>
+        cb.nextElementSibling.textContent.trim()
+    );
+
+    toolsDropdownBtn.textContent = names.length
+        ? names.join(', ')
+        : 'Pilih Tools';
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    updateToolsDropdownText();
+});
+
+toolCheckboxes.forEach(cb => {
+    cb.addEventListener('change', updateToolsDropdownText);
+});
+
+document.querySelector('#tools-container')
+    .addEventListener('click', e => e.stopPropagation());
+
 
 // cek input untuk disabled button
 document.addEventListener("DOMContentLoaded", function () {
@@ -212,7 +254,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const inputs = {
         name: document.querySelector('input[name="projectName"]'),
-        tools: document.querySelector('select[name="projectTools[]"]'),
         concept: document.querySelector('textarea[name="projectConcept"]'),
         requirement: document.querySelector('textarea[name="projectRequirement"]'),
         creativity: document.getElementById("creativity"),
@@ -220,14 +261,25 @@ document.addEventListener("DOMContentLoaded", function () {
         theme: document.getElementById("theme"),
     };
 
+    const toolCheckboxes = document.querySelectorAll('input[name="projectTools[]"]');
+
     window.validateForm = function validateForm() {
         let isValid = true;
 
+        // project name
         if (!inputs.name.value.trim()) isValid = false;
-        if (!inputs.tools.value) isValid = false;
+
+        // tools (minimal 1 dicentang)
+        const selectedTools = document.querySelectorAll(
+            'input[name="projectTools[]"]:checked'
+        );
+        if (selectedTools.length === 0) isValid = false;
+
+        // textareas
         if (!inputs.concept.value.trim()) isValid = false;
         if (!inputs.requirement.value.trim()) isValid = false;
 
+        // criteria
         let c = parseInt(inputs.creativity.value ?? 0);
         let r = parseInt(inputs.readability.value ?? 0);
         let t = parseInt(inputs.theme.value ?? 0);
@@ -236,22 +288,20 @@ document.addEventListener("DOMContentLoaded", function () {
         if (c + r + t !== 100) isValid = false;
 
         publishBtn.disabled = !isValid;
-    }
+    };
 
+    // input & textarea
     Object.values(inputs).forEach(input => {
-        input.addEventListener("change", validateForm);
         input.addEventListener("input", validateForm);
+        input.addEventListener("change", validateForm);
+    });
+
+    // checkbox tools
+    toolCheckboxes.forEach(cb => {
+        cb.addEventListener("change", validateForm);
     });
 
     validateForm();
 });
 </script>
-
-<style>
-    .tools-scroll-box {
-        max-height: 150px;
-        overflow-y: auto;
-        scrollbar-width: thin;
-    }
-</style>
 @endsection
