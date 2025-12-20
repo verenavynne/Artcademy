@@ -32,8 +32,12 @@ class ForumController extends Controller
                 });
             });
         })
-        ->orderBy('created_at', 'desc')
-        ->get();
+        ->orderByDesc('created_at')
+        ->paginate(5);
+
+        if ($request->ajax()) {
+            return view('forum.components.post-list', compact('posts'))->render();
+        }
 
         $otherProfile = User::where('id', '!=', $user->id)
             ->where('role', '!=', 'admin')->get();
@@ -53,7 +57,7 @@ class ForumController extends Controller
         $authUser = Auth::user();
         $selectedUser = User::with('lecturer')->where('id', $id)->firstOrFail();
         $portfolios = Portfolio::where('userId', $selectedUser->id)->get();
-        $posts = Post::where('userId', $selectedUser->id)->get();
+        $posts = Post::where('userId', $selectedUser->id)->orderBy('postDate', 'desc')->get();
         $otherProfile = User::where('id', '!=', auth()->id())->where('role', '!=', 'admin')->get();
         $activeTab = request('tab', 'portofolio');
 

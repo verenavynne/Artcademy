@@ -25,7 +25,7 @@ class ProfileController extends Controller
     {
         $user = Auth::user();
         $portfolios = Portfolio::where('userId', $user->id)->get();
-        $posts = Post::where('userId', $user->id)->get();
+        $posts = Post::where('userId', $user->id)->orderBy('postDate', 'desc')->get();
         $activeTab = request('tab', 'portofolio');
 
         $membershipTransaction = MembershipTransaction::where('studentId', $user->id)

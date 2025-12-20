@@ -26,33 +26,37 @@
                 
             @endphp
 
-            <div class="progress-materi-list-content d-flex flex-row justify-content-between align-items-center"
-                 aria-disabled="{{ $isDisabled ? 'true' : 'false' }}">
-                <div class="progress-number-name d-flex flex-row align-items-center">
-                    <div class="progress-materi-number {{ $isDisabled ? 'disabled' : '' }}">
-                        @if ($isDisabled)
-                            <iconify-icon class="lock-icon" icon="tabler:lock-filled"></iconify-icon>
-                        @else
-                            <p>{{ $loop->iteration }}</p>
-                        @endif
-                    </div>
-
-                    <div class="progress-materi-name-duration d-flex flex-column">
-                        <p class="progress-materi-name">{{ $materiItem->vblName ?? $materiItem->tblName }}</p>
-                        <div class="d-flex flex-row align-items-center" style="gap: 4px">
-                            <iconify-icon class="vbl-article-icon" icon="{{ $materiItem->vblName ? 'mingcute:video-line' : 'heroicons-outline:newspaper' }}"></iconify-icon>
-                            <p class="progress-duration">{{ $materiItem->duration ?? '—' }} menit</p>
+            <a href="{{ $isDone ? route('course.showMateri', ['weekId' => $week->id, 'materiId' => $materiItem->id]) : '#'}}"
+                style="text-decoration: none; {{ $isDone ? '' : 'pointer-events: none' }}">
+                <div class="progress-materi-list-content d-flex flex-row justify-content-between align-items-center"
+                     aria-disabled="{{ $isDisabled ? 'true' : 'false' }}">
+                    <div class="progress-number-name d-flex flex-row align-items-center">
+                        <div class="progress-materi-number {{ $isDisabled ? 'disabled' : '' }}">
+                            @if ($isDisabled)
+                                <iconify-icon class="lock-icon" icon="tabler:lock-filled"></iconify-icon>
+                            @else
+                                <p>{{ $loop->iteration }}</p>
+                            @endif
+                        </div>
+    
+                        <div class="progress-materi-name-duration d-flex flex-column">
+                            <p class="progress-materi-name">{{ $materiItem->vblName ?? $materiItem->tblName }}</p>
+                            <div class="d-flex flex-row align-items-center" style="gap: 4px">
+                                <iconify-icon class="vbl-article-icon" icon="{{ $materiItem->vblName ? 'mingcute:video-line' : 'heroicons-outline:newspaper' }}"></iconify-icon>
+                                <p class="progress-duration">{{ $materiItem->duration ?? '—' }} menit</p>
+                            </div>
                         </div>
                     </div>
+    
+                    <input id="materiCheckbox" 
+                    class="form-check-input materi-checkbox" 
+                    type="checkbox" 
+                    data-materi-id="{{ $materiItem->id }}" 
+                    style="pointer-events: none;" {{ $isDone ? 'checked' : '' }}
+                    >
                 </div>
+            </a>
 
-                <input id="materiCheckbox" 
-                class="form-check-input materi-checkbox" 
-                type="checkbox" 
-                data-materi-id="{{ $materiItem->id }}" 
-                style="pointer-events: none;" {{ $isDone ? 'checked' : '' }}
-                >
-            </div>
         @endforeach
     </div>
 
@@ -61,8 +65,8 @@
        
         <button type="submit"
                 id="lanjutkanBtn"
-                class="btn w-100 text-dark yellow-gradient-btn {{ $isDisabled ? 'disabled' : '' }}"
-                aria-disabled="{{ $isDisabled ? 'true' : 'false' }}">
+                class="btn w-100 text-dark yellow-gradient-btn {{ $isDone ? '' : 'disabled' }}"
+                aria-disabled="{{ $isDone ? 'false' : 'true' }}">
             {{ $navigationData['buttonText'] }}
         </button>
     </form>
@@ -132,6 +136,7 @@
         font-weight: 700;
         align-items: center;
         justify-content: center; 
+        color: var(--black-color);
     }
 
     .progress-materi-number.disabled{
@@ -160,6 +165,7 @@
     }
 
     .vbl-article-icon{
+        color: var(--black-color);
         font-size: 16px
     }
 

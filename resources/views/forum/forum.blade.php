@@ -49,11 +49,6 @@
             </form>
         </div>
 
-        @if($user->role === 'student')
-            @include('components.notification-panel')
-        @endif
-
-
     </div>
     <div class="row forum-row">
         <div class="col-3">
@@ -70,7 +65,7 @@
 
 
                     <!-- All post -->
-                    <div class="post-content-container d-flex flex-column gap-2">
+                    <div class="post-content-container d-flex flex-column gap-2" id="post-container">
                         @if($posts->isEmpty())
                             @if($totalPost == 0)
                                 <div class="d-flex flex-column align-items-center gap-4" style="margin-top: 70px;">
@@ -90,10 +85,15 @@
                                 </div>
                             @endif
                         @else
-                            @foreach($posts as $post)
-                                @include('forum.components.post-card',['post'=>$post])
-                            @endforeach
+                            @include('forum.components.post-list', ['posts' => $posts])
                         @endif
+                    </div>
+
+                    <div class="d-flex justify-content-center my-4">
+                        <button id="loading-btn" class="btn d-none" style="border: none" disabled>
+                            <span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+                            
+                        </button>
                     </div>
                 </div>
 
@@ -107,16 +107,10 @@
         </div>
     </div>
 
-    <!-- Delete pop up -->
-    @foreach ($posts as $post)
-        @include('forum.components.delete-post-pop-up', ['post' => $post])
-    @endforeach
-
     <!-- Edit pop up -->
-    @foreach ($posts as $post)
-        @include('forum.components.edit-post-pop-up', ['post' => $post])
-    @endforeach
-
+    @include('forum.components.edit-post-pop-up')
+    <!-- Delete pop up -->
+    @include('forum.components.delete-post-pop-up')
     
 </div>
 
@@ -255,165 +249,249 @@
 
 <script>
     document.addEventListener('DOMContentLoaded', () => {
-        document.querySelectorAll('.edit-post-modal').forEach(modal => {
-            modal.addEventListener('shown.bs.modal', () => {
-                const imgInput = modal.querySelector('input[name="images[]"]');
-                const videoInput = modal.querySelector('input[name="videos[]"]');
-                const previewWrapper = modal.querySelector(`#preview-wrapper-edit-${modal.dataset.postId}`);
-                const previewItems = modal.querySelector(`#preview-items-edit-${modal.dataset.postId}`);
-                const form = modal.querySelector("form");
-        
-                let imageInputs = [];
-                let videoInputs = [];
-        
-                function cloneFileInput(originalInput, file) {
-                    const clone = originalInput.cloneNode();
-                    const dataTransfer = new DataTransfer();
-                    dataTransfer.items.add(file);
-        
-                    clone.files = dataTransfer.files;
-                    originalInput.insertAdjacentElement("afterend", clone);
-        
-                    return clone;
-                }
-        
-                function addImagePreview(file, inputClone) {
-                    const reader = new FileReader();
-                    reader.onload = e => {
-                        const div = document.createElement('div');
-                        div.classList.add('preview-item');
-        
-                        div.innerHTML = `
-                            <img src="${e.target.result}">
-                            <button class="btn-close position-absolute top-0 end-0 m-1 bg-white p-1 rounded-circle"></button>
-                        `;
-        
-                        div.querySelector(".btn-close").onclick = () => {
-                            inputClone.remove();
-                            imageInputs = imageInputs.filter(i => i !== inputClone);
-                            div.remove();
-                        };
-        
-                        previewItems.appendChild(div);
-                    };
-                    reader.readAsDataURL(file);
-                }
-        
-                function addVideoPreview(file, inputClone) {
-                    const url = URL.createObjectURL(file);
-                    const randomId = "plyr-" + Math.random().toString(36).substring(2, 10);
-        
-                    const div = document.createElement('div');
-                    div.classList.add('preview-item');
-        
-                    div.innerHTML = `
-                        <video id="${randomId}" playsinline controls>
-                            <source src="${url}">
-                        </video>
-                        <button class="btn-close position-absolute top-0 end-0 m-1 bg-white p-1 rounded-circle"></button>
-                    `;
-        
-                    previewItems.appendChild(div);
-                    new Plyr('#' + randomId);
-        
-                    div.querySelector(".btn-close").onclick = () => {
-                        inputClone.remove();
-                        videoInputs = videoInputs.filter(i => i !== inputClone);
-                        div.remove();
-                    };
-                }
-        
-                imgInput.addEventListener("change", e => {
-                    previewWrapper.style.display = "block";
-        
-                    [...e.target.files].forEach(file => {
-                        const clone = cloneFileInput(imgInput, file);
-                        imageInputs.push(clone);
-                        addImagePreview(file, clone);
-                    });
-        
-                    imgInput.value = "";
-                });
-        
-                videoInput.addEventListener("change", e => {
-                    previewWrapper.style.display = "block";
-        
-                    [...e.target.files].forEach(file => {
-                        const clone = cloneFileInput(videoInput, file);
-                        videoInputs.push(clone);
-                        addVideoPreview(file, clone);
-                    });
-        
-                    videoInput.value = "";
-                });
-            })
-        })
-        
-        document.querySelectorAll('.comment-toggle').forEach(btn => {
-                const target = document.querySelector(btn.dataset.target);
-                const iconHolder = btn.querySelector('.icon-holder');
+        // Global Variabel
+        const editModal = document.getElementById('editPostModal');
+        if (!editModal) return;
 
-                const defaultIcon = btn.dataset.defaultIcon;
-                const activeIcon  = btn.dataset.activeIcon;
+        const form = editModal.querySelector('#editPostForm');
+        const editPostText = editModal.querySelector('#editPostText');
+        const existingFiles = editModal.querySelector('#existingFiles');
+        const deletedInput = editModal.querySelector('input[name="deleted_files"]');
 
-                btn.addEventListener('click', () => {
-                    const isOpen = target.style.display === 'block';
-
-                    target.style.display = isOpen ? 'none' : 'block';
-
-                    iconHolder.innerHTML = isOpen
-                        ? `<iconify-icon icon="${defaultIcon}" style="font-size:20px"></iconify-icon>`
-                        : `<img src="${activeIcon}" height="20" width="20">`;
-                });
-        });
-
-        document.querySelectorAll('.reply-toggle').forEach(btn => {
-            btn.addEventListener('click', () => {
-                const target = document.querySelector(btn.dataset.target);
-                if (!target) return;
-
-                const isOpen = target.style.display === "block";
-                target.style.display = isOpen ? "none" : "block";
-
-                btn.classList.toggle('active', !isOpen);
-
-                const iconHolder = btn.querySelector('.icon-holder');
-                const defaultIcon = btn.dataset.defaultIcon;
-                const activeIcon = btn.dataset.activeIcon;
-
-                if (!isOpen) {
-                    iconHolder.innerHTML = `
-                        <img src="${activeIcon}" height="20" width="20">
-                    `;
-                } else {
-                    
-                    iconHolder.innerHTML = `
-                        <iconify-icon icon="${defaultIcon}" style="font-size: 20px"></iconify-icon>
-                    `;
-                }
-                
-            });
-        });
+        const imgInput = editModal.querySelector('input[name="images[]"]');
+        const videoInput = editModal.querySelector('input[name="videos[]"]');
+        const previewWrapper = editModal.querySelector('#preview-wrapper-edit');
+        const previewItems = editModal.querySelector('#preview-items-edit');
 
         let deletedFiles = [];
+        let imageInputs = [];
+        let videoInputs = [];
 
-        document.querySelectorAll('.delete-existing-file').forEach(btn => {
-            btn.addEventListener('click', function () {
-                const id = this.dataset.fileId;
-                deletedFiles.push(id);
+        // For open edit pop up
+        document.addEventListener('click', e => {
+            const btn = e.target.closest('.btn-edit-post');
+            if (!btn) return;
 
-                const form = this.closest('.modal-content').querySelector('form');
+            const postText = btn.dataset.postText;
+            const updateUrl = btn.dataset.updateUrl;
+            const userName = btn.dataset.userName;
+            const userAvatar = btn.dataset.userAvatar;
+            const files = JSON.parse(btn.dataset.files || '[]');
 
-                const hiddenInput = form.querySelector('input[name="deleted_files"]');
+            editPostText.value = postText;
+            editModal.querySelector('#editPostUsername').textContent = userName;
+            editModal.querySelector('#editPostAvatar').src = userAvatar;
 
-                hiddenInput.value = JSON.stringify(deletedFiles);
+            form.action = updateUrl;
 
-                this.closest('.grid-item').remove();
+            existingFiles.innerHTML = '';
+            deletedFiles = [];
+            deletedInput.value = '';
+
+            files.forEach(file => {
+                const div = document.createElement('div');
+                div.className = 'grid-item position-relative';
+
+                div.innerHTML = `
+                    <button type="button"
+                        class="btn-close bg-white p-1 btn-sm position-absolute top-0 end-0 m-1 delete-existing-file"
+                        data-file-id="${file.id}">
+                    </button>
+
+                    ${
+                        file.fileType === 'image'
+                            ? `<img src="/storage/${file.filePath}" class="media-item">`
+                            : `<video controls class="media-item">
+                                <source src="/storage/${file.filePath}">
+                            </video>`
+                    }
+                `;
+
+                existingFiles.appendChild(div);
             });
         });
 
+        // For delete existing file yang ada di post
+        editModal.addEventListener('click', e => {
+            const btn = e.target.closest('.delete-existing-file');
+            if (!btn) return;
 
-        // Kasi typing effect chatbot
+            deletedFiles.push(btn.dataset.fileId);
+            deletedInput.value = JSON.stringify(deletedFiles);
+
+            btn.closest('.grid-item').remove();
+        });
+
+        // Preview image dan video
+        function cloneFileInput(originalInput, file) {
+            const clone = originalInput.cloneNode();
+            const dt = new DataTransfer();
+            dt.items.add(file);
+            clone.files = dt.files;
+            originalInput.insertAdjacentElement('afterend', clone);
+            return clone;
+        }
+
+        function addPreview(html, onRemove) {
+            previewWrapper.style.display = 'block';
+            const div = document.createElement('div');
+            div.className = 'preview-item';
+            div.innerHTML = html;
+
+            div.querySelector('.btn-close').onclick = () => {
+                onRemove();
+                div.remove();
+                if (!previewItems.children.length) {
+                    previewWrapper.style.display = 'none';
+                }
+            };
+
+            previewItems.appendChild(div);
+        }
+
+        imgInput.addEventListener('change', e => {
+            [...e.target.files].forEach(file => {
+                const clone = cloneFileInput(imgInput, file);
+                imageInputs.push(clone);
+
+                const reader = new FileReader();
+                reader.onload = ev => {
+                    addPreview(
+                        `<img src="${ev.target.result}">
+                        <button class="btn-close position-absolute top-0 end-0 m-1 bg-white p-1 rounded-circle"></button>`,
+                        () => clone.remove()
+                    );
+                };
+                reader.readAsDataURL(file);
+            });
+
+            imgInput.value = '';
+        });
+
+        videoInput.addEventListener('change', e => {
+            [...e.target.files].forEach(file => {
+                const clone = cloneFileInput(videoInput, file);
+                videoInputs.push(clone);
+
+                const url = URL.createObjectURL(file);
+                const id = 'plyr-' + Math.random().toString(36).slice(2);
+
+                addPreview(
+                    `<video id="${id}" playsinline controls>
+                        <source src="${url}">
+                    </video>
+                    <button class="btn-close position-absolute top-0 end-0 m-1 bg-white p-1 rounded-circle"></button>`,
+                    () => clone.remove()
+                );
+
+                new Plyr('#' + id);
+            });
+
+            videoInput.value = '';
+        });
+
+        // Reset modal
+        editModal.addEventListener('hidden.bs.modal', () => {
+            previewItems.innerHTML = '';
+            previewWrapper.style.display = 'none';
+            existingFiles.innerHTML = '';
+
+            deletedFiles = [];
+            imageInputs = [];
+            videoInputs = [];
+            deletedInput.value = '';
+        });
+
+        // Delete modal
+        document.addEventListener('click', function (e) {
+            const btn = e.target.closest('.btn-delete-post');
+            if (!btn) return;
+
+            const deleteUrl = btn.dataset.deleteUrl;
+            console.log('vyn deleteUrl', deleteUrl)
+            const deleteForm = document.getElementById('deletePostForum');
+            if(!deleteForm){
+                console.error('Delete post form not found!');
+                return;
+            }
+
+            deleteForm.action = deleteUrl;
+        });
+
+        // infinite scroll
+        let page = 1;
+        let loading = false;
+        const lastPage = {{ $posts->lastPage() }};
+        const loadingBtn = document.getElementById('loading-btn');
+
+        window.addEventListener('scroll', () => {
+            if (loading) return;
+            if (window.innerHeight + window.scrollY < document.body.offsetHeight - 300) return;
+            if (page >= lastPage) return;
+
+            page++;
+            loading = true;
+            loadingBtn.classList.remove('d-none');
+
+            fetch(`?page=${page}&query={{ request('query') }}`, {
+                headers: { 'X-Requested-With': 'XMLHttpRequest' }
+            })
+            .then(res => res.text())
+            .then(html => {
+                document.getElementById('post-container')
+                    .insertAdjacentHTML('beforeend', html);
+            })
+            .finally(() => {
+                loading = false;
+                loadingBtn.classList.add('d-none');
+            });
+        });
+        
+        // Buka section comment and reply
+        document.addEventListener('click', function (e) {
+        // Toggle post comment
+            const commentToggle = e.target.closest('.comment-toggle');
+            if (commentToggle) {
+                const targetSelector = commentToggle.dataset.target;
+                const target = document.querySelector(targetSelector);
+                if (!target) return;
+
+                const iconHolder = commentToggle.querySelector('.icon-holder');
+                const isOpen = target.style.display === 'block';
+
+                target.style.display = isOpen ? 'none' : 'block';
+
+                // Icon swap
+                if (isOpen) {
+                    iconHolder.innerHTML = `<iconify-icon icon="${commentToggle.dataset.defaultIcon}" style="font-size:20px"></iconify-icon>`;
+                } else {
+                    iconHolder.innerHTML = `<img src="${commentToggle.dataset.activeIcon}" height="20" width="20">`;
+                }
+
+                return;
+            }
+
+            // Toggle reply post
+            const replyToggle = e.target.closest('.reply-toggle');
+            if (replyToggle) {
+                const targetSelector = replyToggle.dataset.target;
+                const target = document.querySelector(targetSelector);
+                if (!target) return;
+
+                const iconHolder = replyToggle.querySelector('.icon-holder');
+                const isOpen = target.style.display === 'block';
+
+                target.style.display = isOpen ? 'none' : 'block';
+
+                if (isOpen) {
+                    iconHolder.innerHTML = `<iconify-icon icon="${replyToggle.dataset.defaultIcon}" style="font-size:20px"></iconify-icon>`;
+                } else {
+                    iconHolder.innerHTML = `<img src="${replyToggle.dataset.activeIcon}" height="20" width="20">`;
+                }
+            }
+        });
+
+        // Typing effect for chatbot
         const chatbot = document.getElementById('chatbot-comment');
         if (chatbot) {
             let text = chatbot.getAttribute('data-text') || "";

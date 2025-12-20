@@ -1,4 +1,4 @@
-<div class="modal fade" id="deletePostConfirmModal{{ $post->id }}" tabindex="-1" aria-labelledby="deletePostConfirmModalLabel{{ $post->id }}" aria-hidden="true">
+<div class="modal fade" id="deletePostConfirmModal" tabindex="-1" aria-labelledby="deletePostConfirmModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content d-flex justify-content-center flex-column text-center p-4" style="border-radius: 24px; box-shadow: 0 4px 8px 0 var(--brown-shadow-color);">
         
@@ -16,7 +16,7 @@
                     <p class="text-pink-gradient" style="margin: 0">Kembali</p>
                 </button>
                 
-                <form action="{{ route('post.destroy', $post->id) }}" method="POST" style="width: 50%; margin-block-end: 0">
+                <form id="deletePostForum" method="POST" style="width: 50%; margin-block-end: 0">
                     @csrf
                     @method('DELETE')
                     <button type="submit" class="btn w-100 text-white red-btn px-4" style="font-size: 18px;">Hapus</button>

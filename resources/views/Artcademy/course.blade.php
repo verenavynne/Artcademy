@@ -28,7 +28,6 @@
             </form>
         </div>
 
-        @include('components.notification-panel')
     </div>
 
     <div class="d-flex flex-row justify-content-center align-items-center category-btn-group gap-4">

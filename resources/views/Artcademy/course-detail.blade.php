@@ -128,6 +128,18 @@
                             </div>
                             <div class="minggu-materi-container flex-column" >
                                 @foreach ($week->materials as $index => $material)
+                                    @php
+                                        $courseEnrollment = App\Models\CourseEnrollment::where('courseId', $course->id)->where('studentId', auth()->id())->first();
+                                        $isDoneLearned = $courseEnrollment
+                                        ? App\Models\StudentMateriProgress::where('courseEnrollmentId', $courseEnrollment->id)
+                                            ->where('materiId', $material->id)
+                                            ->where('isDone', true)
+                                            ->exists()
+                                        : false;
+
+                                    @endphp
+                                <a href="{{ $isDoneLearned ? route('course.showMateri', ['weekId' => $week->id, 'materiId' => $material->id]) : '#' }}"
+                                    style="text-decoration: none; {{ $isDoneLearned ? '' : 'pointer-events: none' }}">
                                     <div class="materi-line d-flex w-100">
                                         <div class="materi-title d-flex flex-row align-items-center">
                                             <div class="materi-number"><p>{{ $index + 1 }}</p></div>
@@ -138,7 +150,7 @@
                                             @endif
                                         </div>
 
-                                        <div class="d-flex flex-row justify-content-between w-100 gap-1">
+                                        <div class="d-flex flex-row justify-content-between w-100 gap-3">
                                             <div class="materi-icon d-flex flex-row">
                                                 @if ($material->vblName !== null)
                                                     <img src="{{ asset('assets/icons/icon_video.svg') }}" width="24" height="24">
@@ -156,6 +168,7 @@
                                         </div>
             
                                     </div>
+                                </a>
                                 @endforeach
         
         

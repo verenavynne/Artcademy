@@ -32,9 +32,16 @@
 
     $jam = floor($course->courseDurationInMinutes / 60);
     $menit = $course->courseDurationInMinutes % 60;
+
+    $project = \App\Models\Project::where('courseId', $course->id)->first();
+
+    $submission = \App\Models\ProjectSubmission::where('studentId', auth()->id())->where('projectId', $project->id)->first();
+
+    
 @endphp
 
-<a href="{{ $enrollment->isLocked ? route('membership') : route('course.detail', $course->id) }}" 
+<a href="{{ $enrollment->isLocked ? route(name: 'membership') 
+    : ($enrollment->progress === 100 ? route('projectSubmission.hasil', ['id' => $submission->id]) : route('course.detail', $course->id)) }}" 
    class="text-decoration-none text-black">
     <div class="course-card card article-card" style="cursor: pointer; height: 100%;">
 
@@ -110,9 +117,12 @@
             </div>
 
             @if ($enrollment->progress === 100)
+            
                 <button class="btn px-4 py-2 yellow-gradient-btn text-dark w-100">
                    Lihat penilaian
                 </button>
+
+            
             
             @else
                 <button class="btn px-4 py-2 yellow-gradient-btn text-dark w-100">

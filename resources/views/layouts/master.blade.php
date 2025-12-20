@@ -46,45 +46,54 @@
 </style>
 
 <script>
-document.addEventListener("DOMContentLoaded", () => {
+    document.addEventListener("DOMContentLoaded", () => {
+    if ('scrollRestoration' in history) {
+    history.scrollRestoration = 'manual';
+}
 
-    function autoscrollToHash() {
+        function autoscrollToHash() {
         const hash = window.location.hash;
         if (!hash) return;
 
         const el = document.querySelector(hash);
-        if (!el) {
-            console.log("Not on forum page, skipping autoscroll.");
-            return;
-        }
+        if (!el) return;
 
         const postId   = el.dataset.postId;
         const parentId = el.dataset.parentId;
 
+        // 🔥 buka comment TANPA scroll
         const commentToggle = document.querySelector(
             `.comment-toggle[data-target="#comment-box-${postId}"]`
         );
-
-
-        if (commentToggle) {
+        if (commentToggle && !commentToggle.classList.contains('active')) {
             commentToggle.click();
         }
 
+        // 🔥 buka reply TANPA scroll
         if (parentId) {
             const replyToggle = document.querySelector(
                 `.reply-toggle[data-target="#reply-content-${parentId}"]`
             );
-            if (replyToggle) replyToggle.click();
+            if (replyToggle && !replyToggle.classList.contains('active')) {
+                replyToggle.click();
+            }
         }
 
-       
-        setTimeout(() => {
-            el.scrollIntoView({ behavior: "smooth", block: "center" });
-        }, 250);
+        // 🔥 scroll SEKALI setelah layout stabil
+        requestAnimationFrame(() => {
+            setTimeout(() => {
+                el.scrollIntoView({
+                    behavior: "smooth",
+                    block: "center"
+                });
+            }, 200);
+        });
     }
 
+    // 🚀 jalankan sekali
     autoscrollToHash();
-    
+
+    // optional kalau hash berubah manual
     window.addEventListener("hashchange", autoscrollToHash);
 });
 </script>

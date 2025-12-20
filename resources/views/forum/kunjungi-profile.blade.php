@@ -38,10 +38,6 @@
                 </button>
             </form>
         </div>
-
-        @if($authUser->role === 'student')
-            @include('components.notification-panel')
-        @endif
        
     </div>
     <div class="row">
@@ -324,6 +320,53 @@
                     const bootstrapModal = new bootstrap.Modal(modal);
                     bootstrapModal.show();
                 }
+            });
+        });
+
+        // Toggle comment post
+    document.querySelectorAll('.comment-toggle').forEach(btn => {
+            const target = document.querySelector(btn.dataset.target);
+            const iconHolder = btn.querySelector('.icon-holder');
+
+            const defaultIcon = btn.dataset.defaultIcon;
+            const activeIcon  = btn.dataset.activeIcon;
+
+            btn.addEventListener('click', () => {
+                const isOpen = target.style.display === 'block';
+
+                target.style.display = isOpen ? 'none' : 'block';
+
+                iconHolder.innerHTML = isOpen
+                    ? `<iconify-icon icon="${defaultIcon}" style="font-size:20px"></iconify-icon>`
+                    : `<img src="${activeIcon}" height="20" width="20">`;
+            });
+        });
+
+        document.querySelectorAll('.reply-toggle').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const target = document.querySelector(btn.dataset.target);
+                if (!target) return;
+
+                const isOpen = target.style.display === "block";
+                target.style.display = isOpen ? "none" : "block";
+
+                btn.classList.toggle('active', !isOpen);
+
+                const iconHolder = btn.querySelector('.icon-holder');
+                const defaultIcon = btn.dataset.defaultIcon;
+                const activeIcon = btn.dataset.activeIcon;
+
+                if (!isOpen) {
+                    iconHolder.innerHTML = `
+                        <img src="${activeIcon}" height="20" width="20">
+                    `;
+                } else {
+                    
+                    iconHolder.innerHTML = `
+                        <iconify-icon icon="${defaultIcon}" style="font-size: 20px"></iconify-icon>
+                    `;
+                }
+                
             });
         });
 

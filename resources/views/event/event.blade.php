@@ -33,7 +33,6 @@
             </form>
         </div>
 
-        @include('components.notification-panel')
     </div>
 
     <div class="container-fluid pb-4">
