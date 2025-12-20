@@ -51,7 +51,7 @@
 
         <!-- Form Side -->
         <div class="col-6 d-flex flex-column align-items-center gap-2">
-            <div class="feed-wrapper d-flex flex-column gap-2 w-100">
+            <div class="feed-wrapper d-flex flex-column gap-4 w-100">
                 <div class="profile-banner-card d-flex flex-row gap-2">
                     <a class="page-link" href="javascript:void(0);" onclick="window.history.back()">
                         <div class="navigation-prev d-flex flex-start">
@@ -242,14 +242,15 @@
 
     .portfolio-section-container{
         display: grid;
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
         justify-items: center;
 
     }
 
     .profile-post-content-container{
         .post-card{
-            min-width: 690px;
+            width: 100%;
+            max-width: 690px;
             max-width: 690px
 
         }
@@ -259,9 +260,10 @@
         padding-inline: 30px;
         padding-block: 40px;
         border-radius: 30px;
-        width: 350px;
+        width: 100%;
         height: 300px;
         cursor: pointer;
+        aspect-ratio: 7 / 6;
     }
 
     .portfolio-card p{
