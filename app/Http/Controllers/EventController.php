@@ -15,8 +15,6 @@ class EventController extends Controller
     public function show(Request $request)
     {
         $user = Auth::user();
-        $workshopSection = request('workshop_section', 1);
-        $webinarSection = request('webinar_section', 1);
         $query = $request->query('query');
         $now = Carbon::now();
 
@@ -31,8 +29,8 @@ class EventController extends Controller
         ->when($query, function($q) use ($query){
             $q->where('eventName','like', "%{$query}%");
         })
-        ->paginate(4, ['*'], 'webinar_section')
-        ->appends(['workshop_section' => $workshopSection ,'query' => $query]);
+        ->take(4)
+        ->get();
 
 
         $workshops = Event::where('eventCategory', 'workshop')
@@ -46,11 +44,23 @@ class EventController extends Controller
         ->when($query, function($q) use ($query){
             $q->where('eventName','like', "%{$query}%");
         })
-        ->paginate(4,['*'], 'workshop_section')
-        ->appends(['webinar_section'=> $webinarSection, 'query' => $query]);
+        ->take(4)
+        ->get();
+
+        $events = Event::where(function ($q) {
+            $q->where('eventDate', '>', Carbon::today())
+              ->orWhere(function ($q2) {
+                  $q2->where('eventDate', Carbon::today())
+                     ->where('start_time', '>', Carbon::now()->format('H:i:s'));
+              });
+        })
+        ->when($query, function($q) use ($query){
+            $q->where('eventName','like', "%{$query}%");
+        })
+        ->paginate(8);
 
 
-        return view('event.event', compact('webinars', 'workshops'));
+        return view('event.event', compact('webinars', 'workshops', 'events'));
     }
 
     public function showDetail($id)
