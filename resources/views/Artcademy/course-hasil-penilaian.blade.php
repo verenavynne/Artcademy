@@ -93,7 +93,7 @@
             <div class="penilaian-tutor-section d-flex flex-column">
                 <p class="title text-start fw-bold">Penilaian dari Tutor</p>
                 <p class="projek-title-desc mb-3">Yuk, intip komentar dan nilai dari tutor yang udah liat karya kerennya kamu!</p>
-                <div class="penilaian-tutor-card-section d-flex flex-row gap-3 flex-wrap">
+                <div class="penilaian-tutor-card-section d-flex flex-row gap-3 flex-nowrap overflow-x-scroll p-2">
                     @foreach ($tutors as $tutor)
                         <div class="penilaian-tutor-card d-flex flex-column">
                             <div class="penilaian-tutor-header d-flex flex-column">
@@ -220,7 +220,14 @@
         background: var(--cream2-color);
         box-shadow: 0 4px 8px 0 var(--brown-shadow-color);
         min-height: 314px;
-        width: 258px;
+        width: 240px;
+        flex: 0 0 auto;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .penilaian-tutor-card:hover{
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08) !important;
     }
 
     .penilaian-tutor-header{
@@ -244,7 +251,7 @@
     .criteria-name,
     .tutor-specialization{
         margin: 0;
-        font-size: var(--font-size-mini);
+        font-size: var(--font-size-tiny);
         color: var(--dark-gray-color);
     }
 
