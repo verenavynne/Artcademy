@@ -93,7 +93,7 @@
             <div class="penilaian-tutor-section d-flex flex-column">
                 <p class="title text-start fw-bold">Penilaian dari Tutor</p>
                 <p class="projek-title-desc mb-3">Yuk, intip komentar dan nilai dari tutor yang udah liat karya kerennya kamu!</p>
-                <div class="penilaian-tutor-card-section d-flex flex-row gap-3 flex-nowrap overflow-x-scroll p-2">
+                <div class="penilaian-tutor-card-section d-flex flex-row gap-3 flex-nowrap overflow-x-auto p-2">
                     @foreach ($tutors as $tutor)
                         <div class="penilaian-tutor-card d-flex flex-column">
                             <div class="penilaian-tutor-header d-flex flex-column">
