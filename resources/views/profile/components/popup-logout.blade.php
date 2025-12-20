@@ -16,7 +16,7 @@
                     <p class="text-pink-gradient" style="margin: 0">Kembali</p>
                 </button>
                 
-                <form action="{{ route('logout') }}" class="d-flex justify-content-center align-items-center" method="POST" style="width: 50%; display:inline;">
+                <form action="{{ route('logout') }}" class="keluar-btn d-flex justify-content-center align-items-center" method="POST" style="width: 50%; display:inline;">
                     @csrf
                     <button type="submit" class="btn w-100 rounded-pill text-white red-btn px-4" style="font-size: 18px;" style=>Keluar</button>
                 </form>
@@ -26,6 +26,10 @@
 </div>
 
 <style>
+    .keluar-btn {
+        margin: 0;
+    }
+
         .modal-backdrop {
         z-index: 2000  !important;
     }
