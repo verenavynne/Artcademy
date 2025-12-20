@@ -7,12 +7,12 @@
         <ul class="d-flex flex-column w-100 justify-content-around" style="gap: 22px; padding-left: 0px">
             @foreach($otherProfile as $profile)
             <li class="profil-item">
-                <div class="d-flex flex-row gap-2">
+                <div class="d-flex flex-row gap-2" style="min-width: 0;">
                     <img src="{{ $profile->profilePicture ? asset('storage/' . $profile->profilePicture) : asset('assets/default-profile.jpg') }}" alt="" height="42" width="42"
                     class="profile-picture rounded-circle"
                     style="object-fit: cover">
-                    <div class="d-flex flex-column">
-                        <p class="fw-bold" style="font-size: 16px; margin: 0">{{ $profile->name }}</p>
+                    <div class="d-flex flex-column" style="max-width: 80%;">
+                        <p class="fw-bold" style="font-size: 16px; margin: 0 ">{{ $profile->name }}</p>
                         <p class="" style="font-size: 12px; margin: 0">
                             @if($profile->lecturer)
                                 Tutor {{ $profile->lecturer->specialization }}
@@ -20,12 +20,11 @@
                                 {{ $profile->student->profession ?? 'Pelajar'}}
                             @endif
                         </p>
-    
                     </div>
     
                 </div>
-                <a href="{{ route('forum.visit-profile', $profile->id) }}" style="text-decoration: none">
-                    <p class="text-pink-gradient fw-bold" style="margin: 0">Kunjungi Profil</p>
+                <a href="{{ route('forum.visit-profile', $profile->id) }}" style="text-decoration: none; white-space: nowrap; margin-left: 12px; flex-shrink: 0;">
+                    <p class="text-pink-gradient fw-bold" style="margin: 0; white-space: nowrap;">Kunjungi Profil</p>
                 </a>
             </li>
             @endforeach
@@ -52,7 +51,7 @@
     .profil-item{
         display: flex;
         flex-direction: row;
-        gap: 2;
+        gap: 16px;
         justify-content: space-between;
     }
 
