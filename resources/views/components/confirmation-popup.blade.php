@@ -27,7 +27,7 @@
                     <input type="hidden" name="_method" value="DELETE">
                     <button id="confirmSubmitBtn"
                             type="submit"
-                            class="btn w-100 rounded-pill text-white red-btn px-4 py-3">
+                            class="btn w-100 rounded-pill text-white red-btn px-4 py-3" style="font-size: 18px;">
                     </button>
                 </form>
             </div>

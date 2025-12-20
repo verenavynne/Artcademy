@@ -19,7 +19,7 @@
                 <form action="{{ route('post.destroy', $post->id) }}" method="POST" style="width: 50%; margin-block-end: 0">
                     @csrf
                     @method('DELETE')
-                    <button type="submit" class="btn w-100 text-white red-btn px-4">Hapus</button>
+                    <button type="submit" class="btn w-100 text-white red-btn px-4" style="font-size: 18px;">Hapus</button>
                 </form>
             </div>
         </div>

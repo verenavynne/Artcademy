@@ -193,6 +193,15 @@
         position: absolute;
         z-index: 5;
         padding: 10px;
+        background: #F9EEDB !important;
+        justify-content: center;
+        border-radius: 100px;
+        border: none;
+        position: absolute;
+        top: 16px;
+        right: 16px;
+        cursor: pointer;
+        color: #E5C69B !important;
     }
 
     .post-image-video {
