@@ -51,9 +51,6 @@
             @endif
         </div>
 
-        <div class="d-flex justify-content-center mt-4 ">
-            {{ $webinars->links('pagination::bootstrap-5') }}
-        </div>
     </div>
 
   
@@ -74,8 +71,26 @@
             @endif
         </div>
 
+    </div>
+
+    <div class="container-fluid pb-4">
+        <p class="title text-start fw-bold mb-3">Semua Event</p>
+        <p class="text-start" style="font-size: var(--font-size-normal)">Beragam event seru untuk kamu yang siap belajar, eksplor, dan berkembang lewat pengalaman langsung bersama mentor dan komunitas.</p>
+
+        <div class="d-flex flex-wrap justify-content-center" style="gap: 36px">
+            @if ($events->isEmpty())
+                <p class="text-center text-muted" style="font-size: var(--font-size-primary)">
+                    Belum ada event saat ini.
+                </p>
+            @else
+            @foreach ($events as $event )
+                @include('components.event-card' ,['event' => $event])
+            @endforeach
+            @endif
+        </div>
+
         <div class="d-flex justify-content-center mt-4 ">
-            {{ $workshops->links('pagination::bootstrap-5') }}
+            {{ $events->links('pagination::bootstrap-5') }}
         </div>
     </div>
 </div>

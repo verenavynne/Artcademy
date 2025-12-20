@@ -36,6 +36,11 @@
                         $commentDetail = 'Yuk segera perpanjang membershipmu!';
                     }else if($notification->referenceType === 'project'){
                         $commentDetail = 'Jangan lupa submit yaa!';
+                    }else if($notification->referenceType === 'membership'){
+                            $commentDetail = 'Yuk segera perpanjang membershipmu!';
+                    }else if($notification->referenceType === 'grading'){
+                        $submission = \App\Models\ProjectSubmission::find($notification->referenceId);
+                        $commentDetail = $submission->project->projectName;
                     }
                 @endphp
                 
