@@ -181,7 +181,8 @@
         const panel = document.getElementById("notifPanel")
 
         toggle.addEventListener("click", function(event){
-            event.stopPropagation();
+            console.log('masuk')
+            // event.stopPropagation();
             panel.classList.toggle("show");
         });
 

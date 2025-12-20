@@ -15,9 +15,17 @@ $autoOpen = $post->comments->whereNotNull('chatbotId')->isNotEmpty();
                     @if(!$autoOpen)
                     <li>
                         <button type="button" 
-                            class="dropdown-item"
+                            class="dropdown-item btn-edit-post"
+                            data-post-id="{{ $post->id }}"
+                            data-post-text="{{ $post->postText }}"
+                            data-update-url="{{ route('post.update', $post->id) }}"
+                            data-user-name="{{ $post->user->name }}"
+                            data-user-avatar="{{ $post->user->profilePicture 
+                                ? asset('storage/'.$post->user->profilePicture) 
+                                : asset('assets/default-profile.jpg') }}"
+                            data-files='@json($post->files)'
                             data-bs-toggle="modal"
-                            data-bs-target="#editPostModal{{ $post->id }}">
+                            data-bs-target="#editPostModal">
                             Edit
                         </button>
                     </li>
@@ -25,9 +33,11 @@ $autoOpen = $post->comments->whereNotNull('chatbotId')->isNotEmpty();
                     <li>
                         <button 
                             type="button" 
-                            class="dropdown-item text-danger"
+                            class="dropdown-item text-danger btn-delete-post"
+                            data-post-id="{{ $post->id }}"
+                            data-delete-url="{{ route('post.destroy', $post->id) }}"
                             data-bs-toggle="modal"
-                            data-bs-target="#deletePostConfirmModal{{ $post->id }}"
+                            data-bs-target="#deletePostConfirmModal"
                             >
                             Hapus
                         </button>
@@ -249,13 +259,7 @@ $autoOpen = $post->comments->whereNotNull('chatbotId')->isNotEmpty();
                                 <hr class="divider w-100">
                             
                                 <div class="balas-komen-section d-flex flex-row gap-2 w-100">
-                                    <img src="{{
-                                        $comment->user
-                                            ? ($comment->user->profilePicture
-                                                ? asset('storage/' . $comment->user->profilePicture)
-                                                : asset('assets/default-profile.jpg'))
-                                            : asset('assets/default-profile.jpg')
-                                    }}" 
+                                    <img src="{{  auth()->user()->profilePicture ? asset('storage/' .  auth()->user()->profilePicture) : asset('assets/default-profile.jpg') }}" 
                                     alt="" height="42" width="42"
                                     class="profile-picture rounded-circle"
                                     style="object-fit: cover">

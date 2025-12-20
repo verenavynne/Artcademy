@@ -31,8 +31,10 @@
                     
                 </ul>
 
-                <div class="d-flex flex-row align-items-center gap-2">
+                <div class="d-flex flex-row align-items-center gap-4">
                     @if (Auth::check())
+                    
+                    @include('components.notification-panel')
                         <div class="dropdown">
                             <a class="profil d-flex align-items-center text-decoration-none text-dark " href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                  <img 

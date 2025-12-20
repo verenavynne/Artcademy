@@ -1,6 +1,11 @@
 @extends('layouts.master')
 
 @section('content')
+@php
+    $isDone = $materiProgress[$materi->id]->isDone ?? false;
+    
+@endphp
+
 <div class="container-fluid d-flex flex-column justify-content-center px-5" style="margin-bottom: 75px;">
     <a class="page-link" href="javascript:void(0);" onclick="window.history.back()">
         <div class="navigation-prev d-flex flex-start">
@@ -18,15 +23,15 @@
                     <button 
                         id="tandai-sudah-baca-btn"  
                         data-materi-id="{{ $materi->id }}" 
-                        class="btn px-4 py-2 text-dark btn-tandai-baca">
+                        class="btn px-4 py-2 text-dark btn-tandai-baca {{ $isDone ? 'd-none' : '' }}">
                         Tandai Sudah Dibaca
                     </button>
 
                     <button 
-                        class="btn px-4 py-2 btn-sudah-baca pink-cream-btn d-none d-flex flex-row justify-content-center align-items-center gap-2"
-                        style="pointer-events: none;">
+                        class="btn px-4 py-2 btn-sudah-baca pink-cream-btn d-flex flex-row justify-content-center align-items-center gap-2  {{ $isDone ? '' : 'd-none' }}"
+                        style="pointer-events: none; ">
                         <img src="{{ asset('assets/icons/icon_sudah_dibaca.svg') }}" alt="checklist-icon" width="19" height="19">
-                        <p class="text-pink-gradient" style="margin: 0">Sudah Dibaca</p>
+                        <p class="text-pink-gradient" style="margin: 0 ">Sudah Dibaca</p>
                     </button>
 
                 </div>
@@ -84,6 +89,24 @@
 </style>
 
 @endsection
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const isDone = @json($isDone);
+
+    const markAsReadBtn = document.getElementById('tandai-sudah-baca-btn');
+    const lanjutkanBtn = document.getElementById('lanjutkanBtn');
+
+    if (isDone) {
+        // Enable lanjutkan
+        lanjutkanBtn.classList.remove('disabled');
+        lanjutkanBtn.setAttribute('aria-disabled', 'false');
+        lanjutkanBtn.style.pointerEvents = 'auto';
+        lanjutkanBtn.style.opacity = '1';
+    }
+});
+</script>
+
 
 <script>
 document.addEventListener('DOMContentLoaded', function () {

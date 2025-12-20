@@ -17,9 +17,10 @@ class NotificationController extends Controller
 
         if ($notification->referenceType === 'comment') {
             $comment = \App\Models\Comment::find($notification->referenceId);
+            $commentProfile = $comment->post->userId;
 
             if ($comment) {
-                $link = route('forum') . '#comment-' . $notification->referenceId;
+                $link =  route('forum.visit-profile', [$commentProfile, 'tab' => 'post']) . '#comment-' . $notification->referenceId;
             } else {
                 return redirect()->route('forum')
                     ->with('warning', 'Komentar yang dimaksud sudah dihapus.');
@@ -29,7 +30,7 @@ class NotificationController extends Controller
             $comment = \App\Models\Comment::find($notification->referenceId);
 
             if ($comment) {
-                $link = route('forum') . '#comment-' . $notification->referenceId;
+                $link = route('my-profile', ['tab'=>'post']) . '#comment-' . $notification->referenceId;
             } else {
                 return redirect()->route('forum')
                     ->with('warning', 'Komentar yang dimaksud sudah dihapus.');

@@ -27,8 +27,6 @@
                 </button>
             </form>
         </div>
-
-        @include('components.notification-panel')
     </div>
 
     <!-- header -->
