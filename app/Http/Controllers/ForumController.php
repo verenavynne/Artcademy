@@ -40,7 +40,10 @@ class ForumController extends Controller
         }
 
         $otherProfile = User::where('id', '!=', $user->id)
-            ->where('role', '!=', 'admin')->get();
+            ->where('role', '!=', 'admin')
+            ->orderByDesc('created_at')
+            ->take(6)
+            ->get();
 
         $membershipTransaction = MembershipTransaction::where('studentId', $user->id)
             ->where('membershipStatus', 'active')
