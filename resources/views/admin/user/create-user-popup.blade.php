@@ -110,11 +110,9 @@
       </div>
 
       <div class="d-flex justify-content-end mt-4">
-        <button type="submit" id="submitBtn" class="btn text-dark yellow-gradient-btn px-4 d-flex align-items-center gap-2">
+        <button type="submit" id="submitBtn" class="btn text-dark yellow-gradient-btn px-4 d-flex align-items-center justify-content-center gap-2" style="width: 170px;">
+          <div id="loadingSpinner" class="spinner-border spinner-border-sm text-dark d-none" role="status"></div>
           <span id="btnText">Daftar</span>
-          <div id="loadingSpinner" class="spinner-border spinner-border-sm text-dark d-none" role="status">
-            <span class="visually-hidden">Loading...</span>
-          </div>
        </button>
       </div>
     </form>
@@ -151,6 +149,19 @@
   document.getElementById('profilePicture').addEventListener('change', function() {
     const fileNameText = document.getElementById('fileName');
     fileNameText.textContent = this.files.length ? this.files[0].name : "Tidak ada file yang dipilih";
+  });
+
+  // loading
+  const form = document.getElementById('formTambahUser');
+  const submitBtn = document.getElementById('submitBtn');
+  const btnText = document.getElementById('btnText');
+  const loadingSpinner = document.getElementById('loadingSpinner');
+
+  form.addEventListener('submit', function () {
+    submitBtn.disabled = true;
+
+    btnText.textContent = 'Memproses...';
+    loadingSpinner.classList.remove('d-none');
   });
 </script>
 

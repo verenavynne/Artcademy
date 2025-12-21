@@ -70,10 +70,10 @@
       </div>
 
       <!-- Tombol Simpan -->
-      <div class="d-flex justify-content-end mt-4" id="savePasswordBtn">
-        <button type="submit" class="btn text-dark yellow-gradient-btn px-4">
-          <span id="saveText">Simpan</span>
-          <div id="saveSpinner" class="spinner-border ms-2 d-none"></div>
+      <div class="d-flex justify-content-end mt-4">
+        <button id="savePasswordBtn" type="submit" class="btn text-dark yellow-gradient-btn px-4">
+          <span class="spinner-border spinner-border-sm d-none"></span>
+          <span class="btn-text">Simpan</span>
         </button>
       </div>
     </form>
@@ -108,11 +108,11 @@
 
   document.getElementById("passwordForm").addEventListener("submit", function() {
       const btn = document.getElementById("savePasswordBtn");
-      const text = document.getElementById("saveText");
-      const spinner = document.getElementById("saveSpinner");
+      const btnText = btn.querySelector('.btn-text');
+      const spinner = btn.querySelector('.spinner-border');
 
       btn.disabled = true;
-      text.textContent = "Menyimpan...";
+      btnText.textContent = "Memproses...";
       spinner.classList.remove("d-none");
   });
 </script>
@@ -193,16 +193,6 @@
         font-weight: 700;
         color: var(--dark-gray-color);
         margin-bottom: 6px;
-    }
-
-    .spinner-border {
-        display: inline-block;
-        width: 1rem;
-        height: 1rem;
-        border: 2px solid rgba(0, 0, 0, 0.15);
-        border-right-color: transparent;
-        border-radius: 50%;
-        animation: spin 0.75s linear infinite;
     }
 
     .d-none {

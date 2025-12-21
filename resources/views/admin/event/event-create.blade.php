@@ -141,7 +141,10 @@
         </div>
 
         <div class="d-flex justify-content-end">
-            <button id="btnPublish" type="submit" name="action" value="publish" class="btn yellow-gradient-btn px-4" disabled>Publikasikan</button>
+            <button id="btnPublish" type="submit" name="action" value="publish" class="btn yellow-gradient-btn px-4" disabled>
+                <span class="spinner-border spinner-border-sm d-none" role="status"></span>
+                <span class="btn-text">Publikasikan</span>
+            </button>
         </div>
     </form>
 </div>
@@ -212,6 +215,18 @@
     document.querySelectorAll('input, select').forEach(el => {
         el.addEventListener('change', checkFormCompletion);
         el.addEventListener('input', checkFormCompletion);
+    });
+
+    // loading
+    const form = document.querySelector('form');
+    const publishBtn = document.getElementById('btnPublish');
+    const btnText = publishBtn.querySelector('.btn-text');
+    const spinner = publishBtn.querySelector('.spinner-border');
+
+    form.addEventListener('submit', function () {
+        publishBtn.disabled = true;
+        btnText.textContent = 'Memproses...';
+        spinner.classList.remove('d-none');
     });
 </script>
 

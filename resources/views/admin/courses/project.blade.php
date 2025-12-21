@@ -149,8 +149,14 @@
 
                 <!-- Buttons -->
                 <div class="d-flex justify-content-end gap-3 mt-4">
-                    <button type="submit" name="action" value="draft" class="btn pink-cream-btn px-4">Simpan Draft</button>
-                    <button type="submit" name="action" value="publish" class="btn yellow-gradient-btn px-4">Publikasikan</button>
+                    <button id="saveDraftBtn" type="submit" class="btn pink-cream-btn px-4">
+                        <span class="spinner-border spinner-border-sm d-none" role="status"></span>
+                        <span class="btn-text text-pink-gradient">Simpan Draft</span>
+                    </button>
+                    <button id="publishBtn" type="button" class="btn yellow-gradient-btn px-4">
+                        <span class="spinner-border spinner-border-sm d-none" role="status"></span>
+                        <span class="btn-text">Publikasikan</span>
+                    </button>
                 </div>
             </form>
         </div>
@@ -302,6 +308,72 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     validateForm();
+});
+
+// button loading state & direct form action
+document.addEventListener('DOMContentLoaded', function () {
+    const form = document.querySelector('form[action*="saveCourse"]');
+    const saveDraftBtn = document.getElementById('saveDraftBtn');
+    const publishBtn = document.getElementById('publishBtn');
+
+    function setLoading(button, textLabel) {
+        const spinner = button.querySelector('.spinner-border');
+        const text = button.querySelector('.btn-text');
+
+        saveDraftBtn.disabled = true;
+        publishBtn.disabled = true;
+
+        if (spinner) spinner.classList.remove('d-none');
+        if (text) text.textContent = textLabel;
+    }
+
+    function setAction(value) {
+        let actionInput = form.querySelector('input[name="action"]');
+        if (!actionInput) {
+            actionInput = document.createElement('input');
+            actionInput.type = 'hidden';
+            actionInput.name = 'action';
+            form.appendChild(actionInput);
+        }
+        actionInput.value = value;
+    }
+
+    // simpan draft
+    saveDraftBtn.addEventListener('click', function () {
+        setAction('draft');
+        setLoading(this, 'Memproses...');
+        form.requestSubmit();
+    });
+
+    // publikasikan
+    publishBtn.addEventListener('click', function () {
+        if (publishBtn.disabled) return;
+
+        setAction('publish');
+        setLoading(this, 'Memproses...');
+        form.requestSubmit();
+    });
+});
+
+
+// reset loading
+window.addEventListener('pageshow', function () {
+    const saveDraftBtn = document.getElementById('saveDraftBtn');
+    const publishBtn = document.getElementById('publishBtn');
+
+    function resetButton(button, originalText) {
+        if (!button) return;
+
+        const spinner = button.querySelector('.spinner-border');
+        const text = button.querySelector('.btn-text');
+
+        button.disabled = false;
+        if (spinner) spinner.classList.add('d-none');
+        if (text) text.textContent = originalText;
+    }
+
+    resetButton(saveDraftBtn, 'Simpan Draft');
+    resetButton(publishBtn, 'Publikasikan');
 });
 </script>
 @endsection

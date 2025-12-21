@@ -98,8 +98,15 @@
 
                 <!-- Buttons -->
                 <div class="d-flex justify-content-end gap-3">
-                    <button id="btnDraft" type="submit" name="action" value="draft" class="btn pink-cream-btn px-4" disabled>Simpan Draft</button>
-                    <button id="btnPublish" type="submit" name="action" value="publish" class="btn yellow-gradient-btn px-4" disabled>Publikasikan</button>
+                    <input type="hidden" name="action" id="actionInput">
+                    <button id="btnDraft" type="submit" class="btn pink-cream-btn px-4" disabled>
+                        <span class="spinner-border spinner-border-sm d-none" role="status"></span>
+                        <span class="btn-text">Simpan Draft</span>
+                    </button>
+                    <button id="btnPublish" type="submit" class="btn yellow-gradient-btn px-4" disabled>
+                        <span class="spinner-border spinner-border-sm d-none" role="status"></span>
+                        <span class="btn-text">Publikasikan</span>
+                    </button>
                 </div>
             </form>
         </div>
@@ -152,6 +159,42 @@
     document.querySelectorAll('input, select, textarea').forEach(input => {
         input.addEventListener('input', checkRequiredFields);
         input.addEventListener('change', checkRequiredFields);
+    });
+
+    const actionInput = document.getElementById('actionInput');
+
+    document.getElementById('btnDraft').addEventListener('click', () => {
+    actionInput.value = 'draft';
+    });
+
+    document.getElementById('btnPublish').addEventListener('click', () => {
+    actionInput.value = 'publish';
+    });
+
+
+    // loading state
+    const form = document.querySelector('form');
+    let clickedButton = null;
+
+    // tangkap tombol mana yang diklik
+    document.querySelectorAll('button[type="submit"]').forEach(btn => {
+    btn.addEventListener('click', function () {
+        clickedButton = this;
+    });
+    });
+
+    form.addEventListener('submit', function () {
+    if (!clickedButton) return;
+
+    // disable semua tombol
+    document.querySelectorAll('button[type="submit"]').forEach(btn => btn.disabled = true);
+
+    // loading hanya di tombol yang diklik
+    const text = clickedButton.querySelector('.btn-text');
+    const spinner = clickedButton.querySelector('.spinner-border');
+
+    text.textContent = 'Memproses...';
+    spinner.classList.remove('d-none');
     });
 </script>
 @endsection

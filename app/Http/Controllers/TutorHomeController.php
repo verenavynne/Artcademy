@@ -18,7 +18,10 @@ class TutorHomeController extends Controller
 
 
         $now = Carbon::now();
-        $zoom = Zoom::where('tutorId', $user->id)
+        $zoom = Zoom::with(['tutor.lecturer.user'])
+            ->whereHas('tutor', function ($query) use ($user) {
+                $query->where('lecturerId', $user->id);
+            })
             ->whereRaw("CONCAT(zoomDate, ' ', start_time) >= ?", [$now])
             ->orderByRaw("CONCAT(zoomDate, ' ', start_time) ASC")
             ->first();

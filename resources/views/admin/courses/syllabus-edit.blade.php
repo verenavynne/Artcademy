@@ -178,10 +178,12 @@
 
             <div class="d-flex justify-content-end gap-3 mt-4">
                 <button type="submit" id="saveDraftBtn" class="btn pink-cream-btn px-4">
-                    Simpan Draft
+                    <span class="spinner-border spinner-border-sm d-none" role="status"></span>
+                    <span class="btn-text text-pink-gradient">Simpan Draft</span>
                 </button>
                 <button type="submit" id="nextBtn" class="btn yellow-gradient-btn px-4">
-                    Lanjut
+                    <span class="spinner-border spinner-border-sm d-none" role="status"></span>
+                    <span class="btn-text">Lanjut</span>
                 </button>
             </div>
         </form>
@@ -432,18 +434,55 @@
         document.querySelectorAll('.materi-group').forEach(initMateriContent);
     });
 
-    const form = document.getElementById('courseForm');
-    const saveDraftBtn = document.getElementById('saveDraftBtn');
-    const nextBtn = document.getElementById('nextBtn');
+    document.addEventListener('DOMContentLoaded', function () {
+        const form = document.getElementById('courseForm');
+        const saveDraftBtn = document.getElementById('saveDraftBtn');
+        const nextBtn = document.getElementById('nextBtn');
 
-    nextBtn.addEventListener('click', () => {
-        form.action = "{{ route('admin.courses.tempUpdateSyllabus', $course->id)  }}";
+        function setLoading(button, textLabel) {
+            const spinner = button.querySelector('.spinner-border');
+            const text = button.querySelector('.btn-text');
+
+            saveDraftBtn.disabled = true;
+            nextBtn.disabled = true;
+
+            if (spinner) spinner.classList.remove('d-none');
+            if (text) text.textContent = textLabel;
+        }
+
+        // simpan draft
+        saveDraftBtn.addEventListener('click', function () {
+            setLoading(this, 'Memproses...');
+            form.action = "{{ route('admin.courses.updateDraftSyllabus', $course->id) }}";
+            form.requestSubmit();
+        });
+
+        // ke projek akhir
+        nextBtn.addEventListener('click', function () {
+            setLoading(this, 'Memproses...');
+            form.action = "{{ route('admin.courses.tempUpdateSyllabus', $course->id) }}";
+            form.requestSubmit();
+        });
     });
 
-    saveDraftBtn.addEventListener('click', (e) => {
-        e.preventDefault();
-        form.action = "{{ route('admin.courses.updateDraftSyllabus', $course->id) }}";
-        form.submit();
+    // reset loading
+    window.addEventListener('pageshow', function () {
+        const saveDraftBtn = document.getElementById('saveDraftBtn');
+        const nextBtn = document.getElementById('nextBtn');
+
+        function resetButton(button, originalText) {
+            if (!button) return;
+
+            const spinner = button.querySelector('.spinner-border');
+            const text = button.querySelector('.btn-text');
+
+            button.disabled = false;
+            if (spinner) spinner.classList.add('d-none');
+            if (text) text.textContent = originalText;
+        }
+
+        resetButton(saveDraftBtn, 'Simpan Draft');
+        resetButton(nextBtn, 'Lanjut');
     });
 </script>
 @endsection
