@@ -143,7 +143,10 @@
                         <button type="button" class="btn py-2 px-4 pink-cream-btn" id="openPasswordPopupBtn">
                             <p class="text-pink-gradient" style="margin: 0">Ubah kata sandi</p>
                         </button>
-                        <button class="btn py-2 px-4 text-dark yellow-gradient-btn">Simpan perubahan</button>
+                        <button id="saveProfileBtn" type="submit" class="btn py-2 px-4 text-dark yellow-gradient-btn">
+                            <span class="spinner-border spinner-border-sm d-none"></span>
+                            <span class="btn-text">Simpan perubahan</span>
+                        </button>
 
                     </div>
                 </form>
@@ -187,6 +190,18 @@
         if(e.target === passwordPopupOverlay) {
             passwordPopupOverlay.style.display = 'none';
         }
+    });
+
+    // loading
+    const profileForm = document.querySelector('form[action="{{ route('profile.update') }}"]');
+    const saveBtn = document.getElementById('saveProfileBtn');
+    const btnText = saveBtn.querySelector('.btn-text');
+    const spinner = saveBtn.querySelector('.spinner-border');
+
+    profileForm.addEventListener('submit', function () {
+        saveBtn.disabled = true;
+        btnText.textContent = 'Memproses...';
+        spinner.classList.remove('d-none');
     });
 </script>
 

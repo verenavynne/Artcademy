@@ -115,7 +115,10 @@
         </div>
 
         <div class="button-container mt-4">
-            <button class="yellow-gradient-btn" id="submitBtn" style="width: 170px;" disabled>Kirim Penilaian</button>
+            <button class="yellow-gradient-btn" id="submitBtn" style="width: 180px;" disabled>
+                <span class="spinner-border spinner-border-sm d-none"></span>
+                <span class="btn-text">Kirim Penilaian</span>
+            </button>
         </div>
     </form>
 
@@ -142,16 +145,21 @@
             select.addEventListener('change', validateSelects);
         });
     }); 
+
+    // loading
+    const form = document.querySelector('form');
+    const submitBtn = document.getElementById('submitBtn');
+    const btnText = submitBtn.querySelector('.btn-text');
+    const spinner = submitBtn.querySelector('.spinner-border');
+
+    form.addEventListener('submit', function () {
+        submitBtn.disabled = true;
+        btnText.textContent = 'Memproses...';
+        spinner.classList.remove('d-none');
+    });
 </script>
 
 <style>
-
-.container-content {
-    overflow-y: scroll;
-    overflow-x: hidden;
-    scrollbar-width: thin;
-}
-
 .hasil-projek-submission-card{
     background: white;
     border-radius: 40px;

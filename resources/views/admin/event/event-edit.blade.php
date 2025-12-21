@@ -151,7 +151,10 @@
         </div>
 
         <div class="d-flex justify-content-end">
-            <button type="submit" name="action" value="publish" class="btn yellow-gradient-btn px-4">Simpan Perubahan</button>
+            <button id="btnPublish" type="submit" name="action" value="publish" class="btn yellow-gradient-btn px-4">
+                <span class="spinner-border spinner-border-sm d-none" role="status"></span>
+                <span class="btn-text">Simpan Perubahan</span>
+            </button>
         </div>
     </form>
 </div>
@@ -184,6 +187,18 @@
             document.getElementById('bannerPreview').src = e.target.result;
         }
         reader.readAsDataURL(file);
+    });
+
+    // loading
+    const form = document.querySelector('form');
+    const publishBtn = document.getElementById('btnPublish');
+    const btnText = publishBtn.querySelector('.btn-text');
+    const spinner = publishBtn.querySelector('.spinner-border');
+
+    form.addEventListener('submit', function () {
+        publishBtn.disabled = true;
+        btnText.textContent = 'Memproses...';
+        spinner.classList.remove('d-none');
     });
 </script>
 

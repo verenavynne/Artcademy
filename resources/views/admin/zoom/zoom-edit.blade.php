@@ -113,7 +113,10 @@
 
                 <!-- Buttons -->
                 <div class="d-flex justify-content-end">
-                    <button type="submit" class="btn yellow-gradient-btn px-4">Simpan Perubahan</button>
+                    <button type="submit" id="submitBtn" class="btn yellow-gradient-btn px-4">
+                        <span id="loadingSpinner" class="spinner-border spinner-border-sm d-none" role="status"></span>
+                        <span class="btn-text">Simpan Perubahan</span>
+                    </button>
                 </div>
             </form>
         </div>
@@ -145,6 +148,19 @@
         });
 
         tutorSelect.disabled = filteredTutors.length === 0;
+    });
+
+    // loading
+    const form = document.getElementById('courseForm');
+    const submitBtn = document.getElementById('submitBtn');
+    const btnText = submitBtn.querySelector('.btn-text');
+    const loadingSpinner = document.getElementById('loadingSpinner');
+
+    form.addEventListener('submit', function () {
+        submitBtn.disabled = true;
+
+        btnText.textContent = 'Memproses...';
+        loadingSpinner.classList.remove('d-none');
     });
 </script>
 @endsection

@@ -156,10 +156,12 @@
                 <!-- Buttons -->
                 <div class="d-flex justify-content-end gap-3">
                     <button type="button" id="saveDraftBtn" class="btn pink-cream-btn px-4">
-                        <span class="text-pink-gradient">Simpan Draft</span>
+                        <span class="spinner-border spinner-border-sm d-none" role="status"></span>
+                        <span class="btn-text text-pink-gradient">Simpan Draft</span>
                     </button>
                     <button type="submit" id="nextBtn" class="btn yellow-gradient-btn px-4">
-                        Lanjut
+                        <span class="spinner-border spinner-border-sm d-none" role="status"></span>
+                        <span class="btn-text">Lanjut</span>
                     </button>
                 </div>
             </form>
@@ -231,10 +233,6 @@
     const saveDraftBtn = document.getElementById('saveDraftBtn');
     const nextBtn = document.getElementById('nextBtn');
 
-    nextBtn.addEventListener('click', () => {
-        form.action = "{{ route('admin.courses.tempStore') }}";
-    });
-
     saveDraftBtn.addEventListener('click', (e) => {
         e.preventDefault();
         form.action = "{{ route('admin.courses.draftCourseInformation') }}";
@@ -245,7 +243,6 @@
     // cek input untuk disabled button
     const lecturerCheckboxes = document.querySelectorAll('.lecturer-checkbox');
     const nextButton = document.getElementById('nextBtn');
-    const draftButton = document.getElementById('draftBtn');
     
     nextButton.disabled = true;
     nextButton.classList.add('disabled-btn');
@@ -272,6 +269,61 @@
 
             checkSelectedLecturers();
         });
+    });
+
+    // button loading state & direct form action
+    document.addEventListener('DOMContentLoaded', function () {
+
+        const form = document.getElementById('courseForm');
+        const saveDraftBtn = document.getElementById('saveDraftBtn');
+        const nextBtn = document.getElementById('nextBtn');
+
+        function setLoading(button, textLabel) {
+            const text = button.querySelector('.btn-text');
+            const spinner = button.querySelector('.spinner-border');
+
+            saveDraftBtn.disabled = true;
+            nextBtn.disabled = true;
+
+            if (text) text.textContent = textLabel;
+            if (spinner) spinner.classList.remove('d-none');
+        }
+
+        saveDraftBtn.addEventListener('click', function (e) {
+            e.preventDefault();
+
+            setLoading(this, 'Memproses...');
+            form.action = "{{ route('admin.courses.draftCourseInformation') }}";
+            form.requestSubmit();
+        });
+
+        nextBtn.addEventListener('click', function (e) {
+            if (nextBtn.disabled) return;
+
+            setLoading(this, 'Memproses...');
+            form.action = "{{ route('admin.courses.tempStore') }}";
+            form.requestSubmit();
+        });
+    });
+
+    // reset loading
+    window.addEventListener('pageshow', function (event) {
+        const saveDraftBtn = document.getElementById('saveDraftBtn');
+        const nextBtn = document.getElementById('nextBtn');
+
+        function resetButton(button, originalText) {
+            if (!button) return;
+
+            const spinner = button.querySelector('.spinner-border');
+            const text = button.querySelector('.btn-text');
+
+            button.disabled = false;
+            if (spinner) spinner.classList.add('d-none');
+            if (text) text.textContent = originalText;
+        }
+
+        resetButton(saveDraftBtn, 'Simpan Draft');
+        resetButton(nextBtn, 'Lanjut');
     });
 </script>
 @endsection
