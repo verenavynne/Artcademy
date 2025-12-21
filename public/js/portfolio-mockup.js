@@ -1,6 +1,7 @@
 import * as THREE from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+import { DRACOLoader } from 'three/addons/loaders/DRACOLoader.js';
 
 /**
  * @typedef {Object} MockupConfig
@@ -108,10 +109,17 @@ export function initMockup(config) {
 
     // Load Mockup Model
     let model = null;
+
+    const dracoLoader = new DRACOLoader();
+    dracoLoader.setDecoderPath('/draco/'); 
+    dracoLoader.setDecoderConfig({ type: 'js' });
+
     const loader = new GLTFLoader();
+    loader.setDRACOLoader(dracoLoader);
+    
     const modelPath = mockupType === 'laptop'
-        ? '/assets/mockup/laptop.glb'
-        : '/assets/mockup/iphone.glb';
+        ? '/assets/mockup/laptop-final.glb'
+        : '/assets/mockup/iphone-final.glb';
 
     loader.load(modelPath, (gltf) => {
         model = gltf.scene;
