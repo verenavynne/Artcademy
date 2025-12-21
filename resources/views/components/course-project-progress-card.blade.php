@@ -39,16 +39,22 @@
     </div>
 
     @if($isSubmitted)
-        <a href="{{ route('projectSubmission.hasil', ['id'=> $submission->id]) }}"
-            class="btn w-100 text-dark yellow-gradient-btn">
-            Lihat Penilaian
-        </a>
+        <form action="{{ route('projectSubmission.hasil', ['id'=> $submission->id]) }}"
+            method="GET"
+            id="hasilPenilaianForm">
+            <button type="submit" id="lihatPenilaianBtn" class="btn text-dark yellow-gradient-btn px-4 d-flex align-items-center justify-content-center gap-2 w-100">
+                <div id="loadingSpinnerPenilaian" class="spinner-border spinner-border-sm text-dark d-none"></div>
+                <span id="btnTextPenilaian">Lihat Penilaian</span>
+            </button>
+        </form>
     @else
         <button type="submit"
             id="kumpulBtn"
             class="btn w-100 text-dark yellow-gradient-btn  {{ $isDisabled ? 'disabled' : '' }}"
             aria-disabled="{{ $isDisabled ? 'true' : 'false' }}"
-            >Kumpul Sekarang
+            >
+            <div id="loadingSpinnerProject" class="spinner-border spinner-border-sm text-dark d-none"></div>
+            <span id="btnTextProject">Kumpul Sekarang</span>
         </button>
     @endif
 
@@ -168,3 +174,17 @@
         background: #D0D0D0;
     }
 </style>
+
+<script>
+    const form = document.getElementById('hasilPenilaianForm');
+    const submitBtn = document.getElementById('lihatPenilaianBtn');
+    const btnText = document.getElementById('btnTextPenilaian');
+    const loadingSpinner = document.getElementById('loadingSpinnerPenilaian');
+
+    form.addEventListener('submit', function () {
+        submitBtn.disabled = true;
+
+        btnText.textContent = 'Memproses...';
+        loadingSpinner.classList.remove('d-none');
+    });
+</script>

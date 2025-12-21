@@ -67,7 +67,8 @@
                 id="lanjutkanBtn"
                 class="btn w-100 text-dark yellow-gradient-btn {{ $isDone ? '' : 'disabled' }}"
                 aria-disabled="{{ $isDone ? 'false' : 'true' }}">
-            {{ $navigationData['buttonText'] }}
+                <div id="loadingSpinner" class="spinner-border spinner-border-sm text-dark d-none"></div>
+                <span id="btnText">{{ $navigationData['buttonText'] }}</span>
         </button>
     </form>
 
@@ -203,4 +204,18 @@
     }
 
 </style>
+
+<script>
+    const form = document.getElementById('completeForm');
+    const submitBtn = document.getElementById('lanjutkanBtn');
+    const btnText = document.getElementById('btnText');
+    const loadingSpinner = document.getElementById('loadingSpinner');
+
+    form.addEventListener('submit', function () {
+        submitBtn.disabled = true;
+
+        btnText.textContent = 'Memproses...';
+        loadingSpinner.classList.remove('d-none');
+    });
+</script>
 

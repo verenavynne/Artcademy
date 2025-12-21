@@ -19,9 +19,25 @@
                 <form id="deletePostForum" method="POST" style="width: 50%; margin-block-end: 0">
                     @csrf
                     @method('DELETE')
-                    <button type="submit" class="btn w-100 text-white red-btn px-4" style="font-size: 18px;">Hapus</button>
+                    <button type="submit" id="submitBtnDelete" class="btn w-100 text-white red-btn px-4 d-flex align-items-center justify-content-center gap-2">
+                        <div id="loadingSpinnerDelete" class="spinner-border spinner-border-sm text-white d-none"></div>
+                        <span id="btnTextDelete" style="font-size: 18px">Hapus</span>
+                    </button>
                 </form>
             </div>
         </div>
     </div>
 </div>
+
+<script>
+    const deleteForm = document.getElementById('deletePostForum');
+    const submitBtnDelete = document.getElementById('submitBtnDelete');
+    const btnTextDelete = document.getElementById('btnTextDelete');
+    const loadingSpinnerDelete = document.getElementById('loadingSpinnerDelete');
+
+    deleteForm.addEventListener('submit', function () {
+        submitBtnDelete.disabled = true;
+        btnTextDelete.textContent = 'Memproses...';
+        loadingSpinnerDelete.classList.remove('d-none');
+    });
+</script>

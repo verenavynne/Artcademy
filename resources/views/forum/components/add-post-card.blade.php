@@ -1,67 +1,73 @@
-<div class="add-post-card d-flex flex-column" id="buat-post">
-    <div class="d-flex justify-content-between flex-grow-1">
-        <textarea 
-            class="form-control border-0 shadow-none p-0 add-post-textarea  @error('caption') is-invalid @enderror"
-            name="caption"
-            placeholder="Apa yang kamu pikirkan?"
-            rows="1"
-        ></textarea>
-        
 
-        <div class="toggle-wrapper text-end d-flex align-items-start" style="min-width: 160px;">
-            <div class="form-check form-switch justify-content-center align-items-center">
-                <input class="form-check-input" type="checkbox" id="apolloSwitch" name="triggerChatbot">
-                <div class="d-flex flex-row gap-1 justify-content-center align-items-center me-2">
+<form action="{{ route('post.add') }}" method="POST" enctype="multipart/form-data" id="postForm">
+@csrf
+    <div class="add-post-card d-flex flex-column" id="buat-post">
+        <div class="d-flex justify-content-between flex-grow-1">
+            <textarea 
+                class="form-control border-0 shadow-none p-0 add-post-textarea  @error('caption') is-invalid @enderror"
+                name="caption"
+                placeholder="Apa yang kamu pikirkan?"
+                rows="1"
+            ></textarea>
+            
+            <div class="toggle-wrapper text-end d-flex align-items-start" style="min-width: 160px;">
+                <div class="form-check form-switch justify-content-center align-items-center">
+                    <input class="form-check-input" type="checkbox" id="apolloSwitch" name="triggerChatbot">
+                    <div class="d-flex flex-row gap-1 justify-content-center align-items-center me-2">
 
-                    <label class="form-check-label d-flex flex-row justify-content-center align-items-center" for="apolloSwitch" style="white-space: nowrap;">
-                        <img src="{{ asset('assets/icons/icon_apollo.svg') }}" width="16" height="16" class="me-1">
-                       <p style="margin: 0">Apollo aktif</p>
-                    </label>
-                    <iconify-icon icon="material-symbols:info-outline-rounded" 
-                        title="Jika Apollo aktif, postingan kamu akan mendapatkan balasan otomatis dari chatbot." 
-                        style="font-size: 20px; "></iconify-icon>
+                        <label class="form-check-label d-flex flex-row justify-content-center align-items-center" for="apolloSwitch" style="white-space: nowrap;">
+                            <img src="{{ asset('assets/icons/icon_apollo.svg') }}" width="16" height="16" class="me-1">
+                        <p style="margin: 0">Apollo aktif</p>
+                        </label>
+                        <iconify-icon icon="material-symbols:info-outline-rounded" 
+                            title="Jika Apollo aktif, postingan kamu akan mendapatkan balasan otomatis dari chatbot." 
+                            style="font-size: 20px; "></iconify-icon>
+                    </div>
                 </div>
             </div>
+
         </div>
 
+        @error('caption')
+            <div class="invalid-feedback d-block">{{ $message }}</div>
+        @enderror
+
+        <div id="preview-wrapper" class="mt-3" style="display:none;">
+            <div id="preview-items" class=""></div>
+        </div>
+        @if ($errors->has('images.*'))
+            <div class="invalid-feedback d-block">
+                {{ $errors->first('images.*') }}
+            </div>
+        @endif
+
+        @if ($errors->has('videos.*'))
+            <div class="invalid-feedback d-block">
+                {{ $errors->first('videos.*') }}
+            </div>
+        @endif
+
+        <div class="d-flex justify-content-between mt-3 align-items-center">
+
+            <div class="d-flex gap-3">
+                <label class="icon-btn" style="cursor: pointer">
+                    <iconify-icon icon="icon-park:upload-picture" style="font-weight: 24px"></iconify-icon>
+                    <input type="file" name="images[]" hidden multiple>
+                </label>
+
+                <label class="icon-btn" style="cursor: pointer">
+                    <iconify-icon icon="mingcute:video-line" style="font-weight: 24px"></iconify-icon>
+                    <input type="file" name="videos[]" hidden accept="video/*" multiple>
+                </label>
+            </div>
+
+            <button type="submit" id="submitBtn" class="btn text-dark yellow-gradient-btn">
+                <div id="loadingSpinner" class="spinner-border spinner-border-sm text-dark d-none"></div>
+                <span id="btnText">Post</span>
+            </button>
+        </div>
     </div>
-    @error('caption')
-        <div class="invalid-feedback d-block">{{ $message }}</div>
-    @enderror
-    <div id="preview-wrapper" class="mt-3" style="display:none;">
-        <div id="preview-items" class=""></div>
-    </div>
-    @if ($errors->has('images.*'))
-        <div class="invalid-feedback d-block">
-            {{ $errors->first('images.*') }}
-        </div>
-    @endif
-
-    @if ($errors->has('videos.*'))
-        <div class="invalid-feedback d-block">
-            {{ $errors->first('videos.*') }}
-        </div>
-    @endif
-
-    <div class="d-flex justify-content-between mt-3 align-items-center">
-
-        <div class="d-flex gap-3">
-            <label class="icon-btn">
-                <iconify-icon icon="icon-park:upload-picture" style="font-weight: 24px"></iconify-icon>
-                <input type="file" name="images[]" hidden multiple>
-            </label>
-
-            <label class="icon-btn">
-                <iconify-icon icon="mingcute:video-line" style="font-weight: 24px"></iconify-icon>
-                <input type="file" name="videos[]" hidden accept="video/*" multiple>
-            </label>
-        </div>
-
-        <button type="submit" class="btn py-2 px-4 text-dark yellow-gradient-btn align-items-center d-flex flex-row gap-2">
-            Post
-        </button>
-    </div>
-</div>
+</form>
 
 
 <style>
@@ -120,11 +126,21 @@
 <script>
 document.addEventListener("DOMContentLoaded", () => {
 
+    const form = document.getElementById('postForm');
+    const submitBtn = document.getElementById('submitBtn');
+    const btnText = document.getElementById('btnText');
+    const loadingSpinner = document.getElementById('loadingSpinner');
+
+    form.addEventListener('submit', function () {
+        submitBtn.disabled = true;
+        btnText.textContent = 'Memproses...';
+        loadingSpinner.classList.remove('d-none');
+    });
+
     const imgInput = document.querySelector('input[name="images[]"]');
     const videoInput = document.querySelector('input[name="videos[]"]');
     const previewWrapper = document.getElementById('preview-wrapper');
     const previewItems = document.getElementById('preview-items');
-    const form = document.querySelector("form");
 
     let imageInputs = [];
     let videoInputs = [];
@@ -209,6 +225,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
         videoInput.value = "";
     });
+
+    
 
 });
 </script>
