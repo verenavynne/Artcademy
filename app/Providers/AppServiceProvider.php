@@ -7,6 +7,8 @@ use Carbon\Carbon;
 use Carbon\CarbonInterval;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Pagination\Paginator;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Artisan;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -35,5 +37,20 @@ class AppServiceProvider extends ServiceProvider
 
         // For tutor notif
         view()->composer('*', NotificationComposer::class);
+
+        // storage link
+        if (app()->runningInConsole()) {
+            return;
+        }
+
+        $storageLink = public_path('storage');
+
+        if (!is_link($storageLink)) {
+            try {
+                Artisan::call('storage:link');
+            } catch (\Throwable $e) {
+                Log::error($e);
+            }
+        }
     }
 }
