@@ -49,19 +49,20 @@
         
     </div>
     @if($allWeeksCompleted)
-        <a href="{{ route('course.project', $course->id) }}" >
-            <button type="submit" class="btn w-100 text-dark yellow-gradient-btn">
-                Lihat Projek Akhir
+        <form action="{{ route('course.project', $course->id) }}"  method="GET" id="formStartProject" >
+            <button type="submit" id="submitBtnProject" class="btn w-100 text-dark yellow-gradient-btn">
+                <div id="loadingSpinnerProject" class="spinner-border spinner-border-sm text-dark d-none"></div>
+                <span id="btnTextProject">Lihat Projek Akhir</span>
             </button>
 
-        </a>
+        </form>
     @else
-        <a href="{{ route('course.startWeek', $course->id) }}" >
-            <button type="submit" class="btn w-100 text-dark yellow-gradient-btn">
-                {{ $buttonText }}
+        <form action="{{ route('course.startWeek', $course->id) }}" method="GET" id="formStartWeek">
+            <button type="submit" id="submitBtn" class="btn w-100 text-dark yellow-gradient-btn">
+                <div id="loadingSpinner" class="spinner-border spinner-border-sm text-dark d-none"></div>
+                <span id="btnText">{{ $buttonText }}</span>
             </button>
-
-        </a>
+        </form>
     @endif
 </div>
 
@@ -119,3 +120,34 @@
         font-size: var(--font-size-primary);
     }
 </style>
+
+<script>
+    // Spinner for mulai belajar
+    const form = document.getElementById('formStartWeek');
+    const submitBtn = document.getElementById('submitBtn');
+    const btnText = document.getElementById('btnText');
+    const loadingSpinner = document.getElementById('loadingSpinner');
+
+    if (form) {
+        form.addEventListener('submit', function () {
+            submitBtn.disabled = true;
+            btnText.textContent = 'Memproses...';
+            loadingSpinner.classList.remove('d-none');
+        });
+    }
+
+    // Spinner for lihat projek
+    const projectForm = document.getElementById('formStartProject');
+    const submitBtnProject = document.getElementById('submitBtnProject');
+    const btnTextProject = document.getElementById('btnTextProject');
+    const loadingSpinnerProject = document.getElementById('loadingSpinnerProject');
+
+    if (projectForm) {
+        projectForm.addEventListener('submit', function () {
+            submitBtnProject.disabled = true;
+            btnTextProject.textContent = 'Memproses...';
+            loadingSpinnerProject.classList.remove('d-none');
+        });
+    }
+</script>
+

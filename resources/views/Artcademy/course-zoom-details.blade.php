@@ -156,10 +156,11 @@
                             Join Sekarang
                         </a>
                     @else
-                        <form action="{{ route('zoom.register', $zoom->id) }}" method="POST" class="w-100">
+                        <form action="{{ route('zoom.register', $zoom->id) }}" id="formDaftarZoom" method="POST" class="w-100">
                             @csrf
-                            <button type="submit" class="btn w-100 text-dark yellow-gradient-btn">
-                                Daftar Sekarang
+                            <button type="submit" id="submitBtn" class="btn text-dark yellow-gradient-btn px-4 d-flex align-items-center justify-content-center gap-2 w-100">
+                                <div id="loadingSpinner" class="spinner-border spinner-border-sm text-dark d-none"></div>
+                                <span id="btnText">Daftar Sekarang</span>
                             </button>
                         </form>
                     @endif
@@ -307,6 +308,23 @@
 </style>
 @endsection
 
+<script>
+    document.addEventListener('DOMContentLoaded', function(){
+        const form = document.getElementById('formDaftarZoom');
+        const submitBtn = document.getElementById('submitBtn');
+        const btnText = document.getElementById('btnText');
+        const loadingSpinner = document.getElementById('loadingSpinner');
+    
+        form.addEventListener('submit', function () {
+            submitBtn.disabled = true;
+    
+            btnText.textContent = 'Memproses...';
+            loadingSpinner.classList.remove('d-none');
+        });
+
+    })
+</script>
+
 @if (session('success'))
 <script>
     document.addEventListener('DOMContentLoaded', function() {
@@ -315,3 +333,4 @@
     });
 </script>
 @endif
+

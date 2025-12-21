@@ -58,10 +58,8 @@
         <!-- Form Side -->
         <div class="col-6 d-flex flex-column align-items-center gap-2">
             <div class="feed-wrapper d-flex flex-column gap-2">
-                    <form action="{{ route('post.add') }}" method="POST" enctype="multipart/form-data" id="postForm">
-                    @csrf
-                        @include('forum.components.add-post-card')
-                    </form>
+                    
+                    @include('forum.components.add-post-card')
 
 
                     <!-- All post -->

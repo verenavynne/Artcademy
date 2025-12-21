@@ -33,7 +33,7 @@
                         'projectCriterias' => $projectCriterias
                         ])
             
-            <form action="{{ route('projectSubmission.submit') }}" method="POST" enctype="multipart/form-data">
+            <form action="{{ route('projectSubmission.submit') }}" id="submitProjectForm" method="POST" enctype="multipart/form-data">
             @csrf
             <input type="hidden" name="projectId" value="{{ $project->id ?? '' }}">
 
@@ -291,6 +291,17 @@
         });
 
         checkFormFilled();
+
+        const kumpulForm = document.getElementById('submitProjectForm');
+        // const submitBtnProject = document.getElementById('kumpulBtn');
+        const btnTextProject = document.getElementById('btnTextProject');
+        const loadingSpinnerProject = document.getElementById('loadingSpinnerProject');
+
+        kumpulForm.addEventListener('submit', function () {
+            kumpulBtn.disabled = true;
+            btnTextProject.textContent = 'Memproses...';
+            loadingSpinnerProject.classList.remove('d-none');
+        });
     });
 </script>
 

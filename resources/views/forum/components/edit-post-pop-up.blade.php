@@ -40,19 +40,20 @@
 
                     <div class="d-flex justify-content-between mt-3 align-items-center">
                         <div class="d-flex gap-3">
-                            <label class="icon-btn">
+                            <label class="icon-btn" style="cursor: pointer">
                                 <iconify-icon icon="icon-park:upload-picture"></iconify-icon>
                                 <input type="file" name="images[]" hidden multiple>
                             </label>
 
-                            <label class="icon-btn">
+                            <label class="icon-btn" style="cursor: pointer">
                                 <iconify-icon icon="mingcute:video-line"></iconify-icon>
                                 <input type="file" name="videos[]" hidden accept="video/*" multiple>
                             </label>
                         </div>
-
-                        <button type="submit" class="btn text-dark yellow-gradient-btn">
-                            Edit
+                       
+                        <button type="submit" id="submitBtnEdit" class="btn text-dark yellow-gradient-btn px-4 d-flex align-items-center justify-content-center gap-2">
+                            <div id="loadingSpinnerEdit" class="spinner-border spinner-border-sm text-dark d-none"></div>
+                            <span id="btnTextEdit">Edit</span>
                         </button>
                     </div>
                 </form>
@@ -60,3 +61,16 @@
         </div>
     </div>
 </div>
+
+<script>
+    const editForm = document.getElementById('editPostForm');
+    const submitBtnEdit = document.getElementById('submitBtnEdit');
+    const btnTextEdit = document.getElementById('btnTextEdit');
+    const loadingSpinnerEdit = document.getElementById('loadingSpinnerEdit');
+
+    editForm.addEventListener('submit', function () {
+        submitBtnEdit.disabled = true;
+        btnTextEdit.textContent = 'Memproses...';
+        loadingSpinnerEdit.classList.remove('d-none');
+    });
+</script>

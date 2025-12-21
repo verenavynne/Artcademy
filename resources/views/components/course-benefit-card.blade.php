@@ -26,10 +26,11 @@
     </div>
 
     @if (Auth::check())
-        <form action="{{ route('course.enroll', $course->id) }}" method="POST">
+        <form action="{{ route('course.enroll', $course->id) }}" id="formDaftarCourse" method="POST" class="w-100">
             @csrf
-            <button type="submit" class="btn w-100 text-dark yellow-gradient-btn">
-                Daftar Sekarang
+            <button type="submit" id="submitBtn" class="btn text-dark yellow-gradient-btn px-4 d-flex align-items-center justify-content-center gap-2 w-100">
+                <div id="loadingSpinner" class="spinner-border spinner-border-sm text-dark d-none"></div>
+                <span id="btnText">Daftar Sekarang</span>
             </button>
         </form>
     @else
@@ -86,4 +87,18 @@
         border-radius: 2px;
     }
 </style>
+
+<script>
+    const form = document.getElementById('formDaftarCourse');
+    const submitBtn = document.getElementById('submitBtn');
+    const btnText = document.getElementById('btnText');
+    const loadingSpinner = document.getElementById('loadingSpinner');
+
+    form.addEventListener('submit', function () {
+        submitBtn.disabled = true;
+
+        btnText.textContent = 'Memproses...';
+        loadingSpinner.classList.remove('d-none');
+    });
+</script>
 

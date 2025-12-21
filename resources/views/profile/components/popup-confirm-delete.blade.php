@@ -16,12 +16,31 @@
                     <p class="text-pink-gradient" style="margin: 0">Kembali</p>
                 </button>
                 
-                <form action="{{ route('portfolio.destroy', $portfolio->id) }}" method="POST" style="width: 50%">
+                <form action="{{ route('portfolio.destroy', $portfolio->id) }}" id="deletePortoForm" class="delete-porto-form" method="POST" style="width: 50%">
                     @csrf
                     @method('DELETE')
-                    <button type="submit" class="btn w-100 rounded-pill text-white red-btn px-4" style="font-size: 18px;">Hapus</button>
+                    <button type="submit" id="submitBtnDelete" class="submit-btn-delete btn w-100 text-white red-btn px-4 d-flex align-items-center justify-content-center gap-2">
+                        <div id="loadingSpinnerDelete" class="loading-spinner-delete spinner-border spinner-border-sm text-white d-none"></div>
+                        <span id="btnTextDelete" class="btn-text-delete" style="font-size: 18px">Hapus</span>
+                    </button>
                 </form>
             </div>
         </div>
     </div>
 </div>
+
+<script>
+    document.addEventListener('submit', function(e){
+        if(e.target.classList.contains('delete-porto-form')){
+            const form = e.target;
+            const submitBtn = form.querySelector('.submit-btn-delete');
+            const btnText = form.querySelector('.btn-text-delete');
+            const spinner = form.querySelector('.loading-spinner-delete');
+
+            submitBtn.disabled = true;
+            btnText.textContent = 'Memproses...';
+            spinner.classList.remove('d-none');
+        }
+    })
+   
+</script>

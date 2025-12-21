@@ -32,8 +32,8 @@
             @csrf
             <input type="hidden" name="eventId" value="{{ $event->id }}">
             <button type="submit" id="pay-button" class="btn w-100 text-dark yellow-gradient-btn">
-                <span id="btn-text">Bayar Sekarang</span>
                 <span id="btn-spinner" class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true"></span>
+                <span id="btn-text">Bayar Sekarang</span>
             </button>
         </form>
     @else
@@ -107,7 +107,7 @@
         const btnText = document.getElementById('btn-text');
         const btnSpinner = document.getElementById('btn-spinner');
 
-        btnText.classList.add('d-none');
+        btnText.textContent = 'Memproses...';
         btnSpinner.classList.remove('d-none');
         payButton.disabled = true;
 
@@ -122,7 +122,7 @@
         let result = await response.json();
         console.log('Snap token dari backend:', result.snap_token);
 
-        btnText.classList.remove('d-none');
+        btnText.textContent = 'Bayar Sekarang';
         btnSpinner.classList.add('d-none');
         payButton.disabled = false;
 

@@ -19,7 +19,7 @@
 
     </div>
     
-    <form action="{{ route('portfolio.add') }}" method="POST" enctype="multipart/form-data">
+    <form action="{{ route('portfolio.add') }}" id="addPortoForm" method="POST" enctype="multipart/form-data">
     @csrf
     <div class="d-flex flex-row gap-5 align-items-start">
         <div class="d-flex flex-column portofolio-left-col">
@@ -128,8 +128,10 @@
                                 <div class="invalid-feedback d-block">{{ $message }}</div> 
                             @enderror
                         </div>
-                        <button class="btn w-100 text-dark yellow-gradient-btn">
-                            Tambah
+
+                        <button type="submit" id="submitBtnPorto" class="btn w-100 text-dark yellow-gradient-btn px-4 d-flex align-items-center justify-content-center gap-2 w-100">
+                            <div id="loadingSpinnerPorto" class="spinner-border spinner-border-sm text-dark d-none"></div>
+                            <span id="btnTextPorto" style="font-size: 18px">Tambah</span>
                         </button>
                     </div>
                 </div>
@@ -328,6 +330,18 @@
 
 <script type="module">
 document.addEventListener('DOMContentLoaded', function() {
+
+    const addFormPorto = document.getElementById('addPortoForm');
+    const submitBtnPorto = document.getElementById('submitBtnPorto');
+    const btnTextPorto = document.getElementById('btnTextPorto');
+    const loadingSpinnerPorto = document.getElementById('loadingSpinnerPorto');
+
+    addFormPorto.addEventListener('submit', function () {
+        submitBtnPorto.disabled = true;
+        btnTextPorto.textContent = 'Memproses...';
+        loadingSpinnerPorto.classList.remove('d-none');
+    });
+
     const deviceButton = document.querySelectorAll('.device-btn');
     const mockupMobile = document.getElementById('mockup-mobile');
     const mockupLaptop = document.getElementById('mockup-laptop');

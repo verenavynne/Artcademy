@@ -161,9 +161,12 @@
                 </div>
 
                 @if ($allTutorsGraded)
-                    <a href="{{ route('certificate.generate', $courseId) }}" class="btn px-4 yellow-gradient-btn text-dark" >
-                        Klaim Sertifikatmu
-                    </a>
+                    <form action="{{ route('certificate.generate', $courseId) }}" method="GET" id="klaimSertifikatForm">
+                        <button type="submit" id="submitBtnCertificate" class="btn text-dark yellow-gradient-btn px-4 d-flex align-items-center justify-content-center gap-2 w-100">
+                            <div id="loadingSpinnerCertificate" class="spinner-border spinner-border-sm text-dark d-none"></div>
+                            <span id="btnTextCertificate">Klaim Sertifikatmu</span>
+                        </button>
+                    </form>
                 @else
                     <button class="btn px-4 py-2 tunggu-nilai-btn text-dark" >
                         <img src="{{ asset('assets/icons/icon_clock_disabled.svg') }}" alt="" height="24" width="24">
@@ -330,5 +333,64 @@
     }
 
 </style>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+
+    const form = document.getElementById('klaimSertifikatForm');
+    if (!form) return;
+
+    const submitBtn = document.getElementById('submitBtnCertificate');
+    const btnText = document.getElementById('btnTextCertificate');
+    const spinner = document.getElementById('loadingSpinnerCertificate');
+
+    form.addEventListener('submit', async function (e) {
+        e.preventDefault(); 
+
+        submitBtn.disabled = true;
+        btnText.textContent = 'Mengunduh...';
+        spinner.classList.remove('d-none');
+
+        try {
+            const response = await fetch(form.action, {
+                method: 'GET',
+                headers: {
+                    'Accept': 'application/pdf'
+                }
+            });
+
+            if (!response.ok) {
+                throw new Error('Gagal generate sertifikat');
+            }
+
+            const blob = await response.blob();
+
+            const disposition = response.headers.get('Content-Disposition');
+            const filename = disposition
+                ? disposition.split('filename=')[1].replace(/"/g, '')
+                : 'sertifikat.pdf';
+
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = filename;
+
+            document.body.appendChild(a);
+            a.click();
+
+            a.remove();
+            window.URL.revokeObjectURL(url);
+
+        } catch (error) {
+            console.error(error);
+            alert('Gagal mengunduh sertifikat. Silakan coba lagi.');
+        } finally {
+            submitBtn.disabled = false;
+            btnText.textContent = 'Klaim Sertifikatmu';
+            spinner.classList.add('d-none');
+        }
+    });
+});
+</script>
 
 @endsection

@@ -136,7 +136,7 @@ $autoOpen = $post->comments->whereNotNull('chatbotId')->isNotEmpty();
             class="profile-picture rounded-circle"
             style="object-fit: cover">
     
-            <form action="{{ route('comment.add') }}" class="w-100" method="POST" enctype="multipart/form-data">
+            <form action="{{ route('comment.add') }}" class="comment-form w-100" method="POST" enctype="multipart/form-data">
             @csrf
                 <input type="hidden" name="postId" value="{{ $post->id }}">
                 <div class="balas-text-area d-flex flex-column w-100">
@@ -154,19 +154,20 @@ $autoOpen = $post->comments->whereNotNull('chatbotId')->isNotEmpty();
             
                     <div class="d-flex justify-content-between mt-3 align-items-center">
                         <div class="d-flex gap-3 flex-row justify-content-end align-self-end">
-                            <label class="icon-btn">
+                            <label class="icon-btn" style="cursor: pointer">
                                 <iconify-icon icon="icon-park:upload-picture" style="font-weight: 24px"></iconify-icon>
                                 <input type="file" name="images[]" hidden multiple>
                             </label>
             
-                            <label class="icon-btn">
+                            <label class="icon-btn" style="cursor: pointer">
                                 <iconify-icon icon="mingcute:video-line" style="font-weight: 24px"></iconify-icon>
                                 <input type="file" name="videos[]" hidden accept="video/*" multiple>
                             </label>
                         </div>
-            
-                        <button class="btn py-2 px-4 text-dark yellow-gradient-btn align-items-center d-flex flex-row gap-2">
-                            Balas
+
+                        <button type="submit" class="btn submit-btn-comment text-dark yellow-gradient-btn">
+                            <div class="loading-spinner-comment spinner-border spinner-border-sm text-dark d-none"></div>
+                            <span class="btn-text-comment">Balas</span>
                         </button>
                     </div>
                 </div>
@@ -264,7 +265,7 @@ $autoOpen = $post->comments->whereNotNull('chatbotId')->isNotEmpty();
                                     class="profile-picture rounded-circle"
                                     style="object-fit: cover">
                             
-                                    <form action="{{ route('comment.reply') }}" class="w-100" method="POST" enctype="multipart/form-data">
+                                    <form action="{{ route('comment.reply') }}" class="reply-form w-100" method="POST" enctype="multipart/form-data">
                                     @csrf
                                         <input type="hidden" name="postId" value="{{ $comment->postId }}">
                                         <input type="hidden" name="parentId" value="{{ $comment->id }}">
@@ -283,19 +284,20 @@ $autoOpen = $post->comments->whereNotNull('chatbotId')->isNotEmpty();
                                     
                                             <div class="d-flex justify-content-between mt-3 align-items-center">
                                                 <div class="d-flex gap-3 flex-row justify-content-end align-self-end">
-                                                    <label class="icon-btn">
+                                                    <label class="icon-btn" style="cursor: pointer">
                                                         <iconify-icon icon="icon-park:upload-picture" style="font-weight: 24px"></iconify-icon>
                                                         <input type="file" name="images[]" hidden multiple>
                                                     </label>
                                     
-                                                    <label class="icon-btn">
+                                                    <label class="icon-btn" style="cursor: pointer">
                                                         <iconify-icon icon="mingcute:video-line" style="font-weight: 24px"></iconify-icon>
                                                         <input type="file" name="videos[]" hidden accept="video/*" multiple>
                                                     </label>
                                                 </div>
-                                    
-                                                <button class="btn py-2 px-4 text-dark yellow-gradient-btn align-items-center d-flex flex-row gap-2">
-                                                    Balas
+                                
+                                                <button type="submit" class="btn submit-btn-reply text-dark yellow-gradient-btn">
+                                                    <div class="loading-spinner-reply spinner-border spinner-border-sm text-dark d-none"></div>
+                                                    <span class="btn-text-reply">Balas</span>
                                                 </button>
                                             </div>
                                         </div>
@@ -476,6 +478,36 @@ $autoOpen = $post->comments->whereNotNull('chatbotId')->isNotEmpty();
 
 <script>
     document.addEventListener('DOMContentLoaded', () => {
+        document.addEventListener('submit', function (e) {
+            let commentReplyForm;
+            let submitBtn;
+            let btnText;
+            let spinner;
+
+            if (e.target.classList.contains('reply-form')) {
+                commentReplyForm = e.target;
+                submitBtn = commentReplyForm.querySelector('.submit-btn-reply');
+                btnText = commentReplyForm.querySelector('.btn-text-reply');
+                spinner = commentReplyForm.querySelector('.loading-spinner-reply');
+
+                submitBtn.disabled = true;
+                btnText.textContent = 'Memproses...';
+                spinner.classList.remove('d-none');
+            }
+
+            if(e.target.classList.contains('comment-form')){
+                commentReplyForm = e.target;
+                submitBtn = commentReplyForm.querySelector('.submit-btn-comment');
+                btnText = commentReplyForm.querySelector('.btn-text-comment');
+                spinner = commentReplyForm.querySelector('.loading-spinner-comment');
+
+                submitBtn.disabled = true;
+                btnText.textContent = 'Memproses...';
+                spinner.classList.remove('d-none');
+            }
+        });
+
+
         const players = [];
 
         document.querySelectorAll('.video-player').forEach((el) => {

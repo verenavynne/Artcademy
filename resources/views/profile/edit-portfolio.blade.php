@@ -19,7 +19,7 @@
 
     </div>
     
-    <form action="{{ route('portfolio.update', $portfolio->id) }}" method="POST" enctype="multipart/form-data">
+    <form action="{{ route('portfolio.update', $portfolio->id) }}" id="editPortoForm" method="POST" enctype="multipart/form-data">
     @csrf
     <div class="d-flex flex-row justify-content-center gap-5">
         <div class="d-flex flex-column" style="width: 60%;">
@@ -31,7 +31,7 @@
                         alt="Portfolio File">
                        
                         <div class="upload-plus-wrapper position-absolute top-50 start-50 translate-middle">
-                            <label for="portfolioUpload" class="btn upload-plus-btn yellow-gradient-btn d-flex flex-row align-items-center gap-2">
+                            <label for="portfolioUpload" class="btn upload-plus-btn yellow-gradient-btn d-flex flex-row align-items-center gap-2" style="min-height: unset;">
                                 <iconify-icon icon="ic:round-plus" class="plus-icon" style= "font-size: 18px"></iconify-icon>
                                 
                             </label>
@@ -130,8 +130,9 @@
                                 <div class="invalid-feedback d-block">{{ $message }}</div> 
                             @enderror
                         </div>
-                        <button class="btn w-100 text-dark yellow-gradient-btn">
-                            Simpan
+                        <button type="submit" id="submitBtnPorto" class="btn w-100 text-dark yellow-gradient-btn px-4 d-flex align-items-center justify-content-center gap-2 w-100">
+                            <div id="loadingSpinnerPorto" class="spinner-border spinner-border-sm text-dark d-none"></div>
+                            <span id="btnTextPorto" style="font-size: 18px">Simpan</span>
                         </button>
                     </div>
                 </div>
@@ -273,6 +274,18 @@
 
 <script type="module">
 document.addEventListener('DOMContentLoaded', function() {
+
+    const editFormPorto = document.getElementById('editPortoForm');
+    const submitBtnPorto = document.getElementById('submitBtnPorto');
+    const btnTextPorto = document.getElementById('btnTextPorto');
+    const loadingSpinnerPorto = document.getElementById('loadingSpinnerPorto');
+
+    editFormPorto.addEventListener('submit', function () {
+        submitBtnPorto.disabled = true;
+        btnTextPorto.textContent = 'Memproses...';
+        loadingSpinnerPorto.classList.remove('d-none');
+    });
+    
     const deviceButton = document.querySelectorAll('.device-btn');
     const mockupMobile = document.getElementById('mockup-mobile');
     const mockupLaptop = document.getElementById('mockup-laptop');
