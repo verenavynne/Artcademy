@@ -5,7 +5,7 @@
 
             <button type="button" class="btn-close close-btn ms-auto" data-bs-dismiss="modal"></button>
 
-            <img src="{{ asset('assets/course/membership_invalid.svg') }}" class="mb-3" width="100">
+            <img src="{{ asset('assets/course/membership_invalid.png') }}" class="mb-3" width="100">
 
             <h5 class="fw-bold mb-2" style="font-size: var(--font-size-title)">
                 Upgrade Membership
