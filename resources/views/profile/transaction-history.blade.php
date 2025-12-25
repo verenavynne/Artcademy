@@ -20,7 +20,7 @@
             <div class="transaction-history-section d-flex flex-column gap-4">
                 @if($transactions->count() === 0)
                     <div class="d-flex flex-column align-items-center gap-4" style="margin-top: 70px;">
-                        <img src="{{ asset('assets/course/empty.svg') }}" alt="" style="width: 100px">
+                        <img src="{{ asset('assets/course/empty.png') }}" alt="" style="width: 100px">
                         <div>
                             <h3 class="text-center fw-semibold" style="font-size: 20px; color: var(--black-color)">Belum ada transaksi tercatat</h3>
                             <p class="text-center" style="font-size: 18px; color: var(--dark-gray-color)">Yuk, mulai transaksi pertamamu!</p>

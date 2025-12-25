@@ -81,7 +81,7 @@
 
           @if($submissions->isEmpty())
             <div class="d-flex flex-column align-items-center w-100 gap-4">
-              <img src="{{ asset('assets/course/empty.svg') }}" alt="" style="width: 100px">
+              <img src="{{ asset('assets/course/empty.png') }}" alt="" style="width: 100px">
               <div>
                 <h3 class="text-center fw-semibold" style="font-size: 20px; color: var(--black-color)">Belum ada projek siswa</h3>
                 <p class="text-center" style="font-size: 18px; color: var(--dark-gray-color)">Saat ini belum ada projek siswa yang perlu dinilai</p>

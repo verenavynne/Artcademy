@@ -15,7 +15,7 @@
                     @include('components.zoom-card')
                 @empty
                     <div class="d-flex flex-column align-items-center w-100 gap-4" style="margin-top: 70px;">
-                        <img src="{{ asset('assets/course/empty.svg') }}" alt="" style="width: 100px">
+                        <img src="{{ asset('assets/course/empty.png') }}" alt="" style="width: 100px">
                         <div>
                             <h3 class="text-center fw-semibold" style="font-size: 20px; color: var(--black-color)">Belum ada Zoom mendatang</h3>
                             <p class="text-center" style="font-size: 18px; color: var(--dark-gray-color)">Belum ada jadwal Zoom yang akan datang. Pantau terus untuk update berikutnya.</p>
@@ -31,7 +31,7 @@
                     @include('components.zoom-card')
                 @empty
                     <div class="d-flex flex-column align-items-center w-100 gap-4" style="margin-top: 70px;">
-                        <img src="{{ asset('assets/course/empty.svg') }}" alt="" style="width: 100px">
+                        <img src="{{ asset('assets/course/empty.png') }}" alt="" style="width: 100px">
                         <div>
                             <h3 class="text-center fw-semibold" style="font-size: 20px; color: var(--black-color)">Belum ada Zoom yang selesai</h3>
                             <p class="text-center" style="font-size: 18px; color: var(--dark-gray-color)">Riwayat Zoom akan muncul di sini setelah sesi selesai.</p>

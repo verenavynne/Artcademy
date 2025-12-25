@@ -146,7 +146,7 @@
                   data-title="Arsipkan Kursus ini?"
                   data-message="Semua progres tetap disimpan kok dan kamu bisa publikasikan lagi kapanpun kamu mau"
                   data-button="Arsipkan"
-                  data-icon="{{ asset('assets/course/archive.svg') }}"
+                  data-icon="{{ asset('assets/course/archive.png') }}"
                 >
                   <iconify-icon icon="material-symbols:archive-rounded"
                                 width="20" height="20"

@@ -71,7 +71,7 @@
 
                     </div>
                     <div class="d-flex justify-content-center" style="position: relative;">
-                        <img src="{{ asset('assets/membership/membership-header-icon.svg') }}" alt="membership Picture" width="187" height="165">
+                        <img src="{{ asset('assets/membership/membership-header-icon.png') }}" alt="membership Picture" width="187" height="165">
                     </div>
                 </div>
             </div>

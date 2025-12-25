@@ -15,7 +15,7 @@
                     @include('components.course-card')
                 @empty
                     <div class="d-flex flex-column align-items-center w-100 gap-4" style="margin-top: 70px;">
-                        <img src="{{ asset('assets/course/empty.svg') }}" alt="" style="width: 100px">
+                        <img src="{{ asset('assets/course/empty.png') }}" alt="" style="width: 100px">
                         <div>
                             <h3 class="text-center fw-semibold" style="font-size: 20px; color: var(--black-color)">Oops, Kursus kamu masih kosong!</h3>
                             <p class="text-center" style="font-size: 18px; color: var(--dark-gray-color)">Belum ada kursus yang dipublikasikan.</p>
@@ -31,7 +31,7 @@
                     @include('components.course-card')
                 @empty
                     <div class="d-flex flex-column align-items-center w-100 gap-4" style="margin-top: 70px;">
-                        <img src="{{ asset('assets/course/empty.svg') }}" alt="" style="width: 100px">
+                        <img src="{{ asset('assets/course/empty.png') }}" alt="" style="width: 100px">
                         <div>
                             <h3 class="text-center fw-semibold" style="font-size: 20px; color: var(--black-color)">Oops, Kursus kamu masih kosong!</h3>
                             <p class="text-center" style="font-size: 18px; color: var(--dark-gray-color)">Belum ada kursus yang diarsipkan.</p>
