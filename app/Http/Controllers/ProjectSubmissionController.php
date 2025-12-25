@@ -45,9 +45,8 @@ class ProjectSubmissionController extends Controller
         if (now()->gt($existingSubmission->deadlineSubmission)) {
             return back()->with('error', 'Deadline pengumpulan telah berakhir.');
         }
-
-        $originalName = $request->file('thumbnail')->getClientOriginalName();
-        $thumbnailPath = $request->file('thumbnail')->storeAs('project_thumbnails', $originalName, 'public');
+        $originalName = Str::uuid() . '.' . $request->file('thumbnail')->getClientOriginalExtension();
+        $thumbnailPath = $request->file('thumbnail')->storeAs('project_thumbnails', $originalName, 's3');
 
         ProjectSubmission::updateOrCreate(
             [
@@ -114,7 +113,7 @@ class ProjectSubmissionController extends Controller
                 'photo' => $lecturer->lecturer->user->profilePicture
                     ? (Str::startsWith($lecturer->lecturer->user->profilePicture, ['http://', 'https://'])
                         ? $lecturer->lecturer->user->profilePicture
-                        : asset('storage/' . $lecturer->lecturer->user->profilePicture))
+                        : Storage::disk('s3')->temporaryUrl($lecturer->lecturer->user->profilePicture, now()->addDay()))
                     : asset('assets/default-profile.jpg'),
                 'grades' => $grades,
                 'comment' => $comment,

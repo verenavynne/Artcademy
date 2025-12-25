@@ -78,7 +78,7 @@
                                                 ? $event->eventBanner
                                                 : (Str::startsWith($event->eventBanner, 'assets/')
                                                     ? asset($event->eventBanner)
-                                                    : asset('storage/' . $event->eventBanner))
+                                                    : Storage::disk('s3')->temporaryUrl($event->eventBanner, now()->addDay()) 
                                         }}"
                                 >
                             </div>

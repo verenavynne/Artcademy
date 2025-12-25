@@ -27,7 +27,7 @@
                 <div class="d-flex flex-column gap-2 align-items-center">
                     <div class="d-flex align-items-center flex-column gap-4 position-relative" style="height:max-content">
                         <img id="portfolioPreview" class="portfolio-image-view" 
-                        src="{{ Str::endsWith($portfolio->portfolioPath, '.mp4') ? '' : asset('storage/'. $portfolio->portfolioPath) }}"
+                        src="{{ Str::endsWith($portfolio->portfolioPath, '.mp4') ? '' : Storage::disk('s3')->temporaryUrl($portfolio->portfolioPath, now()->addDay()) }}"
                         alt="Portfolio File">
                        
                         <div class="upload-plus-wrapper position-absolute top-50 start-50 translate-middle">
@@ -52,7 +52,7 @@
                         @include('profile.components.portfolio-mockup', [
                             'mockupType' => 'mobile',
                             'portoType' => Str::endsWith($portfolio->portfolioPath, '.mp4') ? 'video' : 'image' ,
-                            'mediaPath' =>  asset('storage/'. $portfolio->portfolioPath),
+                            'mediaPath' => Storage::disk('s3')->temporaryUrl($portfolio->portfolioPath, now()->addDay()),
                             'portfolioId' => '1',
                             'mockupSize' => 500,
                             'animation' => false
@@ -63,7 +63,7 @@
                         @include('profile.components.portfolio-mockup', [
                             'mockupType' => 'laptop',
                             'portoType' => Str::endsWith($portfolio->portfolioPath, '.mp4') ? 'video' : 'image' ,
-                            'mediaPath' => asset('storage/'. $portfolio->portfolioPath),
+                            'mediaPath' => Storage::disk('s3')->temporaryUrl($portfolio->portfolioPath, now()->addDay()),
                             'portfolioId' => '2',
                             'mockupSize' => 450,
                             'animation' => false
@@ -313,7 +313,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     const isVideo = "{{ Str::endsWith($portfolio->portfolioPath, '.mp4') ? 'true' : 'false' }}";
     if (isVideo === 'true') {
-        const storedVideoPath = "{{ asset('storage/' . $portfolio->portfolioPath) }}";
+        const storedVideoPath = "{{ Storage::disk('s3')->temporaryUrl($portfolio->portfolioPath, now()->addDay()) }}";
         generateVideoThumbnail(storedVideoPath, (thumbnail) => {
             preview.src = thumbnail;
         });

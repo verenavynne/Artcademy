@@ -41,7 +41,7 @@
                                     src="{{ Str::startsWith(Auth::user()->profilePicture, ['http://', 'https://']) 
                                         ? Auth::user()->profilePicture 
                                         : (Auth::user()->profilePicture 
-                                            ? asset('storage/' . Auth::user()->profilePicture) 
+                                            ? Storage::disk('s3')->temporaryUrl(Auth::user()->profilePicture, now()->addDay())
                                             : asset('assets/default-profile.jpg')) }}"
                                     class="rounded-circle" 
                                     style="box-shadow: rgba(67, 39, 0, 0.2); object-fit: cover" 

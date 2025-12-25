@@ -66,7 +66,7 @@ class AdminEventController extends Controller
         $filePath = $request->file('eventBanner')->storeAs(
             'event_banners',
             time() . '_' . $originalName,
-            'public'
+            's3'
         );
 
         $event = Event::create([
@@ -116,7 +116,7 @@ class AdminEventController extends Controller
             $filePath = $request->file('eventBanner')->storeAs(
                 'event_banners',
                 time() . '_' . $originalName,
-                'public'
+                's3'
             );
         } else {
             $filePath = $event->eventBanner;

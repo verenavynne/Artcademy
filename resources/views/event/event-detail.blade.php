@@ -13,7 +13,7 @@
 
     $bannerUrl = $isPublicAsset
         ? asset($banner)
-        : asset('storage/' . $banner);
+        : Storage::disk('s3')->temporaryUrl($banner, now()->addDay());
 
     $eventPrice = $event->eventPrice == 0 
     ? 'Gratis' 

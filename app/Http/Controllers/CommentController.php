@@ -35,7 +35,7 @@ class CommentController extends Controller
 
         if ($request->hasFile('images')) {
             foreach ($request->file('images') as $img) {
-                $path = $img->store('comment_files', 'public');
+                $path = $img->store('comment_files', 's3');
 
                 CommentFile::create([
                     'commentId' => $comment->id,
@@ -47,7 +47,7 @@ class CommentController extends Controller
 
         if ($request->hasFile('videos')) {
             foreach ($request->file('videos') as $vid) {
-                $path = $vid->store('comment_files', 'public');
+                $path = $vid->store('comment_files', 's3');
 
                 CommentFile::create([
                     'commentId' => $comment->id,
@@ -88,7 +88,7 @@ class CommentController extends Controller
 
         if ($request->hasFile('images')) {
             foreach ($request->file('images') as $img) {
-                $path = $img->store('comment_files', 'public');
+                $path = $img->store('comment_files', 's3');
 
                 CommentFile::create([
                     'commentId' => $reply->id,
@@ -100,7 +100,7 @@ class CommentController extends Controller
 
         if ($request->hasFile('videos')) {
             foreach ($request->file('videos') as $vid) {
-                $path = $vid->store('comment_files', 'public');
+                $path = $vid->store('comment_files', 's3');
 
                 CommentFile::create([
                     'commentId' => $reply->id,

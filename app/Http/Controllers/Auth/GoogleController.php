@@ -32,7 +32,7 @@ class GoogleController extends Controller
 
             $filename = 'profile_pictures/' . Str::random(40) . '.jpg';
 
-            Storage::disk('public')->put($filename, $imageContents);
+            Storage::disk('s3')->put($filename, $imageContents);
         }
 
         if (!$user) {

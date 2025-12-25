@@ -21,7 +21,7 @@ $autoOpen = $post->comments->whereNotNull('chatbotId')->isNotEmpty();
                             data-update-url="{{ route('post.update', $post->id) }}"
                             data-user-name="{{ $post->user->name }}"
                             data-user-avatar="{{ $post->user->profilePicture 
-                                ? asset('storage/'.$post->user->profilePicture) 
+                                ? Storage::disk('s3')->temporaryUrl($post->user->profilePicture, now()->addDay())
                                 : asset('assets/default-profile.jpg') }}"
                             data-files='@json($post->files)'
                             data-bs-toggle="modal"
@@ -47,7 +47,7 @@ $autoOpen = $post->comments->whereNotNull('chatbotId')->isNotEmpty();
         @endif
         
         <div class="d-flex flex-row gap-2">
-            <img src="{{  $post->user->profilePicture ? asset('storage/' . $post->user->profilePicture) : asset('assets/default-profile.jpg') }}" alt="" height="42" width="42"
+            <img src="{{  $post->user->profilePicture ? Storage::disk('s3')->temporaryUrl($post->user->profilePicture, now()->addDay()) : asset('assets/default-profile.jpg') }}" alt="" height="42" width="42"
             class="profile-picture rounded-circle"
             style="object-fit: cover">
             <div class="d-flex flex-column">
@@ -87,7 +87,7 @@ $autoOpen = $post->comments->whereNotNull('chatbotId')->isNotEmpty();
 
                     @if($file->fileType === 'image')
                         <img 
-                            src="{{ asset('storage/'.$file->filePath) }}"
+                            src="{{ Storage::disk('s3')->temporaryUrl($file->filePath, now()->addDay()) }}"
                             class="media-item"
                             alt=""
                         >
@@ -99,7 +99,7 @@ $autoOpen = $post->comments->whereNotNull('chatbotId')->isNotEmpty();
                             playsinline
                             controls
                         >
-                            <source src="{{ asset('storage/'.$file->filePath) }}" type="video/mp4">
+                            <source src="{{ Storage::disk('s3')->temporaryUrl($file->filePath, now()->addDay()) }}" type="video/mp4">
                         </video>
                     @endif
 
@@ -132,7 +132,7 @@ $autoOpen = $post->comments->whereNotNull('chatbotId')->isNotEmpty();
         <hr class="divider w-100">
     
         <div class="balas-komen-section d-flex flex-row gap-2 w-100">
-            <img src="{{  auth()->user()->profilePicture ? asset('storage/' .  auth()->user()->profilePicture) : asset('assets/default-profile.jpg') }}" alt="" height="42" width="42"
+            <img src="{{  auth()->user()->profilePicture ? Storage::disk('s3')->temporaryUrl(auth()->user()->profilePicture, now()->addDay()) : asset('assets/default-profile.jpg') }}" alt="" height="42" width="42"
             class="profile-picture rounded-circle"
             style="object-fit: cover">
     
@@ -186,7 +186,7 @@ $autoOpen = $post->comments->whereNotNull('chatbotId')->isNotEmpty();
                                 <img src="{{
                                         $comment->user
                                             ? ($comment->user->profilePicture
-                                                ? asset('storage/' . $comment->user->profilePicture)
+                                                ? Storage::disk('s3')->temporaryUrl($comment->user->profilePicture, now()->addDay())
                                                 : asset('assets/default-profile.jpg'))
                                             : asset('assets/default-profile.jpg')
                                     }}" 
@@ -222,7 +222,7 @@ $autoOpen = $post->comments->whereNotNull('chatbotId')->isNotEmpty();
 
                                         @if($file->fileType === 'image')
                                             <img 
-                                                src="{{ asset('storage/'.$file->filePath) }}"
+                                                src="{{ Storage::disk('s3')->temporaryUrl($file->filePath, now()->addDay()) }}"
                                                 class="media-item"
                                                 alt=""
                                             >
@@ -234,7 +234,7 @@ $autoOpen = $post->comments->whereNotNull('chatbotId')->isNotEmpty();
                                                 playsinline
                                                 controls
                                             >
-                                                <source src="{{ asset('storage/'.$file->filePath) }}" type="video/mp4">
+                                                <source src="{{ Storage::disk('s3')->temporaryUrl($file->filePath, now()->addDay()) }}" type="video/mp4">
                                             </video>
                                         @endif
 
@@ -260,7 +260,7 @@ $autoOpen = $post->comments->whereNotNull('chatbotId')->isNotEmpty();
                                 <hr class="divider w-100">
                             
                                 <div class="balas-komen-section d-flex flex-row gap-2 w-100">
-                                    <img src="{{  auth()->user()->profilePicture ? asset('storage/' .  auth()->user()->profilePicture) : asset('assets/default-profile.jpg') }}" 
+                                    <img src="{{  auth()->user()->profilePicture ? Storage::disk('s3')->temporaryUrl(auth()->user()->profilePicture, now()->addDay()) : asset('assets/default-profile.jpg') }}" 
                                     alt="" height="42" width="42"
                                     class="profile-picture rounded-circle"
                                     style="object-fit: cover">
@@ -312,7 +312,7 @@ $autoOpen = $post->comments->whereNotNull('chatbotId')->isNotEmpty();
                                             <div class="d-flex flex-column gap-3">
                                                 <div class="komen-header">
                                                     <div class="d-flex flex-row gap-2">
-                                                        <img src="{{  $replies->user->profilePicture ? asset('storage/' . $replies->user->profilePicture) : asset('assets/default-profile.jpg') }}" alt="" height="42" width="42"
+                                                        <img src="{{  $replies->user->profilePicture ? Storage::disk('s3')->temporaryUrl($replies->user->profilePicture, now()->addDay()) : asset('assets/default-profile.jpg') }}" alt="" height="42" width="42"
                                                         class="profile-picture rounded-circle"
                                                         style="object-fit: cover">
                                                         <div class="d-flex flex-column">
@@ -341,7 +341,7 @@ $autoOpen = $post->comments->whereNotNull('chatbotId')->isNotEmpty();
 
                                                                 @if($fileReply->fileType === 'image')
                                                                     <img 
-                                                                        src="{{ asset('storage/'.$fileReply->filePath) }}"
+                                                                        src="{{ Storage::disk('s3')->temporaryUrl($fileReply->filePath, now()->addDay()) }}"
                                                                         class="media-item"
                                                                         alt=""
                                                                     >
@@ -353,7 +353,7 @@ $autoOpen = $post->comments->whereNotNull('chatbotId')->isNotEmpty();
                                                                         playsinline
                                                                         controls
                                                                     >
-                                                                        <source src="{{ asset('storage/'.$fileReply->filePath) }}" type="video/mp4">
+                                                                        <source src="{{ Storage::disk('s3')->temporaryUrl($fileReply->filePath, now()->addDay()) }}" type="video/mp4">
                                                                     </video>
                                                                 @endif
 

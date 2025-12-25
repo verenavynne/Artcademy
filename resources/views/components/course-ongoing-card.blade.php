@@ -91,7 +91,7 @@
                         <img src="{{ Str::startsWith($courseLecturer->lecturer->user->profilePicture, ['http://', 'https://']) 
                                     ? $courseLecturer->lecturer->user->profilePicture 
                                     : ($courseLecturer->lecturer->user->profilePicture 
-                                        ? asset('storage/' . $courseLecturer->lecturer->user->profilePicture) 
+                                        ? Storage::disk('s3')->temporaryUrl($courseLecturer->lecturer->user->profilePicture, now()->addDay())
                                         : asset('assets/default-profile.jpg')) }}" 
                              class="rounded-circle tutor-image" 
                              width="37" height="37">

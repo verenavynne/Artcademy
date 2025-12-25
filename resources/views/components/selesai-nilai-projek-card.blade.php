@@ -1,6 +1,6 @@
 <div class="project-card d-flex flex-column">
   <img src="{{ $submission->projectSubmissionThumbnail 
-          ? asset('storage/' . $submission->projectSubmissionThumbnail)
+          ? Storage::disk('s3')->temporaryUrl($submission->projectSubmissionThumbnail, now()->addDay())
           : 'https://via.placeholder.com/150' }}" 
           alt="Project Thumbnail" 
           class="project-image">

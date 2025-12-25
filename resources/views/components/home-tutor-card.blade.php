@@ -15,7 +15,7 @@
             src="{{ Str::startsWith($tutor->profilePicture, ['http://', 'https://']) 
                 ? $tutor->profilePicture 
                 : ($tutor->profilePicture 
-                    ? asset('storage/' . $tutor->profilePicture) 
+                    ? Storage::disk('s3')->temporaryUrl($tutor->profilePicture, now()->addDay()) 
                     : asset('assets/course/default_tutor_profile_zoom.png')) }}"                     
         alt="">
     </div>

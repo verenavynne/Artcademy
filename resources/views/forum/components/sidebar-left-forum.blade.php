@@ -1,7 +1,7 @@
 <div class="sidebar-left d-flex flex-column justify-content-between align-content-center">
     <div class="d-flex align-items-start flex-column">
         <div class="profile-box justify-content-center align-items-center d-flex flex-row gap-2">
-            <img src="{{  $user->profilePicture ? asset('storage/' . $user->profilePicture) : asset('assets/default-profile.jpg') }}" 
+            <img src="{{  $user->profilePicture ? Storage::disk('s3')->temporaryUrl($user->profilePicture, now()->addDay()) : asset('assets/default-profile.jpg') }}" 
             class="profile-picture rounded-circle"
             alt="" width="74" height="74" style="object-fit: cover">
             <div class="col">

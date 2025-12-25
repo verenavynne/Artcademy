@@ -2,7 +2,7 @@
     <img class="tutor-profile-image" src="{{ Str::startsWith($tutor->lecturer->user->profilePicture, ['http://', 'https://']) 
                 ? $tutor->lecturer->user->profilePicture
                 : ($tutor->lecturer->user->profilePicture
-                ? asset('storage/' . $tutor->lecturer->user->profilePicture) 
+                ? Storage::disk('s3')->temporaryUrl($tutor->lecturer->user->profilePicture, now()->addDay())
                 : asset('assets/course/default_tutor_profile_zoom.png')) }}"
         alt="Tutor Profile Icon" style="">
     <div class="tutor-info-container d-flex flex-column justify-content-center">

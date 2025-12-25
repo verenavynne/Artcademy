@@ -9,13 +9,13 @@
                         @if(Str::endsWith($portfolio->portfolioPath, '.mp4'))
                             <video id="player-{{ $portfolio->id }}" playsinline controls class="w-100" 
                                 style="{{ $portfolio->mockupType === 'laptop' ? 'max-height: 300px' : 'max-height: 100%' }}; object-fit: cover">
-                                <source src="{{ asset('storage/' . $portfolio->portfolioPath) }}" type="video/mp4">
+                                <source src="{{ Storage::disk('s3')->temporaryUrl($portfolio->portfolioPath, now()->addDay()) }}" type="video/mp4">
                                 Browser kamu tidak mendukung video HTML5.
                             </video>
                         @else
                             <img class="portfolio-thumbnail img-fluid"
                                 style="{{ $portfolio->mockupType === 'laptop' ? 'max-height: 300px' : 'max-height: auto' }}"
-                                src="{{ asset('storage/' . $portfolio->portfolioPath) }}"
+                                src="{{ Storage::disk('s3')->temporaryUrl($portfolio->portfolioPath, now()->addDay()) }}"
                                 alt="Portofolio">
                         @endif
                     </div>

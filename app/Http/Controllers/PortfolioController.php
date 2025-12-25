@@ -70,7 +70,7 @@ class PortfolioController extends Controller
         $studentId = Auth::id();
         
         $originalName = $request->file('file')->getClientOriginalName();
-        $filePath = $request->file('file')->storeAs('portfolio_mediaPath', $originalName, 'public');
+        $filePath = $request->file('file')->storeAs('portfolio_mediaPath', $originalName, 's3');
 
         Portfolio::create([
             'userId' => $studentId,
@@ -112,12 +112,12 @@ class PortfolioController extends Controller
         $portfolio = Portfolio::findOrFail($id);
 
         if ($request->hasFile('file')) {
-            if ($portfolio->portfolioPath && Storage::disk('public')->exists($portfolio->portfolioPath)) {
-                Storage::disk('public')->delete($portfolio->portfolioPath);
+            if ($portfolio->portfolioPath && Storage::disk('s3')->exists($portfolio->portfolioPath)) {
+                Storage::disk('s3')->delete($portfolio->portfolioPath);
             }
 
             $originalName = $request->file('file')->getClientOriginalName();
-            $filePath = $request->file('file')->storeAs('portfolio_mediaPath', $originalName, 'public');
+            $filePath = $request->file('file')->storeAs('portfolio_mediaPath', $originalName, 's3');
 
             $portfolio->update([
                 'portfolioName' => $request->name,

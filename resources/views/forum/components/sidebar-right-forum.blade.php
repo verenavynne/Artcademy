@@ -8,7 +8,7 @@
             @foreach($otherProfile as $profile)
             <li class="profil-item">
                 <div class="d-flex flex-row gap-2" style="min-width: 0;">
-                    <img src="{{ $profile->profilePicture ? asset('storage/' . $profile->profilePicture) : asset('assets/default-profile.jpg') }}" alt="" height="42" width="42"
+                    <img src="{{ $profile->profilePicture ? Storage::disk('s3')->temporaryUrl($profile->profilePicture, now()->addDay()) : asset('assets/default-profile.jpg') }}" alt="" height="42" width="42"
                     class="profile-picture rounded-circle"
                     style="object-fit: cover">
                     <div class="d-flex flex-column" style="max-width: 80%;">

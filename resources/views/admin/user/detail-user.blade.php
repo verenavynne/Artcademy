@@ -24,7 +24,7 @@
                 <img src="{{ Str::startsWith($user->profilePicture, ['http://', 'https://']) 
                         ? $user->profilePicture 
                         : ($user->profilePicture 
-                            ? asset('storage/' . $user->profilePicture) 
+                            ? Storage::disk('s3')->temporaryUrl($user->profilePicture, now()->addDay())
                             : asset('assets/default-profile.jpg')) }}"
                     class="profile-picture rounded-circle"
                     width="100" height="100" style="object-fit: cover">

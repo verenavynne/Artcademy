@@ -26,7 +26,7 @@
             <div class="col-md-3">
                 <img 
                     class="projek-thumbnail" 
-                    src="{{ asset('storage/' . $projectSubmission->projectSubmissionThumbnail) }}" 
+                    src="{{ Storage::disk('s3')->temporaryUrl($projectSubmission->projectSubmissionThumbnail, now()->addDay()) }}" 
                     alt="Project thumbnail"
                     height="205"
                     width="205"

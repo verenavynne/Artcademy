@@ -24,7 +24,7 @@
             </div>
             <div class="hasil-projek-submission-card d-flex flex-column">
                 <div class="row">
-                    <img class="col-md-4 projek-thumbnail" src="{{ asset('storage/' . $submission->projectSubmissionThumbnail) }}" alt="Project thumbnail" height="205" width="205">
+                    <img class="col-md-4 projek-thumbnail" src="{{ Storage::disk('s3')->temporaryUrl($submission->projectSubmissionThumbnail, now()->addDay()) }}" alt="Project thumbnail" height="205" width="205">
                     <div class="col mb-3">
                         <div class="col mb-3">
                             <label for="" class="form-label">Judul Projek</label>

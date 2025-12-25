@@ -56,7 +56,7 @@
                     </a>
                     <div class="profile-banner-info justify-content-center align-items-center d-flex flex-row gap-4">
                         <div class="profile-image">
-                            <img src="{{ $selectedUser->profilePicture ? asset('storage/' . $selectedUser->profilePicture) : asset('assets/default-profile.jpg') }}"
+                            <img src="{{ $selectedUser->profilePicture ? Storage::disk('s3')->temporaryUrl($selectedUser->profilePicture, now()->addDay()) : asset('assets/default-profile.jpg') }}"
                             class="profile-picture rounded-circle object-fit"
                             alt="" width="120" height="120">
 
@@ -115,7 +115,7 @@
                                     @include('profile.components.portfolio-mockup', [
                                         'mockupType' => $portfolio->mockupType,
                                         'portoType' => Str::endsWith($portfolio->portfolioPath, '.mp4') ? 'video' : 'image',
-                                        'mediaPath' => asset('storage/' . $portfolio->portfolioPath),
+                                        'mediaPath' => storage::disk('s3')->temporaryUrl($portfolio->portfolioPath, now()->addDay()),
                                         'portfolioId' => $portfolio->id,
                                         'mockupSize' => 230,
                                         'animation' => true

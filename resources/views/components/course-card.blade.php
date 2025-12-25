@@ -83,7 +83,7 @@
             <div class="d-flex flex-row align-items-center gap-2">
                 <div class="tutor-avatars">
                     @foreach ($course->courseLecturers->take(3) as $loopIndex => $courseLecturer)
-                        <img src="{{ asset($courseLecturer->lecturer->user->profilePicture ? asset('storage/'.$courseLecturer->lecturer->user->profilePicture ) : 'assets/default-profile.jpg') }}" 
+                        <img src="{{ asset($courseLecturer->lecturer->user->profilePicture ? Storage::disk('s3')->temporaryUrl($courseLecturer->lecturer->user->profilePicture, now()->addDay()) : 'assets/default-profile.jpg') }}" 
                              class="rounded-circle tutor-image" 
                              width="37" height="37">
                     @endforeach

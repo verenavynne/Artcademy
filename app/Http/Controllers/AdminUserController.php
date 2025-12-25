@@ -91,7 +91,7 @@ class AdminUserController extends Controller
             $filePath = $request->file('profilePicture')->storeAs(
                 'profile_pictures',
                 time() . '_' . $originalName,
-                'public'
+                's3'
             );
         }
 

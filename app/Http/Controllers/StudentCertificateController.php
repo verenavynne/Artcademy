@@ -43,7 +43,7 @@ class StudentCertificateController extends Controller
         $fileName = 'certificate_' . Str::slug($certificate->course->courseName) . '.pdf';
         $filePath = 'certificates/' . $fileName;
 
-        Storage::disk('public')->put($filePath, $pdf->output());
+        Storage::disk('s3')->put($filePath, $pdf->output());
 
         $certificate->update([
             'pdfPath' => $filePath,

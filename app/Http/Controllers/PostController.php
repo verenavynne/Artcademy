@@ -36,7 +36,7 @@ class PostController extends Controller
 
         if ($request->hasFile('images')) {
             foreach ($request->file('images') as $img) {
-                $path = $img->store('post_files', 'public');
+                $path = $img->store('post_files', 's3');
 
                 PostFile::create([
                     'postId' => $post->id,
@@ -48,7 +48,7 @@ class PostController extends Controller
 
         if ($request->hasFile('videos')) {
             foreach ($request->file('videos') as $vid) {
-                $path = $vid->store('post_files', 'public');
+                $path = $vid->store('post_files', 's3');
 
                 PostFile::create([
                     'postId' => $post->id,
@@ -99,7 +99,7 @@ class PostController extends Controller
             foreach ($deleted as $fileId) {
                 $file = PostFile::where('id',$fileId)->where('postId', $id)->first();
                 if ($file) {
-                    Storage::delete($file->filePath); 
+                    Storage::disk('s3')->delete($file->filePath);
                     $file->delete(); 
                 }
             }
@@ -112,7 +112,7 @@ class PostController extends Controller
 
         if ($request->hasFile('images')) {
             foreach ($request->file('images') as $img) {
-                $path = $img->store('post_files','public');
+                $path = $img->store('post_files','s3');
                 PostFile::create([
                     'postId' => $post->id,
                     'filePath' => $path,
@@ -123,7 +123,7 @@ class PostController extends Controller
 
         if ($request->hasFile('videos')) {
             foreach ($request->file('videos') as $vid) {
-                $path = $vid->store('post_files','public');
+                $path = $vid->store('post_files','s3');
                 PostFile::create([
                     'postId' => $post->id,
                     'filePath' => $path,

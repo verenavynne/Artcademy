@@ -257,13 +257,13 @@ class ProfileController extends Controller
         ]);
 
         if ($user->profilePicture && $user->profilePicture !== 'assets/default-profile.jpg') {
-            if (Storage::disk('public')->exists($user->profilePicture)) {
-                Storage::disk('public')->delete($user->profilePicture);
+            if (Storage::disk('s3')->exists($user->profilePicture)) {
+                Storage::disk('s3')->delete($user->profilePicture);
             }
         }
 
         $originalName = $request->file('profilePicture')->getClientOriginalName();
-        $filePath = $request->file('profilePicture')->storeAs('profile_pictures', $originalName, 'public');
+        $filePath = $request->file('profilePicture')->storeAs('profile_pictures', $originalName, 's3');
 
         $user->update([
             'profilePicture' => $filePath

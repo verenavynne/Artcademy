@@ -28,7 +28,7 @@
                         <img src="{{ Str::startsWith($zoom->tutor->lecturer->user->profilePicture, ['http://', 'https://']) 
                                 ? $zoom->tutor->lecturer->user->profilePicture 
                                 : ($zoom->tutor->lecturer->user->profilePicture 
-                                ? asset('storage/' . $zoom->tutor->lecturer->user->profilePicture) 
+                                ? Storage::disk('s3')->temporaryUrl($zoom->tutor->lecturer->user->profilePicture, now()->addDay())
                                 : asset('assets/course/default_tutor_profile_zoom.png')) }}"
                             class="zoom-header-image">
                     </div>
