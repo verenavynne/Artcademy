@@ -61,7 +61,11 @@ class ForumController extends Controller
         $selectedUser = User::with('lecturer')->where('id', $id)->firstOrFail();
         $portfolios = Portfolio::where('userId', $selectedUser->id)->get();
         $posts = Post::where('userId', $selectedUser->id)->orderBy('postDate', 'desc')->get();
-        $otherProfile = User::where('id', '!=', auth()->id())->where('role', '!=', 'admin')->get();
+        $otherProfile = User::where('id', '!=', $selectedUser->id)
+            ->where('role', '!=', 'admin')
+            ->orderByDesc('created_at')
+            ->take(6)
+            ->get();
         $activeTab = request('tab', 'portofolio');
 
         $selectedUserMembershipTransaction = MembershipTransaction::where('studentId', $selectedUser->id)
