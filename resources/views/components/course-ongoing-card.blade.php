@@ -36,12 +36,11 @@
     $project = \App\Models\Project::where('courseId', $course->id)->first();
 
     $submission = \App\Models\ProjectSubmission::where('studentId', auth()->id())->where('projectId', $project->id)->first();
-
+    $isArchived = $course->courseStatus === 'arsip';
     
 @endphp
 
-<a href="{{ $enrollment->isLocked ? route(name: 'membership') 
-    : ($enrollment->progress === 100 ? route('projectSubmission.hasil', ['id' => $submission->id]) : route('course.detail', $course->id)) }}" 
+<a href="{{ $enrollment->isLocked ? route(name: 'membership') : ($isArchived ? '#' : ($enrollment->progress === 100 ? route('projectSubmission.hasil', ['id' => $submission->id]) : route('course.detail', $course->id))) }}" 
    class="text-decoration-none text-black">
     <div class="course-card card article-card" style="cursor: pointer; height: 100%;">
 
@@ -54,6 +53,15 @@
                     <p class="text-start m-0">
                         Membership kamu sudah tidak mendukung level kursus ini. Upgrade untuk melanjutkan!
                     </p>
+                </div>
+            </div>
+        @elseif($isArchived)
+            <div class="overlay-arsip d-flex flex-column justify-content-center align-items-center">
+                <div class="overlay-content d-flex w-70 p-2 gap-3">
+                    <div class="icon-circle d-flex justify-content-center align-items-center">
+                        <iconify-icon icon="ix:maintenance-info" style="color: #F69000; font-size: 24px;"></iconify-icon>
+                    </div>
+                    <p class="text-start m-0">Materi sedang diperbarui, cek lagi nanti ya!</p>
                 </div>
             </div>
         @endif
@@ -122,8 +130,6 @@
                    Lihat penilaian
                 </button>
 
-            
-            
             @else
                 <button class="btn px-4 py-2 yellow-gradient-btn text-dark w-100">
                     Lanjutkan Kursus

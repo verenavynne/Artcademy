@@ -17,6 +17,7 @@
     : 'Rp' . number_format($event->eventPrice, 0, ',', '.');
 
     $isRegistered = \App\Models\EventTransaction::where('eventId', $event->id)->where('studentId', auth()->id())->exists();
+    $isDisabled = $event->eventDate > Carbon::now();
 
 @endphp
 <div class="event-card card article-card" height="100%" 
@@ -61,7 +62,7 @@
         
         @if (Auth::check())
             @if($isRegistered)
-                <a href="#" class="btn w-100 text-dark yellow-gradient-btn">
+                <a href="#" class="btn w-100 text-dark yellow-gradient-btn {{ $isDisabled ? 'disabled' : '' }}" aria-disabled="{{  $isDisabled ? 'true' : 'false' }}">
                     Join Sekarang
                 </a>
             @else

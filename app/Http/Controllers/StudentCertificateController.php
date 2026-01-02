@@ -49,12 +49,6 @@ class StudentCertificateController extends Controller
             'pdfPath' => $filePath,
         ]);
 
-        $enrollment = CourseEnrollment::where('courseId', $courseId)->where('studentId', $student->id)->firstOrFail();
-
-        if ($enrollment->status !== 'completed') {
-            $enrollment->update(['status' => 'completed']);
-        }
-
         return $pdf->download($fileName);
         
     }

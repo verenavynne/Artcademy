@@ -19,6 +19,8 @@
     ? 'Gratis' 
     : 'Rp' . number_format($event->eventPrice, 0, ',', '.');
 
+    $isDisabled = $event->eventDate > Carbon::now();
+
 @endphp
 
 @if (session('info'))
@@ -109,13 +111,18 @@
                         </div>
                         <div class="link-event d-flex flex-row gap-2 align-items-center">
                             <img src="{{ asset('assets/icons/icon_link_gradient.svg') }}" alt="Link icon" height="24" width="24">
-                            <a href="{{$event->eventPlace}}">Link Zoom</a>
+                            <a href="{{$isDisabled ? '#' : $event->eventPlace}}" 
+                                style="{{ $isDisabled ? 'pointer-events: none' : '' }}"
+                                aria-disabled="{{ $isDisabled ? 'true' : 'false' }}"
+                            >Link Zoom</a>
 
                         </div>
                         
-                    <a href="{{$event->eventPlace}}" class="btn w-100 text-dark yellow-gradient-btn">
+                    <a href="{{ $isDisabled ? '#' : $event->eventPlace }}" 
+                        class="btn w-100 text-dark yellow-gradient-btn {{ $isDisabled ? 'disabled' : '' }}" 
+                        aria-disabled="{{  $isDisabled ? 'true' : 'false' }}">
                             Join Sekarang
-                        </a>
+                    </a>
 
                     </div>
                 @else

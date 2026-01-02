@@ -103,7 +103,7 @@
     <p class="mb-5" style="font-size: 18px;">Di Artcademy, kamu bebas memilih jalur senimu dan menjadikannya bagian dari perjalanan kreatifmu</p>
 
     <div class="big-card d-flex justify-content-around align-items-center flex-wrap">
-        <a href="/course" class="text-decoration-none text-dark">
+        <a href="{{ route('course', ['type' => 'Seni Lukis & Digital Art']) }}" class="text-decoration-none text-dark">
             <div class="choice-item">
                 <div class="img-wrapper">
                     <img src="{{ asset('assets/home/category-painting.png') }}" alt="Seni Lukis" height="100px">
@@ -112,7 +112,7 @@
             </div>
         </a>
 
-        <a href="/course" class="text-decoration-none text-dark">
+        <a href="{{ route('course', ['type' => 'Seni Musik']) }}" class="text-decoration-none text-dark">
             <div class="choice-item">
                 <div class="img-wrapper">
                     <img src="{{ asset('assets/home/category-music.png') }}" alt="Seni Musik" height="100px">
@@ -121,7 +121,7 @@
             </div>
         </a>
 
-        <a href="/course" class="text-decoration-none text-dark">
+        <a href="{{ route('course', ['type' => 'Seni Fotografi']) }}" class="text-decoration-none text-dark">
             <div class="choice-item">
                 <div class="img-wrapper">
                     <img src="{{ asset('assets/course-header-pic.png') }}" alt="Seni Fotografi" height="90px">
@@ -130,7 +130,7 @@
             </div>
         </a>
 
-        <a href="/course" class="text-decoration-none text-dark">
+        <a href="{{ route('course', ['type' => 'Seni Tari']) }}" class="text-decoration-none text-dark">
             <div class="choice-item">
                 <div class="img-wrapper">
                     <img src="{{ asset('assets/home/category-dance.png') }}" alt="Seni Tari" height="150px">
