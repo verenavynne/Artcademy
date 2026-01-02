@@ -2,9 +2,13 @@
 
 @section('content')
 @php
-    $startTime =  \Carbon\Carbon::parse($zoom->start_time)->format('H.i');
-    $endTime = \Carbon\Carbon::parse($zoom->end_time)->format('H.i');
-    $date = \Carbon\Carbon::parse($zoom->zoomDate)->translatedFormat('d F Y');
+    use Carbon\Carbon;
+
+    $startTime =  Carbon::parse($zoom->start_time)->format('H.i');
+    $endTime = Carbon::parse($zoom->end_time)->format('H.i');
+    $date = Carbon::parse($zoom->zoomDate)->translatedFormat('d F Y');
+
+    $isDisabled = $zoom->zoomDate > Carbon::now();
 @endphp
 
 @if (session('info'))
@@ -145,14 +149,17 @@
                     @if ($isRegistered)
                         <div class="link-zoom d-flex flex-row gap-2 align-items-center">
                             <img src="{{ asset('assets/icons/icon_link_gradient.svg') }}" alt="Link icon" height="24" width="24">
-                            <a href="{{$zoom->zoomLink}}">Link Zoom</a>
+                            <a href="{{$isDisabled ? '#' : $zoom->zoomLink}}"
+                                style="{{ $isDisabled ? 'pointer-events: none' : '' }}"
+                                aria-disabled="{{ $isDisabled ? 'true' : 'false' }}"
+                            >Link Zoom</a>
 
                         </div>
                     
                     @endif
 
                     @if($isRegistered)
-                        <a href="{{$zoom->zoomLink}}" class="btn w-100 text-dark yellow-gradient-btn">
+                        <a href="{{$zoom->zoomLink}}" class="btn w-100 text-dark yellow-gradient-btn {{ $isDisabled ? 'disabled' : '' }}" aria-disabled="{{  $isDisabled ? 'true' : 'false' }}">
                             Join Sekarang
                         </a>
                     @else

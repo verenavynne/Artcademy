@@ -62,8 +62,8 @@
         
         @if (Auth::check())
             @if($isRegistered)
-                <a href="#" class="btn w-100 text-dark yellow-gradient-btn {{ $isDisabled ? 'disabled' : '' }}" aria-disabled="{{  $isDisabled ? 'true' : 'false' }}">
-                    Join Sekarang
+                <a href="#" class="btn w-100 text-dark yellow-gradient-btn">
+                    Lihat Detail
                 </a>
             @else
                 <a href="#" class="btn w-100 text-dark yellow-gradient-btn">

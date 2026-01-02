@@ -72,13 +72,13 @@ $isRegistered = \App\Models\ZoomRegistered::where('zoomId', $zoom->id)->where('s
                         data-capacity="{{ \App\Models\ZoomRegistered::where('zoomId', $zoom->id)->count() }}/{{ $zoom->zoomQuota }}"
                         data-zoom-link="{{ $zoom->zoomLink }}"
                     >
-                    Join Sekarang
+                    Lihat Detail
                 </button>
 
             @else
                 @if($isRegistered)
                     <a href="{{ route('zoom.showDetail', $zoom->id) }}" class="btn w-100 text-dark yellow-gradient-btn">
-                        Join Sekarang
+                        Lihat Detail
                     </a>
                 @else
                     <a href="{{ route('zoom.showDetail', $zoom->id) }}" class="btn w-100 text-dark yellow-gradient-btn">
