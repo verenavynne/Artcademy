@@ -226,11 +226,6 @@
         border-radius: 12px;
     }
 
-
-    .toggle-wrapper {
-        min-width: 150px; 
-    }
-
     .typing-effect {
         white-space: pre-wrap;
         font-family: inherit;

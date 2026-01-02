@@ -294,7 +294,8 @@
     }
 
     .pink-cream-btn:disabled,
-    .yellow-gradient-btn:disabled {
+    .yellow-gradient-btn:disabled,
+    .yellow-gradient-btn.disabled {
         background: #D0D0D0;
         cursor: not-allowed;
         color: #8F8F8F;

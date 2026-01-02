@@ -12,9 +12,9 @@
         <div class="form-group">
           <label class="form-label fw-semibold">Pilih Role</label>
           <select id="selectedRole" name="role" class="form-select rounded-pill px-4 py-2 custom-input select-with-icon">
-            <option selected disabled>Pilih role</option>
-            <option value="admin">Admin</option>
-            <option value="lecturer">Tutor</option>
+            <option disabled {{ old('role') ? '' : 'selected' }}>Pilih role</option>
+            <option value="admin" {{ old('role') === 'admin' ? 'selected' : '' }}>Admin</option>
+            <option value="lecturer" {{ old('role') === 'lecturer' ? 'selected' : '' }}>Tutor</option>
           </select>
           @error('role')
             <div class="text-danger mt-1" style="font-size: 0.875rem;">
@@ -27,7 +27,7 @@
       <div class="form-row">
         <div class="form-group">
           <label>Nama</label>
-          <input name="name" class="form-control rounded-pill px-4 py-2 custom-input pe-5" type="text" placeholder="Tulis nama tutor disini">
+          <input name="name" id="nameInput" class="form-control rounded-pill px-4 py-2 custom-input pe-5" type="text" value="{{ old('name') }}" placeholder="Tulis nama tutor disini">
           @error('name')
             <div class="text-danger mt-1" style="font-size: 0.875rem;">
               {{ $message }}
@@ -49,7 +49,7 @@
       <div class="form-row">
         <div class="form-group">
           <label>No. Telepon</label>
-          <input name="phoneNumber" class="form-control rounded-pill px-4 py-2 custom-input pe-5" type="tel" placeholder="+62xxxxxxxxxx">
+          <input name="phoneNumber" id="phoneNumber" class="form-control rounded-pill px-4 py-2 custom-input pe-5" type="text" value="{{ old('phoneNumber', '+62') }}" placeholder="+62xxxxxxxxxx">
           @error('phoneNumber')
             <div class="text-danger mt-1" style="font-size: 0.875rem;">
               {{ $message }}
@@ -58,7 +58,7 @@
         </div>
         <div class="form-group">
           <label>Email</label>
-            <input name="email" class="form-control rounded-pill px-4 py-1 custom-input" type="email" placeholder="Cth: artcademy@gmail.com">
+            <input name="email" class="form-control rounded-pill px-4 py-1 custom-input" type="email" value="{{ old('email') }}" placeholder="Cth: artcademy@gmail.com">
             @error('email')
               <div class="text-danger mt-1" style="font-size: 0.875rem;">
                 {{ $message }}
@@ -120,49 +120,91 @@
 </div>
 
 <script>
-  function togglePassword(inputId, eyeId) {
-    const input = document.getElementById(inputId);
-    const eyeIcon = document.getElementById(eyeId);
-    const isHidden = input.type === 'password';
+  document.addEventListener('DOMContentLoaded', () => {
 
-    input.type = isHidden ? 'text' : 'password';
-    eyeIcon.setAttribute('icon', isHidden ? 'mingcute:eye-line' : 'mingcute:eye-close-line');
-  }
-
-  const selectedRole = document.getElementById('selectedRole');
-  const specializationGroup = document.getElementById('specialization-group');
-
-  selectedRole.addEventListener('change', function () {
-    if (this.value.toLowerCase() === 'lecturer') {
-      specializationGroup.style.display = 'block';
-      profilePictureGroup.style.display = 'block';
-    } else {
-      specializationGroup.style.display = 'none';
-      profilePictureGroup.style.display = 'none';
+    function togglePassword(inputId, eyeId) {
+      const input = document.getElementById(inputId);
+      const eyeIcon = document.getElementById(eyeId);
+      const isHidden = input.type === 'password';
+  
+      input.type = isHidden ? 'text' : 'password';
+      eyeIcon.setAttribute('icon', isHidden ? 'mingcute:eye-line' : 'mingcute:eye-close-line');
     }
-  });
+  
+    const selectedRole = document.getElementById('selectedRole');
+    const specializationGroup = document.getElementById('specialization-group');
+    const nameInput = document.getElementById('nameInput');
 
-  document.getElementById('addProfileBtn').addEventListener('click', function() {
-    document.getElementById('profilePicture').click();
-  });
+    function handleRole(role){
+      if(!role) return;
 
-  document.getElementById('profilePicture').addEventListener('change', function() {
-    const fileNameText = document.getElementById('fileName');
-    fileNameText.textContent = this.files.length ? this.files[0].name : "Tidak ada file yang dipilih";
-  });
+      if (role.toLowerCase() === 'lecturer') {
+        specializationGroup.style.display = 'block';
+        profilePictureGroup.style.display = 'block';
+        nameInput.placeholder = 'Tulis nama tutor di sini';
+      } else {
+        specializationGroup.style.display = 'none';
+        profilePictureGroup.style.display = 'none';
+        nameInput.placeholder = 'Tulis nama admin di sini'
+      }
+    }
+  
+    selectedRole.addEventListener('change', function () {
+      handleRole(this.value);
+    });
 
-  // loading
-  const form = document.getElementById('formTambahUser');
-  const submitBtn = document.getElementById('submitBtn');
-  const btnText = document.getElementById('btnText');
-  const loadingSpinner = document.getElementById('loadingSpinner');
-
-  form.addEventListener('submit', function () {
-    submitBtn.disabled = true;
-
-    btnText.textContent = 'Memproses...';
-    loadingSpinner.classList.remove('d-none');
-  });
+    handleRole(selectedRole.value);
+  
+    const inputTelp = document.getElementById('phoneNumber');
+  
+    if (!inputTelp.value.startsWith('+62')) {
+        inputTelp.value = '+62';
+    }
+  
+    inputTelp.addEventListener('input', () => {
+        // Cegah hapus +62
+        if (!inputTelp.value.startsWith('+62')) {
+            inputTelp.value = '+62';
+        }
+  
+        // Hanya angka setelah +62
+        const numbersOnly = inputTelp.value
+            .replace('+62', '')
+            .replace(/\D/g, '');
+  
+        inputTelp.value = '+62' + numbersOnly;
+    });
+  
+    // Cegah cursor ke depan +62
+    inputTelp.addEventListener('keydown', (e) => {
+        if (input.selectionStart < 3) {
+            e.preventDefault();
+            input.setSelectionRange(3, 3);
+        }
+    });
+  
+    document.getElementById('addProfileBtn').addEventListener('click', function() {
+      document.getElementById('profilePicture').click();
+    });
+  
+    document.getElementById('profilePicture').addEventListener('change', function() {
+      const fileNameText = document.getElementById('fileName');
+      fileNameText.textContent = this.files.length ? this.files[0].name : "Tidak ada file yang dipilih";
+    });
+  
+    // loading
+    const form = document.getElementById('formTambahUser');
+    const submitBtn = document.getElementById('submitBtn');
+    const btnText = document.getElementById('btnText');
+    const loadingSpinner = document.getElementById('loadingSpinner');
+  
+    form.addEventListener('submit', function () {
+      submitBtn.disabled = true;
+  
+      btnText.textContent = 'Memproses...';
+      loadingSpinner.classList.remove('d-none');
+    });
+  })
 </script>
 
 <style>

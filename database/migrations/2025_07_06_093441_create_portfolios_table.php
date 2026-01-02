@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('userId')->constrained('users')->onDelete('cascade');
             $table->string('portfolioName');
-            $table->text('portfolioDesc');
+            $table->text('portfolioDesc')->nullable();
             $table->string('portfolioLink');
             $table->string('portfolioPath');
             $table->enum('mockupType', ['laptop', 'mobile']);

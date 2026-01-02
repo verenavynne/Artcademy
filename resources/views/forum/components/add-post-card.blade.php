@@ -10,18 +10,18 @@
                 rows="1"
             ></textarea>
             
-            <div class="toggle-wrapper text-end d-flex align-items-start" style="min-width: 160px;">
+            <div class="toggle-wrapper text-end d-flex align-items-start">
                 <div class="form-check form-switch justify-content-center align-items-center">
                     <input class="form-check-input" type="checkbox" id="apolloSwitch" name="triggerChatbot">
-                    <div class="d-flex flex-row gap-1 justify-content-center align-items-center me-2">
-
+                    <div class="d-flex flex-row gap-2 justify-content-center align-items-center">
                         <label class="form-check-label d-flex flex-row justify-content-center align-items-center" for="apolloSwitch" style="white-space: nowrap;">
                             <img src="{{ asset('assets/icons/icon_apollo.svg') }}" width="16" height="16" class="me-1">
-                        <p style="margin: 0">Apollo aktif</p>
+                        <p style="margin: 0">Apollo</p>
                         </label>
                         <iconify-icon icon="material-symbols:info-outline-rounded" 
                             title="Jika Apollo aktif, postingan kamu akan mendapatkan balasan otomatis dari chatbot." 
-                            style="font-size: 20px; "></iconify-icon>
+                            style="font-size: 20px; cursor: pointer">
+                        </iconify-icon>
                     </div>
                 </div>
             </div>
@@ -115,11 +115,6 @@
         position: absolute;
         z-index: 5;
         padding: 10px;
-    }
-
-
-    .toggle-wrapper {
-        min-width: 160px; 
     }
 </style>
 

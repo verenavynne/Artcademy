@@ -53,7 +53,7 @@
                        
                         <button type="submit" id="submitBtnEdit" class="btn text-dark yellow-gradient-btn px-4 d-flex align-items-center justify-content-center gap-2">
                             <div id="loadingSpinnerEdit" class="spinner-border spinner-border-sm text-dark d-none"></div>
-                            <span id="btnTextEdit">Edit</span>
+                            <span id="btnTextEdit">Simpan</span>
                         </button>
                     </div>
                 </form>

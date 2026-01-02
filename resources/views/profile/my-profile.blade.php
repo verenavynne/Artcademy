@@ -71,15 +71,19 @@
                                 $textColor = '#6c757d';
                             }
                         @endphp
-                        <div class="profile-detail-membership-container" style="background: {{ $bgColor }};">
-                            <p class="profile-detail-membership" style="background: {{ $textColor }}; background-clip: text;">
-                                @if ($user->role === 'student')
-                                    {{ $membershipStatus === 'active' ? 'Membership ' . $membershipTransaction->membership->membershipName : 'Belum Berlangganan' }}
-                                @else
-                                    Tutor {{ $user->lecturer->specialization ?? '-' }}
-                                @endif
-                            </p>
-                        </div>
+                        
+
+                            <div class="profile-detail-membership-container" style="background: {{ $bgColor }};">
+                                <p class="profile-detail-membership" style="background: {{ $textColor }}; background-clip: text;">
+                                    @if ($user->role === 'student')
+                                        {{ $membershipStatus === 'active' ? 'Membership ' . $membershipTransaction->membership->membershipName : 'Belum Berlangganan' }}
+                                        <span style="font-weight: 400">{{ $membershipStatus === 'active' ? '(s.d.  ' . \Carbon\Carbon::parse($membershipTransaction->endDate)->translatedFormat('j M Y') . ')' : '' }}</span>
+                                    @else
+                                        Tutor {{ $user->lecturer->specialization ?? '-' }}
+                                    @endif
+                                </p>
+                            </div>
+                        
                     </div>
 
                 </div>
@@ -240,8 +244,6 @@
 
     }
 
-
-
     .profile-banner-card{
         height: max-content;
         width: 100%;
@@ -297,6 +299,7 @@
     .profile-detail-membership-container{
         border-radius: 10px;
         display: flex;
+        flex-direction: column;
         padding: 4px 20px;
         justify-content: center;
         align-items: center;
@@ -310,6 +313,14 @@
         -webkit-text-fill-color: transparent;
         font-weight: 700;
     }
+
+    /* .profile-detail-membership-enddate{
+        margin: 0;
+        font-size: 14px;
+        color: var(--black-color);
+        justify-content: start;
+
+    } */
 
     .logout-text{
         margin: 0;
