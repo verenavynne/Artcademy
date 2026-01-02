@@ -20,6 +20,13 @@ class CourseSeeder extends Seeder
             'Seni Fotografi' => 'assets/course/course_seni_fotografi.png',
         ];
 
+        $courseDurationInMinutes = [
+            'Seni Lukis & Digital Art' => 150,
+            'Seni Tari' => 140,
+            'Seni Musik' => 170,
+            'Seni Fotografi' => 140,
+        ];
+
         $courseLevels = ['dasar', 'menengah', 'lanjutan'];
 
         foreach ($courseTypes as $type => $picturePath) {
@@ -32,7 +39,7 @@ class CourseSeeder extends Seeder
                         'coursePicture' => $picturePath,
                         'courseLevel' => $level,
                         'courseType' => $type,
-                        'courseDurationInMinutes' => rand(300, 600),
+                        'courseDurationInMinutes' => $courseDurationInMinutes[$type],
                         'courseReview' => rand(45, 50) / 10, 
                         'coursePaymentType' => 'berbayar',
                         'courseStatus' => 'publikasi',

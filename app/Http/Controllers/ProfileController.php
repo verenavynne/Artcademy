@@ -86,7 +86,7 @@ class ProfileController extends Controller
         });
 
         $finishedCoursesEnrollment = CourseEnrollment::where('studentId', $user->id)
-        ->where('status','completed')
+        ->whereIn('status', ['completed', 'waiting'])
         ->get()
         ->map(function($enrollment) {
             $enrollment->progress = 100;

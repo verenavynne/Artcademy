@@ -17,17 +17,37 @@ class ProjectCriteriaSeeder extends Seeder
     {
         $projects = Project::all();
         $criterias = GradeCriteria::all();
-        $weights = [30, 50, 20];
 
         foreach ($projects as $project) {
-            foreach ($criterias as $criteria) {
+            $weights = $this->generateWeights($criterias->count());
+
+            foreach ($criterias as $index => $criteria) {
                 ProjectCriteria::firstOrCreate([
-                    'projectId'  => $project->id,
-                    'criteriaId' => $criteria->id,
-                ], [
-                    'customWeight' => $weights[array_rand($weights)], 
-                ]);
+                        'projectId'  => $project->id,
+                        'criteriaId' => $criteria->id,
+                    ],[
+                        'customWeight' => $weights[$index],
+                    ]);
             }
         }
+    }
+
+    private function generateWeights(int $count): array
+    {
+        $total = 100;
+        $weights = [];
+
+        for ($i = 0; $i < $count - 1; $i++) {
+            $max = ($total / 10 - ($count - $i - 1)) * 10;
+            $value = rand(1, $max / 10) * 10;
+
+            $weights[] = $value;
+            $total -= $value;
+        }
+
+        $weights[] = $total;
+        shuffle($weights);
+
+        return $weights;
     }
 }

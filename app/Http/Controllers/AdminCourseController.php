@@ -12,6 +12,7 @@ use App\Models\ProjectTool;
 use App\Models\ProjectCriteria;
 use App\Models\GradeCriteria;
 use App\Models\Tool;
+use App\Models\CourseEnrollment;
 
 class AdminCourseController extends Controller
 {
@@ -749,6 +750,10 @@ class AdminCourseController extends Controller
         $course->update([
             'courseDurationInMinutes' => $totalDuration
         ]);
+
+        CourseEnrollment::where('courseId', $courseId)
+            ->where('status', 'ongoing')
+            ->delete();
 
         if ($redirect) {
             $course->update(['courseStatus' => 'draft']);

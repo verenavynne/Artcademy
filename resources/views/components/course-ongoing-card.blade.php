@@ -40,8 +40,7 @@
     
 @endphp
 
-<a href="{{ $enrollment->isLocked ? route(name: 'membership') 
-    : ($enrollment->progress === 100 ? route('projectSubmission.hasil', ['id' => $submission->id]) : route('course.detail', $course->id)) }}" 
+<a href="{{ $enrollment->isLocked ? route(name: 'membership') : ($isArchived ? '#' : ($enrollment->progress === 100 ? route('projectSubmission.hasil', ['id' => $submission->id]) : route('course.detail', $course->id))) }}" 
    class="text-decoration-none text-black">
     <div class="course-card card article-card" style="cursor: pointer; height: 100%;">
 

@@ -10,6 +10,7 @@ use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use App\Models\Portfolio;
+use App\Models\CourseEnrollment;
 
 
 class ProjectSubmissionController extends Controller
@@ -65,6 +66,13 @@ class ProjectSubmissionController extends Controller
                 'grade' => null,
             ]
         );
+
+        $courseId = $existingSubmission->project->course->id;
+        $courseEnrollment = CourseEnrollment::where('courseId', $courseId)
+                ->where('studentId', $studentId)
+                ->first();
+
+        $courseEnrollment->update(['status' => 'waiting']);
         
 
         return redirect()->back()->with('success', 'Projek berhasil dikumpulkan!');
@@ -130,6 +138,13 @@ class ProjectSubmissionController extends Controller
 
         $allTutorsGraded = $totalTutors > 0 && $totalTutors === $tutorsThatHaveGraded;
 
+        if ($allTutorsGraded) {
+            $courseEnrollment = CourseEnrollment::where('courseId', $courseId)
+                ->where('studentId', auth()->id())
+                ->first();
+
+            $courseEnrollment->update(['status' => 'completed']);
+        }
        
         $scores = $this->calculateProjectScores($submission);
 
