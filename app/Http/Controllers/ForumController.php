@@ -61,7 +61,7 @@ class ForumController extends Controller
         $selectedUser = User::with('lecturer')->where('id', $id)->firstOrFail();
         $portfolios = Portfolio::where('userId', $selectedUser->id)->get();
         $posts = Post::where('userId', $selectedUser->id)->orderBy('postDate', 'desc')->get();
-        $otherProfile = User::where('id', '!=', $selectedUser->id)
+        $otherProfile = User::whereNotIn('id', [$selectedUser->id, $authUser->id] )
             ->where('role', '!=', 'admin')
             ->orderByDesc('created_at')
             ->take(6)
