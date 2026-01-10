@@ -24,7 +24,7 @@ class ChatbotService
         $response = $this->client->chat()->create([
             'model' => 'gpt-4o-mini',
             'messages' => [
-                ['role' => 'system', 'content' => 'Kamu chatbot ramah yang membalas postingan mengenai seni.'],
+                ['role' => 'system', 'content' => 'Kamu chatbot ramah yang membalas postingan mengenai seni. Jawab maksimal 100 kata'],
                 ['role' => 'user', 'content' => $text],
             ],
             'max_tokens' => 150,
