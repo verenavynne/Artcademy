@@ -76,7 +76,7 @@ $autoOpen = $post->comments->whereNotNull('chatbotId')->isNotEmpty();
     </div>
 
     <div class="post-card-content">
-        <p>{{ $post->postText }}</p>
+        <p>{!! str($post->postText)->inlineMarkdown() !!}</p>
 
     </div>
 
@@ -88,7 +88,8 @@ $autoOpen = $post->comments->whereNotNull('chatbotId')->isNotEmpty();
                     @if($file->fileType === 'image')
                         <img 
                             src="{{ asset('storage/'.$file->filePath) }}"
-                            class="media-item"
+                            class="media-item image"
+                            onclick="openImage(this.src)"
                             alt=""
                         >
                     @endif
@@ -210,7 +211,7 @@ $autoOpen = $post->comments->whereNotNull('chatbotId')->isNotEmpty();
                             @if (session('chatbot_comment_id') == $comment->id)
                                 <div id="chatbot-comment" data-text="{{ $comment->commentText }}"></div>
                             @else
-                                <p>{{ $comment->commentText }}</p>
+                                <p>{!! str($comment->commentText)->inlineMarkdown() !!}</p>
                             @endif
                             
                         </div>
@@ -223,7 +224,8 @@ $autoOpen = $post->comments->whereNotNull('chatbotId')->isNotEmpty();
                                         @if($file->fileType === 'image')
                                             <img 
                                                 src="{{ asset('storage/'.$file->filePath) }}"
-                                                class="media-item"
+                                                class="media-item image"
+                                                onclick="openImage(this.src)"
                                                 alt=""
                                             >
                                         @endif
@@ -331,7 +333,7 @@ $autoOpen = $post->comments->whereNotNull('chatbotId')->isNotEmpty();
                                                     data-comment-id="{{ $replies->id }}"
                                                     data-post-id="{{ $replies->postId }}"
                                                     data-parent-id="{{ $comment->id }}">
-                                                    <p>{{ $replies->commentText }}</p>
+                                                    <p>{!! str($replies->commentText)->inlineMarkdown() !!}</p>
                                     
                                                 </div>
                                                 @if($replies->files->count())
@@ -342,7 +344,8 @@ $autoOpen = $post->comments->whereNotNull('chatbotId')->isNotEmpty();
                                                                 @if($fileReply->fileType === 'image')
                                                                     <img 
                                                                         src="{{ asset('storage/'.$fileReply->filePath) }}"
-                                                                        class="media-item"
+                                                                        class="media-item image"
+                                                                        onclick="openImage(this.src)"
                                                                         alt=""
                                                                     >
                                                                 @endif
@@ -375,6 +378,11 @@ $autoOpen = $post->comments->whereNotNull('chatbotId')->isNotEmpty();
             @endforeach
         </div>
         @endif
+    </div>
+
+    <div id="imageDetailModal" class="image-detail-modal">
+        <span class="close" onclick="closeImage()">&times;</span>
+        <img id="modalImageDetail">
     </div>
     
 </div>
@@ -426,16 +434,35 @@ $autoOpen = $post->comments->whereNotNull('chatbotId')->isNotEmpty();
     }
 
     .media-item {
+        cursor: pointer;
         width: 100%;
         height: auto;
-        max-height: 260px;
         border-radius: 12px;
         object-fit: cover;
         display: block;
     }
+    
+    .media-item.image{
+        max-height: 250px;
+
+    }
 
     .plyr.plyr--full-ui.plyr--video{
         border-radius: 12px;
+    }
+
+    .plyr__video-wrapper{
+        display: flex;
+        justify-content: center;
+    }
+
+    .plyr:fullscreen video{
+        width: auto;
+        max-height: max-content;
+    }
+
+    .plyr video{
+        max-height: 250px;
     }
 
     /* Preview image/video */
@@ -455,7 +482,7 @@ $autoOpen = $post->comments->whereNotNull('chatbotId')->isNotEmpty();
         position: relative;
         width: 100%;
         height: auto;           
-        max-height: 250px;       
+        max-height: max-content;       
         object-fit: cover;
         border-radius: 12px;
         display: block;
@@ -473,7 +500,31 @@ $autoOpen = $post->comments->whereNotNull('chatbotId')->isNotEmpty();
         justify-content: center;
     }
 
-    
+    .image-detail-modal {
+        display: none;
+        position: fixed;
+        z-index: 9999;
+        inset: 0;
+        background: rgba(0,0,0,0.85);
+        align-items: center;
+        justify-content: center;
+    }
+
+    .image-detail-modal img {
+        max-width: 80%;
+        max-height: 80%;
+        object-fit: contain;
+    }
+
+    .image-detail-modal .close {
+        position: absolute;
+        top: 20px;
+        right: 30px;
+        font-size: 40px;
+        color: white;
+        cursor: pointer;
+    }
+
 </style>
 
 <script>
@@ -506,22 +557,6 @@ $autoOpen = $post->comments->whereNotNull('chatbotId')->isNotEmpty();
                 spinner.classList.remove('d-none');
             }
         });
-
-
-        const players = [];
-
-        document.querySelectorAll('.video-player').forEach((el) => {
-            const player = new Plyr(el, {
-                clickToSeek: true,
-                controls: [
-                    'play-large', 'play', 'progress', 'current-time',
-                    'mute', 'volume', 'settings', 'fullscreen'
-                ],
-            });
-
-            players.push(player);
-        });
-
 
        document.querySelectorAll(".balas-komen-section").forEach(card => {
             const imgInput = card.querySelector('input[name="images[]"]');
@@ -607,6 +642,17 @@ $autoOpen = $post->comments->whereNotNull('chatbotId')->isNotEmpty();
 
         });
 
-
     });
+
+    function openImage(src) {
+        const modal = document.getElementById('imageDetailModal');
+        const img = document.getElementById('modalImageDetail');
+
+        img.src = src;
+        modal.style.display = 'flex';
+    }
+
+    function closeImage() {
+        document.getElementById('imageDetailModal').style.display = 'none';
+    }
 </script>

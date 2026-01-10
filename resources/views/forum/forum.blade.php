@@ -214,17 +214,32 @@
     }
 
     .media-item {
+        cursor: pointer;
         width: 100%;
         height: auto;
-        max-height: 260px;
         border-radius: 12px;
         object-fit: cover;
         display: block;
     }
 
+    .media-item.image{
+        max-height: 250px;
+
+    }
+
     .plyr.plyr--full-ui.plyr--video{
         border-radius: 12px;
     }
+
+    .plyr:fullscreen video{
+        width: auto;
+        max-height: max-content;
+    }
+
+    .plyr video{
+        max-height: 250px;
+    }
+
 
     .typing-effect {
         white-space: pre-wrap;
@@ -293,7 +308,7 @@
 
                     ${
                         file.fileType === 'image'
-                            ? `<img src="/storage/${file.filePath}" class="media-item">`
+                            ? `<img src="/storage/${file.filePath}" class="media-item image">`
                             : `<video controls class="media-item">
                                 <source src="/storage/${file.filePath}">
                             </video>`
@@ -411,6 +426,26 @@
             deleteForm.action = deleteUrl;
         });
 
+        const players = [];
+
+        function initPlyr(context = document) {
+            context.querySelectorAll('.video-player').forEach((el) => {
+                if (el.plyr) return;
+
+                const player = new Plyr(el, {
+                    clickToSeek: true,
+                    controls: [
+                        'play-large', 'play', 'progress', 'current-time',
+                        'mute', 'volume', 'settings', 'fullscreen'
+                    ],
+                });
+
+                players.push(player);
+            });
+        }
+
+        initPlyr();
+
         // infinite scroll
         let page = 1;
         let loading = false;
@@ -431,8 +466,11 @@
             })
             .then(res => res.text())
             .then(html => {
-                document.getElementById('post-container')
-                    .insertAdjacentHTML('beforeend', html);
+                const container = document.getElementById('post-container');
+
+                container.insertAdjacentHTML('beforeend', html);
+
+                initPlyr(container);
             })
             .finally(() => {
                 loading = false;
